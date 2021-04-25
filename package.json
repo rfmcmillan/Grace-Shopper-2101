@@ -4,7 +4,8 @@
   "description": "Cornwall-Athletics Grace Shopper Repository",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
+    "test:dev": "DATABASE_URL=postgres://localhost/grace_shopper_test npm run test -- --watch",
     "lint": "eslint client server"
   },
   "repository": {
@@ -22,7 +23,10 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
     "eslint": "^7.25.0",
+    "mocha": "^8.3.2",
+    "nodemon": "^2.0.7",
     "prettier": "^2.2.1"
   }
 }
