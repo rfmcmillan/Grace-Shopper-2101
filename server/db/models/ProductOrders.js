@@ -9,7 +9,7 @@ module.exports = db.define('Productorders', {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Order',
+        model: 'Orders',
         key: 'id'
       }
     },
@@ -17,7 +17,7 @@ module.exports = db.define('Productorders', {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Product',
+        model: 'Products',
         key: 'id'
       }
     }, 
