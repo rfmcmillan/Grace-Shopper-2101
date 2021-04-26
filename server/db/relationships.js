@@ -1,1 +1,11 @@
-//Models imported from Model js
+const { Sequelize } = require('sequelize')
+const Order = require('./models/Order')
+const Product = require('./models/Product')
+const ProductOrders = require('./models/ProductOrders')
+
+
+
+
+Product.belongsToMany(Order, {  through: ProductOrders })
+
+module.exports = { Order, Product, ProductOrders }
