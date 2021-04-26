@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "mocha --exit",
-        "test:dev": "npm run test -- --watch",
+        "test:dev": "DATABASE_URL=postgres://localhost:5432/grace_shopper_test npm run test -- --watch",
         "lint": "eslint client server",
         "start:dev": "nodemon ./server/main.js",
         "start": "node ./server/main.js"
