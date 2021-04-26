@@ -40,7 +40,6 @@ describe('User Model', async () => {
                         password: 'kevin_pw',
                     })
                     expect(token).to.be.ok
-                    console.log(token)
                 })
             })
             describe('incorrect credentials', () => {
@@ -59,7 +58,17 @@ describe('User Model', async () => {
                 })
             })
         })
-        describe('User.byToken', () => {})
+        // describe('User.byToken', () => {
+        //     describe('with a valid token', () => {
+        //         const users = User.findAll()
+        //         it('returns a user', async () => {
+        //             const token = await jwt.sign(
+        //                 { id: users.yiru.id },
+        //                 process.env.JWT
+        //             )
+        //         })
+        //     })
+        // })
     })
 
     it('should exist', async () => {
