@@ -27,7 +27,7 @@ describe('User Model', async () => {
         expect(users).to.be.an('array')
         expect(users.length).to.be.at.least(0)
     })
-
+    //very simple tests. they will fail if you provide invalid inputs to the User.create() call that is within the test
     it('should require an email address', async () => {
         const user = await User.create({
             email: 'rosie@snacker.com',

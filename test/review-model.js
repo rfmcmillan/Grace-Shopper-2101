@@ -28,7 +28,7 @@ describe('Review Model', async () => {
         expect(users).to.be.an('array')
         expect(users.length).to.be.at.least(0)
     })
-
+    //very simple tests. they will fail if you provide invalid inputs to the Review.create() call that is within the test
     it('should require a userId', async () => {
         const review = await Review.create({
             userId: 2,
