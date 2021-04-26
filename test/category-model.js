@@ -2,12 +2,10 @@ const { expect } = require('chai')
 const { db, Category } = require('../server/db')
 
 describe('Database', () => {
-    describe('Category Model', () => {
+    describe('Category Model', async () => {
         let categories
-        beforeEach(async () => {
-            await db.sync({ force: true })
-            categories = await Category.findAll()
-        })
+        await db.sync()
+        categories = await Category.findAll()
 
         it('Category should exist', () => {
             expect(categories).to.exist

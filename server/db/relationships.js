@@ -1,6 +1,4 @@
 //Models imported from Model folder
-
-const { Sequelize } = require('sequelize')
 const Order = require('./models/Order')
 const Product = require('./models/Product')
 const ProductOrders = require('./models/ProductOrders')
