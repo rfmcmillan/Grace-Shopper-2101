@@ -1,4 +1,5 @@
 //create User here
+const jwt = require('jsonwebtoken')
 const { DataTypes } = require('sequelize')
 const db = require('../db')
 
@@ -24,5 +25,17 @@ const User = db.define('user', {
         defaultValue: false,
     },
 })
+
+User.authenticate = async function ({ email, password }) {
+    const user = await User.findOne({
+        where: { email, password },
+    })
+    if (user) {
+        return jwt.sign({ id: user.id }, process.env.JWT)
+    }
+    const error = Error('The login info that you provided is incorrect.')
+    error.status = 401
+    throw error
+}
 
 module.exports = User

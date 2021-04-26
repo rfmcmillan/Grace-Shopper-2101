@@ -1,4 +1,5 @@
 const { expect } = require('chai')
+const jwt = require('jsonwebtoken')
 const {
     db,
     models: { User },
@@ -9,12 +10,56 @@ describe('User Model', async () => {
         try {
             await db.sync({ force: true })
             await User.create({
-                email: 'russel@snacker.com',
-                password: 'abc123',
+                email: 'kevin@snacker.com',
+                password: 'kevin_pw',
+            })
+            await User.create({
+                email: 'alejandra@snacker.com',
+                password: 'alejandra_pw',
+            })
+            await User.create({
+                email: 'yiru@snacker.com',
+                password: 'yiru_pw',
             })
         } catch (error) {
             console.log(error)
         }
+    })
+
+    describe('JWT authentication', () => {
+        it('there are three test users', async () => {
+            const users = await User.findAll()
+            expect(users.length).to.equal(3)
+        })
+
+        describe('User.authenticate', () => {
+            describe('correct credentials', () => {
+                it('returns a token', async () => {
+                    const token = await User.authenticate({
+                        email: 'kevin@snacker.com',
+                        password: 'kevin_pw',
+                    })
+                    expect(token).to.be.ok
+                    console.log(token)
+                })
+            })
+            describe('incorrect credentials', () => {
+                it('throws an error', async () => {
+                    try {
+                        await User.authenticate({
+                            email: 'kevin@snacker.com',
+                            password: 'kevin',
+                        })
+                    } catch (error) {
+                        expect(error.status).to.equal(401)
+                        expect(error.message).to.equal(
+                            'The login info that you provided is incorrect.'
+                        )
+                    }
+                })
+            })
+        })
+        describe('User.byToken', () => {})
     })
 
     it('should exist', async () => {
@@ -34,7 +79,7 @@ describe('User Model', async () => {
             password: '123ert',
         })
         const users = await User.findAll()
-        expect(users.length).to.equal(2)
+        expect(users.length).to.equal(4)
     })
 
     it('should require a password', async () => {
@@ -43,7 +88,7 @@ describe('User Model', async () => {
             password: '123ert',
         })
         const users = await User.findAll()
-        expect(users.length).to.equal(2)
+        expect(users.length).to.equal(4)
     })
 
     it('provided email address is valid email address', async () => {
@@ -52,7 +97,7 @@ describe('User Model', async () => {
             password: '123ert',
         })
         const users = await User.findAll()
-        expect(users.length).to.equal(2)
+        expect(users.length).to.equal(4)
     })
 
     it('default value for `admin` property is `false`', async () => {
