@@ -1,15 +1,21 @@
 const { expect } = require('chai')
 const {
     db,
-    models: { Review },
+    models: { Review, User },
 } = require('../server/db')
 
 describe('Review Model', async () => {
     beforeEach(async () => {
         try {
             await db.sync({ force: true })
+            const henry = User.create({
+                email: 'henry@snacker.com',
+                password: 'henry_pw',
+            })
             await Review.create({
+                userId: 1,
                 rating: 5,
+                productId: 1,
             })
         } catch (error) {
             console.log(error)
@@ -27,8 +33,9 @@ describe('Review Model', async () => {
         expect(users.length).to.be.at.least(0)
     })
 
-    it('rating must be between 0 and 5', async () => {
+    xit('rating must be between 0 and 5', async () => {
         const review = await Review.create({
+            userId: 1,
             rating: 4,
         })
         const reviews = await Review.findAll()

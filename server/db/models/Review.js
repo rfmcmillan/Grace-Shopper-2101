@@ -1,13 +1,13 @@
 //Create Review Here
 const db = require('../db')
 const { DataTypes } = require('sequelize')
-
+//work in progress
 const Review = db.define('review', {
-    // userId: {
-    //     type: DataTypes.INTEGER,
-    //     allowNull: false,
-    // },
-    // productId: { type: DataTypes.INTEGER, allowNull: false },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    productId: { type: DataTypes.INTEGER, allowNull: false },
     rating: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -16,7 +16,7 @@ const Review = db.define('review', {
             max: 5,
         },
     },
-    text: { type: DataTypes.TEXT(400) },
+    text: { type: DataTypes.TEXT },
 })
 
 module.exports = Review
