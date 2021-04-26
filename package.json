@@ -22,7 +22,9 @@
     },
     "homepage": "https://github.com/Cornwall-Athletic/Grace-Shopper-2101#readme",
     "dependencies": {
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "pg": "^8.6.0",
+        "sequelize": "^6.6.2"
     },
     "devDependencies": {
         "chai": "^4.3.4",
