@@ -6,6 +6,10 @@ const Category = db.define(
     {
         name: {
             type: DataTypes.STRING,
+            unique: true,
+            validate: {
+                notEmpty: true,
+            },
         },
     },
     { timestamps: false }

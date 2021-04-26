@@ -1,16 +1,25 @@
 const { expect } = require('chai')
-const { db, Category } = require('../server/db')
+const {
+    db,
+    models: { Category },
+} = require('../server/db')
 
 describe('Database', () => {
     describe('Category Model', async () => {
-        let categories
-        await db.sync()
-        categories = await Category.findAll()
+        beforeEach(async () => {
+            try {
+                await db.sync({ force: true })
+            } catch (error) {
+                console.log(error)
+            }
+        })
 
-        it('Category should exist', () => {
+        it('Category should exist', async () => {
+            const categories = await Category.findAll()
             expect(categories).to.exist
         })
-        it('categories should return an array', () => {
+        it('categories should return an array', async () => {
+            const categories = await Category.findAll()
             expect(categories).to.be.a('array')
             expect(categories.length).to.greaterThanOrEqual(0)
         })

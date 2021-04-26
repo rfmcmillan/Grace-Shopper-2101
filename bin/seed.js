@@ -1,4 +1,7 @@
-const { db, Category } = require('../server/db')
+const {
+    db,
+    models: { Category },
+} = require('../server/db')
 
 const init = async () => {
     try {
