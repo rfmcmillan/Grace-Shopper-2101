@@ -33,9 +33,25 @@ User.authenticate = async function ({ email, password }) {
     if (user) {
         return jwt.sign({ id: user.id }, process.env.JWT)
     }
-    const error = Error('The login info that you provided is incorrect.')
+    const error = Error(
+        'The email address or password that you provided is incorrect.'
+    )
     error.status = 401
     throw error
+}
+
+User.byToken = async function (token) {
+    try {
+        const { id } = await jwt.verify(token, process.env.JWT)
+        const user = await User.findByPk(id)
+        if (user) {
+            return user
+        }
+    } catch (error) {
+        const err = Error('The token that you provided is not valid.')
+        err.status = 401
+        throw err
+    }
 }
 
 module.exports = User

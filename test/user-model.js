@@ -52,23 +52,40 @@ describe('User Model', async () => {
                     } catch (error) {
                         expect(error.status).to.equal(401)
                         expect(error.message).to.equal(
-                            'The login info that you provided is incorrect.'
+                            'The email address or password that you provided is incorrect.'
+                        )
+                    }
+                })
+            })
+            describe('with a valid token', async () => {
+                it('returns a user', async () => {
+                    const users = await User.findAll()
+                    const token = await jwt.sign(
+                        { id: users[2].id },
+                        process.env.JWT
+                    )
+                    const user = await User.byToken(token)
+                    expect(user.email).to.equal('yiru@snacker.com')
+                })
+            })
+            describe('with an invalid token', async () => {
+                it('throws an error', async () => {
+                    const users = await User.findAll()
+                    try {
+                        const token = await jwt.sign(
+                            { id: users[2].id },
+                            'invalid-token'
+                        )
+                        await User.byToken(token)
+                    } catch (error) {
+                        expect(error.status).to.equal(401)
+                        expect(error.message).to.equal(
+                            'The token that you provided is not valid.'
                         )
                     }
                 })
             })
         })
-        // describe('User.byToken', () => {
-        //     describe('with a valid token', () => {
-        //         const users = User.findAll()
-        //         it('returns a user', async () => {
-        //             const token = await jwt.sign(
-        //                 { id: users.yiru.id },
-        //                 process.env.JWT
-        //             )
-        //         })
-        //     })
-        // })
     })
 
     it('should exist', async () => {
