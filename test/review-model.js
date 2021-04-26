@@ -9,8 +9,6 @@ describe('Review Model', async () => {
         try {
             await db.sync({ force: true })
             await Review.create({
-                userId: 1,
-                productId: 1,
                 rating: 5,
             })
         } catch (error) {
@@ -28,31 +26,9 @@ describe('Review Model', async () => {
         expect(users).to.be.an('array')
         expect(users.length).to.be.at.least(0)
     })
-    //very simple tests. they will fail if you provide invalid inputs to the Review.create() call that is within the test
-    it('should require a userId', async () => {
-        const review = await Review.create({
-            userId: 2,
-            productId: 5,
-            rating: 4,
-        })
-        const reviews = await Review.findAll()
-        expect(reviews.length).to.equal(2)
-    })
-
-    it('should require a productId', async () => {
-        const review = await Review.create({
-            userId: 2,
-            productId: 5,
-            rating: 4,
-        })
-        const reviews = await Review.findAll()
-        expect(reviews.length).to.equal(2)
-    })
 
     it('rating must be between 0 and 5', async () => {
         const review = await Review.create({
-            userId: 2,
-            productId: 5,
             rating: 4,
         })
         const reviews = await Review.findAll()
