@@ -1,10 +1,10 @@
 const app = require('./server')
 const PORT = process.env.PORT || 3000
-const { syncAndSeed } = require('../bin/seed')
+const { db } = require('./db')
 
 app.listen(PORT, async () => {
     try {
-        await syncAndSeed()
+        await db.sync()
         console.log(`Listening on ${PORT}`)
     } catch (error) {
         console.log(error)

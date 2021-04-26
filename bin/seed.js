@@ -3,13 +3,11 @@ const {
     models: { Category },
 } = require('../server/db')
 
-const syncAndSeed = async () => {
+const init = async () => {
     try {
         await db.sync({ force: true })
         await Category.create({ name: 'salty' })
     } catch (error) {}
 }
 
-module.exports = {
-    syncAndSeed,
-}
+init()
