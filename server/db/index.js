@@ -2,9 +2,7 @@
 //export db, models
 
 const db = require('./db')
-const Order = require('./models/Order')
-const Product = require('./models/Product')
-const ProductOrders = require('./models/ProductOrders')
+const { Order, Product, ProductOrders } = require('./hooks')
 
 
 module.exports = {db, Order, Product, ProductOrders}

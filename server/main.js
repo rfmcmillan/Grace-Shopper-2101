@@ -4,8 +4,11 @@ const { db } = require('./db/index')
 
 //const require db
 
-db.sync()
-
-app.listen(PORT, () => {
-    console.log(`Listening on ${PORT}`)
+app.listen(PORT, async () => {
+    try {
+        await db.sync()
+        console.log(`Listening on ${PORT}`)
+    } catch (error) {
+        console.log(error)
+    }
 })
