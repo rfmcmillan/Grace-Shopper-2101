@@ -3,4 +3,9 @@ const { Sequelize, DataTypes } = require('sequelize')
 
 
 
-module.exports = db.define('Order', {})
+module.exports = db.define('Order', {
+    user: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    }
+})
