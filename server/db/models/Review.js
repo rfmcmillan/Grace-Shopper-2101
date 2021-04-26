@@ -5,7 +5,7 @@ const { DataTypes } = require('sequelize')
 const Review = db.define('review', {
     userId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
     },
     productId: { type: DataTypes.INTEGER, allowNull: false },
     rating: {

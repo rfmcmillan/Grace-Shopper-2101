@@ -28,4 +28,34 @@ describe('Review Model', async () => {
         expect(users).to.be.an('array')
         expect(users.length).to.be.at.least(0)
     })
+
+    it('should require a userId', async () => {
+        const review = await Review.create({
+            userId: 2,
+            productId: 5,
+            rating: 4,
+        })
+        const reviews = await Review.findAll()
+        expect(reviews.length).to.equal(2)
+    })
+
+    it('should require a productId', async () => {
+        const review = await Review.create({
+            userId: 2,
+            productId: 5,
+            rating: 4,
+        })
+        const reviews = await Review.findAll()
+        expect(reviews.length).to.equal(2)
+    })
+
+    it('rating must be between 0 and 5', async () => {
+        const review = await Review.create({
+            userId: 2,
+            productId: 5,
+            rating: 4,
+        })
+        const reviews = await Review.findAll()
+        expect(reviews.length).to.equal(2)
+    })
 })
