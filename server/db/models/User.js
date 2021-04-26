@@ -3,13 +3,6 @@ const { DataTypes } = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -17,6 +10,18 @@ const User = db.define('user', {
         validate: {
             isEmail: true,
         },
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true,
+        },
+    },
+    admin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
     },
 })
 
