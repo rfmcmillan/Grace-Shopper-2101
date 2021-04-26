@@ -6,6 +6,6 @@ const ProductOrders = require('./models/ProductOrders')
 
 
 
-Product.belongsToMany(Order, {  through: Productorders })
+Product.belongsToMany(Order, {  through: ProductOrders })
 
 module.exports = { Order, Product, ProductOrders }
