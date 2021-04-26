@@ -3,6 +3,7 @@ const Order = require('./models/Order')
 const Product = require('./models/Product')
 const ProductOrders = require('./models/ProductOrders')
 const Category = require('./models/Category')
+const User = require('./models/User')
 
 //once Product is imported
 //Category.belongsToMany(Product,  { through: 'productcategories' });
@@ -10,4 +11,4 @@ const Category = require('./models/Category')
 
 Product.belongsToMany(Order, { through: ProductOrders })
 
-module.exports = { Order, Product, ProductOrders, Category }
+module.exports = { Order, Product, ProductOrders, Category, User }
