@@ -1,2 +1,15 @@
-//Import Models and Database
-//Seed the db here
+const {
+    db,
+    models: { Category },
+} = require('../server/db')
+
+const syncAndSeed = async () => {
+    try {
+        await db.sync({ force: true })
+        await Category.create({ name: 'salty' })
+    } catch (error) {}
+}
+
+module.exports = {
+    syncAndSeed,
+}
