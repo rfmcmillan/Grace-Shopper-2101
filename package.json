@@ -8,8 +8,9 @@
         "test:dev": "npm run test -- --watch",
         "windows-test:dev": "npm run test -- --watch",
         "lint": "eslint client server",
+        "seed": "node ./bin/seed",
         "start:dev": "nodemon ./server/main.js",
-        "start": "node ./server/main.js"
+        "start": "npm run seed && node ./server/main.js"
     },
     "repository": {
         "type": "git",
