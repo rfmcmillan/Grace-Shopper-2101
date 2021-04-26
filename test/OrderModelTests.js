@@ -5,9 +5,7 @@ const { db, Order, Product, ProductOrders } = require('../server/db/index')
 
 describe('Order model defination', function(){
     async function init(){
-        try{
-        await db.sync({force: true})
-        }catch(err){console.log(err)}
+        await db.sync({force: true})        
     }
     init()
 

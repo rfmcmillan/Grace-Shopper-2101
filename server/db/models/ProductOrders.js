@@ -1,4 +1,6 @@
 const db = require('../db')
+const Order = require('./Order')
+const Product = require('./Product')
 const { Sequelize, DataTypes } = require('sequelize')
 
 
@@ -9,7 +11,7 @@ module.exports = db.define('Productorders', {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Orders',
+        model: Order,
         key: 'id'
       }
     },
@@ -17,7 +19,7 @@ module.exports = db.define('Productorders', {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Products',
+        model: Product,
         key: 'id'
       }
     }, 
