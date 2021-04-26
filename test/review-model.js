@@ -1,16 +1,17 @@
 const { expect } = require('chai')
 const {
     db,
-    models: { User },
+    models: { Review },
 } = require('../server/db')
 
-describe('User Model', async () => {
+describe('Review Model', async () => {
     beforeEach(async () => {
         try {
             await db.sync({ force: true })
-            await User.create({
-                firstName: 'russel',
-                email: 'russel@snacker.com',
+            await Review.create({
+                userId: 1,
+                productId: 1,
+                rating: 5,
             })
         } catch (error) {
             console.log(error)
@@ -18,12 +19,12 @@ describe('User Model', async () => {
     })
 
     it('should exist', async () => {
-        const users = await User.findAll()
-        expect(users).to.exist
+        const reviews = await Review.findAll()
+        expect(reviews).to.exist
     })
 
     it('should return an array', async () => {
-        const users = await User.findAll()
+        const users = await Review.findAll()
         expect(users).to.be.an('array')
         expect(users.length).to.be.at.least(0)
     })

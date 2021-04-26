@@ -5,8 +5,9 @@ const {
     ProductOrders,
     Category,
     User,
+    Review,
 } = require('./relationships')
 
 //export models
 
-module.exports = { Order, Product, ProductOrders, Category, User }
+module.exports = { Order, Product, ProductOrders, Category, User, Review }
