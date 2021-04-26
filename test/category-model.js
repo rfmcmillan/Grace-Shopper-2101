@@ -9,7 +9,7 @@ describe('Database', () => {
         beforeEach(async () => {
             categories = await Category.findAll()
         })
-        it('categories should return an array', () => {
+        xit('categories should return an array', () => {
             expect(categories).to.be.a('array')
             expect(categories.length).to.greaterThanOrEqual(0)
         })
