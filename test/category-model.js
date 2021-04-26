@@ -1,8 +1,5 @@
 const { expect } = require('chai')
-const {
-    db,
-    models: { Category },
-} = require('../server/db')
+const { db, Category } = require('../server/db')
 
 describe('Database', () => {
     describe('Category Model', () => {

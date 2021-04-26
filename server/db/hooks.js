@@ -1,7 +1,6 @@
 //import models from relationships
-const { Category } = require('./relationships')
+const { Order, Product, ProductOrders, Category } = require('./relationships')
+
 //export models
 
-module.exports = {
-    Category,
-}
+module.exports = { Order, Product, ProductOrders, Category }
