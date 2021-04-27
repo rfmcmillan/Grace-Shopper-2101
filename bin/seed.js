@@ -1,6 +1,6 @@
 const {
     db,
-    models: { Category },
+    models: { Category,Product },
 } = require('../server/db')
 
 const init = async () => {
