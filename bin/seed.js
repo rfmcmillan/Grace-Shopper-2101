@@ -216,7 +216,7 @@ const init = async () => {
             description: 'It is roasted woth sesame oil,rich in fiber.',
             category: ['salty', 'healthy'],
             price: 3.99,
-            inventory: 152,
+            inventory: 137,
             country: 'Korea',
             imageUrl:
                 'https://images-na.ssl-images-amazon.com/images/I/91PpDnzvRnL._SL1500_.jpg',
@@ -254,7 +254,7 @@ const init = async () => {
             category: 'salty',
             price: 3.99,
             inventory: 159,
-            country: 'Indea',
+            country: 'India',
             imageUrl:
                 'https://m.media-amazon.com/images/I/71tCPVQ9CLL._SL1321_.jpg',
         })
@@ -267,7 +267,7 @@ const init = async () => {
             category: 'salty',
             price: 2.99,
             inventory: 270,
-            country: 'Indea',
+            country: 'India',
             imageUrl:
                 'https://cdn.powered-by-nitrosell.com/product_images/30/7291/large-haldiramsmoongmasala400g.jpg',
         })
@@ -279,7 +279,7 @@ const init = async () => {
             category: 'sweet',
             price: 1.99,
             inventory: 149,
-            country: 'Indea',
+            country: 'India',
             imageUrl:
                 'https://cdn.shopify.com/s/files/1/0429/1674/1280/products/Parle_G_Gold_950x.png?v=1612815378',
         })
