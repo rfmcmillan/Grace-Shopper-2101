@@ -1,5 +1,5 @@
 
-const { STRING,TEXT,INTEGER,DECIMAL } = require('sequelize')
+const { STRING,TEXT,INTEGER,DECIMAL,DISTINCT } = require('sequelize')
 
 const db = require('../db')
 
