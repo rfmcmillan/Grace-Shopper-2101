@@ -149,7 +149,7 @@ const init = async () => {
                 'https://images-na.ssl-images-amazon.com/images/I/71GTgfolXfL._SL1024_.jpg',
         })
 
-        const Kueh = await Product.create({
+        const ThailandSeaweed = await Product.create({
             title: 'Roasted seaweed',
             brand: 'Tao Kae Noi',
             description:
@@ -197,7 +197,7 @@ const init = async () => {
                 'https://ae01.alicdn.com/kf/HTB1PmfjLXXXXXaRXFXXq6xXFXXXC/Yunnan-specialty-food-Flower-Rose-Cake-Flower-pastry-Chinese-Snack.jpg',
         })
 
-        const Seaweed = await Product.create({
+        const KoreanSeaweed = await Product.create({
             title: 'Roasted Seaweed',
             brand: 'Dongwon',
             description: 'It is roasted woth sesame oil,rich in fiber.',
@@ -277,7 +277,7 @@ const init = async () => {
         })
 
         const Ecolier = await Product.create({
-            title: 'Lu Petit Ecolier',
+            title: 'Petit Ecolier',
             brand: 'Lu',
             description:
                 'French butter biscuit topped with glossy European milk chocolate',
@@ -369,7 +369,7 @@ const init = async () => {
                 'https://cdn.shopify.com/s/files/1/0561/3553/products/ES-260.jpg?v=1610492772',
         })
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }
 
