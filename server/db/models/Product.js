@@ -48,7 +48,7 @@ const Product = db.define('product', {
 
 
 Product.findByCountry = async(name) => {
-    return await this.aggragate('country','DISTINCT'{
+    return await this.aggragate('country','DISTINCT',{
         plain:false
     })
 }
