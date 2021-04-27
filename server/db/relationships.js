@@ -10,12 +10,18 @@ const Review = require('./models/Review')
 //Category.belongsToMany(Product,  { through: 'productcategories' });
 //Product.belongsToMany(Category,  { through: 'productcategories' })
 
+
+Product.belongsToMany(Order, { through: ProductOrders, foreignKey: 'productId' })
+Order.belongsToMany(Product, { through: ProductOrders, foreignKey: 'orderId' })
+
+//User.hasMany(Order)
+
 Review.belongsTo(User)
 User.hasMany(Review)
 
 Product.hasMany(Review)
 Review.belongsTo(Product)
 
-Product.belongsToMany(Order, { through: ProductOrders })
+
 
 module.exports = { Order, Product, ProductOrders, Category, User, Review }
