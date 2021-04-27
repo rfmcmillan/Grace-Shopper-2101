@@ -46,13 +46,11 @@ const Product = db.define('product', {
     },
 });
 
-
-Product.findCountries = (name)=>{
+Product.findByCountries = (name)=>{
   return this.findAll(
       {where:{country:name}});
 };
-
-Product.findByCountry = async(name) => {
+Product.findCountries = async() => {
     return await this.aggragate('country','DISTINCT',{
         plain:false
     });
