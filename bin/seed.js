@@ -230,6 +230,7 @@ const init = async () => {
             imageUrl:
                 'https://cdn01.sayweee.net/2020-08/9e9w2TKfRaea2AF73wxNww.jpg',
         })
+
         const Mix = await Product.create({
             title: 'Nadyadi Mix',
             brand: 'Chhedas',
@@ -368,7 +369,7 @@ const init = async () => {
                 'https://cdn.shopify.com/s/files/1/0561/3553/products/ES-260.jpg?v=1610492772',
         })
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
