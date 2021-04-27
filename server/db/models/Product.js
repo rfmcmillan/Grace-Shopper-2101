@@ -15,10 +15,6 @@ const Product = db.define('product', {
         type: STRING,
         allowNull: false,
     },
-    category: {
-        type: STRING,
-        allowNull:false
-    },
     description: {
         type: TEXT,
         allowNull: false,

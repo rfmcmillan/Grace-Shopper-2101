@@ -12,6 +12,7 @@
         "start:dev": "nodemon ./server/main.js",
         "start": "npm run seed && node ./server/main.js"
     },
+
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Cornwall-Athletic/Grace-Shopper-2101.git"
