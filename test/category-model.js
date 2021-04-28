@@ -9,6 +9,7 @@ describe('Database', () => {
         beforeEach(async () => {
             try {
                 await db.sync({ force: true })
+                await Category.create({ name: 'salty' })
             } catch (error) {
                 console.log(error)
             }
@@ -16,12 +17,13 @@ describe('Database', () => {
 
         it('Category should exist', async () => {
             const categories = await Category.findAll()
+
             expect(categories).to.exist
         })
         it('categories should return an array', async () => {
             const categories = await Category.findAll()
             expect(categories).to.be.a('array')
-            expect(categories.length).to.greaterThanOrEqual(0)
+            expect(categories.length).to.be.greaterThan(0)
         })
     })
 })
