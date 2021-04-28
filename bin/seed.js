@@ -11,6 +11,7 @@ const init = async () => {
             title: 'Strawberry Puff',
             brand: 'I-Mei',
             description: 'Crispy puff shell cookie with cream filling.',
+            //sweet
             price: 3.99,
             inventory: 100,
             country: 'Taiwan',
@@ -23,6 +24,7 @@ const init = async () => {
             brand: 'Jun-Mei',
             description:
                 'A buttery, shortbread-like treat with a pineapple jam filling.',
+            //sweet
             price: 36.99,
             inventory: 139,
             country: 'Taiwan',
@@ -35,6 +37,7 @@ const init = async () => {
             brand: 'Tigersugar',
             description:
                 'It contains chewy tapioca pearls mingle with a milk-based tea.',
+            //sweet,frozen
             price: 4.99,
             inventory: 126,
             country: 'Taiwan',
@@ -47,6 +50,7 @@ const init = async () => {
             brand: 'Pei Tien',
             description:
                 'Multi Grain Crispy Roll is made from 7 natural grains,not too sweet and with a hint of salt.',
+            //sweet,salty,healthy
             price: 5.99,
             inventory: 186,
             country: 'Taiwan',
@@ -59,7 +63,8 @@ const init = async () => {
             brand: 'Calbee',
             description:
                 'It is a Hokkaido-exclusive snack which made from 100% Hokkaido-grown potatoes.',
-            price: 19.99,
+            //salty
+            price: 19.98,
             inventory: 243,
             country: 'Japan',
             imageUrl:
@@ -71,7 +76,8 @@ const init = async () => {
             brand: 'Orihiro',
             description:
                 'It is made from real juice and fruit with low calories. ',
-            price: 3.99,
+            // sweet,healthy
+            price: 3.98,
             inventory: 159,
             country: 'Japan',
             imageUrl:
@@ -79,15 +85,28 @@ const init = async () => {
         })
 
         const KakiNoTane = await Product.create({
-            title: 'Kaki no tane',
+            title: 'Kaki No Tane',
             brand: 'Kameda Seika',
             description:
                 'It is made by cutting up kneaded mochi (sticky rice) into small pieces and then coating the surface with soy sauce and other savory ingredients.',
-            price: 5.99,
+            //salty
+            price: 5.98,
             inventory: 193,
             country: 'Japan',
             imageUrl:
                 'https://cdn.shopify.com/s/files/1/1969/5775/products/kameda-kakinotane-snack-rice-crackers-with-peanuts-200g-japanese-taste_5000x.jpg?v=1608570172',
+        })
+        const Galico = await Product.create({
+            title: 'Matcha Latte Chocolate Ice Cream',
+            brand: 'Galico',
+            description:
+                'It is made by matcha and milk.',
+            //sweet,frozen
+            price: 5.98,
+            inventory: 140,
+            country: 'Japan',
+            imageUrl:
+                'https://backend.tops.co.th/media/catalog/product/8/8/8859292500192.jpg',
         })
 
         const Kaya = await Product.create({
@@ -95,6 +114,7 @@ const init = async () => {
             brand: 'Ya Kun',
             description:
                 'It is a delicious Malaysian jam made with coconut, eggs and caramel.',
+            //sweet
             price: 8.99,
             inventory: 296,
             country: 'Singapore',
@@ -107,6 +127,7 @@ const init = async () => {
             brand: 'The Gold Duck',
             description:
                 'Each chip has crunch, salt, and the perfect amount of richness that comes from the salted egg yolk.',
+            //salty
             price: 7.99,
             inventory: 231,
             country: 'Singapore',
@@ -119,6 +140,7 @@ const init = async () => {
             brand: 'BengAWan Solo',
             description:
                 "it is soft and wobbly with a rich flavour of coconut milk since it's the main ingredients .",
+            //sweet    
             price: 12.99,
             inventory: 100,
             country: 'Singapore',
@@ -131,6 +153,7 @@ const init = async () => {
             brand: 'Thai Royal',
             description:
                 'Milk Tablet is a part product from Dairy Farm from King of Thailand.It was made mostly from milk powder(70%)!',
+            //sweet
             price: 2,
             inventory: 145,
             country: 'Tailand',
@@ -139,9 +162,10 @@ const init = async () => {
         })
 
         const MangoCookies = await Product.create({
-            title: "KOALA'S MARCH MANGO(Only in Thailand)",
+            title: "Koala's March Mango(Only in Thailand)",
             brand: 'Lotte',
             description: 'Biscuit with Mango Cream Filling',
+            //sweet
             price: 7.99,
             inventory: 231,
             country: 'Tailand',
@@ -154,6 +178,7 @@ const init = async () => {
             brand: 'Tao Kae Noi',
             description:
                 'Paper-thin, lip-smackingly irresistible and in big sheets, Tao Kae Noi seaweed snack is the perfect crunch with the perfect munch!.',
+            //salty,healthy
             price: 12.99,
             inventory: 100,
             country: 'Tailand',
@@ -166,6 +191,7 @@ const init = async () => {
             brand: 'Dao Xiang Cun',
             description:
                 "It's a box of cakes with 8 different flavors and 8 unique shapes which each gives out a certain kind of blessings.",
+            //sweet
             price: 40.99,
             inventory: 117,
             country: 'China',
@@ -178,6 +204,7 @@ const init = async () => {
             brand: 'Want Want',
             description:
                 'It is a delicious, cholesterol free, baked, rice cracker snack.',
+            //salty
             price: 4.99,
             inventory: 148,
             country: 'China',
@@ -190,6 +217,7 @@ const init = async () => {
             brand: 'Red Tower',
             description:
                 'It is made from  flour, honey ,and rose jam stuffing.',
+            //sweet
             price: 10.99,
             inventory: 143,
             country: 'China',
@@ -201,6 +229,7 @@ const init = async () => {
             title: 'Roasted Seaweed',
             brand: 'Dongwon',
             description: 'It is roasted woth sesame oil,rich in fiber.',
+            //salty,healthy
             price: 3.99,
             inventory: 137,
             country: 'Korea',
@@ -213,6 +242,7 @@ const init = async () => {
             brand: "S'More",
             description:
                 "Cracker with marshmallow inside.There's only 33 kcal in one ",
+            //sweet,healthy
             price: 4.5,
             inventory: 152,
             country: 'Korea',
@@ -224,6 +254,7 @@ const init = async () => {
             title: 'Turtle Chips(Corn Soup Flavor)',
             brand: 'Orion',
             description: 'It comes with unique four thin layer!',
+            //salty
             price: 1.99,
             inventory: 216,
             country: 'Korea',
@@ -236,6 +267,7 @@ const init = async () => {
             brand: 'Chhedas',
             description:
                 'Nadiyadi Mix gives an unmatched taste that entices and pleases all food buffs. These snacks are seasoned with the unique combination of recipes and ensure lip smacking taste.',
+            //salty    
             price: 3.99,
             inventory: 159,
             country: 'India',
@@ -248,6 +280,7 @@ const init = async () => {
             brand: 'Haldirams',
             description:
                 'This spicy, fried split green gram (moong dal) snack is great for munching. This crunchy and satisfying snack is spiced with coriander powder,cumin powder,and other spices',
+            //salty
             price: 2.99,
             inventory: 270,
             country: 'India',
@@ -259,6 +292,7 @@ const init = async () => {
             title: 'Parle-G Biscuits',
             brand: 'Parle',
             description: 'It is made by milk,sugar,and flour.',
+            //sweet
             price: 1.99,
             inventory: 149,
             country: 'India',
@@ -270,6 +304,7 @@ const init = async () => {
             title: 'Le Petit Pot de Crème au Caramel ',
             brand: 'La Laitière',
             description: 'It is made of heavy cream, caramel, sugar and eggs.',
+            //sweet,frozen
             inventory: 154,
             country: 'French',
             imageUrl:
@@ -281,6 +316,7 @@ const init = async () => {
             brand: 'Lu',
             description:
                 'French butter biscuit topped with glossy European milk chocolate',
+            //sweet
             inventory: 229,
             country: 'French',
             imageUrl:
@@ -292,6 +328,7 @@ const init = async () => {
             brand: 'St Michel',
             description:
                 'It consists of a buttercream, ganache, or jam filling sandwiched between two mini-meringues made with ground almonds, egg whites, and icing sugar.',
+            //sweet    
             price: 20.99,
             inventory: 117,
             country: 'French',
@@ -304,6 +341,7 @@ const init = async () => {
             brand: 'Smiths',
             description:
                 'We take top quality Aussie potatoes, peel, slice and cook them to perfection using healthier oils and then sprinkle them with your favourite seasoning.',
+            //salty    
             price: 2.15,
             inventory: 237,
             country: 'Australia',
@@ -316,6 +354,7 @@ const init = async () => {
             brand: 'Macadamias Australia',
             description:
                 'Macadamia nuts have a rich, buttery flavor. Roasting or salting the nuts draws out their natural, subtle sweetness and creamy texture.',
+            //salty,healthy    
             price: 9.99,
             inventory: 158,
             country: 'Australia',
@@ -328,6 +367,7 @@ const init = async () => {
             brand: 'Angas Park',
             description:
                 'It is a blend of dried prunes, apricots, apples, pears and peaches picked at their peak then meticulously dried until the very moment they emerge plump and sweet with a firm texture - hallmarks of the finest dried fruit.',
+            //sweet,healthy    
             price: 10.99,
             inventory: 480,
             country: 'Australia',
@@ -340,6 +380,7 @@ const init = async () => {
             brand: 'Inés Rosales',
             description:
                 'Ines Rosales sweet olive oil tortas are all-natural, and made with extra virgin olive oil and the finest ingredients.',
+            //sweet,healthy
             price: 3,
             inventory: 127,
             country: 'Spain',
@@ -351,6 +392,7 @@ const init = async () => {
             title: 'Turrón',
             brand: 'Vicens',
             description: 'Creamy classic almond turrón candy bar.',
+            //sweet
             price: 9.99,
             inventory: 158,
             country: 'Spain',
@@ -362,6 +404,7 @@ const init = async () => {
             title: 'Dark Chocolate Stuffed Fig Bonbons',
             brand: 'Rabitos Royale',
             description: 'It is made by figs dipped in rich dark chocolate.',
+            //sweet
             price: 24.99,
             inventory: 80,
             country: 'Spain',
