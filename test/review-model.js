@@ -1,11 +1,11 @@
 const { expect } = require('chai')
 const {
     db,
-    models: { Review, User },
+    models: { Review, User, Product },
 } = require('../server/db')
 
 describe('Review Model', async () => {
-    xbeforeEach(async () => {
+    beforeEach(async () => {
         try {
             await db.sync({ force: true })
             const henry = User.create({
@@ -13,32 +13,84 @@ describe('Review Model', async () => {
                 password: 'henry_pw',
             })
             await Review.create({
-                userId: 1,
                 rating: 5,
-                // productId: 1,
             })
         } catch (error) {
             console.log(error)
         }
     })
 
-    xit('should exist', async () => {
+    it('should exist', async () => {
         const reviews = await Review.findAll()
         expect(reviews).to.exist
     })
 
-    xit('should return an array', async () => {
-        const users = await Review.findAll()
-        expect(users).to.be.an('array')
-        expect(users.length).to.be.at.least(0)
+    it('Review.findAll() should return an array of reviews', async () => {
+        const reviews = await Review.findAll()
+        expect(reviews).to.be.an('array')
+        expect(reviews.length).to.be.at.least(0)
     })
 
-    xit('rating must be between 0 and 5', async () => {
+    it('rating must be between 1 and 5', async () => {
         const review = await Review.create({
-            userId: 1,
             rating: 4,
         })
         const reviews = await Review.findAll()
         expect(reviews.length).to.equal(2)
+    })
+    describe('Associations', () => {
+        it('review has a userId that is initially null', async () => {
+            const review = await Review.create({
+                rating: 4,
+            })
+            expect(review.userId).to.equal(null)
+        })
+        it('review has a productId that is initially null', async () => {
+            const review = await Review.create({
+                rating: 4,
+            })
+            expect(review.productId).to.equal(null)
+        })
+    })
+
+    describe('.writeNew() class method', async () => {
+        beforeEach(async () => {
+            try {
+                const product = await Product.create({
+                    title: 'puff',
+                    brand: 'stay-puft',
+                    description: 'tasty',
+                    price: 1.1,
+                    country: 'usa',
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        })
+        it('returns a new review', async () => {
+            const review = await Review.writeNew(1, 1, 5, 'test')
+            expect(review.id).to.be.ok
+        })
+        it('produces an error if no userId is provided', async () => {
+            try {
+                const review = await Review.writeNew(null, 1, 4, 'test')
+            } catch (error) {
+                expect(error.message).to.equal('a review requires a userId')
+            }
+        })
+        it('produces an error if no productId is provided', async () => {
+            try {
+                const review = await Review.writeNew(1, null, 4, 'test')
+            } catch (error) {
+                expect(error.message).to.equal('a review requires a productId')
+            }
+        })
+        it('produces an error if no rating is provided', async () => {
+            try {
+                const review = await Review.writeNew(1, 1, null, 'test')
+            } catch (error) {
+                expect(error.message).to.equal('a review requires a rating')
+            }
+        })
     })
 })
