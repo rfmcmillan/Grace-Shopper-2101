@@ -1,8 +1,13 @@
-const { STRING, TEXT, INTEGER, DECIMAL } = require('sequelize')
+const { STRING, TEXT, UUID, INTEGER, DECIMAL } = require('sequelize')
 
 const db = require('../db')
 
 const Product = db.define('product', {
+    // id: {
+    //     type: UUID,
+    //     primaryKey: true,
+    //     allowNull: false,
+    // },
     title: {
         type: STRING,
         allowNull: false,
@@ -25,7 +30,7 @@ const Product = db.define('product', {
         },
     },
     inventory: { type: INTEGER, defaultValue: 0 },
-    country: {
+    location: {
         type: STRING,
         allowNull: false,
         validate: {

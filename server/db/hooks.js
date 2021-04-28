@@ -2,6 +2,7 @@
 const {
     Order,
     Product,
+    Country,
     ProductOrders,
     Category,
     User,
@@ -10,4 +11,12 @@ const {
 
 //export models
 
-module.exports = { Order, Product, ProductOrders, Category, User, Review }
+module.exports = {
+    Order,
+    Product,
+    Country,
+    ProductOrders,
+    Category,
+    User,
+    Review,
+}

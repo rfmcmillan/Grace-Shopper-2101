@@ -3,6 +3,7 @@ const db = require('./db')
 const {
     Order,
     Product,
+    Country,
     ProductOrders,
     Category,
     User,
@@ -11,5 +12,5 @@ const {
 
 module.exports = {
     db,
-    models: { Order, Product, ProductOrders, Category, User, Review },
+    models: { Order, Product, Country,ProductOrders, Category, User, Review },
 }
