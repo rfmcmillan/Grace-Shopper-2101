@@ -1,0 +1,26 @@
+const router = require('express').Router()
+const {
+    models: { Category },
+} = require('../db')
+
+//categories
+router.get('/', async (req, res, next) => {
+    try {
+        const categories = await Category.findAll()
+        res.send(categories)
+    } catch (error) {
+        next(error)
+    }
+})
+
+//categories/:category
+router.get('/:id', async (req, res, next) => {
+    try {
+        const name = req.params.category
+        const products = await Category.getProducts(name)
+        res.send(products)
+    } catch (error) {
+        next(error)
+    }
+})
+module.exports = router

@@ -8,6 +8,11 @@ const {
     Review,
 } = require('./relationships')
 
-//export models
+Category.getProducts = function (name) {
+    return Category.findOne({
+        where: name,
+        include: { model: Product, through: { attributes: [] } },
+    })
+}
 
 module.exports = { Order, Product, ProductOrders, Category, User, Review }
