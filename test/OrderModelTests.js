@@ -2,10 +2,12 @@ const { expect } = require('chai')
 
 const {
     db,
-    models: { Order, Product, ProductOrders },
+    models: { Order, Product, ProductOrders, Category, User, Review },
 } = require('../server/db')
 
+
 describe('Order model and join table defination', function () {
+    let order1, order2, user
     beforeEach(async () => {
         await db.sync({ force: true })
         
@@ -42,10 +44,14 @@ describe('Order model and join table defination', function () {
             imageUrl:
                 'https://sethlui.com/wp-content/uploads/2019/11/Tiger-Sugar-Boba-Ice-Cream-Online-2.jpg',
         })
-        let order = await Order.create({ userId: 1 })
-        await order.setProducts([1, 2, 3])
-        order = await Order.create({})
-        await order.setProducts([2, 3])
+        user = await User.create({
+            email: 'russel@snacker.com',
+            password: 'abc123',
+        })
+        order1 = await Order.create({ userId: user.id })
+        await order1.setProducts([1, 2, 3])
+        order2 = await Order.create({})
+        await order2.setProducts([2, 3])
     })
     it('should exist', () => {
         expect(Order).to.exist
@@ -58,16 +64,16 @@ describe('Order model and join table defination', function () {
             await Order.findAll({})
         )[0]
 
-        expect(userId).to.equal(1),
+        expect(userId).to.equal(user.id),
             expect(complete).to.equal(false),
             expect(date_of_purchase).to.equal(null),
             expect(purchased_items).to.equal(null)
     })
     it('should contain the purchase class method which returns the updated order', async () => {
-        const purchase = await Order.purchase(2, '2016-05-05', 2)
+        const purchase = await Order.purchase(order2.id, '2016-05-05', 1)
 
-        expect(purchase.id).to.equal(2)
-        expect(purchase.userId).to.equal(2)
+        expect(purchase.id).to.equal(order2.id)
+        expect(purchase.userId).to.equal(1)
         expect(purchase.complete).to.equal(true)
         expect(purchase.date_of_purchase).to.equal('2016-05-05')
         expect(purchase.purchased_items.length).to.equal(2)
@@ -84,7 +90,7 @@ describe('Order model and join table defination', function () {
     })
     it('should create one row for each product added to an order', async () => {
         expect(
-            (await ProductOrders.findAll({ where: { orderId: 1 } })).length
+            (await ProductOrders.findAll({ where: { orderId: order1.id } })).length
         ).to.equal(3)
     })
 })
