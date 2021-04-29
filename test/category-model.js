@@ -82,9 +82,8 @@ describe('Category', () => {
                 const { products } = response.body
                 expect(response.status).to.equal(200)
                 expect(products).to.exist
-                expect(products).to.be.a('object')
-                expect(products.products).to.be.a('array')
-                expect(products.products.length).to.equal(1)
+                expect(products).to.be.a('array')
+                expect(products.length).to.equal(1)
             })
         })
     })

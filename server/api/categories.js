@@ -14,10 +14,10 @@ router.get('/', async (req, res, next) => {
 })
 
 //categories/:category
-router.get('/:id', async (req, res, next) => {
+router.get('/:category', async (req, res, next) => {
     try {
         const name = req.params.category
-        const products = await Category.getProducts(name)
+        const products = await Category.findProducts(name)
         res.status(200).send({ products })
     } catch (error) {
         next(error)
