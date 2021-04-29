@@ -25,7 +25,7 @@ Product.belongsToMany(Order, {
 })
 Order.belongsToMany(Product, { through: ProductOrders, foreignKey: 'orderId' })
 
-//User.hasMany(Order)
+User.hasMany(Order, {foreignKey:{ name: 'userId', allowNull: true}})
 
 Review.belongsTo(User)
 User.hasMany(Review)

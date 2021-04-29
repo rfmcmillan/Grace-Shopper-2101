@@ -1,11 +1,13 @@
 const db = require('../db')
 const Product = require('./Product')
-const { Sequelize, DataTypes } = require('sequelize')
+const { Sequelize, DataTypes, UUIDV4, INTEGER, UUID } = require('sequelize')
 
 const Order = db.define('order', {
-    userId: {
-        type: DataTypes.INTEGER,
-        defaultValue: null,
+    id:{
+        type: UUID,
+        primaryKey: true,
+        defaultValue:UUIDV4,
+
     },
     complete: {
         type: DataTypes.BOOLEAN,
