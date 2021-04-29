@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt')
 
 //export models
 
-//a class method to add products to an order, this accepts an array of duplets ex [[product, amount], [product2, amount]]
+//an instance method to add products to an order, this accepts an array of duplets ex [[product, amount], [product2, amount]]
 Order.prototype.addProducts = function (dupletsarr) {
     let promises = []
     for (let i of dupletsarr) {
@@ -24,6 +24,18 @@ Order.prototype.addProducts = function (dupletsarr) {
         )
     }
     return Promise.all(promises)
+}
+
+// an instance method designed to remove products from an order based on the amount
+Order.prototype.updateProductsAmount = async function (product, amount) {
+    let pair = await ProductOrders.findAll({
+        where: { orderId: this.id, productId: product.id },
+    })
+    if (amount === 0) {
+        await pair[0].destroy()
+        return
+    }
+    pair[0].product_amount = amount
 }
 
 //a class method for orders that causes the order to be marked as purchased and saves a snapshot of the ordert details.
@@ -87,10 +99,12 @@ User.afterCreate(async (user) => {
     await Order.create({ userId: user.id })
 })
 
+
 //a class method for users to find the active open order
 User.prototype.findOrder = async function () {
-    order = await this.getOrders({ where: { complete: false } })
-    return order[0]
+    order = (await this.getOrders({ where: { complete: false },  include: [Product] }))[0]
+    
+    return await Order.findOne({ where: {id: order.id}, include: Product})
 }
 
 module.exports = { Order, Product, ProductOrders, Category, User, Review }

@@ -47,10 +47,10 @@ describe('Order model and join table defination', function () {
             email: 'russel@snacker.com',
             password: 'abc123',
         })
-        order1 = await user.findOrder()
-        await order1.setProducts([StrawberryPuff, PineappleCake, IceCreamBar])
+        order1 = (await user.getOrders({where: {complete: false}}))[0]
+        await order1.addProducts([[StrawberryPuff, 2], [PineappleCake, 5], [IceCreamBar, 5]])
         order2 = await Order.create({})
-        await order2.setProducts([PineappleCake, IceCreamBar])
+        await order2.addProducts([[PineappleCake, 5],[ IceCreamBar, 2]])
     })
     it('should exist', () => {
         expect(Order).to.exist
@@ -68,7 +68,7 @@ describe('Order model and join table defination', function () {
             expect(date_of_purchase).to.equal(null),
             expect(purchased_items).to.equal(null)
     })
-    describe('Purchase class method and addProducts instance method', () => {
+    describe('Purchase class method and instance methods', () => {
         it('should contain the purchase class method which returns the updated order if based on an already existing order', async () => {
             const purchase = await Order.purchase('2016-05-01', order1.id)
 
@@ -123,6 +123,11 @@ describe('Order model and join table defination', function () {
             expect(purchase.purchased_items[0].title).to.equal(
                 'Strawberry Puff'
             )
+
+        })
+        it('it should allow products to be added and removed with the instance methods created', async()=>{
+            await order1.updateProductsAmount(StrawberryPuff, 10)
+            console.log((await user.findOrder()).products[0].productorders)
         })
     })
     describe('Join table', () => {
