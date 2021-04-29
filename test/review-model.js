@@ -8,7 +8,7 @@ describe('Review Model', async () => {
     beforeEach(async () => {
         try {
             await db.sync({ force: true })
-            const henry = User.create({
+            await User.create({
                 email: 'henry@snacker.com',
                 password: 'henry_pw',
             })
@@ -16,7 +16,7 @@ describe('Review Model', async () => {
                 rating: 5,
             })
         } catch (error) {
-            console.log(error)
+            throw error
         }
     })
 
@@ -67,27 +67,62 @@ describe('Review Model', async () => {
                 console.log(error)
             }
         })
-        xit('returns a new review', async () => {
-            const review = await Review.writeNew(1, 1, 5, 'test')
+        it('returns a new review', async () => {
+            const henry = await User.findOne({
+                where: {
+                    email: 'henry@snacker.com',
+                },
+            })
+            const puff = await Product.findOne({
+                where: {
+                    title: 'puff',
+                },
+            })
+            const review = await Review.writeNew(henry.id, puff.id, 5, 'test')
             expect(review.id).to.be.ok
         })
         it('produces an error if no userId is provided', async () => {
             try {
-                const review = await Review.writeNew(null, 1, 4, 'test')
+                const puff = await Product.findOne({
+                    where: {
+                        title: 'puff',
+                    },
+                })
+                const review = await Review.writeNew(null, puff.id, 4, 'test')
             } catch (error) {
                 expect(error.message).to.equal('a review requires a userId')
             }
         })
         it('produces an error if no productId is provided', async () => {
             try {
-                const review = await Review.writeNew(1, null, 4, 'test')
+                const henry = await User.findOne({
+                    where: {
+                        email: 'henry@snacker.com',
+                    },
+                })
+                const review = await Review.writeNew(henry.id, null, 4, 'test')
             } catch (error) {
                 expect(error.message).to.equal('a review requires a productId')
             }
         })
         it('produces an error if no rating is provided', async () => {
             try {
-                const review = await Review.writeNew(1, 1, null, 'test')
+                const henry = await User.findOne({
+                    where: {
+                        email: 'henry@snacker.com',
+                    },
+                })
+                const puff = await Product.findOne({
+                    where: {
+                        title: 'puff',
+                    },
+                })
+                const review = await Review.writeNew(
+                    henry.id,
+                    puff.id,
+                    null,
+                    'test'
+                )
             } catch (error) {
                 expect(error.message).to.equal('a review requires a rating')
             }

@@ -1,13 +1,14 @@
 const {
     db,
-    models: { Category, Product, Country },
+    models: { Category, Product, Country, Review },
 } = require('../server/db')
+const seedUsers = require('./seedUsers')
 
 const init = async () => {
     try {
         await db.sync({ force: true })
 
-       const [sweet, salty, healthy, frozen] = await Promise.all(
+        const [sweet, salty, healthy, frozen] = await Promise.all(
             ['sweet', 'salty', 'healthy', 'frozen'].map((name) => {
                 return Category.create({ name })
             })
@@ -471,6 +472,29 @@ const init = async () => {
                 Macadamias,
             ]),
         ])
+
+        const seedReviews = async () => {
+            const puffReview = await Review.writeNew(
+                alejandra.id,
+                Puff.id,
+                5,
+                'Totally addicted!'
+            )
+            const pineappleCakeReview = await Review.writeNew(
+                kevin.id,
+                PineappleCake.id,
+                5,
+                'So good!'
+            )
+            const iceCreamBarReview = await Review.writeNew(
+                yiru.id,
+                IceCreamBar.id,
+                5,
+                'Yum! Will definitely be ordering again!'
+            )
+        }
+        seedUsers()
+        seedReviews()
     } catch (error) {
         console.log(error)
     }
