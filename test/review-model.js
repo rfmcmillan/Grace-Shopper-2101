@@ -67,7 +67,7 @@ describe('Review Model', async () => {
                 console.log(error)
             }
         })
-        it('returns a new review', async () => {
+        xit('returns a new review', async () => {
             const review = await Review.writeNew(1, 1, 5, 'test')
             expect(review.id).to.be.ok
         })
