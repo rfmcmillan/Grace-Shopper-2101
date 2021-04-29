@@ -104,7 +104,7 @@ User.afterCreate(async (user) => {
 User.prototype.findOrder = async function () {
     order = (await this.getOrders({ where: { complete: false },  include: [Product] }))[0]
     
-    return await Order.findOne({ where: {id: order.id}, include: Product})
+     = await Order.findOne({ where: {id: order.id}, include: Product})
 }
 
 module.exports = { Order, Product, ProductOrders, Category, User, Review }
