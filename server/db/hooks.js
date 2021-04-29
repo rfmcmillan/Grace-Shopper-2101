@@ -2,10 +2,21 @@
 const {
     Order,
     Product,
+    Country,
     ProductOrders,
     Category,
     User,
     Review,
 } = require('./relationships')
 
-module.exports = { Order, Product, ProductOrders, Category, User, Review }
+//export models
+
+module.exports = {
+    Order,
+    Product,
+    Country,
+    ProductOrders,
+    Category,
+    User,
+    Review,
+}

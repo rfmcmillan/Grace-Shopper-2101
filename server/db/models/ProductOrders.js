@@ -1,9 +1,9 @@
 const db = require('../db')
-const { Sequelize, DataTypes } = require('sequelize')
+const { Sequelize, DataTypes, UUIDV4 } = require('sequelize')
 
 module.exports = db.define('productorders', {
     orderId: {
-        type: DataTypes.INTEGER,
+        type: UUIDV4,
         allowNull: false,
         primaryKey: true,
         references: {
