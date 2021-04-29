@@ -7,10 +7,16 @@ const Category = require('./models/Category')
 const User = require('./models/User')
 const Review = require('./models/Review')
 
+
 Country.hasMany(Product)
 Product.belongsTo(Country, { foreignKey: 'countryId' })
 
-Category.belongsToMany(Product, { through: 'productcategories' })
+
+Category.belongsToMany(Product, {
+    through: 'productcategories',
+    timestamps: false,
+})
+
 Product.belongsToMany(Category, { through: 'productcategories' })
 
 Product.belongsToMany(Order, {

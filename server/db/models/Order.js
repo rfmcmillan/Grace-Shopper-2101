@@ -29,16 +29,20 @@ Order.purchase = async function (orderId, date, userId = null) {
     order.products.forEach((e, i) => {
         jsonobj[i] = {
             id: e.id,
-            name: e.name,
+            title: e.title,
+            brand: e.brand,
+            description: e.decription,
             price: e.price,
-            amount: e.productorders.product_amount,
-            imageURL: 'to be filled later',
+            country: e.country,
+            imageUrl: e.imageUrl,
+            amount: e.productorders.product_amount
         }
+        
     })
 
     order.complete = 'true'
     order.date_of_purchase = date
-    order.purchased_items = JSON.stringify(jsonobj)
+    order.purchased_items = jsonobj
 
     await order.save()
 
