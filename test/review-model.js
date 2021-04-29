@@ -5,10 +5,11 @@ const {
 } = require('../server/db')
 
 describe('Review Model', async () => {
+    let henry
     beforeEach(async () => {
         try {
             await db.sync({ force: true })
-            const henry = User.create({
+            henry = await User.create({
                 email: 'henry@snacker.com',
                 password: 'henry_pw',
             })
@@ -68,7 +69,7 @@ describe('Review Model', async () => {
             }
         })
         it('returns a new review', async () => {
-            const review = await Review.writeNew(1, 1, 5, 'test')
+            const review = await Review.writeNew(henry.id, 1, 5, 'test')
             expect(review.id).to.be.ok
         })
         it('produces an error if no userId is provided', async () => {
@@ -80,14 +81,14 @@ describe('Review Model', async () => {
         })
         it('produces an error if no productId is provided', async () => {
             try {
-                const review = await Review.writeNew(1, null, 4, 'test')
+                const review = await Review.writeNew(henry.id, null, 4, 'test')
             } catch (error) {
                 expect(error.message).to.equal('a review requires a productId')
             }
         })
         it('produces an error if no rating is provided', async () => {
             try {
-                const review = await Review.writeNew(1, 1, null, 'test')
+                const review = await Review.writeNew(henry.id, 1, null, 'test')
             } catch (error) {
                 expect(error.message).to.equal('a review requires a rating')
             }

@@ -12,7 +12,7 @@ module.exports = db.define('productorders', {
         },
     },
     productId: {
-        type: DataTypes.INTEGER,
+        type: UUIDV4,
         allowNull: false,
         primaryKey: true,
         references: {

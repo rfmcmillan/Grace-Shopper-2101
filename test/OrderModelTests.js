@@ -5,13 +5,12 @@ const {
     models: { Order, Product, ProductOrders, Category, User, Review },
 } = require('../server/db')
 
-
 describe('Order model and join table defination', function () {
-    let order1, order2, user
+    let order1, order2, user, StrawberryPuff, PineappleCake
     beforeEach(async () => {
         await db.sync({ force: true })
-        
-        const StrawberryPuff = await Product.create({
+
+        StrawberryPuff = await Product.create({
             title: 'Strawberry Puff',
             brand: 'I-Mei',
             description: 'Crispy puff shell cookie with cream filling.',
@@ -21,7 +20,7 @@ describe('Order model and join table defination', function () {
             imageUrl:
                 'https://images-na.ssl-images-amazon.com/images/I/51GkdanTqfL.jpg',
         })
-        const PineappleCake = await Product.create({
+        PineappleCake = await Product.create({
             title: 'Pineapple Cake',
             brand: 'Jun-Mei',
             description:
@@ -48,10 +47,10 @@ describe('Order model and join table defination', function () {
             email: 'russel@snacker.com',
             password: 'abc123',
         })
-        order1 = await Order.create({ userId: user.id })
-        await order1.setProducts([1, 2, 3])
+        order1 = await user.findOrder()
+        await order1.setProducts([StrawberryPuff, PineappleCake, IceCreamBar])
         order2 = await Order.create({})
-        await order2.setProducts([2, 3])
+        await order2.setProducts([PineappleCake, IceCreamBar])
     })
     it('should exist', () => {
         expect(Order).to.exist
@@ -69,28 +68,75 @@ describe('Order model and join table defination', function () {
             expect(date_of_purchase).to.equal(null),
             expect(purchased_items).to.equal(null)
     })
-    it('should contain the purchase class method which returns the updated order', async () => {
-        const purchase = await Order.purchase(order2.id, '2016-05-05', 1)
+    describe('Purchase class method and addProducts instance method', () => {
+        it('should contain the purchase class method which returns the updated order if based on an already existing order', async () => {
+            const purchase = await Order.purchase('2016-05-01', order1.id)
 
-        expect(purchase.id).to.equal(order2.id)
-        expect(purchase.userId).to.equal(1)
-        expect(purchase.complete).to.equal(true)
-        expect(purchase.date_of_purchase).to.equal('2016-05-05')
-        expect(purchase.purchased_items.length).to.equal(2)
-        expect(purchase.purchased_items[0].title).to.equal(
-            'Pineapple Cake'
-        )
-    })
+            expect(purchase.id).to.equal(order1.id)
+            expect(purchase.userId).to.equal(user.id)
+            expect(purchase.complete).to.equal(true)
+            expect(purchase.date_of_purchase).to.equal('2016-05-01')
+            expect(purchase.purchased_items.length).to.equal(3)
+            expect(purchase.purchased_items[0].title).to.equal(
+                'Strawberry Puff'
+            )
+        })
+        it('if order exists without a user should still work and return with no user', async () => {
+            const purchase = await Order.purchase('2016-05-05', order2.id)
 
-    it('Product Orders Should exist', () => {
-        expect(ProductOrders).to.exist
+            expect(purchase.id).to.equal(order2.id)
+            expect(purchase.userId).to.equal(null)
+            expect(purchase.complete).to.equal(true)
+            expect(purchase.date_of_purchase).to.equal('2016-05-05')
+            expect(purchase.purchased_items.length).to.equal(2)
+            expect(purchase.purchased_items[0].title).to.equal('Pineapple Cake')
+        })
+        it('if order doesnt exist should still be able to purchase by adding in products', async () => {
+            const purchase = await Order.purchase('2016-05-08', null, [
+                [StrawberryPuff, 2],
+            ])
+
+            expect(purchase.userId).to.equal(null)
+            expect(purchase.complete).to.equal(true)
+            expect(purchase.date_of_purchase).to.equal('2016-05-08')
+            expect(purchase.purchased_items.length).to.equal(1)
+            expect(purchase.purchased_items[0].title).to.equal(
+                'Strawberry Puff'
+            )
+        })
+        it('it should also be able to add in a userId incase the user logs in at the time of purchase and keep track of amounts', async () => {
+            const purchase = await Order.purchase(
+                '2016-05-06',
+                null,
+                [
+                    [StrawberryPuff, 2],
+                    [PineappleCake, 5],
+                ],
+                user.id
+            )
+
+            expect(purchase.userId).to.equal(user.id)
+            expect(purchase.complete).to.equal(true)
+            expect(purchase.date_of_purchase).to.equal('2016-05-06')
+            expect(purchase.purchased_items.length).to.equal(2)
+            expect(purchase.purchased_items[1].amount).to.equal(5)
+            expect(purchase.purchased_items[0].title).to.equal(
+                'Strawberry Puff'
+            )
+        })
     })
-    it('It should be filled when orders are created', async () => {
-        expect((await ProductOrders.findAll({})).length).to.equal(5)
-    })
-    it('should create one row for each product added to an order', async () => {
-        expect(
-            (await ProductOrders.findAll({ where: { orderId: order1.id } })).length
-        ).to.equal(3)
+    describe('Join table', () => {
+        it('Product Orders Should exist', () => {
+            expect(ProductOrders).to.exist
+        })
+        it('It should be filled when orders are created', async () => {
+            expect((await ProductOrders.findAll({})).length).to.equal(5)
+        })
+        it('should create one row for each product added to an order', async () => {
+            expect(
+                (await ProductOrders.findAll({ where: { orderId: order1.id } }))
+                    .length
+            ).to.equal(3)
+        })
     })
 })
