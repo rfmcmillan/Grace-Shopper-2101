@@ -12,5 +12,5 @@ const {
 
 module.exports = {
     db,
-    models: { Order, Product, Country,ProductOrders, Category, User, Review },
+    models: { Order, Product, Country, ProductOrders, Category, User, Review },
 }

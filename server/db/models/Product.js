@@ -30,13 +30,6 @@ const Product = db.define('product', {
         },
     },
     inventory: { type: INTEGER, defaultValue: 0 },
-    location: {
-        type: STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-        },
-    },
     imageUrl: {
         type: STRING,
         validate: {

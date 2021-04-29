@@ -1,14 +1,15 @@
-const { STRING, TEXT, UUID } = require('sequelize')
+const { STRING, TEXT, UUID ,UUIDV4} = require('sequelize')
 const db = require('../db')
 
 const Country = db.define(
     'country',
     {
-        // id: {
-        //     type: UUID,
-        //     primaryKey: true,
-        //     allowNull: false,
-        // },
+        id: {
+            type: UUID,
+            defaultValue: UUIDV4,
+            primaryKey: true,
+            allowNull: false,
+        },
         name: {
             type: STRING,
             unique: true,
