@@ -5,6 +5,7 @@ module.exports = app
 const api = require('./api/')
 const path = require('path')
 
+app.use(express.json())
 //Routes Beginning With /Api
 app.use('/api', api)
 

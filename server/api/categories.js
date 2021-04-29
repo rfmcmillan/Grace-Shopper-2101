@@ -7,7 +7,7 @@ const {
 router.get('/', async (req, res, next) => {
     try {
         const categories = await Category.findAll()
-        res.send(categories)
+        res.status(200).send({ categories })
     } catch (error) {
         next(error)
     }
@@ -18,7 +18,7 @@ router.get('/:id', async (req, res, next) => {
     try {
         const name = req.params.category
         const products = await Category.getProducts(name)
-        res.send(products)
+        res.status(200).send({ products })
     } catch (error) {
         next(error)
     }

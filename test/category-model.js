@@ -4,31 +4,32 @@ const {
     models: { Category, Product },
 } = require('../server/db')
 
-describe('Database', () => {
+const app = require('supertest')(require('../server/server'))
+
+describe('Category', () => {
+    beforeEach(async () => {
+        try {
+            await db.sync({ force: true })
+            const salty = await Category.create({ name: 'salty' })
+            const Jaga = await Product.create({
+                title: 'Jaga Pokkuru',
+                brand: 'Calbee',
+                description:
+                    'It is a Hokkaido-exclusive snack which made from 100% Hokkaido-grown potatoes.',
+                //salty
+                price: 19.98,
+                inventory: 243,
+                country: 'Japan',
+                imageUrl:
+                    'https://cdn.shopify.com/s/files/1/1969/5775/products/calbee-potato-farm-jaga-pokkuru-180g-japanese-taste_2048x.jpg?v=1608561946',
+            })
+
+            await Jaga.addCategory(salty)
+        } catch (error) {
+            console.log(error)
+        }
+    })
     describe('Category Model', async () => {
-        beforeEach(async () => {
-            try {
-                await db.sync({ force: true })
-                const salty = await Category.create({ name: 'salty' })
-                const Jaga = await Product.create({
-                    title: 'Jaga Pokkuru',
-                    brand: 'Calbee',
-                    description:
-                        'It is a Hokkaido-exclusive snack which made from 100% Hokkaido-grown potatoes.',
-                    //salty
-                    price: 19.98,
-                    inventory: 243,
-                    country: 'Japan',
-                    imageUrl:
-                        'https://cdn.shopify.com/s/files/1/1969/5775/products/calbee-potato-farm-jaga-pokkuru-180g-japanese-taste_2048x.jpg?v=1608561946',
-                })
-
-                await Jaga.addCategory(salty)
-            } catch (error) {
-                console.log(error)
-            }
-        })
-
         it('Category should exist', async () => {
             const categories = await Category.findAll()
 
@@ -62,6 +63,28 @@ describe('Database', () => {
                 expect(categories).to.exist
                 expect(categories[0].products).to.be.a('array')
                 expect(categories[0].products[0].title).to.equal('Jaga Pokkuru')
+            })
+        })
+    })
+
+    describe('Category Routes', () => {
+        describe('GET', () => {
+            it('/api/categories', async () => {
+                const response = await app.get('/api/categories')
+                const { categories } = response.body
+                expect(response.status).to.equal(200)
+                expect(categories).to.exist
+                expect(categories).to.be.a('array')
+            })
+
+            it('/api/categories/:category', async () => {
+                const response = await app.get(`/api/categories/${'salty'}`)
+                const { products } = response.body
+                expect(response.status).to.equal(200)
+                expect(products).to.exist
+                expect(products).to.be.a('object')
+                expect(products.products).to.be.a('array')
+                expect(products.products.length).to.equal(1)
             })
         })
     })
