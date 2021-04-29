@@ -6,7 +6,10 @@ const Category = require('./models/Category')
 const User = require('./models/User')
 const Review = require('./models/Review')
 
-Category.belongsToMany(Product, { through: 'productcategories' })
+Category.belongsToMany(Product, {
+    through: 'productcategories',
+    timestamps: false,
+})
 Product.belongsToMany(Category, { through: 'productcategories' })
 
 Product.belongsToMany(Order, {
