@@ -40,7 +40,7 @@ const init = async () => {
         })
         const Thailand = await Country.create({
             name: 'Thailand',
-            flag: '<em-flag-th',
+            flag: 'em-flag-th',
         })
 
         const Puff = await Product.create({
