@@ -2,6 +2,7 @@
 const {
     Order,
     Product,
+    Country,
     ProductOrders,
     Category,
     User,
