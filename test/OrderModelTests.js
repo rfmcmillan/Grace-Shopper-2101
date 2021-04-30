@@ -1,4 +1,8 @@
 const { expect } = require('chai')
+const {
+    db,
+    models: { Order, Product, Country, ProductOrders, Category, User, Review }
+} = require('../server/db')
 
 
 describe('Order model and join table defination', function () {
