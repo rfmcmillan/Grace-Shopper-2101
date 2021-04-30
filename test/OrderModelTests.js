@@ -47,10 +47,17 @@ describe('Order model and join table defination', function () {
             email: 'russel@snacker.com',
             password: 'abc123',
         })
-        order1 = (await user.getOrders({where: {complete: false}}))[0]
-        await order1.addProducts([[StrawberryPuff, 2], [PineappleCake, 5], [IceCreamBar, 5]])
+        order1 = (await user.getOrders({ where: { complete: false } }))[0]
+        await order1.addProducts([
+            [StrawberryPuff, 2],
+            [PineappleCake, 5],
+            [IceCreamBar, 5],
+        ])
         order2 = await Order.create({})
-        await order2.addProducts([[PineappleCake, 5],[ IceCreamBar, 2]])
+        await order2.addProducts([
+            [PineappleCake, 5],
+            [IceCreamBar, 2],
+        ])
     })
     it('should exist', () => {
         expect(Order).to.exist
@@ -123,11 +130,21 @@ describe('Order model and join table defination', function () {
             expect(purchase.purchased_items[0].title).to.equal(
                 'Strawberry Puff'
             )
-
         })
-        it('it should allow products to be added and removed with the instance methods created', async()=>{
+        it('it should allow products to be added and removed with the instance methods created', async () => {
             await order1.updateProductsAmount(StrawberryPuff, 10)
-            console.log((await user.findOrder()).products[0].productorders)
+            let products = await user.findOrder()
+            expect(products[0].title).to.equal('Strawberry Puff'),
+                expect(products[0].amount).to.equal(10),
+                expect(products[2].title).to.equal(
+                    'Black Sugar Boba Ice Cream Bar'
+                ),
+                expect(products[2].amount).to.equal(5)
+        })
+        it('it should allow products to be added and removed with the instance methods created', async () => {
+            await order1.updateProductsAmount(StrawberryPuff, 0)
+            let products = await user.findOrder()
+            expect(products[0].title).to.equal('Pineapple Cake')
         })
     })
     describe('Join table', () => {

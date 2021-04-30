@@ -28,14 +28,15 @@ Order.prototype.addProducts = function (dupletsarr) {
 
 // an instance method designed to remove products from an order based on the amount
 Order.prototype.updateProductsAmount = async function (product, amount) {
-    let pair = await ProductOrders.findAll({
+    let pair = await ProductOrders.findOne({
         where: { orderId: this.id, productId: product.id },
     })
     if (amount === 0) {
-        await pair[0].destroy()
+        await pair.destroy()
         return
     }
-    pair[0].product_amount = amount
+    pair.product_amount = amount
+    await pair.save()
 }
 
 //a class method for orders that causes the order to be marked as purchased and saves a snapshot of the ordert details.
@@ -99,12 +100,21 @@ User.afterCreate(async (user) => {
     await Order.create({ userId: user.id })
 })
 
-
 //a class method for users to find the active open order
+//this might need review becuase it may be way over engineered haha
 User.prototype.findOrder = async function () {
-    order = (await this.getOrders({ where: { complete: false },  include: [Product] }))[0]
-    
-     = await Order.findOne({ where: {id: order.id}, include: Product})
+    let order = (
+        await this.getOrders({ where: { complete: false }, include: [Product] })
+    )[0]
+    let returnobj = []
+    order = await Order.findOne({ where: { id: order.id }, include: Product })
+    order.products.forEach((e) => {
+        returnobj.push({
+            ...e.dataValues,
+            amount: e.productorders.product_amount,
+        })
+    })
+    return returnobj
 }
 
 module.exports = { Order, Product, ProductOrders, Category, User, Review }
