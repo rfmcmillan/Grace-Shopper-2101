@@ -472,37 +472,26 @@ const init = async () => {
             ]),
         ])
 
-        const alejandra = await User.create({
-            email: 'alejandra@snacker.com',
-            password: 'alejandra_pw',
-        })
-        const kevin = await User.create({
-            email: 'kevin@snacker.com',
-            password: 'kevin_pw',
-        })
-        const yiru = await User.create({
-            email: 'yiru@snacker.com',
-            password: 'yiru_pw',
-        })
+        const [alejandra, kevin, yiru] = await Promise.all([
+            [
+                ['alejandra@snacker.com', 'alejandra_pw'],
+                ['kevin@snacker.com', 'kevin_pw'],
+                ['yiru@snacker.com', 'yiru_pw'],
+            ].map(([email, password]) => {
+                return User.create({ email, password })
+            }),
+        ])
 
-        const puffReview = await Review.writeNew(
-            alejandra.id,
-            Puff.id,
-            5,
-            'Totally addicted!'
-        )
-        const pineappleCakeReview = await Review.writeNew(
-            kevin.id,
-            PineappleCake.id,
-            5,
-            'So good!'
-        )
-        const iceCreamBarReview = await Review.writeNew(
-            yiru.id,
-            IceCreamBar.id,
-            5,
-            'Yum! Will definitely be ordering again!'
-        )
+        // await Promise.all(
+        //     Review.writeNew(alejandra.id, Puff.id, 5, 'Totally addicted!'),
+        //     Review.writeNew(kevin.id, PineappleCake.id, 5, 'So good!'),
+        //     Review.writeNew(
+        //         yiru.id,
+        //         IceCreamBar.id,
+        //         5,
+        //         'Yum! Will definitely be ordering again!'
+        //     )
+        // )
     } catch (error) {
         console.log(error)
     }
