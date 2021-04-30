@@ -9,7 +9,7 @@ describe('User', () => {
     beforeEach(async () => {
         try {
             await db.sync({ force: true })
-            await User.create({
+            const russel = await User.create({
                 email: 'russel@snacker.com',
                 password: 'abc123',
             })
@@ -85,8 +85,12 @@ describe('User', () => {
                 expect(users).to.be.ok
                 expect(users).to.be.an('array')
             })
-            it('api/users/:email', async () => {
-                const response = await app.get('/api/users/russel@snacker.com')
+            it('api/users/:id', async () => {
+                const jack = await User.create({
+                    email: 'jack@snacker.com',
+                    password: 'abc123',
+                })
+                const response = await app.get(`/api/users/${jack.id}`)
                 const user = response.body
                 expect(response.status).to.equal(200)
                 expect(user).to.be.ok

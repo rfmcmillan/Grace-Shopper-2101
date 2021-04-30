@@ -493,7 +493,7 @@ const init = async () => {
                 'Yum! Will definitely be ordering again!'
             )
         }
-        seedUsers()
+        await seedUsers()
         seedReviews()
     } catch (error) {
         console.log(error)

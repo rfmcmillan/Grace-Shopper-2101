@@ -10,10 +10,10 @@ router.get('/', async (req, res, next) => {
     res.send(users)
 })
 //get single user by specifying their email address
-router.get('/:email', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     const user = await User.findOne({
         where: {
-            email: req.params.email,
+            id: req.params.id,
         },
     })
     res.send(user)
