@@ -472,26 +472,21 @@ const init = async () => {
             ]),
         ])
 
-        const [alejandra, kevin, yiru] = await Promise.all([
+        const [alejandra, kevin, yiru] = await Promise.all(
             [
                 ['alejandra@snacker.com', 'alejandra_pw'],
                 ['kevin@snacker.com', 'kevin_pw'],
                 ['yiru@snacker.com', 'yiru_pw'],
             ].map(([email, password]) => {
                 return User.create({ email, password })
-            }),
-        ])
+            })
+        )
 
-        // await Promise.all(
-        //     Review.writeNew(alejandra.id, Puff.id, 5, 'Totally addicted!'),
-        //     Review.writeNew(kevin.id, PineappleCake.id, 5, 'So good!'),
-        //     Review.writeNew(
-        //         yiru.id,
-        //         IceCreamBar.id,
-        //         5,
-        //         'Yum! Will definitely be ordering again!'
-        //     )
-        // )
+        await Promise.all([
+            Review.writeNew(alejandra.id, Puff.id, 5, 'Totally addicted!'),
+            Review.writeNew(kevin.id, PineappleCake.id, 5, 'So good!'),
+            Review.writeNew(yiru.id, IceCreamBar.id, 5, 'Yum!'),
+        ])
     } catch (error) {
         console.log(error)
     }

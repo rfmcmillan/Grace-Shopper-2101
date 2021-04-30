@@ -97,5 +97,46 @@ describe('User', () => {
                 expect(user).to.be.an('object')
             })
         })
+        describe('POST', () => {
+            it('api/users', async () => {
+                const response = await app.post('/api/users').send({
+                    email: 'test@snacker.com',
+                    password: 'test_pw',
+                })
+                const newUser = response.body
+                expect(response.status).to.equal(201)
+                expect(newUser).to.be.ok
+                expect(newUser).to.be.an('object')
+            })
+        })
+        describe('DELETE', () => {
+            it('api/users/:id', async () => {
+                const tempUser = await User.create({
+                    email: 'test@snacker.com',
+                    password: 'test_pw',
+                })
+                const response = await app.delete(`/api/users/${tempUser.id}`)
+                expect(response.status).to.equal(204)
+                expect(await User.findByPk(tempUser.id)).to.not.be.ok
+            })
+        })
+        describe('PUT', () => {
+            it('api/users/:id', async () => {
+                const tempUser = await User.create({
+                    email: 'test@snacker.com',
+                    password: 'test_pw',
+                })
+                const response = await app
+                    .put(`/api/users/${tempUser.id}`)
+                    .send({
+                        email: 'changed@snacker.com',
+                        password: 'changed_pw',
+                    })
+                const { email, password } = response.body
+                expect(response.status).to.equal(200)
+                expect(email).to.equal('changed@snacker.com')
+                expect(password).to.equal('changed_pw')
+            })
+        })
     })
 })
