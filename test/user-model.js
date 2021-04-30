@@ -100,6 +100,8 @@ describe('User Model', () => {
                     }
                 })
             })
+        })
+        describe('User.byToken()', () => {
             describe('with a valid token', async () => {
                 it('returns a user', async () => {
                     const users = await User.findAll()
