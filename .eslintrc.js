@@ -1,12 +1,12 @@
 module.exports = {
 "extends": ["airbnb", "plugin:prettier/recommended"],
-    "plugins": ["jest"],
+    "plugins": ["mocha"],
     "rules": {
       "prettier/prettier": [
         "error",
         {
           "singleQuote": true,
-          "semi": false,
+          "semi": true,
             "endOfLine": "auto"
         }
       ],
@@ -18,9 +18,7 @@ module.exports = {
       "import/prefer-default-export": "off"
     },
     "env": {
-      "jest/globals": true,
       "browser": true,
       "node": true
     },
-    "parser": "babel-eslint"
   }
