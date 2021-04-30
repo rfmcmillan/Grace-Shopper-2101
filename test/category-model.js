@@ -86,5 +86,35 @@ describe('Category', () => {
                 expect(products.length).to.equal(1)
             })
         })
+
+        describe('POST', () => {
+            it('/api/categories', async () => {
+                const response = await app.get('/api/categories')
+                const { categories } = response.body
+                expect(response.status).to.equal(200)
+                expect(categories).to.exist
+                expect(categories).to.be.a('array')
+            })
+        })
+
+        describe('DELETE', () => {
+            it('/api/categories', async () => {
+                const response = await app.get('/api/categories')
+                const { categories } = response.body
+                expect(response.status).to.equal(200)
+                expect(categories).to.exist
+                expect(categories).to.be.a('array')
+            })
+        })
+
+        describe('PUT', () => {
+            it('/api/categories', async () => {
+                const response = await app.get('/api/categories')
+                const { categories } = response.body
+                expect(response.status).to.equal(200)
+                expect(categories).to.exist
+                expect(categories).to.be.a('array')
+            })
+        })
     })
 })
