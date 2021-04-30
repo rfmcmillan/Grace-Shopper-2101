@@ -103,10 +103,12 @@ User.beforeSave(async (user) => {
 
 // // a hook for users to create an order after the user is created so
 // there is always an empty order in the database to be used by the cart on the client side
-User.afterCreate(async (user) => {
-  await Order.create({ userId: user.id });
-});
+User.afterCreate((user) => Order.create({ userId: user.id }));
 
+// returns all completed purchases
+User.prototype.findPurchases = function () {
+  return this.getOrders({ where: { complete: true } });
+};
 // a class method for users to find the active open order
 // this might need review becuase it may be way over engineered haha
 User.prototype.findOrder = async function () {
