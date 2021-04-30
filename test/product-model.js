@@ -36,7 +36,7 @@ describe('Product Model', async () => {
         expect(products.length).to.be.at.least(0)
     })
 
-    it('should require an location', async () => {
+    it('should require an title', async () => {
         const product = await Product.create({
             title: 'Stroopwafel',
             brand: 'Recette Originale',
