@@ -1,8 +1,7 @@
 const {
     db,
-    models: { Category, Product, Country, Review },
+    models: { Category, Product, Country, Review, User },
 } = require('../server/db')
-const seedUsers = require('./seedUsers')
 
 const init = async () => {
     try {
@@ -473,28 +472,37 @@ const init = async () => {
             ]),
         ])
 
-        const seedReviews = async () => {
-            const puffReview = await Review.writeNew(
-                alejandra.id,
-                Puff.id,
-                5,
-                'Totally addicted!'
-            )
-            const pineappleCakeReview = await Review.writeNew(
-                kevin.id,
-                PineappleCake.id,
-                5,
-                'So good!'
-            )
-            const iceCreamBarReview = await Review.writeNew(
-                yiru.id,
-                IceCreamBar.id,
-                5,
-                'Yum! Will definitely be ordering again!'
-            )
-        }
-        await seedUsers()
-        seedReviews()
+        const alejandra = await User.create({
+            email: 'alejandra@snacker.com',
+            password: 'alejandra_pw',
+        })
+        const kevin = await User.create({
+            email: 'kevin@snacker.com',
+            password: 'kevin_pw',
+        })
+        const yiru = await User.create({
+            email: 'yiru@snacker.com',
+            password: 'yiru_pw',
+        })
+
+        const puffReview = await Review.writeNew(
+            alejandra.id,
+            Puff.id,
+            5,
+            'Totally addicted!'
+        )
+        const pineappleCakeReview = await Review.writeNew(
+            kevin.id,
+            PineappleCake.id,
+            5,
+            'So good!'
+        )
+        const iceCreamBarReview = await Review.writeNew(
+            yiru.id,
+            IceCreamBar.id,
+            5,
+            'Yum! Will definitely be ordering again!'
+        )
     } catch (error) {
         console.log(error)
     }
