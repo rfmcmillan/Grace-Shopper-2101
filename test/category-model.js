@@ -86,5 +86,47 @@ describe('Category', function () {
         expect(products.length).to.equal(1);
       });
     });
+
+    describe('POST', function () {
+      it('/api/categories', async function () {
+        const name = 'sweet';
+        const { body } = await app
+          .post('/api/categories')
+          .send({ name });
+
+        expect(body).to.exist;
+        expect(body.name).to.equal(name);
+      });
+    });
+
+    describe('DELETE', function () {
+      it('/api/categories', async function () {
+        const toDel = await Category.findOne({
+          where: { name: 'salty' },
+        });
+        const response = await app.delete(`/api/categories/${toDel.id}`);
+
+        const categories = await Category.findAll();
+        expect(response.status).to.equal(204);
+        expect(categories.length).to.equal(0);
+      });
+    });
+
+    describe('PUT', function () {
+      it('/api/categories/:id', async function () {
+        const salty = await Category.findOne({
+          where: { name: 'salty' },
+        });
+
+        await app
+          .put(`/api/categories/${salty.id}`)
+          .send({ name: 'sweet' });
+
+        const categories = await Category.findAll();
+
+        expect(categories.length).to.equal(1);
+        expect(categories[0].name).to.equal('sweet');
+      });
+    });
   });
 });
