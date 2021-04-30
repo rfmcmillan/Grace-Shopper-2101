@@ -4,8 +4,8 @@
     "description": "Cornwall-Athletics Grace Shopper Repository",
     "main": "index.js",
     "scripts": {
-        "test": "mocha --exit",
-        "test:dev": "JWT=snacker-pass npm run test -- --watch",
+        "test": "JWT=snacker-pass mocha --exit",
+        "test:dev": "npm run test -- --watch",
         "windows-test:dev": "npm run test -- --watch",
         "lint": "eslint client server",
         "seed": "node ./bin/seed",
