@@ -1,13 +1,13 @@
 const {
     db,
-    models: { Category, Product, Country },
+    models: { Category, Product, Country, Review, User },
 } = require('../server/db')
 
 const init = async () => {
     try {
         await db.sync({ force: true })
 
-       const [sweet, salty, healthy, frozen] = await Promise.all(
+        const [sweet, salty, healthy, frozen] = await Promise.all(
             ['sweet', 'salty', 'healthy', 'frozen'].map((name) => {
                 return Category.create({ name })
             })
@@ -471,6 +471,38 @@ const init = async () => {
                 Macadamias,
             ]),
         ])
+
+        const alejandra = await User.create({
+            email: 'alejandra@snacker.com',
+            password: 'alejandra_pw',
+        })
+        const kevin = await User.create({
+            email: 'kevin@snacker.com',
+            password: 'kevin_pw',
+        })
+        const yiru = await User.create({
+            email: 'yiru@snacker.com',
+            password: 'yiru_pw',
+        })
+
+        const puffReview = await Review.writeNew(
+            alejandra.id,
+            Puff.id,
+            5,
+            'Totally addicted!'
+        )
+        const pineappleCakeReview = await Review.writeNew(
+            kevin.id,
+            PineappleCake.id,
+            5,
+            'So good!'
+        )
+        const iceCreamBarReview = await Review.writeNew(
+            yiru.id,
+            IceCreamBar.id,
+            5,
+            'Yum! Will definitely be ordering again!'
+        )
     } catch (error) {
         console.log(error)
     }

@@ -3,6 +3,11 @@ const db = require('../db')
 const { DataTypes } = require('sequelize')
 
 const Review = db.define('review', {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+    },
     rating: {
         type: DataTypes.INTEGER,
         allowNull: true,
