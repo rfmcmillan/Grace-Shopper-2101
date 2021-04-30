@@ -12,6 +12,7 @@ const Category = db.define(
         name: {
             type: DataTypes.STRING,
             unique: true,
+            allowNull: false,
             validate: {
                 notEmpty: true,
             },

@@ -49,7 +49,7 @@ router.put('/:id', async (req, res, next) => {
         const id = req.params.id
         const category = await Category.findByPk(id)
         const { name } = req.body
-        const updated = await category.update(name)
+        const updated = await category.update({ name })
         res.status(200).send(updated)
     } catch (error) {
         next(error)

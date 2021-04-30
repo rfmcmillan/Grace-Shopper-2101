@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-module.exports = app
 
 const api = require('./api/')
 const path = require('path')
@@ -13,3 +12,4 @@ app.use('/api', api)
 app.get('/', (req, res, next) => {
     res.send('Hello')
 })
+module.exports = app
