@@ -56,6 +56,7 @@ router.post('/', async (req, res, next) => {
             where: { name: location },
         })
         await createProduct.addCountry(country)
+        //Product.addCountry???
         res.status(201).send(createProduct)
     } catch (ex) {
         next(ex)

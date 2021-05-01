@@ -1,11 +1,12 @@
+/* eslint-disable no-console */
 const { expect } = require('chai')
 const {
     db,
     models: { Product },
 } = require('../server/db')
 
-describe('Product Model', async () => {
-    beforeEach(async () => {
+describe('Product Model', function () {
+    beforeEach(async function () {
         try {
             await db.sync({ force: true })
             await Product.create({
@@ -25,12 +26,12 @@ describe('Product Model', async () => {
         }
     })
 
-    it('should exist', async () => {
+    it('should exist', async function () {
         const product = await Product.findAll()
         expect(product).to.exist
     })
 
-    it('should return an array', async () => {
+    it('should return an array', async function () {
         const products = await Product.findAll()
         expect(products).to.be.an('array')
         expect(products.length).to.be.at.least(0)
