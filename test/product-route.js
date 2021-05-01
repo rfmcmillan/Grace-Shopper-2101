@@ -2,7 +2,7 @@ const chai = require('chai')
 const expect = chai.expect
 const {
     db,
-    models: { Product },
+    models: { Product, Country },
 } = require('../server/db')
 const app = require('supertest')(require('../server/server'))
 
@@ -26,23 +26,22 @@ describe('Product routes', () => {
     })
 
     describe('GET ', () => {
-        xit('/api/products', async () => {
+        it('/api/products', async () => {
             const response = await app.get('/api/products').expect(200)
             expect(response.body).to.have.length(3)
         })
 
         it('/api/products/:id', async () => {
-            const response = await app
-                .get('/api/products/0d19e19a-68e5-4a94-80e4-e45bf3c4154b')
-                .expect(200)
+            const response = await app.get(`/api/products/${product.id}`)
+            expect(response.status).to.equal(200)
             expect(response.body.title).to.equal('Strawberry Puff')
             //response.body.title?
         })
     })
 
     describe('POST', () => {
-        xit('/api/products/', async () => {
-            const response = await app.post('/api/products/').send({
+        it('/api/products/', async () => {
+            const response = await app.post('/api/products').send({
                 title: 'Grenadine Juice',
                 brand: 'Meysu',
                 description: 'Juice',
@@ -50,20 +49,20 @@ describe('Product routes', () => {
                 inventory: 126,
                 imageUrl:
                     'https://sethlui.com/wp-content/uploads/2019/11/Tiger-Sugar-Boba-Ice-Cream-Online-2.jpg',
+                location: 'Turkey',
             })
             expect(response.body.title).to.equal('Grenadine Juice')
         })
     })
 
     describe('DELETE', () => {
-        xit('/api/products/:id', async () => {
+        it('/api/products', async () => {
             const toDel = await Product.findOne({
                 where: { title: 'Strawberry Puff' },
             })
             const response = await app.delete(`/api/products/${toDel.id}`)
             const products = await Product.findAll()
             expect(response.status).to.equal(204)
-            expect(products.length).to.equal(6)
         })
     })
 })

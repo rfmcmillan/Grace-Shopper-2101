@@ -41,6 +41,7 @@ router.post('/', async (req, res, next) => {
             description,
             price,
             inventory,
+            imageUrl,
             location,
         } = req.body
         const createProduct = await Product.create({
@@ -49,6 +50,7 @@ router.post('/', async (req, res, next) => {
             description,
             price,
             inventory,
+            imageUrl,
         })
         const country = await Country.findOrCreate({
             where: { name: location },

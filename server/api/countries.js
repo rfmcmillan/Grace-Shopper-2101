@@ -45,4 +45,18 @@ router.post('/', async (req, res, next) => {
     }
 })
 
+// router.post('/:id/products', async (req, res) => {
+//     const { title, brand, description, price, inventory,imageUrl} = req.body
+//     const newProduct = await Product.create({
+//         title,
+//         brand,
+//         description,
+//         price,
+//         inventory,
+//         imageUrl
+//         countryId: req.params.id,
+//     })
+//     res.status(201).send(newProduct)
+// })
+
 module.exports = router

@@ -19,10 +19,11 @@ const Country = db.define(
         },
         flag: {
             type: TEXT,
+            defaultValue: 'em-globe_with_meridians',
             // unique: true,
-            validate: {
-                notEmpty: true,
-            },
+            // validate: {
+            //     notEmpty: true,
+            // },
         },
     },
     {
