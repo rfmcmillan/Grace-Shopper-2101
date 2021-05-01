@@ -4,7 +4,7 @@
   "description": "Cornwall-Athletics Grace Shopper Repository",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode=production",
     "build:dev": "npm run build -- --watch --mode=development",
     "test": "JWT=snacker-pass mocha --exit",
     "test:dev": "DATABASE_URL=postgres://localhost:5432/snacker_test npm run test -- --watch",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Cornwall-Athletic/Grace-Shopper-2101#readme",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.0",
     "@babel/preset-react": "^7.13.13",
     "babel-loader": "^8.2.2",
     "chai": "^4.3.4",
