@@ -209,10 +209,9 @@ describe('User Model', () => {
                         email: 'changed@snacker.com',
                         password: 'changed_pw',
                     })
-                const { email, password } = response.body
+                const { email } = response.body
                 expect(response.status).to.equal(200)
                 expect(email).to.equal('changed@snacker.com')
-                expect(password).to.equal('changed_pw')
             })
         })
     })
