@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import store from '../store';
+import store, { loadUsers } from '../store';
 
 class Main extends React.Component {
-  // componentDidMount() {
-  //   this.props.bootstrap();
-  // }
+  componentDidMount() {
+    this.props.bootstrap();
+  }
 
   render() {
     return (
@@ -19,17 +19,17 @@ class Main extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return state;
-// };
+const mapStateToProps = (state) => {
+  return state;
+};
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     bootstrap: async () => {
-//       dispatch(loadUsers());
-//     },
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    bootstrap: async () => {
+      dispatch(loadUsers());
+    },
+  };
+};
 
 //I couldn't get this to work with mapStateToProps or mapDispatchToProps yet
-export default connect()(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
