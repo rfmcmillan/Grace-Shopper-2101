@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect, Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import store, { loadUsers } from '../store';
+import { loadUsers } from '../store';
 
 class Main extends React.Component {
   componentDidMount() {
@@ -10,11 +10,9 @@ class Main extends React.Component {
 
   render() {
     return (
-      <Provider store={store}>
-        <Router>
-          <div>Welcome To Global Snacker!</div>
-        </Router>
-      </Provider>
+      <Router>
+        <div>Welcome To Global Snacker!</div>
+      </Router>
     );
   }
 }
