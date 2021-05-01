@@ -1,33 +1,35 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
+import store from '../store';
 
 class Main extends React.Component {
-  componentDidMount() {
-    this.props.bootstrap();
-  }
+  // componentDidMount() {
+  //   this.props.bootstrap();
+  // }
 
   render() {
     return (
-      <div>Welcome To Global Snacker!</div>
-      //   <Router>
-
-      //     {/* <Route component={Users} path="/users" exact /> */}
-      //   </Router>
+      <Provider store={store}>
+        <Router>
+          <div>Welcome To Global Snacker!</div>
+        </Router>
+      </Provider>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return state;
-};
+// const mapStateToProps = (state) => {
+//   return state;
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    bootstrap: async () => {
-      dispatch(loadUsers());
-    },
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     bootstrap: async () => {
+//       dispatch(loadUsers());
+//     },
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+//I couldn't get this to work with mapStateToProps or mapDispatchToProps yet
+export default connect()(Main);
