@@ -1,7 +1,7 @@
-const { expect } = require('chai')
+const { expect } = require('chai');
 
 describe('Travis Check', function () {
-    it('should pass', () => {
-        expect(true).to.equal(true)
-    })
-})
+  it('should pass', function () {
+    expect(true).to.equal(true);
+  });
+});

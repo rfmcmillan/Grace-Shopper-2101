@@ -1,16 +1,18 @@
-//Everything comes together here. Import the models from models from hooks
-const db = require('./db')
+// Everything comes together here. Import the models from models from hooks
+const db = require('./db');
 const {
-    Order,
-    Product,
-    Country,
-    ProductOrders,
-    Category,
-    User,
-    Review,
-} = require('./hooks')
+  Order,
+  Product,
+  Country,
+  ProductOrders,
+  Category,
+  User,
+  Review,
+} = require('./hooks');
 
 module.exports = {
-    db,
-    models: { Order, Product, Country, ProductOrders, Category, User, Review },
-}
+  db,
+  models: {
+    Order, Product, Country, ProductOrders, Category, User, Review,
+  },
+};

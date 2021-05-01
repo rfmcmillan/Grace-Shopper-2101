@@ -1,1 +1,1 @@
-//Main React Compenent
+// Main React Compenent
