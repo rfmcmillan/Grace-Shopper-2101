@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id);
+    const product = await Product.findByPk(req.params.id, (include: [Country]));
     res.send(product);
   } catch (ex) {
     next(ex);
@@ -55,7 +55,6 @@ router.post('/', async (req, res, next) => {
     const [country] = await Country.findOrCreate({
       where: { name: location },
     });
-    console.log('!!!!COUNTRY', country);
     await createProduct.setCountry(country);
     //Or country[0]
     //Product.addCountry???
