@@ -1,13 +1,13 @@
-const { STRING, TEXT, UUID, UUIDV4,INTEGER, DECIMAL } = require('sequelize')
+const { STRING, TEXT, UUID, UUIDV4, INTEGER, DECIMAL } = require('sequelize')
 
 const db = require('../db')
 
 const Product = db.define('product', {
     id: {
         type: UUID,
-         defaultValue: UUIDV4,
-         primaryKey: true,
-         allowNull: false,
+        defaultValue: UUIDV4,
+        primaryKey: true,
+        allowNull: false,
     },
     title: {
         type: STRING,
@@ -41,13 +41,13 @@ const Product = db.define('product', {
     },
 })
 
-Product.findByCountries = (name) => {
-    return this.findAll({ where: { country: name } })
-}
-Product.findCountries = async () => {
-    return await this.aggragate('country', 'DISTINCT', {
-        plain: false,
-    })
-}
+// Product.findByCountries = (name) => {
+//     return this.findAll({ where: { country: name } })
+// }
+// Product.findCountries = async () => {
+//     return await this.aggragate('country', 'DISTINCT', {
+//         plain: false,
+//     })
+// }
 
 module.exports = Product

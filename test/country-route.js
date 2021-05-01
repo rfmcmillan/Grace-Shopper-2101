@@ -1,45 +1,79 @@
-const chai = require('chai')
-const expect = chai.expect
-const chaiThings = require('chai-things')
-chai.use(chaiThings)
+const { expect } = require('chai')
+const {
+    db,
+    models: { Country },
+} = require('../server/db')
+const app = require('supertest')(require('../server/server'))
 
-const db = require('../server')
-const Company = db.model('company')
-
-const app = require('../server/app')
-const agent = require('supertest')(app)
-
-describe('Company routes', () => {
-    let setCountries
-
-    const countryData = [
-        {
-            name: 'Turkey',
-            flag: 'em-flag-tr',
-        },
-        {
-            name: 'Poland',
-            flag: 'em-flag-pl',
-        },
-    ]
-
+describe('Country routes', () => {
+    let country1, country2
     beforeEach(async () => {
-        const createdCountries = await Country.bulkCreate(countryData)
-        setCountries = createdCountries.map((country) => country.dataValues)
+        try {
+            country1 = await Country.create({
+                name: 'Turkey',
+                flag: 'em-flag-tr',
+            })
+            country2 = await Country.create({
+                name: 'Poland',
+                flag: 'em-flag-pl',
+            })
+        } catch (ex) {
+            console.log(ex)
+        }
     })
+    // afterEach(async () => {
+    //     try {
+    //         // const countries = await Country.findAll()
+    //         await Country.destroy()
+    //         // await Country.sync()
+    //     } catch (ex) {
+    //         console.log(ex)
+    //     }
+    // })
+    describe('GET', () => {
+        it('/api/countries', async () => {
+            try {
+                const response = await app.get('/api/countries')
+                console.log('!!!!!response', response.body)
+                expect(response.status).to.equal(200)
+                // expect(response.body.length).to.equal(2)
+            } catch (ex) {
+                console.log(ex)
+            }
+        })
 
-    describe('GET `/api/countries`', () => {
-        it('serves up all Countries', async () => {
-            const response = await agent.get('/api/countries').expect(200)
-            expect(response.body).to.have.length(2)
-            expect(response.body[0].name).to.equal(setCountries[0].name)
+        it('/api/countries/:id', async (id) => {
+            const response = await app
+                .get(
+                    `
+            /api/countries/${id}`
+                )
+                .expect(200)
+            expect(response).to.exist
+            expect(response[0].body.name).to.equal('Turkey')
+            // expect(response.length).to.equal(3)
+        })
+    })
+    describe('POST', () => {
+        it('/api/countries', async () => {
+            const name = 'Iran'
+            const { body } = await app
+                .post('/api/countries')
+                .send({ name: 'Iran', flag: 'em-flag-ir' })
+            expect(body).to.exist
+            expect(body.name).to.equal(name)
         })
     })
 
-    describe('GET `/api/countries/:id`', () => {
-        it('serves up a single Country by its `id`', async () => {
-            const response = await agent.get('/api/companies/2').expect(200)
-            expect(response.body.name).to.equal('Spacely Sprockets')
+    describe('DELETE', () => {
+        it('/api/countries', async () => {
+            const toDel = await Country.findOne({
+                where: { name: 'Turkey' },
+            })
+            const response = await app.delete(`/api/countries/${toDel.id}`)
+            const country = await Country.findAll()
+            expect(response.status).to.equal(204)
+            expect(country.length).to.equal(9)
         })
     })
 })

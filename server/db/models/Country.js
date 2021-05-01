@@ -1,4 +1,4 @@
-const { STRING, TEXT, UUID ,UUIDV4} = require('sequelize')
+const { STRING, TEXT, UUID, UUIDV4 } = require('sequelize')
 const db = require('../db')
 
 const Country = db.define(
@@ -12,14 +12,14 @@ const Country = db.define(
         },
         name: {
             type: STRING,
-            unique: true,
+            // unique: true,
             validate: {
                 notEmpty: true,
             },
         },
         flag: {
             type: TEXT,
-            unique: true,
+            // unique: true,
             validate: {
                 notEmpty: true,
             },
