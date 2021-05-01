@@ -142,7 +142,7 @@ describe('Order model and join table defination', function () {
       );
     });
     it('it should allow products amount to be increased with the instance methods created', async function () {
-      await order1.updateProductsAmount(StrawberryPuff, 10);
+      await order1.updateProductsAmount(StrawberryPuff.id, 10);
       const products = await user.findOrder();
       expect(products[0].title).to.equal('Strawberry Puff');
       expect(products[0].amount).to.equal(10);
@@ -152,7 +152,7 @@ describe('Order model and join table defination', function () {
       expect(products[2].amount).to.equal(5);
     });
     it('it should allow products to be removed with the instance methods created', async function () {
-      await order1.updateProductsAmount(StrawberryPuff, 0);
+      await order1.updateProductsAmount(StrawberryPuff.id, 0);
       const products = await user.findOrder();
       expect(products[0].title).to.equal('Pineapple Cake');
     });

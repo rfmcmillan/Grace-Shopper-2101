@@ -32,16 +32,15 @@ Order.prototype.addProducts = function (dupletsarr) {
 };
 
 // an instance method designed to remove products from an order based on the amount
-Order.prototype.updateProductsAmount = async function (product, amount) {
+Order.prototype.updateProductsAmount = async function (productId, amount) {
   const pair = await ProductOrders.findOne({
-    where: { orderId: this.id, productId: product.id },
+    where: { orderId: this.id, productId },
   });
   if (amount === 0) {
-    await pair.destroy();
-    return;
+    return pair.destroy();
   }
   pair.product_amount = amount;
-  await pair.save();
+  return pair.save();
 };
 
 // // a class method for orders that causes the order to

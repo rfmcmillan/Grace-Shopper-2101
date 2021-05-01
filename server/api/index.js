@@ -3,6 +3,7 @@ const router = require('express').Router();
 const app = require('../server');
 const categories = require('./categories');
 const users = require('./users');
+const orders = require('./orders')
 
 // api/categories
 router.use('/categories', categories);
