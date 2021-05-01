@@ -1,6 +1,5 @@
 import React from 'react';
-import store from '../store';
-import { connect, Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 
 class Main extends React.Component {
@@ -8,9 +7,22 @@ class Main extends React.Component {
     return (
       <Router>
         <div>Welcome To Global Snacker!</div>
+        <Route component={Users} path="/users" exact />
       </Router>
     );
   }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    bootstrap: async () => {
+      dispatch(loadUsers());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
