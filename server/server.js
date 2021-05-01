@@ -1,8 +1,7 @@
 const express = require('express')
-const app = express()
 
-const api = require('./api/')
-const path = require('path')
+const app = express()
+module.exports = app
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '..', '/public')))
