@@ -7,7 +7,7 @@
         "test": "JWT=snacker-pass mocha --exit",
         "test:dev": "DATABASE_URL=postgres://localhost:5432/snacker_test npm run test -- --watch",
         "windows-test:dev": "npm run test -- --watch",
-        "lint": "eslint client server",
+        "lint": "eslint client server test",
         "seed": "node ./bin/seed",
         "start:dev": "nodemon ./server/main.js",
         "start": "npm run seed && node ./server/main.js"
@@ -24,15 +24,28 @@
     },
     "homepage": "https://github.com/Cornwall-Athletic/Grace-Shopper-2101#readme",
     "dependencies": {
+        "bcrypt": "^5.0.1",
         "express": "^4.17.1",
         "jsonwebtoken": "^8.5.1",
         "pg": "^8.6.0",
+        "react": "^17.0.2",
         "sequelize": "^6.6.2",
         "supertest": "^6.1.3"
     },
     "devDependencies": {
         "chai": "^4.3.4",
         "eslint": "^7.25.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-config-standard": "^16.0.2",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-mocha": "^8.1.0",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "eslint-plugin-promise": "^4.3.1",
+        "eslint-plugin-react": "^7.23.2",
+        "eslint-plugin-react-hooks": "^4.2.0",
         "mocha": "^8.3.2",
         "nodemon": "^2.0.7",
         "prettier": "^2.2.1"

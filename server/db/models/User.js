@@ -35,6 +35,7 @@ User.authenticate = async function ({ email, password }) {
     const user = await User.findOne({
         where: { email, password },
     })
+
     if (user) {
         return jwt.sign({ id: user.id }, process.env.JWT)
     }

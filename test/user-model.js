@@ -1,11 +1,13 @@
 const { expect } = require('chai')
 const jwt = require('jsonwebtoken')
+
+const app = require('supertest')(require('../server/server'))
+
 const {
     db,
     models: { User, Review, Product },
 } = require('../server/db')
 
-const app = require('supertest')(require('../server/server'))
 describe('User Model', () => {
     beforeEach(async () => {
         try {
@@ -78,9 +80,12 @@ describe('User Model', () => {
         describe('User.authenticate', () => {
             describe('correct credentials', () => {
                 it('returns a token', async () => {
+                    const yiru = await User.findOne({
+                        where: { email: 'yiru@snacker.com' },
+                    })
                     const token = await User.authenticate({
-                        email: 'kevin@snacker.com',
-                        password: 'kevin_pw',
+                        email: 'yiru@snacker.com',
+                        password: yiru.password,
                     })
                     expect(token).to.be.ok
                 })
@@ -134,8 +139,8 @@ describe('User Model', () => {
     })
     //very simple tests. they will fail if you provide invalid inputs to the User.create() call that is within the test
 
-    describe('User Routes', () => {
-        beforeEach(async () => {
+    describe('User Routes', function () {
+        beforeEach(async function () {
             const user = await User.create({
                 email: 'rosie@snacker.com',
                 password: '123ert',
@@ -149,15 +154,15 @@ describe('User Model', () => {
             })
             await Review.writeNew(user.id, product.id, 4, 'So good!')
         })
-        describe('GET', () => {
-            it('api/users', async () => {
+        describe('GET', function () {
+            it('api/users', async function () {
                 const response = await app.get('/api/users')
                 const users = response.body
                 expect(response.status).to.equal(200)
                 expect(users).to.be.ok
                 expect(users).to.be.an('array')
             })
-            it('api/users/:id', async () => {
+            it('api/users/:id', async function () {
                 const jack = await User.create({
                     email: 'jack@snacker.com',
                     password: 'abc123',

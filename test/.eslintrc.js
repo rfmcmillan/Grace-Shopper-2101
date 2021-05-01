@@ -22,5 +22,8 @@ module.exports = {
   ],
   rules: {
     'linebreak-style': 'off',
+    'prefer-arrow-callback': 'off',
+    'func-names': 'off',
+    'no-unused-expressions': 'off',
   },
 };
