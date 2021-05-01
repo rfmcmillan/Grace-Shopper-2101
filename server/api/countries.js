@@ -38,7 +38,7 @@ router.delete('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const { name, flag } = req.body;
-    const createCountry = await Country.create({name, flag});
+    const createCountry = await Country.create({ name, flag });
     res.status(201).send(createCountry);
   } catch (ex) {
     next(ex);
@@ -53,19 +53,6 @@ router.post('/', async (req, res, next) => {
 //     } catch (error) {
 //         next(error)
 //     }
-// })
-// router.post('/:id/products', async (req, res) => {
-//     const { title, brand, description, price, inventory,imageUrl} = req.body
-//     const newProduct = await Product.create({
-//         title,
-//         brand,
-//         description,
-//         price,
-//         inventory,
-//         imageUrl
-//         countryId: req.params.id,
-//     })
-//     res.status(201).send(newProduct)
 // })
 
 module.exports = router;

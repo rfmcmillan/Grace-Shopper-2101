@@ -1,15 +1,17 @@
 const chai = require('chai');
-const expect = chai.expect;
+
+const { expect } = chai;
 const {
   db,
   models: { Product, Country },
 } = require('../server/db');
 const app = require('supertest')(require('../server/server'));
 
-describe('Product routes', () => {
-  let product1;
-  beforeEach(async () => {
+describe('Product routes', function () {
+  let product;
+  beforeEach(async function () {
     try {
+      await db.sync({ force: true });
       product = await Product.create({
         title: 'Strawberry Puff',
         brand: 'I-Mei',
@@ -25,22 +27,22 @@ describe('Product routes', () => {
     }
   });
 
-  describe('GET ', () => {
-    it('/api/products', async () => {
+  describe('GET ', function () {
+    it('/api/products', async function () {
       const response = await app.get('/api/products').expect(200);
-      expect(response.body).to.have.length(3);
+      expect(response.body).to.have.length(1);
     });
 
-    it('/api/products/:id', async () => {
+    it('/api/products/:id', async function () {
       const response = await app.get(`/api/products/${product.id}`);
       expect(response.status).to.equal(200);
       expect(response.body.title).to.equal('Strawberry Puff');
-      //response.body.title?
+      // response.body.title?
     });
   });
 
-  describe('POST', () => {
-    it('/api/products/', async () => {
+  describe('POST', function () {
+    it('/api/products/', async function () {
       const response = await app.post('/api/products').send({
         title: 'Grenadine Juice',
         brand: 'Meysu',
@@ -55,14 +57,29 @@ describe('Product routes', () => {
     });
   });
 
-  describe('DELETE', () => {
-    it('/api/products', async () => {
+  describe('DELETE', function () {
+    it('/api/products', async function () {
       const toDel = await Product.findOne({
         where: { title: 'Strawberry Puff' },
       });
       const response = await app.delete(`/api/products/${toDel.id}`);
       const products = await Product.findAll();
       expect(response.status).to.equal(204);
+    });
+  });
+
+  describe('PUT', function () {
+    it('/api/products/:id', async function () {
+      const product1 = await Product.findOne({
+        where: { title: 'Strawberry Puff' },
+      });
+
+      await app
+        .put(`/api/products/${product1.id}`)
+        .send({ title: 'Lemon Puff' });
+
+      const products = await Product.findAll();
+      expect(products[0].title).to.equal('Lemon Puff');
     });
   });
 });
