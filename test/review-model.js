@@ -4,15 +4,17 @@ const {
     models: { Review, User, Product },
 } = require('../server/db')
 
+const app = require('supertest')(require('../server/server'))
+
 describe('Review Model', async () => {
     beforeEach(async () => {
         try {
             await db.sync({ force: true })
-            await User.create({
+            const henry = await User.create({
                 email: 'henry@snacker.com',
                 password: 'henry_pw',
             })
-            await Review.create({
+            const review = await Review.create({
                 rating: 5,
             })
         } catch (error) {
@@ -126,6 +128,117 @@ describe('Review Model', async () => {
             } catch (error) {
                 expect(error.message).to.equal('a review requires a rating')
             }
+        })
+    })
+
+    describe('Review Routes', () => {
+        beforeEach(async () => {
+            await db.sync({ force: true })
+            const user = await User.create({
+                email: 'rosie@snacker.com',
+                password: '123ert',
+            })
+            const product = await Product.create({
+                title: 'puff',
+                brand: 'stay-puft',
+                description: 'tasty',
+                price: 1.1,
+                country: 'usa',
+            })
+            await Review.writeNew(user.id, product.id, 4, 'So good!')
+        })
+        describe('GET', () => {
+            it('api/reviews', async () => {
+                const response = await app.get('/api/reviews')
+                const reviews = response.body
+                expect(response.status).to.equal(200)
+                expect(reviews).to.be.ok
+                expect(reviews).to.be.an('array')
+            })
+            it('api/reviews/:id', async () => {
+                const jack = await Review.create({
+                    email: 'jack@snacker.com',
+                    password: 'abc123',
+                })
+                const response = await app.get(`/api/reviews/${jack.id}`)
+                const review = response.body
+                expect(response.status).to.equal(200)
+                expect(review).to.be.ok
+                expect(review).to.be.an('object')
+            })
+        })
+        describe('POST', () => {
+            it('api/reviews', async () => {
+                const jeff = await User.create({
+                    email: 'jeff@snacker.com',
+                    password: 'jeff_pw',
+                })
+
+                const cheeto = await Product.create({
+                    title: 'cheeto',
+                    brand: 'stay-puft',
+                    description: 'tasty',
+                    price: 1.1,
+                    country: 'usa',
+                })
+
+                const response = await app.post('/api/reviews').send({
+                    userId: jeff.id,
+                    productId: cheeto.id,
+                    rating: 4,
+                    text: 'Really good snack',
+                })
+                const newReview = response.body
+                expect(response.status).to.equal(201)
+                expect(newReview).to.be.ok
+                expect(newReview).to.be.an('object')
+            })
+        })
+        describe('DELETE', () => {
+            it('api/reviews/:id', async () => {
+                const tempReview = await Review.create({
+                    email: 'test@snacker.com',
+                    password: 'test_pw',
+                })
+                const response = await app.delete(
+                    `/api/reviews/${tempReview.id}`
+                )
+                expect(response.status).to.equal(204)
+                expect(await Review.findByPk(tempReview.id)).to.not.be.ok
+            })
+        })
+        describe('PUT', () => {
+            it('api/reviews/:id', async () => {
+                const jeff = await User.create({
+                    email: 'jeff@snacker.com',
+                    password: 'jeff_pw',
+                })
+
+                const cheeto = await Product.create({
+                    title: 'cheeto',
+                    brand: 'stay-puft',
+                    description: 'tasty',
+                    price: 1.1,
+                    country: 'usa',
+                })
+
+                const tempReview = await Review.writeNew(
+                    jeff.id,
+                    cheeto.id,
+                    3,
+                    'Decent.'
+                )
+                const response = await app
+                    .put(`/api/reviews/${tempReview.id}`)
+                    .send({
+                        rating: 4,
+                        text: 'Actually, this snack is growing on me',
+                    })
+                const { rating, text } = response.body
+                expect(response.status).to.equal(200)
+                expect(rating).to.equal(4)
+                expect(text).to.equal('Actually, this snack is growing on me')
+            })
         })
     })
 })
