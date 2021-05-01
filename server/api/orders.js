@@ -13,48 +13,47 @@ router.post('/purchase', async (req, res, next) => {
       userId,
     } = req.body;
     const order = await Order.purchase(date, orderId, products, userId);
-    res.status(200).send(order);
+    res.status(200).send({ order });
   } catch (err) {
     next(err);
   }
 });
 
-router.get('/cart', async (req, res, next) => {
+router.get('/cart/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.body.id);
-    const order = await user.findOrder();
-    res.status(200).send(order);
+    const { id } = req.params;
+    const cart = await User.getCart(id);
+    res.status(200).send({ cart });
   } catch (err) {
     next(err);
   }
 });
 
-router.get('/purchases', async (req, res, next) => {
+router.get('/purchases/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.body.id);
-    const purchases = await user.findPurchases();
-    res.status(200).send(purchases);
+    const { id } = req.params;
+    const purchases = await User.findPurchases(id);
+    res.status(200).send({ purchases });
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/updateCart', async (req, res, next) => {
+router.put('/updateCart', async (req, res, next) => {
   try {
-    const { productId, amount, orderId } = req.body;
-    const order = await Order.findByPk(orderId);
-    await order.updateProductsAmount([productId, amount]);
-    res.status(200);
+    const { orderId, productId, amount } = req.body;
+    await Order.updateProductsAmount(orderId, productId, amount);
+    res.sendStatus(200);
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/addToCart', async (req, res, next) => {
+router.put('/addToCart', async (req, res, next) => {
   try {
-    const { orderId, array } = req.body;
-    const order = await Order.findByPk(orderId);
-    await order.addProducts(array);
+    const { orderId, products } = req.body;
+    await Order.addProducts(orderId, products);
+    res.sendStatus(200);
   } catch (err) {
     next(err);
   }

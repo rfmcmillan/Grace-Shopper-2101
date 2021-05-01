@@ -1,2 +1,2 @@
-//Where Render React Main Component
-console.log('hello')
+// Where Render React Main Component
+console.log('hello');
