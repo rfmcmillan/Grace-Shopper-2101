@@ -9,10 +9,11 @@ class Main extends React.Component {
 
   render() {
     return (
-      <Router>
-        <div>Welcome To Global Snacker!</div>
-        <Route component={Users} path="/users" exact />
-      </Router>
+      <div>Welcome To Global Snacker!</div>
+      //   <Router>
+
+      //     {/* <Route component={Users} path="/users" exact /> */}
+      //   </Router>
     );
   }
 }
