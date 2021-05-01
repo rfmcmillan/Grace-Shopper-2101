@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 
 class Main extends React.Component {
+  componentDidMount() {
+    this.props.bootstrap();
+  }
+
   render() {
     return (
       <Router>
