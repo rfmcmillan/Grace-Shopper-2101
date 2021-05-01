@@ -144,6 +144,8 @@ describe('Order model and join table defination', function () {
     it('it should allow products amount to be increased with the instance methods created', async function () {
       await order1.updateProductsAmount(StrawberryPuff.id, 10);
       const products = await user.findOrder();
+      const stuff = (await Order.findAll({ where: { userId: user.id }, include: [Product] }));
+      console.log(stuff[0].products[0].productorders);
       expect(products[0].title).to.equal('Strawberry Puff');
       expect(products[0].amount).to.equal(10);
       expect(products[2].title).to.equal(
