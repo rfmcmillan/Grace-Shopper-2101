@@ -1,2 +1,5 @@
-//Where Render React Main Component
-console.log('hello')
+import React from 'react';
+import { render } from 'react-dom';
+import Main from './components/Main';
+
+render(<Main />, document.querySelector('#app'));
