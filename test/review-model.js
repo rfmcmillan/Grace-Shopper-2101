@@ -6,8 +6,8 @@ const {
 
 const app = require('supertest')(require('../server/server'))
 
-describe('Review Model', async () => {
-    beforeEach(async () => {
+describe('Review Model', async function () {
+    beforeEach(async function () {
         try {
             await db.sync({ force: true })
             const henry = await User.create({
@@ -133,7 +133,6 @@ describe('Review Model', async () => {
 
     describe('Review Routes', () => {
         beforeEach(async () => {
-            await db.sync({ force: true })
             const user = await User.create({
                 email: 'rosie@snacker.com',
                 password: '123ert',
@@ -156,15 +155,30 @@ describe('Review Model', async () => {
                 expect(reviews).to.be.an('array')
             })
             it('api/reviews/:id', async () => {
-                const jack = await Review.create({
-                    email: 'jack@snacker.com',
-                    password: 'abc123',
+                const user = await User.create({
+                    email: 'tom@snacker.com',
+                    password: '123ert',
                 })
-                const response = await app.get(`/api/reviews/${jack.id}`)
-                const review = response.body
+                const product = await Product.create({
+                    title: 'puff',
+                    brand: 'stay-puft',
+                    description: 'tasty',
+                    price: 1.1,
+                    country: 'usa',
+                })
+                const review = await Review.writeNew(
+                    user.id,
+                    product.id,
+                    4,
+                    'So good!'
+                )
+
+                const response = await app.get(`/api/reviews/${review.id}`)
+                const body = response.body
                 expect(response.status).to.equal(200)
-                expect(review).to.be.ok
-                expect(review).to.be.an('object')
+                expect(body).to.be.ok
+                expect(body).to.be.an('object')
+                expect(body.rating).to.be.ok
             })
         })
         describe('POST', () => {
@@ -196,15 +210,30 @@ describe('Review Model', async () => {
         })
         describe('DELETE', () => {
             it('api/reviews/:id', async () => {
-                const tempReview = await Review.create({
-                    email: 'test@snacker.com',
-                    password: 'test_pw',
+                const user = await User.create({
+                    email: 'tom@snacker.com',
+                    password: '123ert',
                 })
-                const response = await app.delete(
-                    `/api/reviews/${tempReview.id}`
+                const product = await Product.create({
+                    title: 'puff',
+                    brand: 'stay-puft',
+                    description: 'tasty',
+                    price: 1.1,
+                    country: 'usa',
+                })
+                const review = await Review.writeNew(
+                    user.id,
+                    product.id,
+                    4,
+                    'So good!'
                 )
-                expect(response.status).to.equal(204)
-                expect(await Review.findByPk(tempReview.id)).to.not.be.ok
+                const { body } = await app.get(`/api/reviews/${review.id}`)
+                expect(body.text).to.equal('So good!')
+                const deleteResponse = await app.delete(
+                    `/api/reviews/${review.id}`
+                )
+                expect(deleteResponse.status).to.equal(204)
+                expect(await Review.findByPk(review.id)).to.not.be.ok
             })
         })
         describe('PUT', () => {

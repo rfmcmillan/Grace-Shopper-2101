@@ -7,7 +7,9 @@ const {
 
 router.get('/', async (req, res, next) => {
     try {
-        const reviews = await Review.findAll()
+        const reviews = await Review.findAll({
+            include: [User, Product],
+        })
         res.send(reviews)
     } catch (error) {
         next(error)
@@ -16,7 +18,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const review = await Review.findByPk(req.params.id)
+        const review = await Review.findByPk(req.params.id, {
+            include: [User, Product],
+        })
         res.send(review)
     } catch (error) {
         next(error)

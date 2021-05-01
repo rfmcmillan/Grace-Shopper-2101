@@ -485,7 +485,7 @@ const init = async () => {
         )
 
         await Promise.all([
-            Review.writeNew(alejandra.id, Puff.id, 5, 'Totally addicted!'),
+            Review.writeNew(alejandra.id, Puff.id, 5, 'Delicious!'),
             Review.writeNew(kevin.id, PineappleCake.id, 5, 'So good!'),
             Review.writeNew(yiru.id, IceCreamBar.id, 5, 'Yum!'),
         ])
