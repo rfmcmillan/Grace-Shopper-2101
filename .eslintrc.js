@@ -1,26 +1,20 @@
 module.exports = {
-    extends: ['airbnb', 'plugin:prettier/recommended'],
-    plugins: ['jest'],
-    rules: {
-        'prettier/prettier': [
-            'error',
-            {
-                singleQuote: true,
-                semi: false,
-                endOfLine: 'auto',
-            },
-        ],
-        'no-plusplus': 'off',
-        'max-classes-per-file': 'off',
-        'react/jsx-filename-extension': 'off',
-        'react/prefer-stateless-function': 'off',
-        'react/state-in-constructor': 'off',
-        'import/prefer-default-export': 'off',
+  env: {
+    browser: true,
+    commonjs: true,
+    es2021: true,
+    node: true,
+  },
+  extends: ['plugin:react/recommended', 'plugin:mocha/recommended', 'airbnb'],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-    env: {
-        'jest/globals': true,
-        browser: true,
-        node: true,
-    },
-    parser: 'babel-eslint',
-}
+    ecmaVersion: 12,
+  },
+  plugins: ['react', 'mocha'],
+  rules: {
+    'linebreak-style': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+  },
+};
