@@ -76,7 +76,7 @@ describe('Users in Redux Store', function () {
         type: LOAD_USERS,
         users,
       });
-      // this should have changed:
+      // this should have changed :
       expect(newState.users).to.deep.equal(users);
     });
 
