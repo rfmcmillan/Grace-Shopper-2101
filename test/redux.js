@@ -21,7 +21,7 @@ const User = require('../server/db/models/User');
 
 enzyme.configure({ adapter: new Adapter() });
 
-// Redux
+//  Redux
 
 describe('loadUsersActionCreator', function () {
   it('returns a JavaScript Object', async function () {
