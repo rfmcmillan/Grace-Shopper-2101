@@ -1,8 +1,13 @@
+/* eslint-disable max-len */
+/* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 const { expect } = require('chai');
+const app = require('supertest')(require('../server/server'));
 const {
   db,
-  models: { Order, Product, ProductOrders, User },
+  models: {
+    Order, Product, ProductOrders, User,
+  },
 } = require('../server/db');
 
 describe('Order model and join table defination', function () {
@@ -11,6 +16,7 @@ describe('Order model and join table defination', function () {
   let user;
   let StrawberryPuff;
   let PineappleCake;
+  let IceCreamBar;
   beforeEach(async function () {
     await db.sync({ force: true });
 
@@ -36,7 +42,7 @@ describe('Order model and join table defination', function () {
         'https://www.food168.com.tw/upload_files/a2L-detail.jpg?fbclid=IwAR19giBuwx8ZA1xGzD6kzX2oMttS4796rIC8lLPGhcNTuoAzDHQbipL-e0c',
     });
 
-    const IceCreamBar = await Product.create({
+    IceCreamBar = await Product.create({
       title: 'Black Sugar Boba Ice Cream Bar',
       brand: 'Tigersugar',
       description:
@@ -52,15 +58,15 @@ describe('Order model and join table defination', function () {
       password: 'abc123',
     });
     [order1] = await user.getOrders({ where: { complete: false } });
-    await order1.addProducts([
-      [StrawberryPuff, 2],
-      [PineappleCake, 5],
-      [IceCreamBar, 5],
+    await Order.addProducts(order1.id, [
+      [StrawberryPuff.id, 2],
+      [PineappleCake.id, 5],
+      [IceCreamBar.id, 5],
     ]);
     order2 = await Order.create({});
-    await order2.addProducts([
-      [PineappleCake, 5],
-      [IceCreamBar, 2],
+    await Order.addProducts(order2.id, [
+      [PineappleCake.id, 5],
+      [IceCreamBar.id, 5],
     ]);
   });
   it('should exist', function () {
@@ -70,7 +76,9 @@ describe('Order model and join table defination', function () {
     expect((await Order.findAll({})).length).to.equal(2);
   });
   it('should contain the right datatypes and defaults', async function () {
-    const { userId, complete, date_of_purchase, purchased_items } = (
+    const {
+      userId, complete, date_of_purchase, purchased_items,
+    } = (
       await Order.findAll({})
     )[0];
 
@@ -88,7 +96,6 @@ describe('Order model and join table defination', function () {
       expect(purchase.complete).to.equal(true);
       expect(purchase.date_of_purchase).to.equal('2016-05-01');
       expect(purchase.purchased_items.length).to.equal(3);
-      // expect(purchase.purchased_items[0].title).to.equal('Strawberry Puff');
     });
     it('if order exists without a user should still work and return with no user', async function () {
       const purchase = await Order.purchase('2016-05-05', order2.id);
@@ -101,9 +108,12 @@ describe('Order model and join table defination', function () {
       expect(purchase.purchased_items[0].title).to.equal('Pineapple Cake');
     });
     it('if order doesnt exist should still be able to purchase by adding in products', async function () {
-      const purchase = await Order.purchase('2016-05-08', null, [
-        [StrawberryPuff, 2],
-      ]);
+      const purchase = await Order.purchase(
+        '2016-05-08',
+        null,
+        [[StrawberryPuff.id, 8]],
+        null,
+      );
 
       expect(purchase.userId).to.equal(null);
       expect(purchase.complete).to.equal(true);
@@ -116,10 +126,10 @@ describe('Order model and join table defination', function () {
         '2016-05-06',
         null,
         [
-          [StrawberryPuff, 2],
-          [PineappleCake, 5],
+          [StrawberryPuff.id, 2],
+          [PineappleCake.id, 5],
         ],
-        user.id
+        user.id,
       );
 
       expect(purchase.userId).to.equal(user.id);
@@ -130,18 +140,25 @@ describe('Order model and join table defination', function () {
       expect(purchase.purchased_items[0].title).to.equal('Strawberry Puff');
     });
     it('it should allow products amount to be increased with the instance methods created', async function () {
-      await order1.updateProductsAmount(StrawberryPuff, 10);
-      const products = await user.findOrder();
-      expect(products[0].title).to.equal('Strawberry Puff');
-      expect(products[0].amount).to.equal(10);
-      expect(products[2].title).to.equal('Black Sugar Boba Ice Cream Bar');
-      expect(products[2].amount).to.equal(5);
+      await Order.updateProductsAmount(order1.id, StrawberryPuff.id, 10);
+      const products = await User.getCart(user.id);
+      expect(
+        products.find(
+          (element) => element.title === StrawberryPuff.title && element.amount === 10,
+        ),
+      );
+      expect(
+        products.find(
+          (element) => element.title === IceCreamBar.title && element.amount === 5,
+        ),
+      );
     });
-    // it('it should allow products to be removed with the instance methods created', async function () {
-    //   await order1.updateProductsAmount(StrawberryPuff, 0);
-    //   const products = await user.findOrder();
-    //   expect(products[0].title).to.equal('Pineapple Cake');
-    // });
+
+    it('it should allow products to be removed with the instance methods created', async function () {
+      await Order.updateProductsAmount(order1.id, StrawberryPuff.id, 0);
+      const products = await User.getCart(user.id);
+      expect(products[0].title).to.equal('Pineapple Cake');
+    });
   });
   describe('Join table', function () {
     it('Product Orders Should exist', function () {
@@ -152,8 +169,67 @@ describe('Order model and join table defination', function () {
     });
     it('should create one row for each product added to an order', async function () {
       expect(
-        (await ProductOrders.findAll({ where: { orderId: order1.id } })).length
+        (await ProductOrders.findAll({ where: { orderId: order1.id } })).length,
       ).to.equal(3);
+    });
+  });
+
+  describe('Order Routes', function () {
+    describe('GET', function () {
+      it('/api/Orders', async function () {
+        const response = await app.get(`/api/Orders/cart/${user.id}`);
+        const { cart } = response.body;
+        expect(response.status).to.equal(200);
+        expect(cart).to.exist;
+        expect(cart.find((element) => element.title === 'Strawberry Puff'));
+      });
+
+      it('/api/purchases', async function () {
+        await Order.purchase('2016-05-06', order1.id, null, user.id);
+        const response = await app.get(`/api/Orders/purchases/${user.id}`);
+        const { purchases } = response.body;
+        expect(response.status).to.equal(200);
+        expect(purchases).to.exist;
+        expect(purchases[0].purchased_items.length).to.equal(3);
+      });
+    });
+
+    describe('PUT/POST', function () {
+      it('/api/Orders/purchase', async function () {
+        const purchase = {
+          date: '2016-05-06', orderId: order1.id, products: null, userId: user.id,
+        };
+        const response = await app.post('/api/Orders/purchase').send(purchase);
+        const { order } = response.body;
+        expect(response.status).to.equal(200);
+        expect(order).to.exist;
+        expect(order.purchased_items.length).to.equal(3);
+      });
+      it('/api/Orders/updateCart', async function () {
+        const update = { orderId: order1.id, productId: StrawberryPuff.id, amount: 15 };
+        await app.put('/api/Orders/updateCart').send(update);
+        const response = await app.get(`/api/Orders/cart/${user.id}`);
+        const { cart } = response.body;
+        expect(cart.find((element) => element.title === 'Strawberry Puff').amount).to.equal(15);
+      });
+      it('/api/orders/addToCart', async function () {
+        const Tortas = await Product.create({
+          title: 'Sweet Olive Oil Tortas',
+          brand: 'Inés Rosales',
+          description:
+              'Ines Rosales sweet olive oil tortas are all-natural, and made with extra virgin olive oil and the finest ingredients.',
+          price: 3,
+          inventory: 127,
+          country: 'Spain',
+          imageUrl:
+              'https://cdn.shopify.com/s/files/1/3105/8454/products/Ines-Rosales-Sweet-Tortas-with-spanish-oranges-myPanier-_main_870x870.jpg?v=1569228455',
+        });
+        const addToCart = { orderId: order1.id, products: [[Tortas.id, 2]] };
+        await app.put('/api/Orders/addToCart').send(addToCart);
+        const response = await app.get(`/api/Orders/cart/${user.id}`);
+        const { cart } = response.body;
+        expect(cart.find((element) => element.title === 'Sweet Olive Oil Tortas'));
+      });
     });
   });
 });
