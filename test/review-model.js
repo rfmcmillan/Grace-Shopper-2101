@@ -1,20 +1,20 @@
+/* eslint-disable no-useless-catch */
 const { expect } = require('chai');
+const app = require('supertest')(require('../server/server'));
 const {
   db,
   models: { Review, User, Product },
 } = require('../server/db');
 
-const app = require('supertest')(require('../server/server'));
-
-describe('Review Model', async function () {
+describe('Review Model', function () {
   beforeEach(async function () {
     try {
       await db.sync({ force: true });
-      const henry = await User.create({
+      await User.create({
         email: 'henry@snacker.com',
         password: 'henry_pw',
       });
-      const review = await Review.create({
+      await Review.create({
         rating: 5,
       });
     } catch (error) {
@@ -34,7 +34,7 @@ describe('Review Model', async function () {
   });
 
   it('rating must be between 1 and 5', async function () {
-    const review = await Review.create({
+    await Review.create({
       rating: 4,
     });
     const reviews = await Review.findAll();
@@ -55,10 +55,10 @@ describe('Review Model', async function () {
     });
   });
 
-  describe('.writeNew() class method', async () => {
-    beforeEach(async () => {
+  describe('.writeNew() class method', function () {
+    beforeEach(async function () {
       try {
-        const product = await Product.create({
+        await Product.create({
           title: 'puff',
           brand: 'stay-puft',
           description: 'tasty',
@@ -66,10 +66,10 @@ describe('Review Model', async function () {
           country: 'usa',
         });
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     });
-    it('returns a new review', async () => {
+    it('returns a new review', async function () {
       const henry = await User.findOne({
         where: {
           email: 'henry@snacker.com',
@@ -83,31 +83,31 @@ describe('Review Model', async function () {
       const review = await Review.writeNew(henry.id, puff.id, 5, 'test');
       expect(review.id).to.be.ok;
     });
-    it('produces an error if no userId is provided', async () => {
+    it('produces an error if no userId is provided', async function () {
       try {
         const puff = await Product.findOne({
           where: {
             title: 'puff',
           },
         });
-        const review = await Review.writeNew(null, puff.id, 4, 'test');
+        await Review.writeNew(null, puff.id, 4, 'test');
       } catch (error) {
         expect(error.message).to.equal('a review requires a userId');
       }
     });
-    it('produces an error if no productId is provided', async () => {
+    it('produces an error if no productId is provided', async function () {
       try {
         const henry = await User.findOne({
           where: {
             email: 'henry@snacker.com',
           },
         });
-        const review = await Review.writeNew(henry.id, null, 4, 'test');
+        await Review.writeNew(henry.id, null, 4, 'test');
       } catch (error) {
         expect(error.message).to.equal('a review requires a productId');
       }
     });
-    it('produces an error if no rating is provided', async () => {
+    it('produces an error if no rating is provided', async function () {
       try {
         const henry = await User.findOne({
           where: {
@@ -119,15 +119,15 @@ describe('Review Model', async function () {
             title: 'puff',
           },
         });
-        const review = await Review.writeNew(henry.id, puff.id, null, 'test');
+        await Review.writeNew(henry.id, puff.id, null, 'test');
       } catch (error) {
         expect(error.message).to.equal('a review requires a rating');
       }
     });
   });
 
-  describe('Review Routes', () => {
-    beforeEach(async () => {
+  describe('Review Routes', function () {
+    beforeEach(async function () {
       const user = await User.create({
         email: 'rosie@snacker.com',
         password: '123ert',
@@ -141,15 +141,15 @@ describe('Review Model', async function () {
       });
       await Review.writeNew(user.id, product.id, 4, 'So good!');
     });
-    describe('GET', () => {
-      it('api/reviews', async () => {
+    describe('GET', function () {
+      it('api/reviews', async function () {
         const response = await app.get('/api/reviews');
         const reviews = response.body;
         expect(response.status).to.equal(200);
         expect(reviews).to.be.ok;
         expect(reviews).to.be.an('array');
       });
-      it('api/reviews/:id', async () => {
+      it('api/reviews/:id', async function () {
         const user = await User.create({
           email: 'tom@snacker.com',
           password: '123ert',
@@ -165,19 +165,19 @@ describe('Review Model', async function () {
           user.id,
           product.id,
           4,
-          'So good!'
+          'So good!',
         );
 
         const response = await app.get(`/api/reviews/${review.id}`);
-        const body = response.body;
+        const { body } = response;
         expect(response.status).to.equal(200);
         expect(body).to.be.ok;
         expect(body).to.be.an('object');
         expect(body.rating).to.be.ok;
       });
     });
-    describe('POST', () => {
-      it('api/reviews', async () => {
+    describe('POST', function () {
+      it('api/reviews', async function () {
         const jeff = await User.create({
           email: 'jeff@snacker.com',
           password: 'jeff_pw',
@@ -203,8 +203,8 @@ describe('Review Model', async function () {
         expect(newReview).to.be.an('object');
       });
     });
-    describe('DELETE', () => {
-      it('api/reviews/:id', async () => {
+    describe('DELETE', function () {
+      it('api/reviews/:id', async function () {
         const user = await User.create({
           email: 'tom@snacker.com',
           password: '123ert',
@@ -220,7 +220,7 @@ describe('Review Model', async function () {
           user.id,
           product.id,
           4,
-          'So good!'
+          'So good!',
         );
         const { body } = await app.get(`/api/reviews/${review.id}`);
         expect(body.text).to.equal('So good!');
@@ -229,8 +229,8 @@ describe('Review Model', async function () {
         expect(await Review.findByPk(review.id)).to.not.be.ok;
       });
     });
-    describe('PUT', () => {
-      it('api/reviews/:id', async () => {
+    describe('PUT', function () {
+      it('api/reviews/:id', async function () {
         const jeff = await User.create({
           email: 'jeff@snacker.com',
           password: 'jeff_pw',
@@ -248,7 +248,7 @@ describe('Review Model', async function () {
           jeff.id,
           cheeto.id,
           3,
-          'Decent.'
+          'Decent.',
         );
         const response = await app.put(`/api/reviews/${tempReview.id}`).send({
           rating: 4,
