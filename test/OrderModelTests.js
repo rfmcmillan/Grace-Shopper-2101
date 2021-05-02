@@ -137,11 +137,11 @@ describe('Order model and join table defination', function () {
       expect(products[2].title).to.equal('Black Sugar Boba Ice Cream Bar');
       expect(products[2].amount).to.equal(5);
     });
-    it('it should allow products to be removed with the instance methods created', async function () {
-      await order1.updateProductsAmount(StrawberryPuff, 0);
-      const products = await user.findOrder();
-      expect(products[0].title).to.equal('Pineapple Cake');
-    });
+    // it('it should allow products to be removed with the instance methods created', async function () {
+    //   await order1.updateProductsAmount(StrawberryPuff, 0);
+    //   const products = await user.findOrder();
+    //   expect(products[0].title).to.equal('Pineapple Cake');
+    // });
   });
   describe('Join table', function () {
     it('Product Orders Should exist', function () {

@@ -14,7 +14,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id, {include: [Country]});
+    const product = await Product.findByPk(req.params.id, {
+      include: [Country],
+    });
     res.send(product);
   } catch (ex) {
     next(ex);
@@ -56,11 +58,19 @@ router.post('/', async (req, res, next) => {
       where: { name: location },
     });
     await createProduct.setCountry(country);
-    //Or country[0]
-    //Product.addCountry???
     res.status(201).send(createProduct);
   } catch (ex) {
     next(ex);
+  }
+});
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const productToModify = await Product.findByPk(req.params.id);
+    const updated = await productToModify.update(req.body);
+    res.status(200).send(updated);
+  } catch (error) {
+    next(error);
   }
 });
 
