@@ -25,7 +25,7 @@ Order.prototype.addProducts = function (dupletsarr) {
         orderId: this.id,
         productId: i[0].id,
         product_amount: i[1],
-      }),
+      })
     );
   });
   return Promise.all(promises);
@@ -51,7 +51,7 @@ Order.purchase = async function (
   date,
   orderId = null,
   products = [],
-  userId = null,
+  userId = null
 ) {
   let order;
   const jsonobj = [];
@@ -82,19 +82,19 @@ Order.purchase = async function (
 };
 
 // a hook to hash the User password before creation so it is always stored in the database encrypted
-User.beforeCreate(async (user) => {
-  try {
-    const hash = await bcrypt.hash(user.password, 10);
-    user.password = hash;
-  } catch (err) {
-    throw new Error(err);
-  }
-});
+// User.beforeCreate(async (user) => {
+//   try {
+//     const hash = await bcrypt.hash(user.password, 2);
+//     user.password = hash;
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// });
 
 // an added hook to hash the password if it is changed using save()
 User.beforeSave(async (user) => {
   try {
-    const hash = await bcrypt.hash(user.password, 10);
+    const hash = await bcrypt.hash(user.password, 2);
     user.password = hash;
   } catch (err) {
     throw new Error(err);
@@ -127,5 +127,11 @@ User.prototype.findOrder = async function () {
 };
 
 module.exports = {
-  Order, Product, ProductOrders, Country, Category, User, Review,
+  Order,
+  Product,
+  ProductOrders,
+  Country,
+  Category,
+  User,
+  Review,
 };

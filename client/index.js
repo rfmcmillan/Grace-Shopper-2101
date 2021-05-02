@@ -7,6 +7,7 @@ import Main from './components/Main';
 
 render(
   <Provider store={store}>
+    <div>Welcome To Global Snacker!</div>
     <Main />
   </Provider>,
   document.querySelector('#app')
