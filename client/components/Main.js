@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import { loadUsers } from '../store';
+import { loadUsers } from '../store/usersReducer';
 
 class Main extends React.Component {
   componentDidMount() {
