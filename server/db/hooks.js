@@ -25,7 +25,7 @@ Order.addProducts = function (orderId, dupletsarr) {
         orderId,
         productId: i[0],
         product_amount: i[1],
-      }),
+      })
     );
   });
   return Promise.all(promises);
@@ -54,7 +54,7 @@ Order.purchase = async function (
   date,
   orderId = null,
   products = [],
-  userId = null,
+  userId = null
 ) {
   try {
     let order;
@@ -93,7 +93,7 @@ Order.purchase = async function (
 // a hook to hash the User password before creation so it is always stored in the database encrypted
 User.beforeCreate(async (user) => {
   try {
-    const hash = await bcrypt.hash(user.password, 10);
+    const hash = await bcrypt.hash(user.password, 2);
     user.password = hash;
   } catch (err) {
     throw new Error(err);
@@ -103,7 +103,7 @@ User.beforeCreate(async (user) => {
 // an added hook to hash the password if it is changed using save()
 User.beforeSave(async (user) => {
   try {
-    const hash = await bcrypt.hash(user.password, 10);
+    const hash = await bcrypt.hash(user.password, 2);
     user.password = hash;
   } catch (err) {
     throw new Error(err);
@@ -123,7 +123,10 @@ User.findPurchases = async function (userId) {
 User.getCart = async function (userId) {
   try {
     const returnobj = [];
-    const order = await Order.findOne({ where: { userId, complete: false }, include: [Product] });
+    const order = await Order.findOne({
+      where: { userId, complete: false },
+      include: [Product],
+    });
     order.products.forEach((e) => {
       returnobj.push({
         ...e.dataValues,
