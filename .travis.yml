@@ -7,4 +7,4 @@ before_script:
   - psql -c 'create database snacker;' -U postgres
 
 env:
-  - JWT=snacker-pass
+  - JWT=snack
