@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
@@ -33,5 +35,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-//I couldn't get this to work with mapStateToProps or mapDispatchToProps yet
+// I couldn't get this to work with mapStateToProps or mapDispatchToProps yet
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
