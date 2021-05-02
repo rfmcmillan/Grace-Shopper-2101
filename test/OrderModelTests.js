@@ -5,7 +5,9 @@ const { expect } = require('chai');
 const app = require('supertest')(require('../server/server'));
 const {
   db,
-  models: { Order, Product, ProductOrders, User },
+  models: {
+    Order, Product, ProductOrders, User,
+  },
 } = require('../server/db');
 
 describe('Order model and join table defination', function () {
@@ -74,7 +76,9 @@ describe('Order model and join table defination', function () {
     expect((await Order.findAll({})).length).to.equal(2);
   });
   it('should contain the right datatypes and defaults', async function () {
-    const { userId, complete, date_of_purchase, purchased_items } = (
+    const {
+      userId, complete, date_of_purchase, purchased_items,
+    } = (
       await Order.findAll({})
     )[0];
 
@@ -125,7 +129,7 @@ describe('Order model and join table defination', function () {
           [StrawberryPuff.id, 2],
           [PineappleCake.id, 5],
         ],
-        user.id
+        user.id,
       );
 
       expect(purchase.userId).to.equal(user.id);

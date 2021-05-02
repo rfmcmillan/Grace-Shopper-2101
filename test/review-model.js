@@ -10,11 +10,11 @@ describe('Review Model', function () {
   beforeEach(async function () {
     try {
       await db.sync({ force: true });
-      const henry = await User.create({
+      await User.create({
         email: 'henry@snacker.com',
         password: 'henry_pw',
       });
-      const review = await Review.create({
+      await Review.create({
         rating: 5,
       });
     } catch (error) {
@@ -34,7 +34,7 @@ describe('Review Model', function () {
   });
 
   it('rating must be between 1 and 5', async function () {
-    const review = await Review.create({
+    await Review.create({
       rating: 4,
     });
     const reviews = await Review.findAll();
@@ -58,7 +58,7 @@ describe('Review Model', function () {
   describe('.writeNew() class method', function () {
     beforeEach(async function () {
       try {
-        const product = await Product.create({
+        await Product.create({
           title: 'puff',
           brand: 'stay-puft',
           description: 'tasty',
@@ -66,7 +66,7 @@ describe('Review Model', function () {
           country: 'usa',
         });
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     });
     it('returns a new review', async function () {
@@ -90,7 +90,7 @@ describe('Review Model', function () {
             title: 'puff',
           },
         });
-        const review = await Review.writeNew(null, puff.id, 4, 'test');
+        await Review.writeNew(null, puff.id, 4, 'test');
       } catch (error) {
         expect(error.message).to.equal('a review requires a userId');
       }
@@ -102,7 +102,7 @@ describe('Review Model', function () {
             email: 'henry@snacker.com',
           },
         });
-        const review = await Review.writeNew(henry.id, null, 4, 'test');
+        await Review.writeNew(henry.id, null, 4, 'test');
       } catch (error) {
         expect(error.message).to.equal('a review requires a productId');
       }
@@ -119,12 +119,7 @@ describe('Review Model', function () {
             title: 'puff',
           },
         });
-        const review = await Review.writeNew(
-          henry.id,
-          puff.id,
-          null,
-          'test',
-        );
+        await Review.writeNew(henry.id, puff.id, null, 'test');
       } catch (error) {
         expect(error.message).to.equal('a review requires a rating');
       }
@@ -229,9 +224,7 @@ describe('Review Model', function () {
         );
         const { body } = await app.get(`/api/reviews/${review.id}`);
         expect(body.text).to.equal('So good!');
-        const deleteResponse = await app.delete(
-          `/api/reviews/${review.id}`,
-        );
+        const deleteResponse = await app.delete(`/api/reviews/${review.id}`);
         expect(deleteResponse.status).to.equal(204);
         expect(await Review.findByPk(review.id)).to.not.be.ok;
       });
@@ -257,12 +250,10 @@ describe('Review Model', function () {
           3,
           'Decent.',
         );
-        const response = await app
-          .put(`/api/reviews/${tempReview.id}`)
-          .send({
-            rating: 4,
-            text: 'Actually, this snack is growing on me',
-          });
+        const response = await app.put(`/api/reviews/${tempReview.id}`).send({
+          rating: 4,
+          text: 'Actually, this snack is growing on me',
+        });
         const { rating, text } = response.body;
         expect(response.status).to.equal(200);
         expect(rating).to.equal(4);
