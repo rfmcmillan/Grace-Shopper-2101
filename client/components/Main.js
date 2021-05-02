@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { loadUsers } from '../store';
+import AllProducts from './AllProducts';
+import SingleProduct from './SingleProduct';
 
 class Main extends React.Component {
   componentDidMount() {
@@ -12,6 +14,10 @@ class Main extends React.Component {
     return (
       <Router>
         <div>Welcome To Global Snacker!</div>
+        <Route exact path="/products" component={AllProducts} />
+        <Switch>
+          <Route exact path="/products/:id" component={SingleProduct} />
+        </Switch>
       </Router>
     );
   }
