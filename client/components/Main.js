@@ -36,8 +36,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-<<<<<<< HEAD
-// I couldn't get this to work with mapStateToProps or mapDispatchToProps yet
-=======
->>>>>>> 1235bcc5f2d3d2e47ee4284ffb5696d8c99295fd
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
