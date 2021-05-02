@@ -17,10 +17,7 @@ Category.belongsToMany(Product, {
 
 Product.belongsToMany(Category, { through: 'productcategories' });
 
-Product.belongsToMany(Order, {
-  through: ProductOrders,
-  foreignKey: 'productId',
-});
+Product.belongsToMany(Order, { through: ProductOrders, foreignKey: 'productId' });
 Order.belongsToMany(Product, { through: ProductOrders, foreignKey: 'orderId' });
 
 User.hasMany(Order, { foreignKey: { name: 'userId', allowNull: true } });
