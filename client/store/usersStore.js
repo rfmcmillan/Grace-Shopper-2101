@@ -5,7 +5,7 @@ const LOAD_USERS = 'LOAD_USERS';
 //Create Action Creators & Thunks
 
 //Load Users Action Creator
-const loadUsersAC = (users) => {
+const loadUsersActionCreator = (users) => {
   return {
     type: LOAD_USERS,
     users,
@@ -16,7 +16,7 @@ const loadUsersAC = (users) => {
 const loadUsers = () => {
   return async (dispatch) => {
     const users = await axios.get('api/users');
-    dispatch(loadUsersAC(users));
+    dispatch(loadUsersActionCreator(users));
   };
 };
 
@@ -29,5 +29,4 @@ const usersReducer = (state = [], action) => {
 };
 
 //Export Thunks As Named Exports
-export default usersReducer;
-export { loadUsers };
+export { loadUsers, loadUsersActionCreator, LOAD_USERS, usersReducer };
