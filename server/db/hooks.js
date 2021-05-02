@@ -17,13 +17,13 @@ const {
 /* an instance method to add products to an order,
 this accepts an array of duplets ex [[product, amount], [product2, amount]] */
 
-Order.prototype.addProducts = function (dupletsarr) {
+Order.addProducts = function (orderId, dupletsarr) {
   const promises = [];
   dupletsarr.forEach((i) => {
     promises.push(
       ProductOrders.create({
-        orderId: this.id,
-        productId: i[0].id,
+        orderId,
+        productId: i[0],
         product_amount: i[1],
       })
     );
@@ -32,16 +32,19 @@ Order.prototype.addProducts = function (dupletsarr) {
 };
 
 // an instance method designed to remove products from an order based on the amount
-Order.prototype.updateProductsAmount = async function (product, amount) {
-  const pair = await ProductOrders.findOne({
-    where: { orderId: this.id, productId: product.id },
-  });
-  if (amount === 0) {
-    await pair.destroy();
-    return;
+Order.updateProductsAmount = async function (orderId, productId, amount) {
+  try {
+    const pair = await ProductOrders.findOne({
+      where: { orderId, productId },
+    });
+    if (amount === 0) {
+      return pair.destroy();
+    }
+    pair.product_amount = amount;
+    return pair.save();
+  } catch (err) {
+    throw new Error(err);
   }
-  pair.product_amount = amount;
-  await pair.save();
 };
 
 // // a class method for orders that causes the order to
@@ -53,32 +56,38 @@ Order.purchase = async function (
   products = [],
   userId = null
 ) {
-  let order;
-  const jsonobj = [];
-  if (!orderId) {
-    order = await Order.create({});
-    await order.addProducts(products);
-    orderId = order.id;
+  try {
+    let order;
+    const jsonobj = [];
+    if (!orderId) {
+      order = await Order.create({});
+      await Order.addProducts(order.id, products);
+      orderId = order.id;
+    }
+
+    order = await this.findByPk(orderId, { include: [Product] });
+
+    if (userId) {
+      order.userId = userId;
+    }
+    order.products.forEach((e, i) => {
+      jsonobj[i] = { ...e.dataValues, amount: e.productorders.product_amount };
+    });
+
+    order.complete = 'true';
+    order.date_of_purchase = date;
+    order.purchased_items = jsonobj;
+
+    await order.save();
+    // create a new order for verified users
+    if (order.userId) {
+      Order.create({ userId: order.userId });
+    }
+
+    return order;
+  } catch (err) {
+    throw new Error(err);
   }
-  order = await this.findByPk(orderId, { include: [Product] });
-  if (userId) {
-    order.userId = userId;
-  }
-  order.products.forEach((e, i) => {
-    jsonobj[i] = { ...e.dataValues, amount: e.productorders.product_amount };
-  });
-
-  order.complete = 'true';
-  order.date_of_purchase = date;
-  order.purchased_items = jsonobj;
-
-  await order.save();
-
-  if (order.userId) {
-    Order.create({ userId: order.userId });
-  }
-
-  return order;
 };
 
 // a hook to hash the User password before creation so it is always stored in the database encrypted
@@ -106,24 +115,28 @@ User.beforeSave(async (user) => {
 User.afterCreate((user) => Order.create({ userId: user.id }));
 
 // returns all completed purchases
-User.prototype.findPurchases = function () {
-  return this.getOrders({ where: { complete: true } });
+User.findPurchases = async function (userId) {
+  return Order.findAll({ where: { userId, complete: true } });
 };
 // a class method for users to find the active open order
 // this might need review becuase it may be way over engineered haha
-User.prototype.findOrder = async function () {
-  let order = (
-    await this.getOrders({ where: { complete: false }, include: [Product] })
-  )[0];
-  const returnobj = [];
-  order = await Order.findOne({ where: { id: order.id }, include: Product });
-  order.products.forEach((e) => {
-    returnobj.push({
-      ...e.dataValues,
-      amount: e.productorders.product_amount,
+User.getCart = async function (userId) {
+  try {
+    const returnobj = [];
+    const order = await Order.findOne({
+      where: { userId, complete: false },
+      include: [Product],
     });
-  });
-  return returnobj;
+    order.products.forEach((e) => {
+      returnobj.push({
+        ...e.dataValues,
+        amount: e.productorders.product_amount,
+      });
+    });
+    return returnobj;
+  } catch (err) {
+    throw new Error('no cart found Error:', err);
+  }
 };
 
 module.exports = {

@@ -8,8 +8,8 @@ const {
   models: { User, Review, Product },
 } = require('../server/db');
 
-describe('User Model', () => {
-  beforeEach(async () => {
+describe('User Model', function () {
+  beforeEach(async function () {
     try {
       await db.sync({ force: true });
       await User.create({
@@ -29,17 +29,17 @@ describe('User Model', () => {
     }
   });
 
-  it('should exist', async () => {
+  it('should exist', async function () {
     const users = await User.findAll();
     expect(users).to.exist;
   });
-  it('should return an array', async () => {
+  it('should return an array', async function () {
     const users = await User.findAll();
     expect(users).to.be.an('array');
     expect(users.length).to.be.at.least(0);
   });
-  //very simple tests. they will fail if you provide invalid inputs to the User.create() call that is within the test
-  it('should require an email address', async () => {
+  // very simple tests. they will fail if you provide invalid inputs to the User.create() call that is within the test
+  it('should require an email address', async function () {
     const user = await User.create({
       email: 'rosie@snacker.com',
       password: '123ert',
@@ -47,7 +47,7 @@ describe('User Model', () => {
     const users = await User.findAll();
     expect(users.length).to.equal(4);
   });
-  it('should require a password', async () => {
+  it('should require a password', async function () {
     const user = await User.create({
       email: 'rosie@snacker.com',
       password: '123ert',
@@ -55,7 +55,7 @@ describe('User Model', () => {
     const users = await User.findAll();
     expect(users.length).to.equal(4);
   });
-  it('provided email address is valid email address', async () => {
+  it('provided email address is valid email address', async function () {
     const user = await User.create({
       email: 'rosie@snacker.com',
       password: '123ert',
@@ -63,7 +63,7 @@ describe('User Model', () => {
     const users = await User.findAll();
     expect(users.length).to.equal(4);
   });
-  it('default value for `admin` property is `false`', async () => {
+  it('default value for `admin` property is `false`', async function () {
     const user = await User.create({
       email: 'rosie@snacker.com',
       password: '123ert',
@@ -71,8 +71,8 @@ describe('User Model', () => {
     expect(user.admin).to.equal(false);
   });
 
-  describe('JWT authentication', () => {
-    it('there are three test users', async () => {
+  describe('JWT authentication', function () {
+    it('there are three test users', async function () {
       const users = await User.findAll();
       expect(users.length).to.equal(3);
     });
@@ -87,13 +87,13 @@ describe('User Model', () => {
           console.log(olive.password);
           const token = await User.authenticate({
             email: 'olive@snacker.com',
-            password: olive.password,
+            password: 'olive_pw',
           });
           expect(token).to.be.ok;
         });
       });
-      describe('incorrect credentials', () => {
-        it('throws an error', async () => {
+      describe('incorrect credentials', function () {
+        it('throws an error', async function () {
           try {
             await User.authenticate({
               email: 'kevin@snacker.com',
@@ -108,17 +108,17 @@ describe('User Model', () => {
         });
       });
     });
-    describe('User.byToken()', () => {
-      describe('with a valid token', async () => {
-        it('returns a user', async () => {
+    describe('User.byToken()', function () {
+      describe('with a valid token', function () {
+        it('returns a user', async function () {
           const users = await User.findAll();
           const token = await jwt.sign({ id: users[2].id }, process.env.JWT);
           const user = await User.byToken(token);
           expect(user.email).to.equal('yiru@snacker.com');
         });
       });
-      describe('with an invalid token', async () => {
-        it('throws an error', async () => {
+      describe('with an invalid token', function () {
+        it('throws an error', async function () {
           const users = await User.findAll();
           try {
             const token = await jwt.sign({ id: users[2].id }, 'invalid-token');
@@ -133,8 +133,6 @@ describe('User Model', () => {
       });
     });
   });
-  //very simple tests. they will fail if you provide invalid inputs to the User.create() call that is within the test
-
   describe('User Routes', function () {
     beforeEach(async function () {
       const user = await User.create({
@@ -170,8 +168,8 @@ describe('User Model', () => {
         expect(user).to.be.an('object');
       });
     });
-    describe('POST', () => {
-      it('api/users', async () => {
+    describe('POST', function () {
+      it('api/users', async function () {
         const response = await app.post('/api/users').send({
           email: 'test@snacker.com',
           password: 'test_pw',
@@ -182,8 +180,8 @@ describe('User Model', () => {
         expect(newUser).to.be.an('object');
       });
     });
-    describe('DELETE', () => {
-      it('api/users/:id', async () => {
+    describe('DELETE', function () {
+      it('api/users/:id', async function () {
         const tempUser = await User.create({
           email: 'test@snacker.com',
           password: 'test_pw',
@@ -193,8 +191,8 @@ describe('User Model', () => {
         expect(await User.findByPk(tempUser.id)).to.not.be.ok;
       });
     });
-    describe('PUT', () => {
-      it('api/users/:id', async () => {
+    describe('PUT', function () {
+      it('api/users/:id', async function () {
         const tempUser = await User.create({
           email: 'test@snacker.com',
           password: 'test_pw',
