@@ -12,7 +12,7 @@ const loadUsersActionCreator = (users) => {
   };
 };
 
-//Load Users Thunk
+// Load Users Thunk
 const loadUsers = () => {
   return async (dispatch) => {
     const response = await axios.get('api/users');
