@@ -55,4 +55,4 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default store;
 //Export Thunks As Named Exports
-export { loadUsers, loaded };
+export { loadUsers, loaded, reducer };

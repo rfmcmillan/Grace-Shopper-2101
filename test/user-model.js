@@ -76,16 +76,30 @@ describe('User Model', function () {
       const users = await User.findAll();
       expect(users.length).to.equal(3);
     });
-
-    describe('User.authenticate', function () {
-      describe('correct credentials', function () {
-        it('returns a token', async function () {
-          const yiru = await User.findOne({
-            where: { email: 'yiru@snacker.com' },
+    describe('User update', () => {
+      describe('change email', function () {
+        it('does not change the password', async function () {
+          const elmo = await User.create({
+            email: 'elmo@snacker.com',
+            password: 'elmo_pw',
+          });
+          const password = elmo.password;
+          elmo.email = 'elmo2@snacker.com';
+          await elmo.save();
+          expect(elmo.password).to.equal(password);
+        });
+      });
+    });
+    describe('User.authenticate', () => {
+      describe('correct credentials', () => {
+        it('returns a token', async () => {
+          const olive = await User.create({
+            email: 'olive@snacker.com',
+            password: 'olive_pw',
           });
           const token = await User.authenticate({
-            email: 'yiru@snacker.com',
-            password: yiru.password,
+            email: 'olive@snacker.com',
+            password: 'olive_pw',
           });
           expect(token).to.be.ok;
         });
@@ -100,7 +114,7 @@ describe('User Model', function () {
           } catch (error) {
             expect(error.status).to.equal(401);
             expect(error.message).to.equal(
-              'The email address or password that you provided is incorrect.',
+              'The email address or password that you provided is incorrect.'
             );
           }
         });
@@ -110,10 +124,7 @@ describe('User Model', function () {
       describe('with a valid token', function () {
         it('returns a user', async function () {
           const users = await User.findAll();
-          const token = await jwt.sign(
-            { id: users[2].id },
-            process.env.JWT,
-          );
+          const token = await jwt.sign({ id: users[2].id }, process.env.JWT);
           const user = await User.byToken(token);
           expect(user.email).to.equal('yiru@snacker.com');
         });
@@ -122,25 +133,21 @@ describe('User Model', function () {
         it('throws an error', async function () {
           const users = await User.findAll();
           try {
-            const token = await jwt.sign(
-              { id: users[2].id },
-              'invalid-token',
-            );
+            const token = await jwt.sign({ id: users[2].id }, 'invalid-token');
             await User.byToken(token);
           } catch (error) {
             expect(error.status).to.equal(401);
             expect(error.message).to.equal(
-              'The token that you provided is not valid.',
+              'The token that you provided is not valid.'
             );
           }
         });
       });
     });
   });
-  // very simple tests. they will fail if you provide invalid inputs to the User.create() call that is within the test
-
   describe('User Routes', function () {
     beforeEach(async function () {
+      await db.sync({ force: true });
       const user = await User.create({
         email: 'rosie@snacker.com',
         password: '123ert',
@@ -152,7 +159,8 @@ describe('User Model', function () {
         price: 1.1,
         country: 'usa',
       });
-      await Review.writeNew(user.id, product.id, 4, 'So good!');
+      const review = await Review.writeNew(user.id, product.id, 4, 'So good!');
+      let seed = { user, product, review };
     });
     describe('GET', function () {
       it('api/users', async function () {
@@ -203,15 +211,63 @@ describe('User Model', function () {
           email: 'test@snacker.com',
           password: 'test_pw',
         });
-        const response = await app
-          .put(`/api/users/${tempUser.id}`)
-          .send({
-            email: 'changed@snacker.com',
-            password: 'changed_pw',
-          });
+        const response = await app.put(`/api/users/${tempUser.id}`).send({
+          email: 'changed@snacker.com',
+          password: 'changed_pw',
+        });
         const { email } = response.body;
         expect(response.status).to.equal(200);
         expect(email).to.equal('changed@snacker.com');
+      });
+    });
+  });
+  describe('POST /api/auth', function () {
+    beforeEach(async function () {
+      await db.sync({ force: true });
+      const user = await User.create({
+        email: 'rosie@snacker.com',
+        password: 'rosie_pw',
+      });
+    });
+    describe('with valid credentials', function () {
+      it('returns a token', async function () {
+        const response = await app.post('/api/auth').send({
+          email: 'rosie@snacker.com',
+          password: 'rosie_pw',
+        });
+        expect(response.status).to.equal(200);
+        expect(response.body.token).to.be.ok;
+      });
+    });
+    describe('with invalid credentials', function () {
+      it('throws an error', async function () {
+        const response = await app.post('/api/auth').send({
+          email: 'rosie@snacker.com',
+          password: 'rosie_incorrect',
+        });
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(
+          'The email address or password that you provided is incorrect.'
+        );
+      });
+    });
+  });
+  describe('POST /api/auth', function () {
+    describe('with valid token', async function () {
+      it('returns a user', async function () {
+        await db.sync({ force: true });
+        const user = await User.create({
+          email: 'rosie@snacker.com',
+          password: 'rosie_pw',
+        });
+        const token = await jwt.sign({ id: user.id }, process.env.JWT);
+        const response = await app.get('/api/auth').set({
+          authorization: token,
+        });
+
+        expect(response.status).to.equal(200);
+
+        expect(response.body.email).to.equal('rosie@snacker.com');
       });
     });
   });
