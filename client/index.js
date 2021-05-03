@@ -1,14 +1,16 @@
 // Where Render React Main Component
-import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './store';
-
 import Main from './components/Main';
+import React, { Component } from 'react';
+import { HashRouter, Route, Link, Switch } from 'react-router-dom';
+import { connect, Provider } from 'react-redux';
+import store from './store';
 
 render(
   <Provider store={store}>
     <Main />
   </Provider>,
-  document.querySelector('#app')
+  document.getElementById('app')
 );
+
+export { Main };
