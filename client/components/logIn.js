@@ -16,7 +16,6 @@ class LogIn extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    this.exchangeToken = this.exchangeToken.bind(this);
   }
 
   componentDidMount() {
