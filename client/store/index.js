@@ -1,11 +1,13 @@
 // Create Store Here
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import axios from 'axios';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import axios from 'axios';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+
 import { usersReducer } from './usersStore';
-import { productReducer } from './products/products';
+import productReducer from './products/products';
 import singleProductReducer from './products/singleProduct';
+import countriesReducer from './countries';
 
 const initialState = {
   products: [],
@@ -30,6 +32,7 @@ export const reducer = combineReducers({
   users: usersReducer,
   products: productReducer,
   currProduct: singleProductReducer,
+  countries: countriesReducer,
 });
 
 //Create Store
