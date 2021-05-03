@@ -16,10 +16,15 @@ class LogIn extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.exchangeToken = this.exchangeToken.bind(this);
   }
 
-  async componentDidMount() {
-    const token = window.localStorage.getItem('token', token);
+  componentDidMount() {
+    this.exchangeToken();
+  }
+
+  async exchangeToken() {
+    const token = window.localStorage.getItem('token');
     if (token) {
       const response = await axios.get('/api/auth', {
         headers: {
@@ -39,16 +44,9 @@ class LogIn extends React.Component {
 
   async login(event, email, password) {
     event.preventDefault();
-    let response = await axios.post('/api/auth', { email, password });
-    const { token } = response.data;
+    const { token } = (await axios.post('/api/auth', { email, password })).data;
     window.localStorage.setItem('token', token);
-    response = await axios.get('/api/auth', {
-      headers: {
-        authorization: token,
-      },
-    });
-    const user = response.data;
-    this.setState({ auth: user });
+    this.exchangeToken();
   }
 
   logout() {
@@ -64,15 +62,6 @@ class LogIn extends React.Component {
         <div>
           <h4>Log In:</h4>
           <form onSubmit={(event) => login(event, email, password)}>
-            <h5 className="error">
-              {!!error &&
-                JSON.stringify(
-                  error.errors.map((error) => {
-                    return error.message;
-                  }),
-                  null
-                )}
-            </h5>
             <label>Email Address:</label>
             <input name="email" value={email} onChange={onChange} />
             <br />
@@ -90,22 +79,12 @@ class LogIn extends React.Component {
             Welcome{auth.firstName ? `, ${auth.firstName}` : ''}! You are now
             logged in!
           </h4>
-          <form onSubmit={(event) => login(event, email, password)}>
-            <h5 className="error">
-              {!!error &&
-                JSON.stringify(
-                  error.errors.map((error) => {
-                    return error.message;
-                  }),
-                  null
-                )}
-            </h5>
-            <button onClick={logout}>Log Out</button>
-          </form>
+          <button onClick={logout}>Log Out</button>
         </div>
       );
     }
   }
 }
 
+//next step is to connect this to the redux store and create action creator and thunks for auth
 export default connect(null, null)(LogIn);
