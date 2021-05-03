@@ -2,8 +2,6 @@ import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
 
-const russel = { email: 'russel@snacker.com', password: 'russel_pw' };
-
 class LogIn extends React.Component {
   constructor() {
     super();
@@ -18,7 +16,7 @@ class LogIn extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
-  // when the component mounts, it checks local storage for a token and if there is one, then it sets the local state's auth property to the user object. You can then use the 'auth object' in an if/else statement inside the render method to change the appearance of the component based on whether or not the auth property has a user or not (in other words, whether a user is logged in or not)
+  //  when the component mounts, it checks local storage for a token and if there is one, then it sets the local state's auth property to the user object. You can then use the 'auth object' in an if/else statement inside the render method to change the appearance of the component based on whether or not the auth property has a user or not (in other words, whether a user is logged in or not)
   componentDidMount() {
     this.exchangeToken();
   }
