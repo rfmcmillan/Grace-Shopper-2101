@@ -76,7 +76,20 @@ describe('User Model', function () {
       const users = await User.findAll();
       expect(users.length).to.equal(3);
     });
-
+    describe('User update', () => {
+      describe('change email', function () {
+        it('does not change the password', async function () {
+          const elmo = await User.create({
+            email: 'elmo@snacker.com',
+            password: 'elmo_pw',
+          });
+          const password = elmo.password;
+          elmo.email = 'elmo2@snacker.com';
+          await elmo.save();
+          expect(elmo.password).to.equal(password);
+        });
+      });
+    });
     describe('User.authenticate', () => {
       describe('correct credentials', () => {
         it('returns a token', async () => {
@@ -84,7 +97,6 @@ describe('User Model', function () {
             email: 'olive@snacker.com',
             password: 'olive_pw',
           });
-          console.log(olive.password);
           const token = await User.authenticate({
             email: 'olive@snacker.com',
             password: 'olive_pw',
@@ -135,6 +147,7 @@ describe('User Model', function () {
   });
   describe('User Routes', function () {
     beforeEach(async function () {
+      await db.sync({ force: true });
       const user = await User.create({
         email: 'rosie@snacker.com',
         password: '123ert',
@@ -146,7 +159,8 @@ describe('User Model', function () {
         price: 1.1,
         country: 'usa',
       });
-      await Review.writeNew(user.id, product.id, 4, 'So good!');
+      const review = await Review.writeNew(user.id, product.id, 4, 'So good!');
+      let seed = { user, product, review };
     });
     describe('GET', function () {
       it('api/users', async function () {
@@ -204,6 +218,74 @@ describe('User Model', function () {
         const { email } = response.body;
         expect(response.status).to.equal(200);
         expect(email).to.equal('changed@snacker.com');
+      });
+    });
+  });
+  describe('POST /api/auth', function () {
+    beforeEach(async function () {
+      await db.sync({ force: true });
+      const user = await User.create({
+        email: 'rosie@snacker.com',
+        password: 'rosie_pw',
+      });
+      const product = await Product.create({
+        title: 'puff',
+        brand: 'stay-puft',
+        description: 'tasty',
+        price: 1.1,
+        country: 'usa',
+      });
+      const review = await Review.writeNew(user.id, product.id, 4, 'So good!');
+      let seed = { user, product, review };
+    });
+    describe('with valid credentials', function () {
+      it('returns a token', async function () {
+        const response = await app.post('/api/auth').send({
+          email: 'rosie@snacker.com',
+          password: 'rosie_pw',
+        });
+        expect(response.status).to.equal(200);
+        expect(response.body.token).to.be.ok;
+      });
+    });
+    describe('with invalid credentials', function () {
+      it('throws an error', async function () {
+        const response = await app.post('/api/auth').send({
+          email: 'rosie@snacker.com',
+          password: 'rosie_incorrect',
+        });
+        expect(response.status).to.equal(401);
+        expect(response.body.error).to.equal(
+          'The email address or password that you provided is incorrect.'
+        );
+      });
+    });
+  });
+  describe('POST /api/auth', function () {
+    describe('with valid token', async function () {
+      it('returns a user', async function () {
+        await db.sync({ force: true });
+        const user = await User.create({
+          email: 'rosie@snacker.com',
+          password: 'rosie_pw',
+        });
+        const product = await Product.create({
+          title: 'puff',
+          brand: 'stay-puft',
+          description: 'tasty',
+          price: 1.1,
+          country: 'usa',
+        });
+        const review = await Review.writeNew(user.id, product.id, 4, 'Tasty');
+
+        const token = await jwt.sign({ id: user.id }, process.env.JWT);
+        const response = await app.get('/api/auth').set({
+          authorization: token,
+        });
+
+        expect(response.status).to.equal(200);
+
+        expect(response.body.email).to.equal('rosie@snacker.com');
       });
     });
   });

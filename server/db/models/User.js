@@ -44,8 +44,7 @@ User.authenticate = async function ({ email, password }) {
   const user = await User.findOne({
     where: { email },
   });
-  console.log('password:', password);
-  console.log('user.password', user.password);
+
   if (user && (await bcrypt.compare(password, user.password))) {
     return jwt.sign({ id: user.id }, process.env.JWT);
   }
