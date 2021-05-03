@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../store/usersStore';
 
-class CreateUser extends Component {
+class CreateAccount extends Component {
   constructor() {
     super();
     this.state = {
@@ -49,17 +49,17 @@ class CreateUser extends Component {
                 null
               )}
           </h5>
-          <label>First Name:</label>
-          <input name="firstName" value={firstName} onChange={onChange} />
-          <br />
-          <label>Last Name:</label>
-          <input name="lastName" value={lastName} onChange={onChange} />
-          <br />
           <label>Email Address:</label>
           <input name="email" value={email} onChange={onChange} />
           <br />
           <label>Password:</label>
           <input name="password" value={password} onChange={onChange} />
+          <br />
+          <label>First Name:</label>
+          <input name="firstName" value={firstName} onChange={onChange} />
+          <br />
+          <label>Last Name:</label>
+          <input name="lastName" value={lastName} onChange={onChange} />
           <br />
           <button>Create Account</button>
         </form>
@@ -75,4 +75,4 @@ const mapDispatchToProps = (dispatch, { history }) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(CreateUser);
+export default connect(null, mapDispatchToProps)(CreateAccount);

@@ -4,7 +4,7 @@ import 'regenerator-runtime';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { loadUsers, createUser } from '../store/usersStore';
-import CreateUser from './CreateUser.js';
+import CreateAccount from './CreateAccount.js';
 import LogIn from './LogIn.js';
 
 class Main extends React.Component {
@@ -17,8 +17,8 @@ class Main extends React.Component {
     return (
       <Router>
         <div>
-          <Route component={CreateUser} path="/create-user" exact />
-          <Route component={LogIn} path="/create-user" exact />
+          <Route component={CreateAccount} path="/login" exact />
+          <Route component={LogIn} path="/login" exact />
         </div>
       </Router>
     );
