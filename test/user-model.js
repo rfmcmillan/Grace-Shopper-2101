@@ -228,15 +228,6 @@ describe('User Model', function () {
         email: 'rosie@snacker.com',
         password: 'rosie_pw',
       });
-      const product = await Product.create({
-        title: 'puff',
-        brand: 'stay-puft',
-        description: 'tasty',
-        price: 1.1,
-        country: 'usa',
-      });
-      const review = await Review.writeNew(user.id, product.id, 4, 'So good!');
-      let seed = { user, product, review };
     });
     describe('with valid credentials', function () {
       it('returns a token', async function () {
@@ -269,15 +260,6 @@ describe('User Model', function () {
           email: 'rosie@snacker.com',
           password: 'rosie_pw',
         });
-        const product = await Product.create({
-          title: 'puff',
-          brand: 'stay-puft',
-          description: 'tasty',
-          price: 1.1,
-          country: 'usa',
-        });
-        const review = await Review.writeNew(user.id, product.id, 4, 'Tasty');
-
         const token = await jwt.sign({ id: user.id }, process.env.JWT);
         const response = await app.get('/api/auth').set({
           authorization: token,

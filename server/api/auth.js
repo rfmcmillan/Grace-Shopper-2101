@@ -10,7 +10,6 @@ router.get('/', async (req, res, next) => {
   try {
     res.send(await User.byToken(req.headers.authorization));
   } catch (error) {
-    console.log('didnt work');
     next(error);
   }
 });
