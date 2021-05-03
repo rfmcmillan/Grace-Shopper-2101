@@ -5,7 +5,6 @@ import 'core-js';
 import 'regenerator-runtime';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import { loadUsers, createUser } from '../store/usersStore';
 import AllProducts from './AllProducts';
 import SingleProduct from './SingleProduct';
 import LogInPage from './LogInPage';
