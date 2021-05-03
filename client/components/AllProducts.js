@@ -14,7 +14,6 @@ class AllProducts extends Component {
   componentDidMount() {
     const { loadAllProducts } = this.props;
     loadAllProducts();
-    console.log('here');
   }
 
   render() {
