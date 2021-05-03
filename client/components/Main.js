@@ -14,8 +14,8 @@ class Main extends React.Component {
     return (
       <Router>
         <div>Welcome To Global Snacker!</div>
-        <Route exact path="/products" component={AllProducts} />
         <Switch>
+          <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProduct} />
         </Switch>
       </Router>
