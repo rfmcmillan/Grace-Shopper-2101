@@ -15,6 +15,20 @@ class LogIn extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  async componentDidMount() {
+    const token = window.localStorage.getItem('token', token);
+    if (token) {
+      const response = await axios.get('/api/auth', {
+        headers: {
+          authorization: token,
+        },
+      });
+      const user = response.data;
+      this.setState({ auth: user });
+    }
   }
 
   onChange(event) {
@@ -25,13 +39,26 @@ class LogIn extends React.Component {
 
   async login(event, email, password) {
     event.preventDefault();
-    const response = await axios.post('/api/auth', { email, password });
+    let response = await axios.post('/api/auth', { email, password });
     const { token } = response.data;
+    window.localStorage.setItem('token', token);
+    response = await axios.get('/api/auth', {
+      headers: {
+        authorization: token,
+      },
+    });
+    const user = response.data;
+    this.setState({ auth: user });
+  }
+
+  logout() {
+    window.localStorage.removeItem('token');
+    this.setState({ auth: {} });
   }
 
   render() {
     const { auth, error, email, password } = this.state;
-    const { login, onChange } = this;
+    const { login, onChange, logout } = this;
     if (!auth.id) {
       return (
         <div>
@@ -59,7 +86,10 @@ class LogIn extends React.Component {
     } else {
       return (
         <div>
-          <h4>Welcome! You are now logged in!</h4>
+          <h4>
+            Welcome{auth.firstName ? `, ${auth.firstName}` : ''}! You are now
+            logged in!
+          </h4>
           <form onSubmit={(event) => login(event, email, password)}>
             <h5 className="error">
               {!!error &&
@@ -70,13 +100,7 @@ class LogIn extends React.Component {
                   null
                 )}
             </h5>
-            <label>Email Address:</label>
-            <input name="email" value={email} onChange={onChange} />
-            <br />
-            <label>Password:</label>
-            <input name="password" value={password} onChange={onChange} />
-            <br />
-            <button>Log In</button>
+            <button onClick={logout}>Log Out</button>
           </form>
         </div>
       );

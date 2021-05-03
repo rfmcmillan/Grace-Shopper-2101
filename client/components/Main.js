@@ -6,8 +6,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { loadUsers, createUser } from '../store/usersStore';
 import AllProducts from './AllProducts';
 import SingleProduct from './SingleProduct';
-import LogIn from './LogIn.js';
-import CreateAccount from './CreateAccount.js';
+import LogInPage from './LogInPage';
 
 class Main extends React.Component {
   constructor() {
@@ -28,8 +27,7 @@ class Main extends React.Component {
         <Switch>
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProduct} />
-          <Route component={CreateAccount} path="/login" exact />
-          <Route component={LogIn} path="/login" exact />
+          <Route component={LogInPage} path="/login" exact />
         </Switch>
       </Router>
     );
