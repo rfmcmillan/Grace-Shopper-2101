@@ -45,9 +45,8 @@ User.authenticate = async function ({ email, password }) {
     where: { email },
   });
   if (user && (await bcrypt.compare(password, user.password))) {
-    console.log('process.env.JWT:', process.env.JWT);
     const token = jwt.sign({ id: user.id }, process.env.JWT);
-    console.log(token);
+
     return token;
   }
   const error = Error(

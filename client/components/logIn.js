@@ -27,7 +27,6 @@ class LogIn extends React.Component {
     event.preventDefault();
     const response = await axios.post('/api/auth', { email, password });
     const { token } = response.data;
-    console.log(token);
   }
 
   render() {
