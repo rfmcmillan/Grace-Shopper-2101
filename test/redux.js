@@ -68,7 +68,7 @@ describe('Users in Redux Store', function () {
     });
   });
   describe('Users Reducer', function () {
-    it('returns a new state with the updated `companies`', async function () {
+    it('returns a new state with the updated `users`', async function () {
       await db.sync({ force: true });
       await Promise.all([
         User.create({
