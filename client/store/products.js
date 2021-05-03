@@ -1,33 +1,35 @@
 import axios from 'axios';
 
-const productsActionTypes = {
-  LOAD_PRODUCTS: 'LOAD_PRODUCTS ',
-  DELETE_PRODUCT: 'DELETE_PRODUCT',
-  POST_PRODUCT: 'POST_PRODUCT',
-  UPDATE_PRODUCT: 'UPDATE_PRODUCT',
-};
+const LOAD_PRODUCTS = 'LOAD_PRODUCTS ';
+const DELETE_PRODUCT = 'DELETE_PRODUCT';
+const POST_PRODUCT = 'POST_PRODUCT';
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 
 export const productReducer = (state = [], action) => {
   switch (action.type) {
-    case productActionTypes.LOAD_PRODUCTS:
-      return action.payload;
-    case productActionTypes.POST_PRODUCT:
+    case LOAD_PRODUCTS: {
+      return [...action.products];
+    }
+    case POST_PRODUCT: {
       return [...state, action.product];
-    case productActionTypes.DELETE_PRODUCT:
+    }
+    case DELETE_PRODUCT: {
       return state.filter((product) => product.id !== action.product.id);
-    case productActionTypes.UPDATE_PRODUCT:
+    }
+    case UPDATE_PRODUCT: {
       return state.map((product) => {
         return product.id === action.product.id ? action.product : product;
       });
-    default:
+    }
+    default: {
       return state;
+    }
   }
 };
 
-const loadingProducts = (data) => ({
-  type: productsActionTypes.LOAD_PRODUCTS,
-  payload: data,
-});
+const loadingProducts = (products) => {
+  return { type: LOAD_PRODUCTS, products };
+};
 
 const loadProducts = () => {
   return async (dispatch) => {
@@ -39,14 +41,17 @@ const loadProducts = () => {
     }
   };
 };
+
 const postingProduct = (product) => {
-  return {type: productsActionTypes.POST_PRODUCT,product,};
+  return { type: POST_PRODUCT, product };
 };
 
-const postProduct = ( title,brand,description,price,inventory,imageUrl,location) => {
+const postProduct = (newProduct, history) => {
   return async (dispatch) => {
     const product = (
-      await axios.post('/api/products', {title,brand,description,price,inventory,imageUrl,location})
+      await axios.post('/api/products', {
+        newProduct,
+      })
     ).data;
     dispatch(postingProduct(product));
     history.push('/products');
@@ -54,8 +59,7 @@ const postProduct = ( title,brand,description,price,inventory,imageUrl,location)
 };
 
 const deletingProduct = (product) => {
-  return {productsActionTypes.DELETE_PRODUCT,product,
-  };
+  return { type: DELETE_PRODUCT, product };
 };
 
 const deleteProduct = (product, history) => {
@@ -66,15 +70,16 @@ const deleteProduct = (product, history) => {
   };
 };
 const updatingProduct = (product) => {
-  return {type:productsActionTypes.UPDATE_PRODUCT,product,
-  };
+  return { type: UPDATE_PRODUCT, product };
 };
 
-//Sould I add id as one of the parameters???
-const updateProduct = ( title,brand,description,price,inventory,imageUrl,location,history) => {
+// The put for product might need to updated...
+// If a location is passed through it will be added.
+const updateProduct = (updatedProduct, history) => {
   return async (dispatch) => {
     const product = (
-      await axios.put(`/api/products/${id}`,{title,brand,description,price,inventory,imageUrl,location,
+      await axios.put(`/api/products/${updatedProduct.id}`, {
+        updatedProduct,
       })
     ).data;
     dispatch(updatingProduct(product));

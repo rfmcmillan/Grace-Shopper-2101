@@ -4,13 +4,7 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 
-import {
-  loadProducts,
-  postProduct,
-  deleteProduct,
-  updateProduct,
-  productReducer,
-} from './product';
+import { productReducer } from './products';
 
 const initialState = {
   products: [],
@@ -66,12 +60,4 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default store;
 //Export Thunks As Named Exports
-export {
-  store,
-  loadUsers,
-  loaded,
-  loadProducts,
-  postProduct,
-  deleteProduct,
-  updateProduct,
-};
+export { store, loadUsers, loaded };

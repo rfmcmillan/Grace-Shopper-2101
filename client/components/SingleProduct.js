@@ -11,23 +11,14 @@ class SingleProduct extends Component {
 
   render() {
     const { product } = this.props;
-    // console.log('Props in singleProduct.js', this.props);
     // const history = this.props.history;
     return product ? (
       <div key={product.id}>
-        <h1>
-          The Information for {product.title}
-        </h1>
-        {/* <p>
-          Country Name:
-          <Link to={`/countries/${country.id}`}>
-          </Link>
-        </p> */}
+        <h1>The Information for {product.title}</h1>
         <p>Brand: {product.brand}</p>
         <p>Description:{product.description}</p>
         <p>Price:{product.price}</p>
         <img src={product.imageUrl} />
-
         {/* <Link to={`/products/${product.id}/update`}>
           <button>Update</button>
         </Link> */}
@@ -39,20 +30,29 @@ class SingleProduct extends Component {
           Delete
         </button>
       </div>
+        ) */}{' '}
+      </div>
     ) : (
-      <h1>Product not found</h1>
-    ); */}
-  };
+      <div>
+        (<h1>Product not found</h1>
+        );
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state, otherProps) => {
-  const product = state.products.find((product) => product.id === otherProps.match.params.id * 1);
-  return { product: product };
+  const product = state.products.find(
+    (products) => products.id === otherProps.match.params.id * 1
+  );
+  return { product };
 };
-{/* const mapDispatchToProps = (dispatch, { history }) => {
+{
+  /* const mapDispatchToProps = (dispatch, { history }) => {
   return {
     destroy: (product, history) => dispatch(deleteStudent(product, history)),
   };
-}; */}
+}; */
+}
 
 export default connect(mapStateToProps)(SingleProduct);
