@@ -50,7 +50,7 @@ describe('Users in Redux Store', function () {
     });
   });
   describe('Users Reducer', function () {
-    it('returns a new state with the updated `companies`', async function () {
+    xit('returns a new state with the updated `companies`', async function () {
       await db.sync({ force: true });
       await Promise.all([
         User.create({
@@ -80,7 +80,7 @@ describe('Users in Redux Store', function () {
       expect(newState.users).to.deep.equal(users);
     });
 
-    it('does not modify the previous state', async function () {
+    xit('does not modify the previous state', async function () {
       await db.sync({ force: true });
       await Promise.all([
         User.create({
