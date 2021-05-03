@@ -4,11 +4,13 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 
-import { productReducer } from './products';
+import { productReducer } from './products/products';
+import singleProductReducer from './products/singleProduct';
 
 const initialState = {
   products: [],
   users: [],
+  singleProduct: {},
   loading: true,
 };
 
@@ -54,6 +56,7 @@ const usersReducer = (state = [], action) => {
 const reducer = combineReducers({
   users: usersReducer,
   products: productReducer,
+  currProduct: singleProductReducer,
 });
 
 //Create Store

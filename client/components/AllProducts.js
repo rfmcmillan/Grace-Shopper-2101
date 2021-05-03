@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loadProducts } from '../store/products';
+import { loadProducts } from '../store/products/products';
 // import ProductCreate from './ProductCreate';
 // import { deleteProduct } from '../store';
 

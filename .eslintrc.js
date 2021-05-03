@@ -19,5 +19,6 @@ module.exports = {
     'react/prefer-stateless-function': [0, { ignorePureComponents: false }],
     'arrow-body-style': ['error', 'always'],
     'react/prop-types': [0],
+    'react/destructuring-assignment': [0],
   },
 };
