@@ -23,15 +23,14 @@ class Main extends React.Component {
     return (
       <Router>
         <div id="container">
-          <Route exact path="/" component={Home}></Route>{' '}
+          <Nav />
           <Switch>
-            <Route exact path="/" component={Home}></Route>{' '}
-            <Route component={Nav}></Route>
+            <Route exact path="/" component={Home}></Route>
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
-            <Route component={CreateAccount} path="/login" exact />
-            <Route component={LogIn} path="/login" exact />
           </Switch>
+          <Route component={LogIn} path="/login" exact />
+          <Route component={CreateAccount} path="/login" exact />
         </div>
       </Router>
     );
