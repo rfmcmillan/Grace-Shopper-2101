@@ -98,7 +98,7 @@ describe('Users in Redux Store', function () {
       expect(newState.users).to.deep.equal(users);
     });
 
-    xit('does not modify the previous state', async function () {
+    it('does not modify the previous state', async function () {
       await db.sync({ force: true });
       await Promise.all([
         User.create({

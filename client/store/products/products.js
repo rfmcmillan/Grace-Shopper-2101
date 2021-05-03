@@ -5,7 +5,7 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const POST_PRODUCT = 'POST_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 
-export const productReducer = (state = [], action) => {
+const productReducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_PRODUCTS: {
       return [...action.products];
@@ -88,3 +88,4 @@ const updateProduct = (updatedProduct, history) => {
 };
 
 export { loadProducts, postProduct, deleteProduct, updateProduct };
+export default productReducer;
