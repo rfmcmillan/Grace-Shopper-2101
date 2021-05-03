@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import 'core-js';
 import 'regenerator-runtime';
@@ -8,6 +10,8 @@ import AllProducts from './AllProducts';
 import SingleProduct from './SingleProduct';
 import LogInPage from './LogInPage';
 
+import Nav from './Nav';
+import Home from './Home';
 class Main extends React.Component {
   constructor() {
     super();
@@ -16,19 +20,18 @@ class Main extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const { props } = this;
-    props.bootstrap();
-  }
-
   render() {
     return (
       <Router>
-        <Switch>
-          <Route exact path="/products" component={AllProducts} />
-          <Route exact path="/products/:id" component={SingleProduct} />
+        <div id="container">
+          <Nav />
+          <Switch>
+            <Route exact path="/" component={Home}></Route>
+            <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/products/:id" component={SingleProduct} />
+          </Switch>
           <Route component={LogInPage} path="/login" exact />
-        </Switch>
+        </div>
       </Router>
     );
   }
@@ -36,12 +39,4 @@ class Main extends React.Component {
 
 const mapStateToProps = (state) => state;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    bootstrap: async () => {
-      dispatch(loadUsers());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, null)(Main);
