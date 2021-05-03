@@ -12,10 +12,11 @@ const loadUsersActionCreator = (users) => {
   };
 };
 
-//Load Users Thunk
+// Load Users Thunk
 const loadUsers = () => {
   return async (dispatch) => {
-    const users = await axios.get('api/users');
+    const response = await axios.get('api/users');
+    const users = response.data;
     dispatch(loadUsersActionCreator(users));
   };
 };
@@ -30,12 +31,13 @@ const createUserActionCreator = (user) => {
 //Create User Thunk
 const createUser = (email, password, firstName, lastName, history) => {
   return async (dispatch) => {
-    const user = await axios.post('api/users', {
+    const response = await axios.post('/api/users', {
       email,
       password,
       firstName,
       lastName,
     });
+    const user = response.data;
     dispatch(createUserActionCreator(user));
   };
 };
@@ -46,6 +48,7 @@ const usersReducer = (state = [], action) => {
     state = action.users;
   }
   if (action.type === CREATE_USER) {
+    console.log(state);
     state = [...state, action.user];
   }
   return state;

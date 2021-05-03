@@ -5,7 +5,11 @@ import 'core-js';
 import 'regenerator-runtime';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import { loadUsers } from '../store/usersStore';
+import { loadUsers, createUser } from '../store/usersStore';
+import AllProducts from './AllProducts';
+import SingleProduct from './SingleProduct';
+import LogIn from './LogIn.js';
+import CreateAccount from './CreateAccount.js';
 
 import Nav from './Nav';
 import Home from './Home';
@@ -23,6 +27,10 @@ class Main extends React.Component {
           <Switch>
             <Route exact path="/" component={Home}></Route>{' '}
             <Route component={Nav}></Route>
+            <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/products/:id" component={SingleProduct} />
+            <Route component={CreateAccount} path="/login" exact />
+            <Route component={LogIn} path="/login" exact />
           </Switch>
         </div>
       </Router>
