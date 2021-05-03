@@ -8,6 +8,13 @@ import CreateAccount from './CreateAccount.js';
 import LogIn from './LogIn.js';
 
 class Main extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      auth: {},
+    };
+  }
+
   componentDidMount() {
     const { props } = this;
     props.bootstrap();
