@@ -2,10 +2,12 @@ import React from 'react';
 import 'core-js';
 import 'regenerator-runtime';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { loadUsers, createUser } from '../store/usersStore';
-import CreateAccount from './CreateAccount.js';
+import AllProducts from './AllProducts';
+import SingleProduct from './SingleProduct';
 import LogIn from './LogIn.js';
+import CreateAccount from './CreateAccount.js';
 
 class Main extends React.Component {
   constructor() {
@@ -23,10 +25,12 @@ class Main extends React.Component {
   render() {
     return (
       <Router>
-        <div>
+        <Switch>
+          <Route exact path="/products" component={AllProducts} />
+          <Route exact path="/products/:id" component={SingleProduct} />
           <Route component={CreateAccount} path="/login" exact />
           <Route component={LogIn} path="/login" exact />
-        </div>
+        </Switch>
       </Router>
     );
   }
