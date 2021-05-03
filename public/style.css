@@ -1,9 +1,11 @@
 /*Style Sheet*/
 * {
-  background-color: lavender;
+  background-color: darkseagreen;
+  color: white;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
 }
 
 #container {
@@ -26,4 +28,52 @@
 
 .navBar > a:hover {
   background-color: lightblue;
+}
+
+#home {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 25%;
+  padding: 15%;
+}
+
+.homeButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+#mainButtons {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+#mainButtons > * {
+  margin: 10px;
+}
+
+#mainButtons button {
+  font-size: 1.25rem;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#mainButtons button:hover {
+  color: darkslateblue;
+  background-color: white;
+}
+
+#homeLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#homeLinks > * {
+  margin: 5px;
+}
+
+#homeLinks > a:hover {
+  color: palevioletred;
 }

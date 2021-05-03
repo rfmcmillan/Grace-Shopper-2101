@@ -4,11 +4,11 @@ import React from 'react';
 import 'core-js';
 import 'regenerator-runtime';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { loadUsers } from '../store/usersStore';
 
 import Nav from './Nav';
-
+import Home from './Home';
 class Main extends React.Component {
   componentDidMount() {
     const { props } = this;
@@ -19,7 +19,11 @@ class Main extends React.Component {
     return (
       <Router>
         <div id="container">
-          <Nav />
+          <Route exact path="/" component={Home}></Route>{' '}
+          <Switch>
+            <Route exact path="/" component={Home}></Route>{' '}
+            <Route component={Nav}></Route>
+          </Switch>
         </div>
       </Router>
     );
