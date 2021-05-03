@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import axios from 'axios';
-
+import { usersReducer } from './usersStore';
 import { productReducer } from './products/products';
 import singleProductReducer from './products/singleProduct';
 
@@ -63,4 +63,4 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default store;
 //Export Thunks As Named Exports
-export { store, loadUsers, loaded };
+export { loadUsers, loaded };

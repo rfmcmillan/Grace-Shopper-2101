@@ -1,4 +1,6 @@
 import React from 'react';
+import 'core-js';
+import 'regenerator-runtime';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { loadUsers } from '../store';
@@ -7,7 +9,8 @@ import SingleProduct from './SingleProduct';
 
 class Main extends React.Component {
   componentDidMount() {
-    this.props.bootstrap();
+    const { props } = this;
+    props.bootstrap();
   }
 
   render() {
@@ -23,9 +26,7 @@ class Main extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return state;
-};
+const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -35,5 +36,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-//I couldn't get this to work with mapStateToProps or mapDispatchToProps yet
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
