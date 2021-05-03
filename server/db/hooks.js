@@ -91,20 +91,22 @@ Order.purchase = async function (
 };
 
 // a hook to hash the User password before creation so it is always stored in the database encrypted
-User.beforeCreate(async (user) => {
-  try {
-    const hash = await bcrypt.hash(user.password, 2);
-    user.password = hash;
-  } catch (err) {
-    throw new Error(err);
-  }
-});
+// User.beforeCreate(async (user) => {
+//   try {
+//     const hash = await bcrypt.hash(user.password, 2);
+//     user.password = hash;
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// });
 
 // an added hook to hash the password if it is changed using save()
 User.beforeSave(async (user) => {
   try {
-    const hash = await bcrypt.hash(user.password, 2);
-    user.password = hash;
+    if (user._changed.has('password')) {
+      const hash = await bcrypt.hash(user.password, 2);
+      user.password = hash;
+    }
   } catch (err) {
     throw new Error(err);
   }

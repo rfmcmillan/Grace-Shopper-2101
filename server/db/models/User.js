@@ -1,7 +1,8 @@
-// create User here
+//create User here
 const jwt = require('jsonwebtoken');
 const { DataTypes } = require('sequelize');
 const db = require('../db');
+const bcrypt = require('bcrypt');
 
 const User = db.define('user', {
   id: {
@@ -41,14 +42,14 @@ const User = db.define('user', {
 
 User.authenticate = async function ({ email, password }) {
   const user = await User.findOne({
-    where: { email, password },
+    where: { email },
   });
 
-  if (user) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     return jwt.sign({ id: user.id }, process.env.JWT);
   }
   const error = Error(
-    'The email address or password that you provided is incorrect.',
+    'The email address or password that you provided is incorrect.'
   );
   error.status = 401;
   throw error;

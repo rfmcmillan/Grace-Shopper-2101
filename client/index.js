@@ -8,6 +8,7 @@ import store from './store';
 
 render(
   <Provider store={store}>
+    <div>Welcome To Global Snacker!</div>
     <Main />
   </Provider>,
   document.getElementById('app')

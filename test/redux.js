@@ -6,6 +6,8 @@ import {
   LOAD_USERS,
   loadUsers,
   loadUsersActionCreator,
+  CREATE_USER,
+  createUserActionCreator,
 } from '../client/store/usersStore';
 import { reducer } from '../client/store';
 
@@ -49,8 +51,24 @@ describe('Users in Redux Store', function () {
       expect(loadUsersAction.users[2].email).to.equal('ding@snacker.com');
     });
   });
+  describe('createUserActionCreator', function () {
+    it('creates an object with `type` and `user`', async function () {
+      await db.sync({ force: true });
+      const user = await User.create({
+        email: 'russel@snacker.com',
+        password: 'russel_pw',
+        firstName: 'Russel',
+        lastName: 'McMillan',
+      });
+
+      const createUserAction = createUserActionCreator(user);
+      expect(createUserAction.type).to.equal(CREATE_USER);
+      expect(createUserAction.user).to.be.an('object');
+      expect(createUserAction.user.email).to.equal('russel@snacker.com');
+    });
+  });
   describe('Users Reducer', function () {
-    it('returns a new state with the updated `companies`', async function () {
+    it('returns a new state with the updated `users`', async function () {
       await db.sync({ force: true });
       await Promise.all([
         User.create({

@@ -44,14 +44,6 @@ const loadUsers = () => {
   };
 };
 
-//Create Reducers
-const usersReducer = (state = [], action) => {
-  if (action.type === LOAD_USERS) {
-    state = action.users;
-  }
-  return state;
-};
-
 //enter different reducers into combineReducers({}) as a key-value pair. e.g.  'products: productsReducer'
 const reducer = combineReducers({
   users: usersReducer,
@@ -63,4 +55,4 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 export default store;
 //Export Thunks As Named Exports
-export { loadUsers, loaded };
+export { loadUsers, loaded, reducer };
