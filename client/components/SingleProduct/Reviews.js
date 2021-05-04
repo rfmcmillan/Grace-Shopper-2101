@@ -10,9 +10,12 @@ const Reviews = ({ reviews }) => {
             return (
               <li key={review.id} className="review;">
                 <div>
-                  Text: {review.text}
-                  Rating: {review.rating}
-                  User: {review.user.email}
+                  Text:
+                  {review.text}
+                  Rating:
+                  {review.rating}
+                  User:
+                  {`${review.user.firstName} ${review.user.lastName}`}
                 </div>
               </li>
             );

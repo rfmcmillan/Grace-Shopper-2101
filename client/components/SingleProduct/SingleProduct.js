@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSingleProduct } from '../store/products/singleProduct';
+import { getSingleProduct } from '../../store/products/singleProduct';
 import Reviews from './Reviews';
+import NewReview from './NewReviewForm';
 // import { Link } from 'react-router-dom';
 
 class SingleProduct extends Component {
@@ -33,17 +34,38 @@ class SingleProduct extends Component {
     // const history = this.props.history;
     return product ? (
       <div id="singleProduct" key={product.id}>
-        <h1>The Information for {product.title}</h1>
-        <p>Brand: {product.brand}</p>
-        <p>Country: {countryName}</p>
+        <h1>{product.title}</h1>
+        <p>
+          Brand:
+          {product.brand}
+        </p>
+        <p>
+          Country:
+          {countryName}
+        </p>
         <i className={`em ${flag}`} />
-        <p>Description:{[product.description]}</p>
-        <p>Price:{product.price}</p>
-        <img src={product.imageUrl} />
-        <input type="number" placeholder="quantity" />
-        <button>Add to Cart</button>
+        <p>
+          Description:
+          {[product.description]}
+        </p>
+        <p>
+          Price:
+          {product.price}
+        </p>
+        <img src={product.imageUrl} alt={product.description} />
+        <select name="quanity">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>
+        <button type="submit">Add to Cart</button>
 
         <h1>Reviews</h1>
+        <NewReview />
         <Reviews reviews={reviews} />
       </div>
     ) : (
