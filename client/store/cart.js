@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios';
 
@@ -12,10 +14,17 @@ const cartReducer = (state = [], action) => {
       return [...state, action.cart];
     }
     case ADD_TO_CART: {
-      return [...state, action.product];
+      const key = state.find((e) => { return e.id === action.product.id; });
+      if (key) {
+        key.amount++;
+        return [...state];
+      }
+      return [...state, { ...action.product, amount: 1 }];
     }
     case UPDATE_AMOUNT: {
-      return [...state, action.cart];
+      const key = state.find((e) => { return e.id === action.update.product; });
+      key.amount = action.update.amount;
+      return [...state];
     }
     case REMOVE_FROM_CART: {
       return [...state, action.cart];
@@ -50,7 +59,7 @@ const addToCart = (product, cart = null) => {
   return async (dispatch) => {
     try {
       if (cart) {
-        await axios.post('/api/order/addToCart', (cart, product.id));
+        await axios.post('/api/order/addToCart', (cart, [product.id, 1]));
       }
       dispatch(_addToCart(product));
     } catch (err) {
@@ -59,5 +68,22 @@ const addToCart = (product, cart = null) => {
   };
 };
 
-export { loadCart, addToCart };
+const _updateCart = (update) => {
+  return { type: UPDATE_AMOUNT, update };
+};
+
+const updateCart = (orderId, product, amount) => {
+  return async (dispatch) => {
+    try {
+      if (orderId) {
+        await axios.post('/api/order/updateCart', (orderId, product, amount));
+      }
+      dispatch(_updateCart({ product, amount }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export { loadCart, addToCart, updateCart };
 export default cartReducer;

@@ -2,19 +2,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadCart } from '../store/cart';
+import { loadCart, updateCart } from '../store/cart';
 
 class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    console.log("ererererererersdfsfdsererer")
     if (this.props.user) {
       this.props.getCart(this.props.user.cart);
     }
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    const { name } = evt.target.querySelector('input');
+    let cart = null;
+    this.props.updateItem(cart, name, this.state[name]);
+    window.location.reload();
+  }
+
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value,
+    });
   }
 
   render() {
@@ -22,7 +37,6 @@ class Cart extends Component {
     return (
       <div id="cart_container">
         <h1>Cart</h1>
-
         <div id="Cart">
           {cart.map((product) => {
             return (
@@ -40,10 +54,13 @@ class Cart extends Component {
                   src={product.imageUrl}
                   alt={product.description}
                 />
-
-                <button>
-                  Remove From Cart/Update Amount
-                </button>
+                <h4>{product.amount}</h4>
+                <form onSubmit={this.handleSubmit}>
+                  <input name={`${product.id}`} type="number" min="1" defaultValue={product.amount} onChange={this.handleChange} />
+                  <button type="submit">
+                    Update Amount
+                  </button>
+                </form>
               </div>
             );
           })}
@@ -54,12 +71,9 @@ class Cart extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { cart } = state;
-  if (!cart) {
-    return 'The cart is empty';
-  }
+  const { cart, user } = state;
   return {
-    cart,
+    cart, user,
   };
 };
 
@@ -67,6 +81,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getCart: (id) => {
       dispatch(loadCart(id));
+    },
+    updateItem: (cart, orderId, amount) => {
+      dispatch(updateCart(cart, orderId, amount));
     },
   };
 };

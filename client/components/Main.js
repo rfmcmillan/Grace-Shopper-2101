@@ -23,7 +23,7 @@ class Main extends React.Component {
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
-            <Route path="/cart" componenet={Cart}/>
+            <Route exact path="/cart" component={Cart}/>
             <Route component={LogInPage} path="/login" exact />
           </Switch>
         </div>

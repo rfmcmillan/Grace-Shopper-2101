@@ -23,12 +23,7 @@ class AllProducts extends Component {
     if (this.props.user) {
       cart = this.props.user.cart;
     }
-    if (this.props.cart.find((e) => {return e.id === product.id; })) {
-      // instead add 1 of the item to the cart
-      // add a quantity to each item to be used when add is clicked
-    } else {
-      this.props.addItem(product, cart);
-    }
+    this.props.addItem(product, cart);
   }
 
   render() {
