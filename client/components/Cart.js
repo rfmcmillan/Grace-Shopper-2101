@@ -11,6 +11,7 @@ class Cart extends Component {
   }
 
   componentDidMount() {
+    console.log("ererererererersdfsfdsererer")
     if (this.props.user) {
       this.props.getCart(this.props.user.cart);
     }

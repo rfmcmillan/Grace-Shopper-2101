@@ -30,9 +30,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const {
-      userId, productId, rating, text,
-    } = req.body;
+    const { userId, productId, rating, text } = req.body;
     const review = await Review.writeNew(userId, productId, rating, text);
     res.status(201).send(review);
   } catch (error) {

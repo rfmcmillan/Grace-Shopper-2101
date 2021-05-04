@@ -14,9 +14,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id, {
-      include: [Country],
-    });
+    const id = req.params.id;
+    const product = await Product.getSingleProduct(id);
+
     res.send(product);
   } catch (ex) {
     next(ex);

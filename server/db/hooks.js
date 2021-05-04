@@ -152,6 +152,21 @@ Order.afterCreate(async (order) => {
     console.log(err);
   }
 });
+Product.getSingleProduct = function (id) {
+  return Product.findByPk(id, {
+    include: [
+      { model: Country },
+      {
+        model: Review,
+        attributes: ['id', 'rating', 'text', 'userId'],
+        include: {
+          model: User,
+          attributes: ['firstName', 'lastName'],
+        },
+      },
+    ],
+  });
+};
 
 module.exports = {
   Order,
