@@ -97,3 +97,9 @@
 #singleProduct > img {
   width: 300px;
 }
+
+#map {
+  height: 300px;
+  width: 200px;
+  z-index: 0;
+}

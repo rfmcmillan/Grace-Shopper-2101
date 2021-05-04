@@ -7,10 +7,13 @@ import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import SingleProduct from './SingleProduct';
+import loadCountries from '../store/countries';
 import LogInPage from './LogInPage';
 
 import Nav from './Nav';
 import Home from './Home';
+import Map from './Map';
+
 class Main extends React.Component {
   render() {
     return (

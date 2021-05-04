@@ -1,32 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const Home = () => {
-  return (
-    <div id="test">
-      <div id="home">
-        <h1>Welcome to the Global Snacker</h1>
-        <div id="map" />
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0Czh5f_nGC5M_EHN4KYNnLVIok4mHvkE&map_ids=4deaa8c67ed436b3&callback=initMap" />
-        <div className="homeButtons">
-          <div id="mainButtons">
-            <Link to="/products">
-              <button>All Snacks</button>
-            </Link>
-            <Link to="/countries">
-              <button>All Countries</button>
-            </Link>
-          </div>
-          <div id="homeLinks">
-            <Link to="/login">Log In</Link>
-            <Link to="/login">Not regesitered? Become a global snacker</Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
+// Initialize and add the map
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 28.65643220817304, lng: 77.2411275855953 },
@@ -177,4 +152,86 @@ function initMap() {
 
 initMap();
 
-export default Home;
+//!!! Below is Stanley's code from
+//
+// // secrets
+// import { API_KEY } from "./secrets";
+
+// map module
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+
+// const containerStyle = {
+//   width: "1500px",
+//   height: "900px",
+// };
+
+// function DisplayMap() {
+//   // coordinates for 5 hanover square aka fullstack building
+//   const [latitude, setLatitude] = useState(17.422635674938114);
+//   const [longitude, setLongitude] = useState(78.46911411149898);
+
+//   const [pin, setPin] = useState({
+//     latitude,
+//     longitude,
+//   });
+
+//   const center = {
+//     lat: latitude,
+//     lng: longitude,
+//   };
+
+//   useEffect(() => {
+//     const getLatAndLongFromAddress = async (address) => {
+//       // translate the address to a lat and long
+//       address = encodeURIComponent(address);
+//       const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`;
+//       try {
+//         const { data } = await axios.get(url);
+//         console.log(data);
+//         if (data.error_message) {
+//           alert(
+//             "bad api key so the pin wont work, but at least map still shows"
+//           );
+//         }
+
+//         // once you get the API_KEY working, this entire thing should work
+//         // this lat and long will be the pin that will be loaded onto the map
+//         const { lat, long } = data;
+//         setPin({
+//           latitude: lat,
+//           longitude: long,
+//         });
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     };
+
+//     const address = "5 Hanover Square";
+//     getLatAndLongFromAddress(address);
+//   }, []);
+
+//   const onLoad = React.useCallback(function callback(map) {
+//     console.log("loaded successfully");
+//   }, []);
+
+//   const onUnmount = React.useCallback(function callback(map) {
+//     console.log("unmounted successfully");
+//   }, []);
+
+//   return (
+//     <LoadScript googleMapsApiKey={API_KEY}>
+//       <GoogleMap
+//         mapContainerStyle={containerStyle}
+//         center={center}
+//         zoom={15}
+//         onLoad={onLoad}
+//         onUnmount={onUnmount}
+//       >
+//         <Marker latitude={pin.latitude} longitude={pin.longitude} />
+//         {/* Child components, such as markers, info windows, etc. */}
+//       </GoogleMap>
+//     </LoadScript>
+//   );
+// }
+
+// export default React.memo(DisplayMap);

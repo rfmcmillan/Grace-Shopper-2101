@@ -159,7 +159,7 @@ const init = async () => {
       inventory: 231,
       countryId: Singapore.id,
       imageUrl:
-        'https://mynextplaneout.files.wordpress.com/2018/04/the-golden-duck-salted-egg-yolk-potato-chips-and-fish-skin-crisps.jpg',
+        'https://media.karousell.com/media/photos/products/2017/07/18/___1500389373_f4d4f335.jpg',
     });
 
     const Kueh = await Product.create({
@@ -171,7 +171,7 @@ const init = async () => {
       inventory: 100,
       countryId: Singapore.id,
       imageUrl:
-        'https://cdn2.sg.orstatic.com/userphoto/photo/0/5N/00143X2B9E38916D116A8Cpx.jpg?fbclid=IwAR0zUIZVaMkRyIqD3ASvvdQjnsMG8s_DflHXeNuqygarliefhGrBcXDSHGI',
+        'https://www.8days.sg/image/14039502/3x4/1440/1920/dfaebc91b51a74386557313a94d91705/tX/the-8-days-kueh-lapis-ranking-2021---tingkat-peramakan.jpg',
     });
 
     const MilkTablet = await Product.create({
@@ -267,13 +267,13 @@ const init = async () => {
     });
 
     const TurtleChips = await Product.create({
-      title: 'Turtle Chips(Corn Soup Flavor)',
+      title: 'Turtle Chips',
       brand: 'Orion',
       description: 'It comes with unique four thin layer!',
       price: 1.99,
       inventory: 216,
       countryId: SKorea.id,
-      imageUrl: 'https://cdn01.sayweee.net/2020-08/9e9w2TKfRaea2AF73wxNww.jpg',
+      imageUrl: 'https://gd.image-gmkt.com/li/975/907/779907975.g_0-w_g.jpg',
     });
 
     const Mix = await Product.create({
@@ -317,8 +317,7 @@ const init = async () => {
       description: 'It is made of heavy cream, caramel, sugar and eggs.',
       inventory: 154,
       countryId: French.id,
-      imageUrl:
-        'https://bonjourparis.com/wp-content/uploads/2015/07/Pot-de-Creme.jpg?fbclid=IwAR3FQX3q5WeKELo39opmdAke_OHfvJtoOpSXZPRiLDMFT0uaLg9eaabEfLs',
+      imageUrl: 'https://media.auchan.fr/MEDIASTEP101391290_1200x1200/B2CD/',
     });
 
     const Ecolier = await Product.create({
@@ -329,7 +328,7 @@ const init = async () => {
       inventory: 229,
       countryId: French.id,
       imageUrl:
-        'https://i5.walmartimages.com/asr/46ff700c-c48f-4c1e-bda2-7c1ede7794d6.71692f45419c4238cb61b8d89d1d42ae.jpeg',
+        'https://images-na.ssl-images-amazon.com/images/I/9106CKpWAcL._SX679_.jpg',
     });
 
     const ButterCookies = await Product.create({
@@ -402,7 +401,7 @@ const init = async () => {
       inventory: 158,
       countryId: Spain.id,
       imageUrl:
-        'https://lunya.co.uk/wp-content/uploads/2017/11/turron-blando.jpg',
+        'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRq4g0d5pwkWeE1qGMUXhh18o83VDHsNa6usI-W0ruvHLsITgh_uUc0oWgyVwY8z4YW8ApsF8gEo13wvFRj82a-JQ90yPgLDss5dKl_Stc&usqp=CAE',
     });
 
     const Bonbon = await Product.create({
