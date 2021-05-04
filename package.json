@@ -8,12 +8,13 @@
     "build:dev": "npm run build -- --watch --mode=development",
     "test": "JWT=snacker-pass mocha --exit --require regenerator-runtime --require @babel/register",
     "test:dev": "DATABASE_URL=postgres://localhost:5432/snacker_test npm run test -- --watch",
-    "windows-test": "SET JWT=snacker-pass && mocha --exit",
+    "windows-test": "SET JWT=snacker-pass && mocha --exit --require regenerator-runtime --require @babel/register",
     "windows-test:dev": "SET DATABASE_URL=postgres://localhost:5432/snacker_test && npm run windows-test -- --watch",
     "lint": "eslint client server test --fix",
     "seed": "node ./bin/seed",
     "start:dev": "NODE_ENV=development npm run build:dev & nodemon ./server/main.js --ignore public/ --ignore client/",
-    "start": "NODE_ENV=production npm run seed && npm run build & node ./server/main.js"
+    "start": "NODE_ENV=production npm run seed && npm run build && node ./server/main.js",
+    "windows-start:dev": "SET NODE_ENV=development && nodemon ./server/main.js --ignore public/ --ignore client/"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^4.3.1",
     "redux": "^4.1.0",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.7",
     "sequelize": "^6.6.2"
