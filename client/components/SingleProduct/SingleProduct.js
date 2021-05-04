@@ -8,7 +8,9 @@ import NewReview from './NewReviewForm';
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      auth: {},
+    };
   }
 
   componentDidMount() {
@@ -28,9 +30,11 @@ class SingleProduct extends Component {
 
   render() {
     const { product } = this.props;
+    const { auth } = this.state;
     const countryName = product.country ? product.country.name : ' ';
     const flag = product.country ? product.country.flag : ' ';
     const reviews = product.reviews || [];
+
     // const history = this.props.history;
     return product ? (
       <div id="singleProduct" key={product.id}>
@@ -65,7 +69,11 @@ class SingleProduct extends Component {
         <button type="submit">Add to Cart</button>
 
         <h1>Reviews</h1>
-        <NewReview />
+        {auth.id ? (
+          <NewReview productId={product.id} userId={auth.id} />
+        ) : (
+          <div>Please log in to leave a review</div>
+        )}
         <Reviews reviews={reviews} />
       </div>
     ) : (

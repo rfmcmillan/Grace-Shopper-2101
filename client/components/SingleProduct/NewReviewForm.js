@@ -1,22 +1,26 @@
 /*eslint-disable*/
 
 import React from 'react';
+import axios from 'axios';
 
 class NewReview extends React.Component {
-  constructor() {
+  constructor({ productId, userId }) {
     super();
     this.state = {
       text: '',
       rating: 1,
+      userId,
+      productId,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSubmit(ev) {
+  async handleSubmit(ev) {
     const form = ev.target;
     ev.preventDefault();
-    console.log(this.state);
+    const newReview = { ...this.state };
+    await axios.post('/api/reviews', newReview);
   }
 
   handleChange(ev) {
