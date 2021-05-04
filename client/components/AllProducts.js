@@ -1,7 +1,9 @@
+/* eslint-disable react/button-has-type */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loadProducts } from '../store/products/products';
+import { addToCart } from '../store/cart';
 // import ProductCreate from './ProductCreate';
 // import { deleteProduct } from '../store';
 
@@ -16,9 +18,20 @@ class AllProducts extends Component {
     loadAllProducts();
   }
 
+  handleClick(product) {
+    let cart = null;
+    if (this.props.user) {
+      cart = this.props.user.cart;
+    }
+    if (this.props.cart.find((e) => {return e.id === product.id; })) {
+      console.log('do something different');
+    } else {
+      this.props.addItem(product, cart);
+    }
+  }
+
   render() {
     const { products } = this.props;
-    const { history } = this.props;
     return (
       <div id="main">
         <h1>Products</h1>
@@ -39,13 +52,14 @@ class AllProducts extends Component {
                   src={product.imageUrl}
                   alt={product.description}
                 />
-                {/* <button
+
+                <button
                   onClick={() => {
-                    this.props.destroy(product, history);
+                    this.handleClick(product);
                   }}
                 >
-                  Delete
-                </button> */}
+                  Add To Cart
+                </button>
               </div>
             );
           })}
@@ -56,21 +70,24 @@ class AllProducts extends Component {
   }
 }
 
-const mapStateToProps = (state, otherProps) => {
-  const { products } = state;
+const mapStateToProps = (state) => {
+  const { products, cart, user } = state;
   if (!products) {
     return "There's no products now...";
   }
   return {
-    products,
+    products, cart, user,
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   // const { history } = ownProps;
   return {
     loadAllProducts: () => {
       dispatch(loadProducts());
+    },
+    addItem: (productId, cart) => {
+      dispatch(addToCart(productId, cart));
     },
   };
 };

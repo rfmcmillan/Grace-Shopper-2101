@@ -15,6 +15,7 @@ import countriesReducer from './countries';
 const persistConfig = {
   key: 'root',
   storage,
+  whitelist: ['cart'],
 };
 
 const initialState = {
@@ -44,7 +45,7 @@ export const reducer = combineReducers({
   countries: countriesReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, reducer)
+const persistedReducer = persistReducer(persistConfig, reducer);
 
 // Create Store
 

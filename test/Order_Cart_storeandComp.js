@@ -45,8 +45,6 @@ describe('Testing for REACT Components and store for Orders and cart', function 
       ]);
 
       const users = await User.findAll();
-
-      console.log(users);
     });
   });
 });

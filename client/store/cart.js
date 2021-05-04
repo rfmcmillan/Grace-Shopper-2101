@@ -9,16 +9,16 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const cartReducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_CART: {
-      return [...state, { cart: [...action.cart] }];
+      return [...state, action.cart];
     }
     case ADD_TO_CART: {
-      return [...state, { cart: [...action.cart] }];
+      return [...state, action.product];
     }
     case UPDATE_AMOUNT: {
-      return [...state, { cart: [...action.cart] }];
+      return [...state, action.cart];
     }
     case REMOVE_FROM_CART: {
-      return [...state, { cart: [...action.cart] }];
+      return [...state, action.cart];
     }
     default: {
       return state;
@@ -27,7 +27,7 @@ const cartReducer = (state = [], action) => {
 };
 
 const _loadCart = (cart) => {
-  return { type: ADD_TO_CART, cart };
+  return { type: LOAD_CART, cart };
 };
 
 const loadCart = (id) => {
@@ -42,22 +42,22 @@ const loadCart = (id) => {
     }
   };
 };
-const _addToCart = (cart) => {
-  return { type: LOAD_CART, cart };
+const _addToCart = (product) => {
+  return { type: ADD_TO_CART, product };
 };
 
-const addToCart = (product, orderId) => {
+const addToCart = (product, cart) => {
   return async (dispatch) => {
     try {
-      if (orderId) {
-        const { data } = await axios.get('/api/order/addToCart');
+      if (cart) {
+        await axios.post('/api/order/addToCart', (cart, product.id));
       }
-      dispatch(_addToCart(data));
+      dispatch(_addToCart(product));
     } catch (err) {
       console.log(err);
     }
   };
 };
 
-export { loadCart };
+export { loadCart, addToCart };
 export default cartReducer;
