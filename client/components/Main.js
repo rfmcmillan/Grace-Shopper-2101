@@ -9,7 +9,6 @@ import AllProducts from './AllProducts';
 import SingleProduct from './SingleProduct/SingleProduct';
 import LogInPage from './LogInPage';
 import ManageUsers from './ManageUsers';
-import EditUser from './EditUser';
 
 import Nav from './Nav';
 import Home from './Home';
@@ -24,7 +23,6 @@ class Main extends React.Component {
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/manage-users" component={ManageUsers} />
-            <Route exact path="/manage-users/:id" component={EditUser} />
           </Switch>
           <Route component={LogInPage} path="/login" exact />
         </div>

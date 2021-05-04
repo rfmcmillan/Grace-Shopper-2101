@@ -10,6 +10,7 @@ class ManageUsers extends React.Component {
       users: [],
     };
     this.destroy = this.destroy.bind(this);
+    this.makeAdmin = this.makeAdmin.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +36,7 @@ class ManageUsers extends React.Component {
       this.setState({ auth: user });
     }
   }
+
   async loadUsers() {
     const response = await axios.get('/api/users');
     const users = response.data;
@@ -42,15 +44,24 @@ class ManageUsers extends React.Component {
   }
 
   async destroy(user) {
-    const response = await axios.delete(`/api/users/${user.id}`);
+    await axios.delete(`/api/users/${user.id}`);
     const usersResponse = await axios.get('/api/users');
     const users = usersResponse.data;
     this.setState({ users });
   }
 
+  async makeAdmin(currentUser) {
+    const { id } = currentUser;
+    if (currentUser.admin === false) {
+      await axios.put(`api/users/${id}`, { admin: true });
+    } else {
+      await axios.put(`api/users/${id}`, { admin: false });
+    }
+  }
+
   render() {
     const { auth, users } = this.state;
-    const { destroy } = this;
+    const { destroy, makeAdmin } = this;
     if (!auth.admin) {
       return (
         <div>
@@ -59,26 +70,28 @@ class ManageUsers extends React.Component {
       );
     }
     return (
-      <div>
+      <div id="manage-users">
         <h2>Manage Users</h2>
         <div>
-          {users.map((user) => {
+          {users.map((user, idx) => {
             return (
-              <div>
+              <div key={idx}>
                 <ul id="user">
-                  <li>First Name: {user.firstName}</li>
-                  <li>Last Name: {user.lastName}</li>
-                  <li>email: {user.email}</li>
-                  <li>admin: {user.admin.toString()}</li>
+                  <li key="first-name">First Name: {user.firstName}</li>
+                  <li key="last-name">Last Name: {user.lastName}</li>
+                  <li key="email">Email: {user.email}</li>
+                  <li key="admin">Admin: {user.admin ? 'Yes' : 'No'}</li>
                 </ul>
                 <button
                   type="button"
                   id="mainButtons"
                   onClick={() => destroy(user)}
                 >
-                  X
+                  Delete
                 </button>
-                <Link to={`/manage-users/${user.id}`}>Edit User</Link>
+                <button type="button" onClick={() => makeAdmin(user)}>
+                  {user.admin ? 'Remove Admin Status' : 'Make Admin'}
+                </button>
               </div>
             );
           })}

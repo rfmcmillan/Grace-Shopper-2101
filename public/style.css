@@ -105,11 +105,11 @@
   margin: 0.5em;
   padding: 0.2em;
   border-radius: 0.4em;
+  width: 33%;
 }
 
 #manage-users {
-  display: flex;
-  flex-direction: row;
+  padding: 1rem;
 }
 
 #edit-user {

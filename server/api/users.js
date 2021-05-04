@@ -47,7 +47,6 @@ router.delete('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const userToModify = await User.findByPk(req.params.id);
-    console.log(userToModify);
     const updated = await userToModify.update(req.body);
     res.status(200).send(updated);
   } catch (error) {
