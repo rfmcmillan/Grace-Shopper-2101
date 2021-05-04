@@ -4,7 +4,7 @@ import React from 'react';
 import axios from 'axios';
 
 class NewReview extends React.Component {
-  constructor({ productId, userId }) {
+  constructor({ productId, userId, updateReviews }) {
     super();
     this.state = {
       text: '',
@@ -14,6 +14,7 @@ class NewReview extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.updateReviews = updateReviews;
   }
 
   async handleSubmit(ev) {
@@ -21,6 +22,7 @@ class NewReview extends React.Component {
     ev.preventDefault();
     const newReview = { ...this.state };
     await axios.post('/api/reviews', newReview);
+    this.updateReviews();
     form.reset();
   }
 
@@ -52,7 +54,7 @@ class NewReview extends React.Component {
             defaultValue="1"
             onChange={this.handleChange}
           />
-          <button type="submit">Add</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     );

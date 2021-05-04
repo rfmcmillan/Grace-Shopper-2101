@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { getSingleProduct } from '../../store/products/singleProduct';
 import Reviews from './Reviews';
 import NewReview from './NewReviewForm';
+import axios from 'axios';
+
 // import { Link } from 'react-router-dom';
 
 class SingleProduct extends Component {
@@ -13,11 +15,27 @@ class SingleProduct extends Component {
     this.state = {
       auth: {},
     };
+
+    this.updateReviews = this.updateReviews.bind(this);
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getProduct(id);
+    this.exchangeToken();
+  }
+
+  async exchangeToken() {
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      const response = await axios.get('/api/auth', {
+        headers: {
+          authorization: token,
+        },
+      });
+      const user = response.data;
+      this.setState({ auth: user });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -25,6 +43,13 @@ class SingleProduct extends Component {
       const { id } = this.props.match.params;
       this.props.getProduct(id);
     }
+
+    console.log('herees');
+  }
+
+  updateReviews() {
+    const { id } = this.props.match.params;
+    this.props.getProduct(id);
   }
 
   render() {
@@ -33,7 +58,6 @@ class SingleProduct extends Component {
     const countryName = product.country ? product.country.name : ' ';
     const flag = product.country ? product.country.flag : ' ';
     const reviews = product.reviews || [];
-
     // const history = this.props.history;
     return product ? (
       <div id="singleProduct" key={product.id}>
@@ -68,8 +92,13 @@ class SingleProduct extends Component {
         <button type="submit">Add to Cart</button>
 
         <h1>Reviews</h1>
+
         {auth.id ? (
-          <NewReview productId={product.id} userId={auth.id} />
+          <NewReview
+            productId={product.id}
+            userId={auth.id}
+            updateReviews={this.updateReviews}
+          />
         ) : (
           <div>Please log in to leave a review</div>
         )}

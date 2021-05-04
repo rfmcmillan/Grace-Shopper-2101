@@ -147,7 +147,7 @@ Product.getSingleProduct = function (id) {
       { model: Country },
       {
         model: Review,
-        attributes: ['id', 'rating'],
+        attributes: ['id', 'rating', 'text'],
         include: {
           model: User,
           attributes: ['firstName', 'lastName'],
