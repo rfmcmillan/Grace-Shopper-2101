@@ -473,6 +473,12 @@ const init = async () => {
         ['kevin@snacker.com', 'kevin_pw', 'kevin', 'f', true],
         ['yiru@snacker.com', 'yiru_pw', 'yiru', 'd', true],
         ['russel@snacker.com', 'russel_pw', 'russel', 'm', true],
+        ['john@snacker.com', 'pw', 'john', 'm', false],
+        ['jane@snacker.com', 'pw', 'jane', 'd', false],
+        ['sarah@snacker.com', 'pw', 'sarah', 'f', false],
+        ['steve@snacker.com', 'pw', 'steve', 'a', false],
+        ['paul@snacker.com', 'pw', 'paul', 'n', false],
+        ['dan@snacker.com', 'pw', 'dan', 't', false],
       ].map(([email, password, firstName, lastName, admin]) => {
         return User.create({ email, password, firstName, lastName, admin });
       })
