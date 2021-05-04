@@ -117,7 +117,7 @@ describe('Order model and join table defination', function () {
       expect(purchase.purchased_items.length).to.equal(1);
       expect(purchase.purchased_items[0].title).to.equal('Strawberry Puff');
     });
-    xit('it should also be able to add in a userId incase the user logs in at the time of purchase and keep track of amounts', async function () {
+    it('it should also be able to add in a userId incase the user logs in at the time of purchase and keep track of amounts', async function () {
       const purchase = await Order.purchase(
         '2016-05-06',
         null,
