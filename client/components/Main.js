@@ -9,6 +9,7 @@ import AllProducts from './AllProducts';
 import SingleProduct from './SingleProduct/SingleProduct';
 import LogInPage from './LogInPage';
 import ManageProducts from './ManageProducts/ManageProducts';
+import EditProduct from './ManageProducts/EditProduct';
 
 import Nav from './Nav';
 import Home from './Home';

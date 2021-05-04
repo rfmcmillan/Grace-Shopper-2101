@@ -2,30 +2,31 @@ import axios from 'axios';
 import React, { Component } from 'react';
 
 class EditProduct extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      title: '',
-      brand: '',
-      description: '',
-      price: '',
-      inventory: '',
-      imageUrl: '',
-      //location didn't work because location already references the current url
-      reqCountry: '',
+      auth: {},
+      currProduct: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.getCurrProduct = this.getCurrProduct.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCurrProduct();
   }
 
   onChange(ev) {
     const change = {};
     change[ev.target.name] = ev.target.value;
-    this.setState(change);
+    this.setState({ currProduct: change });
   }
 
   async onSave(ev) {
     ev.preventDefault();
+
+    const { id } = this.props.match.params;
     try {
       const {
         title,
@@ -35,20 +36,28 @@ class EditProduct extends Component {
         inventory,
         imageUrl,
         reqCountry,
-      } = this.state;
+      } = this.state.currProduct;
 
-      const product = await axios.put('/api/products', {
-        title,
-        brand,
-        description,
-        price,
-        inventory,
-        imageUrl,
-        reqCountry,
-      });
+      const currProduct = (
+        await axios.put(`/api/products/${id}`, {
+          title,
+          brand,
+          description,
+          price,
+          inventory,
+          imageUrl,
+          reqCountry,
+        })
+      ).data;
     } catch (error) {
       this.setState({ error: error.response.data.error });
     }
+  }
+
+  async getCurrProduct() {
+    const { id } = this.props.match.params;
+    const currProduct = (await axios.get(`/api/products/${id}`)).data;
+    this.setState({ currProduct });
   }
 
   render() {
@@ -60,12 +69,12 @@ class EditProduct extends Component {
       inventory,
       imageUrl,
       reqCountry,
-    } = this.state;
+    } = this.state.currProduct;
     const { onChange, onSave } = this;
-
     return (
-      <div id="create-product">
-        <h3>Add A Product:</h3>
+      <div id="edit-product">
+        <h3>Edit Product:</h3>
+        <img src={imageUrl} alt="snack" width="100" />
         <form onSubmit={onSave}>
           <label>Title*:</label>
           <input name="title" value={title} onChange={onChange} />
@@ -93,11 +102,11 @@ class EditProduct extends Component {
           <label>Country*:</label>
           <input name="reqCountry" value={reqCountry} onChange={onChange} />
           <br />
-          <button>Create Product</button>
+          <button>Submit Changes</button>
         </form>
       </div>
     );
   }
 }
 
-export default CreateProduct;
+export default EditProduct;
