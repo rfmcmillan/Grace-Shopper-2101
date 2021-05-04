@@ -12,13 +12,6 @@ import LogInPage from './LogInPage';
 import Nav from './Nav';
 import Home from './Home';
 class Main extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      auth: {},
-    };
-  }
-
   render() {
     return (
       <Router>
