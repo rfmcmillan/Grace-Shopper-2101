@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class ManageUsers extends React.Component {
   constructor() {
@@ -8,7 +9,6 @@ class ManageUsers extends React.Component {
       auth: {},
       users: [],
     };
-    this.onChange = this.onChange.bind(this);
     this.destroy = this.destroy.bind(this);
   }
 
@@ -21,15 +21,9 @@ class ManageUsers extends React.Component {
     this.loadUsers();
   }
 
-  onChange(event) {
-    const change = {};
-    change[event.target.name] = event.target.value;
-    this.setState(change);
-  }
-
   async exchangeToken() {
     const token = window.localStorage.getItem('token');
-    console.log('token:', token);
+
     if (token) {
       const response = await axios.get('/api/auth', {
         headers: {
@@ -51,17 +45,12 @@ class ManageUsers extends React.Component {
     const response = await axios.delete(`/api/users/${user.id}`);
     const usersResponse = await axios.get('/api/users');
     const users = usersResponse.data;
-    console.log(users);
-    console.log('this:', this);
     this.setState({ users });
-    console.log(this.state.users);
   }
 
   render() {
     const { auth, users } = this.state;
-    console.log(auth);
     const { destroy } = this;
-    const { onChange } = this;
     if (!auth.admin) {
       return (
         <div>
@@ -88,9 +77,7 @@ class ManageUsers extends React.Component {
                 >
                   X
                 </button>
-                <button type="button" id="mainButtons">
-                  Edit
-                </button>
+                <Link to={`/manage-users/${user.id}`}>Edit User</Link>
               </div>
             );
           })}
