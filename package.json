@@ -6,9 +6,9 @@
   "scripts": {
     "build": "webpack --mode=production",
     "build:dev": "npm run build -- --watch --mode=development",
-    "test": "JWT=snacker-pass mocha --exit --require regenerator-runtime --require @babel/register",
+    "test": "JWT=snack mocha --exit --require regenerator-runtime --require @babel/register",
     "test:dev": "DATABASE_URL=postgres://localhost:5432/snacker_test npm run test -- --watch",
-    "windows-test": "SET JWT=snacker-pass && mocha --exit",
+    "windows-test": "SET JWT=snack && mocha --exit",
     "windows-test:dev": "SET DATABASE_URL=postgres://localhost:5432/snacker_test && npm run windows-test -- --watch",
     "lint": "eslint client server test --fix",
     "seed": "node ./bin/seed",

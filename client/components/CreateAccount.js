@@ -40,15 +40,6 @@ class CreateAccount extends Component {
       <div>
         <h4 id="add-user">Create Account:</h4>
         <form onSubmit={onSave}>
-          <h5 className="error">
-            {!!error &&
-              JSON.stringify(
-                error.errors.map((error) => {
-                  return error.message;
-                }),
-                null
-              )}
-          </h5>
           <label>Email Address:</label>
           <input name="email" value={email} onChange={onChange} />
           <br />
