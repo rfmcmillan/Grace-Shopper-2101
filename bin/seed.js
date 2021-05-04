@@ -469,11 +469,11 @@ const init = async () => {
 
     const [alejandra, kevin, yiru] = await Promise.all(
       [
-        ['alejandra@snacker.com', 'alejandra_pw'],
-        ['kevin@snacker.com', 'kevin_pw'],
-        ['yiru@snacker.com', 'yiru_pw'],
-      ].map(([email, password]) => {
-        return User.create({ email, password });
+        ['alejandra@snacker.com', 'alejandra_pw', 'alejandra', 'v'],
+        ['kevin@snacker.com', 'kevin_pw', 'kevin', 'f'],
+        ['yiru@snacker.com', 'yiru_pw', 'yiru', 'd'],
+      ].map(([email, password, firstName, lastName]) => {
+        return User.create({ email, password, firstName, lastName });
       })
     );
 

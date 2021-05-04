@@ -141,6 +141,22 @@ User.getCart = async function (userId) {
   }
 };
 
+Product.getSingleProduct = function (id) {
+  return Product.findByPk(id, {
+    include: [
+      { model: Country },
+      {
+        model: Review,
+        attributes: ['id', 'rating'],
+        include: {
+          model: User,
+          attributes: ['firstName', 'lastName'],
+        },
+      },
+    ],
+  });
+};
+
 module.exports = {
   Order,
   Product,

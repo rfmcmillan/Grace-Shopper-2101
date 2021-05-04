@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getSingleProduct } from '../store/products/singleProduct';
-// import { deleteProduct, updateProduct } from '../store';
+import Reviews from './Reviews';
 // import { Link } from 'react-router-dom';
 
 class SingleProduct extends Component {
@@ -29,6 +29,7 @@ class SingleProduct extends Component {
     const { product } = this.props;
     const countryName = product.country ? product.country.name : ' ';
     const flag = product.country ? product.country.flag : ' ';
+    const reviews = product.reviews || [];
     // const history = this.props.history;
     return product ? (
       <div id="singleProduct" key={product.id}>
@@ -41,19 +42,9 @@ class SingleProduct extends Component {
         <img src={product.imageUrl} />
         <input type="number" placeholder="quantity" />
         <button>Add to Cart</button>
-        {/* <Link to={`/products/${product.id}/update`}>
-          <button>Update</button>
-        </Link> */}
-        {/* <button
-          onClick={() => {
-            this.props.destroy(product, history);
-          }}
-        >
-          Delete
-        </button>
-      </div>
-        ) */}
+
         <h1>Reviews</h1>
+        <Reviews reviews={reviews} />
       </div>
     ) : (
       <div>
