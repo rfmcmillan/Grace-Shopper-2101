@@ -69,6 +69,7 @@ class ManageUsers extends React.Component {
                   <li>First Name: {user.firstName}</li>
                   <li>Last Name: {user.lastName}</li>
                   <li>email: {user.email}</li>
+                  <li>admin: {user.admin.toString()}</li>
                 </ul>
                 <button
                   type="button"

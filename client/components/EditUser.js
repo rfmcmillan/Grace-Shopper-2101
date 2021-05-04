@@ -12,9 +12,11 @@ class EditUser extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.destroy = this.destroy.bind(this);
     this.loadUser = this.loadUser.bind(this);
+    this.makeAdmin = this.makeAdmin.bind(this);
   }
 
   async componentDidMount() {
+    console.log('component mounted');
     await this.exchangeToken();
     await this.loadUsers();
     this.loadUser();
@@ -41,39 +43,45 @@ class EditUser extends React.Component {
       this.setState({ auth: user });
     }
   }
+
   async loadUsers() {
     const response = await axios.get('/api/users');
     const users = response.data;
     this.setState({ users });
-  }
-  async loadUser() {
-    const { users } = this.state;
-    const { id } = this.props.match.params;
-    console.log(id);
-    console.log(users);
-    const currentUser = users.find((user) => {
-      console.log(user.id);
-      return user.id === id || {};
-    });
-    console.log('currentUser:', currentUser);
-    // const response = await axios.get(`/api/users/:id`);
-    // const user = response.data;
-    // console.log('user:', user);
-    // this.setState({ user });
+    console.log('users are loaded');
   }
 
-  async destroy(user) {
+  async loadUser() {
+    const { users } = this.state;
+
+    const { id } = this.props.match.params;
+
+    const currentUser = users.find((user) => {
+      return user.id === (id || {});
+    });
+    this.setState({ currentUser });
+  }
+
+  async destroy(currentUser) {
     const response = await axios.delete(`/api/users/${user.id}`);
     const usersResponse = await axios.get('/api/users');
     const users = usersResponse.data;
     this.setState({ users });
   }
 
-  render() {
-    const { auth, users } = this.state;
-    const { destroy, onChange } = this;
-    // const { email, password, firstName, lastName } = this.state.user;
+  async makeAdmin(currentUser) {
+    console.log(this.state.currentUser);
+    const { id } = this.state.currentUser;
+    console.log(id);
+    await axios.put(`api/users/${id}`, { admin: true });
+  }
 
+  render() {
+    console.log('rendering...');
+    const { auth, currentUser } = this.state;
+    const { email, firstName, lastName, admin } = currentUser;
+    const { makeAdmin } = this;
+    console.log(admin);
     if (!auth.admin) {
       return (
         <div>
@@ -82,22 +90,29 @@ class EditUser extends React.Component {
       );
     }
     return (
-      <div>
+      <div id="edit-user">
         <h2>Edit User</h2>
-        <form>
-          {/* <label>Email Address:</label>
+        <ul>
+          <li>Email: {email}</li>
+          <li>First Name: {firstName}</li>
+          <li>Last Name: {lastName}</li>
+          <li>Admin: {admin ? 'Yes' : 'No'}</li>
+        </ul>
+        <button onClick={(currentUser) => makeAdmin(currentUser)}>
+          {admin ? 'Remove Admin Status' : 'Make Admin'}
+        </button>
+
+        {/* <form>
+          <label>Email Address:</label>
           <input name="email" value={email} onChange={onChange} />
-          <br /> */}
-          {/* <label>Password:</label>
-          <input name="password" value={password} onChange={onChange} />
           <br />
           <label>First Name:</label>
           <input name="firstName" value={firstName} onChange={onChange} />
           <br />
           <label>Last Name:</label>
           <input name="lastName" value={lastName} onChange={onChange} />
-          <br /> */}
-        </form>
+          <br />
+        </form> */}
       </div>
     );
   }
