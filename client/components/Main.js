@@ -23,9 +23,9 @@ class Main extends React.Component {
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
-            <Route exact path="/cart" componenet={Cart}/>
+            <Route path="/cart" componenet={Cart}/>
+            <Route component={LogInPage} path="/login" exact />
           </Switch>
-          <Route component={LogInPage} path="/login" exact />
         </div>
       </Router>
     );

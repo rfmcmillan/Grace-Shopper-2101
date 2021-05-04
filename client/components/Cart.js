@@ -1,6 +1,7 @@
+/* eslint-disable react/button-has-type */
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { loadCart } from '../store/cart';
 
 class Cart extends Component {
@@ -10,36 +11,62 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    // const { getCart } = this.props;
-    // const { id } = this.props;
-    // getCart(id);
+    if (this.props.user) {
+      this.props.getCart(this.props.user.cart);
+    }
   }
 
   render() {
+    const { cart } = this.props;
     return (
       <div id="cart_container">
         <h1>Cart</h1>
-        <div id="Cart" />
+
+        <div id="Cart">
+          {cart.map((product) => {
+            return (
+              <div key={product.id} className="product">
+                <Link to={`/products/${product.id}`}>
+                  <h3>{`${product.title}`}</h3>
+                </Link>
+                <h4>
+                  {product.country.name}
+                  <i className={`em ${product.country.flag}`} />
+                </h4>
+
+                <img
+                  className="allProductImage"
+                  src={product.imageUrl}
+                  alt={product.description}
+                />
+
+                <button>
+                  Remove From Cart/Update Amount
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  // const { products } = state;
-  // if (!products) {
-  //   return 'The cart is empty';
-  // }
-  // return {
-  //   products,
-  // };
+  const { cart } = state;
+  if (!cart) {
+    return 'The cart is empty';
+  }
+  return {
+    cart,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  // return {
-  //   getCart: () => {
-  //     dispatch(loadCart());
-  //   },
-  // };
+  return {
+    getCart: (id) => {
+      dispatch(loadCart(id));
+    },
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

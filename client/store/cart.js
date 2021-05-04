@@ -46,7 +46,7 @@ const _addToCart = (product) => {
   return { type: ADD_TO_CART, product };
 };
 
-const addToCart = (product, cart) => {
+const addToCart = (product, cart = null) => {
   return async (dispatch) => {
     try {
       if (cart) {
