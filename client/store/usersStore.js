@@ -48,7 +48,6 @@ const usersReducer = (state = [], action) => {
     state = action.users;
   }
   if (action.type === CREATE_USER) {
-    console.log(state);
     state = [...state, action.user];
   }
   return state;

@@ -48,9 +48,10 @@ User.authenticate = async function ({ email, password }) {
   const user = await User.findOne({
     where: { email },
   });
-
   if (user && (await bcrypt.compare(password, user.password))) {
-    return jwt.sign({ id: user.id }, process.env.JWT);
+    const token = jwt.sign({ id: user.id }, process.env.JWT);
+
+    return token;
   }
   const error = Error(
     'The email address or password that you provided is incorrect.',

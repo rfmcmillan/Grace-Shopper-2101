@@ -16,7 +16,10 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    res.send({ token: await User.authenticate(req.body) });
+    const env = require('../../env');
+    process.env.JWT = env.JWT;
+    const token = await User.authenticate(req.body);
+    res.send({ token: token });
   } catch (error) {
     next(error);
   }
