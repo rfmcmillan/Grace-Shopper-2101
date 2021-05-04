@@ -10,23 +10,19 @@ const {
 
 describe('User Model', function () {
   beforeEach(async function () {
-    try {
-      await db.sync({ force: true });
-      await User.create({
-        email: 'kevin@snacker.com',
-        password: 'kevin_pw',
-      });
-      await User.create({
-        email: 'alejandra@snacker.com',
-        password: 'alejandra_pw',
-      });
-      await User.create({
-        email: 'yiru@snacker.com',
-        password: 'yiru_pw',
-      });
-    } catch (error) {
-      throw error;
-    }
+    await db.sync({ force: true });
+    await User.create({
+      email: 'kevin@snacker.com',
+      password: 'kevin_pw',
+    });
+    await User.create({
+      email: 'alejandra@snacker.com',
+      password: 'alejandra_pw',
+    });
+    await User.create({
+      email: 'yiru@snacker.com',
+      password: 'yiru_pw',
+    });
   });
 
   it('should exist', async function () {
@@ -38,7 +34,7 @@ describe('User Model', function () {
     expect(users).to.be.an('array');
     expect(users.length).to.be.at.least(0);
   });
-  // very simple tests. they will fail if you provide invalid inputs to the User.create() call that is within the test
+
   it('should require an email address', async function () {
     const user = await User.create({
       email: 'rosie@snacker.com',
@@ -259,6 +255,9 @@ describe('User Model', function () {
         const user = await User.create({
           email: 'rosie@snacker.com',
           password: 'rosie_pw',
+          firstName: 'Rosie',
+          lastName: 'M',
+          admin: 'true',
         });
         const token = await jwt.sign({ id: user.id }, process.env.JWT);
         const response = await app.get('/api/auth').set({
