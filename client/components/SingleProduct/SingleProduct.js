@@ -17,6 +17,7 @@ class SingleProduct extends Component {
     };
 
     this.updateReviews = this.updateReviews.bind(this);
+    this.checkIfReviewed = this.checkIfReviewed.bind(this);
   }
 
   componentDidMount() {
@@ -52,12 +53,17 @@ class SingleProduct extends Component {
     this.props.getProduct(id);
   }
 
+  checkIfReviewed(userId, reviews) {
+    return reviews.some((review) => review.userId === userId);
+  }
+
   render() {
     const { product } = this.props;
     const { auth } = this.state;
     const countryName = product.country ? product.country.name : ' ';
     const flag = product.country ? product.country.flag : ' ';
     const reviews = product.reviews || [];
+
     // const history = this.props.history;
     return product ? (
       <div id="singleProduct" key={product.id}>
@@ -94,11 +100,17 @@ class SingleProduct extends Component {
         <h1>Reviews</h1>
 
         {auth.id ? (
-          <NewReview
-            productId={product.id}
-            userId={auth.id}
-            updateReviews={this.updateReviews}
-          />
+          this.checkIfReviewed(auth.id, reviews) ? (
+            <div>Thanks! You've reviewed this already! </div>
+          ) : (
+            <NewReview
+              productId={product.id}
+              userId={auth.id}
+              updateReviews={this.updateReviews}
+              checkIfReviewed={this.checkIfReviewed}
+              reviews={reviews}
+            />
+          )
         ) : (
           <div>Please log in to leave a review</div>
         )}

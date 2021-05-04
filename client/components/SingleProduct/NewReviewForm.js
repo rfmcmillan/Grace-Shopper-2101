@@ -4,7 +4,7 @@ import React from 'react';
 import axios from 'axios';
 
 class NewReview extends React.Component {
-  constructor({ productId, userId, updateReviews }) {
+  constructor({ productId, userId, updateReviews, checkIfReviewed, reviews }) {
     super();
     this.state = {
       text: '',
@@ -15,6 +15,7 @@ class NewReview extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.updateReviews = updateReviews;
+    console.log(checkIfReviewed(userId, reviews));
   }
 
   async handleSubmit(ev) {
