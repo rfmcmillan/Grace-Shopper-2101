@@ -6,7 +6,7 @@ import 'regenerator-runtime';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts';
-import SingleProduct from './SingleProduct';
+import SingleProduct from './SingleProduct/SingleProduct';
 import LogInPage from './LogInPage';
 
 import Nav from './Nav';
