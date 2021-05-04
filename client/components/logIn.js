@@ -21,7 +21,7 @@ class LogIn extends React.Component {
     this.exchangeToken();
   }
 
-  //this exchangeToken function can be copied over to other components to set the state's 'auth' property to the logged-in user object
+  // this exchangeToken function can be copied over to other components to set the state's 'auth' property to the logged-in user object
   async exchangeToken() {
     const token = window.localStorage.getItem('token');
     if (token) {
