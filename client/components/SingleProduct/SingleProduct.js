@@ -1,3 +1,5 @@
+/* eslint-disable*/
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getSingleProduct } from '../../store/products/singleProduct';
@@ -16,14 +18,11 @@ class SingleProduct extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getProduct(id);
-
-    // get reviews as well
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id != this.props.match.params.id) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
       const { id } = this.props.match.params;
-      console.log(id);
       this.props.getProduct(id);
     }
   }
@@ -86,7 +85,7 @@ class SingleProduct extends Component {
 }
 
 const mapStateToProps = (state, otherProps) => {
-  return { product: state.currProduct };
+  return { product: state.currProduct, reviews: state.currProduct.reviews };
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {

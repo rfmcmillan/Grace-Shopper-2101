@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Reviews = ({ reviews }) => {
-  console.log(reviews);
   return (
     <div>
       {reviews.length ? (

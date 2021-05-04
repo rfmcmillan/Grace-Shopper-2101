@@ -21,13 +21,13 @@ class NewReview extends React.Component {
     ev.preventDefault();
     const newReview = { ...this.state };
     await axios.post('/api/reviews', newReview);
+    form.reset();
   }
 
   handleChange(ev) {
     this.setState({
       [ev.target.name]: ev.target.value,
     });
-    console.log(this.state);
   }
   render() {
     return (
