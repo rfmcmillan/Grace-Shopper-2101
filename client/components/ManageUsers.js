@@ -1,7 +1,12 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { destroyUser, loadUsers, updateUser } from '../store/users';
+import {
+  destroyUser,
+  loadUsers,
+  updateUser,
+  triggerPasswordReset,
+} from '../store/users';
 
 class ManageUsers extends React.Component {
   constructor(props) {
@@ -53,7 +58,7 @@ class ManageUsers extends React.Component {
   render() {
     const { auth } = this.state;
     const { makeAdmin } = this;
-    const { users, destroy, load } = this.props;
+    const { users, destroy, load, trigger } = this.props;
     if (!auth.admin) {
       return (
         <div>
@@ -73,6 +78,10 @@ class ManageUsers extends React.Component {
                   <li key="last-name">Last Name: {user.lastName}</li>
                   <li key="email">Email: {user.email}</li>
                   <li key="admin">Admin: {user.admin ? 'Yes' : 'No'}</li>
+                  <li key="passwordResetTriggered">
+                    Password Reset Triggered:{' '}
+                    {user.passwordResetTriggered.toString()}
+                  </li>
                 </ul>
                 <button
                   type="button"
@@ -84,6 +93,14 @@ class ManageUsers extends React.Component {
                 <button type="button" onClick={() => makeAdmin(user)}>
                   {user.admin ? 'Remove Admin Status' : 'Make Admin'}
                 </button>
+
+                {user.passwordResetTriggered ? (
+                  ''
+                ) : (
+                  <button type="button" onClick={() => trigger(user)}>
+                    Trigger Password Reset
+                  </button>
+                )}
               </div>
             );
           })}
@@ -103,11 +120,13 @@ const mapDispatchToProps = (dispatch, { history }) => {
       return dispatch(destroyUser(user, history));
     },
     update: (user) => {
-      console.log('inside user function: user:', user);
       return dispatch(updateUser(user, history));
     },
     load: () => {
       return dispatch(loadUsers());
+    },
+    trigger: (user) => {
+      return dispatch(triggerPasswordReset(user));
     },
   };
 };

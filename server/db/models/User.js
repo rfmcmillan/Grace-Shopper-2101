@@ -42,6 +42,10 @@ const User = db.define('user', {
     type: DataTypes.UUID,
     defaultValue: null,
   },
+  passwordResetTriggered: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 User.authenticate = async function ({ email, password }) {
@@ -63,6 +67,7 @@ User.authenticate = async function ({ email, password }) {
 User.byToken = async function (token) {
   try {
     const { id } = await jwt.verify(token, process.env.JWT);
+    console.log('id', id);
     const user = await User.findByPk(id);
     if (user) {
       return user;

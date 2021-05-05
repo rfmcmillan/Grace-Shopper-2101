@@ -30,7 +30,7 @@ class Nav extends React.Component {
 
   render() {
     const { auth } = this.state;
-    console.log(auth);
+
     if (!auth.id) {
       const home = window.location.hash === '#/';
       return home ? (

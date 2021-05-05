@@ -8,6 +8,7 @@ const {
 
 router.get('/', async (req, res, next) => {
   try {
+    console.log('authoriz...:', req.headers.authorization);
     res.send(await User.byToken(req.headers.authorization));
   } catch (error) {
     next(error);

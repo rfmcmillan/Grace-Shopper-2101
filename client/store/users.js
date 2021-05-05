@@ -4,6 +4,8 @@ const LOAD_USERS = 'LOAD_USERS';
 const CREATE_USER = 'CREATE_USER';
 const UPDATE_USER = 'UPDATE_USER';
 const DESTROY_USER = 'DESTROY_USER';
+const TRIGGER_PASSWORD_RESET = 'TRIGGER_PASSWORD_RESET';
+const RESET_PASSWORD = 'RESET_PASSWORD';
 
 //Create Action Creators & Thunks
 
@@ -53,7 +55,7 @@ const updateUserActionCreator = (user) => {
 };
 
 const updateUser = (user, history) => {
-  const { id, firstName, lastName, email, admin } = user;
+  const { id, firstName, lastName, email, admin, password } = user;
   return async (dispatch) => {
     const user = (
       await axios.put(`/api/users/${id}`, {
@@ -61,6 +63,7 @@ const updateUser = (user, history) => {
         lastName,
         email,
         admin,
+        password,
       })
     ).data;
     dispatch(updateUserActionCreator(user));
@@ -75,11 +78,49 @@ const destroyUserActionCreator = (user) => {
   };
 };
 
-const destroyUser = (user, history) => {
+const destroyUser = (user) => {
   return async (dispatch) => {
     await axios.delete(`api/users/${user.id}`);
     dispatch(destroyUserActionCreator(user));
-    //history.push('/users');
+  };
+};
+//Trigger Password Reset
+const triggerPasswordResetActionCreator = (user) => {
+  return {
+    type: TRIGGER_PASSWORD_RESET,
+    user,
+  };
+};
+
+const triggerPasswordReset = (user) => {
+  return async (dispatch) => {
+    const userToReturn = (
+      await axios.put(`api/users/${user.id}`, { passwordResetTriggered: true })
+    ).data;
+    console.log('userToReturn:', userToReturn);
+    dispatch(triggerPasswordResetActionCreator(userToReturn));
+  };
+};
+
+//Trigger Password Reset
+const ResetPasswordActionCreator = (user) => {
+  return {
+    type: RESET_PASSWORD,
+    user,
+  };
+};
+
+const resetPassword = (auth, password) => {
+  console.log(password);
+  return async (dispatch) => {
+    const userToReturn = (
+      await axios.put(`api/users/${auth.id}`, {
+        password,
+        passwordResetTriggered: false,
+      })
+    ).data;
+    console.log('userToReturn:', userToReturn);
+    dispatch(resetPasswordActionCreator(userToReturn));
   };
 };
 
@@ -98,11 +139,31 @@ const usersReducer = (state = [], action) => {
   }
   if (action.type === UPDATE_USER) {
     const users = state.map((user) => {
-      if (user === action.user) {
+      if (user.id === action.user.id) {
         return action.user;
       }
       return user;
     });
+    state = users;
+  }
+  if (action.type === TRIGGER_PASSWORD_RESET) {
+    const users = state.map((user) => {
+      if (user.id === action.user.id) {
+        return action.user;
+      }
+      return user;
+    });
+    console.log('users from reducer:', users);
+    state = users;
+  }
+  if (action.type === RESET_PASSWORD) {
+    const users = state.map((user) => {
+      if (user.id === action.user.id) {
+        return action.user;
+      }
+      return user;
+    });
+    console.log('users from reducer:', users);
     state = users;
   }
   return state;
@@ -120,4 +181,6 @@ export {
   updateUserActionCreator,
   updateUser,
   usersReducer,
+  triggerPasswordReset,
+  resetPassword,
 };

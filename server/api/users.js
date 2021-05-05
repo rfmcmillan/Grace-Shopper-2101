@@ -49,6 +49,7 @@ router.delete('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
+    console.log('password reset put request:', req.body);
     const userToModify = await User.findByPk(req.params.id);
     const updated = await userToModify.update(req.body);
     res.status(200).send(updated);
