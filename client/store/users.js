@@ -110,7 +110,6 @@ const ResetPasswordActionCreator = (user) => {
 };
 
 const resetPassword = (auth, password) => {
-  console.log(password);
   return async (dispatch) => {
     const userToReturn = (
       await axios.put(`api/users/${auth.id}`, {
@@ -118,7 +117,6 @@ const resetPassword = (auth, password) => {
         passwordResetTriggered: false,
       })
     ).data;
-    console.log('userToReturn:', userToReturn);
     dispatch(resetPasswordActionCreator(userToReturn));
   };
 };
@@ -152,7 +150,7 @@ const usersReducer = (state = [], action) => {
       }
       return user;
     });
-    console.log('users from reducer:', users);
+
     state = users;
   }
   if (action.type === RESET_PASSWORD) {
@@ -162,7 +160,6 @@ const usersReducer = (state = [], action) => {
       }
       return user;
     });
-    console.log('users from reducer:', users);
     state = users;
   }
   return state;
