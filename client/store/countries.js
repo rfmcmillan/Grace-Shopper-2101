@@ -31,4 +31,5 @@ const countriesReducer = (state = [], action) => {
   }
 };
 
+export { loadCountries };
 export default countriesReducer;

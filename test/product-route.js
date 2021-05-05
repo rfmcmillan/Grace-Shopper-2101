@@ -1,11 +1,10 @@
 const chai = require('chai');
-
+const app = require('supertest')(require('../server/server'));
 const { expect } = chai;
 const {
   db,
-  models: { Product, Country },
+  models: { Product },
 } = require('../server/db');
-const app = require('supertest')(require('../server/server'));
 
 describe('Product routes', function () {
   let product;

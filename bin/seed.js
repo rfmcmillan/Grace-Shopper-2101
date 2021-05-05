@@ -18,31 +18,63 @@ const init = async () => {
     const Australia = await Country.create({
       name: 'Australia',
       flag: 'em-flag-au',
+      latitude: '-20.617881888101394',
+      longitude: '135.09110442991363',
     });
 
-    const China = await Country.create({ name: 'China', flag: 'em-cn' });
-    const French = await Country.create({ name: 'French', flag: 'em-fr' });
+    const China = await Country.create({
+      name: 'China',
+      flag: 'em-cn',
+      latitude: '34.35094695144762',
+      longitude: '108.84219110307014',
+    });
+    const French = await Country.create({
+      name: 'French',
+      flag: 'em-fr',
+      latitude: '48.8611546464059',
+      longitude: '2.3358046534193906',
+    });
     const India = await Country.create({
       name: 'India',
       flag: 'em-flag-in',
+      latitude: '17.422635674938114',
+      longitude: '78.46911411149898',
     });
-    const Japan = await Country.create({ name: 'Japan', flag: 'em-jp' });
+    const Japan = await Country.create({
+      name: 'Japan',
+      flag: 'em-jp',
+      latitude: '35.72392626089728',
+      longitude: '139.79853405592576',
+    });
     const Singapore = await Country.create({
       name: 'Singapore',
       flag: 'em-flag-sg',
+      latitude: '1.3676500002443548',
+      longitude: '103.8517041624466',
     });
     const SKorea = await Country.create({
       name: 'South Korea',
       flag: 'em-kr',
+      latitude: '37.57978703298325',
+      longitude: '126.97703026833248',
     });
-    const Spain = await Country.create({ name: 'Spain', flag: 'em-es' });
+    const Spain = await Country.create({
+      name: 'Spain',
+      flag: 'em-es',
+      latitude: '40.42950704004299',
+      longitude: '-3.7022071210846486',
+    });
     const Taiwan = await Country.create({
       name: 'Taiwan',
       flag: 'em-flag-tw',
+      latitude: '23.84406215203008',
+      longitude: '120.9230499363364',
     });
     const Thailand = await Country.create({
       name: 'Thailand',
       flag: 'em-flag-th',
+      latitude: '13.770136520329599',
+      longitude: '100.49857517316434',
     });
 
     const Puff = await Product.create({
@@ -159,7 +191,7 @@ const init = async () => {
       inventory: 231,
       countryId: Singapore.id,
       imageUrl:
-        'https://mynextplaneout.files.wordpress.com/2018/04/the-golden-duck-salted-egg-yolk-potato-chips-and-fish-skin-crisps.jpg',
+        'https://media.karousell.com/media/photos/products/2017/07/18/___1500389373_f4d4f335.jpg',
     });
 
     const Kueh = await Product.create({
@@ -171,7 +203,7 @@ const init = async () => {
       inventory: 100,
       countryId: Singapore.id,
       imageUrl:
-        'https://cdn2.sg.orstatic.com/userphoto/photo/0/5N/00143X2B9E38916D116A8Cpx.jpg?fbclid=IwAR0zUIZVaMkRyIqD3ASvvdQjnsMG8s_DflHXeNuqygarliefhGrBcXDSHGI',
+        'https://www.8days.sg/image/14039502/3x4/1440/1920/dfaebc91b51a74386557313a94d91705/tX/the-8-days-kueh-lapis-ranking-2021---tingkat-peramakan.jpg',
     });
 
     const MilkTablet = await Product.create({
@@ -267,13 +299,13 @@ const init = async () => {
     });
 
     const TurtleChips = await Product.create({
-      title: 'Turtle Chips(Corn Soup Flavor)',
+      title: 'Turtle Chips',
       brand: 'Orion',
       description: 'It comes with unique four thin layer!',
       price: 1.99,
       inventory: 216,
       countryId: SKorea.id,
-      imageUrl: 'https://cdn01.sayweee.net/2020-08/9e9w2TKfRaea2AF73wxNww.jpg',
+      imageUrl: 'https://gd.image-gmkt.com/li/975/907/779907975.g_0-w_g.jpg',
     });
 
     const Mix = await Product.create({
@@ -317,8 +349,7 @@ const init = async () => {
       description: 'It is made of heavy cream, caramel, sugar and eggs.',
       inventory: 154,
       countryId: French.id,
-      imageUrl:
-        'https://bonjourparis.com/wp-content/uploads/2015/07/Pot-de-Creme.jpg?fbclid=IwAR3FQX3q5WeKELo39opmdAke_OHfvJtoOpSXZPRiLDMFT0uaLg9eaabEfLs',
+      imageUrl: 'https://media.auchan.fr/MEDIASTEP101391290_1200x1200/B2CD/',
     });
 
     const Ecolier = await Product.create({
@@ -329,7 +360,7 @@ const init = async () => {
       inventory: 229,
       countryId: French.id,
       imageUrl:
-        'https://i5.walmartimages.com/asr/46ff700c-c48f-4c1e-bda2-7c1ede7794d6.71692f45419c4238cb61b8d89d1d42ae.jpeg',
+        'https://images-na.ssl-images-amazon.com/images/I/9106CKpWAcL._SX679_.jpg',
     });
 
     const ButterCookies = await Product.create({
@@ -402,7 +433,7 @@ const init = async () => {
       inventory: 158,
       countryId: Spain.id,
       imageUrl:
-        'https://lunya.co.uk/wp-content/uploads/2017/11/turron-blando.jpg',
+        'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRq4g0d5pwkWeE1qGMUXhh18o83VDHsNa6usI-W0ruvHLsITgh_uUc0oWgyVwY8z4YW8ApsF8gEo13wvFRj82a-JQ90yPgLDss5dKl_Stc&usqp=CAE',
     });
 
     const Bonbon = await Product.create({
@@ -467,12 +498,18 @@ const init = async () => {
       ]),
     ]);
 
-    const [alejandra, kevin, yiru] = await Promise.all(
+    const [alejandra, kevin, yiru, russel] = await Promise.all(
       [
         ['alejandra@snacker.com', 'alejandra_pw', 'alejandra', 'v', true],
         ['kevin@snacker.com', 'kevin_pw', 'kevin', 'f', true],
         ['yiru@snacker.com', 'yiru_pw', 'yiru', 'd', true],
         ['russel@snacker.com', 'russel_pw', 'russel', 'm', true],
+        ['john@snacker.com', 'pw', 'john', 'm', false],
+        ['jane@snacker.com', 'pw', 'jane', 'd', false],
+        ['sarah@snacker.com', 'pw', 'sarah', 'f', false],
+        ['steve@snacker.com', 'pw', 'steve', 'a', false],
+        ['paul@snacker.com', 'pw', 'paul', 'n', false],
+        ['dan@snacker.com', 'pw', 'dan', 't', false],
       ].map(([email, password, firstName, lastName, admin]) => {
         return User.create({ email, password, firstName, lastName, admin });
       })

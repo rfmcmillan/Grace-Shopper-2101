@@ -6,13 +6,18 @@ import 'regenerator-runtime';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts';
+import CreateAccount from './CreateAccount.js';
+import Cart from './Cart'
 import SingleProduct from './SingleProduct/SingleProduct';
 import LogInPage from './LogInPage';
 import ManageProducts from './ManageProducts/ManageProducts';
 import EditProduct from './ManageProducts/EditProduct';
+import ManageUsers from './ManageUsers';
 
 import Nav from './Nav';
 import Home from './Home';
+import Map from './Map';
+
 class Main extends React.Component {
   render() {
     return (
@@ -23,10 +28,14 @@ class Main extends React.Component {
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
+<<<<<<< HEAD
             <Route exact path="/manage-products" component={ManageProducts} />
             <Route exact path="/manage-products/:id" component={EditProduct} />
+=======
+            <Route exact path="/manage-users" component={ManageUsers} />
+            <Route exact path="/cart" component={Cart}/>
+>>>>>>> main
           </Switch>
-          <Route component={LogInPage} path="/login" exact />
         </div>
       </Router>
     );
