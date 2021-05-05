@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { destroyUser } from '../store/usersStore';
 
 class ManageUsers extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       auth: {},
       users: [],
@@ -15,11 +16,7 @@ class ManageUsers extends React.Component {
 
   componentDidMount() {
     this.exchangeToken();
-    this.loadUsers();
-  }
-
-  componentDidUpdate() {
-    this.loadUsers();
+    // this.loadUsers();
   }
 
   async exchangeToken() {
@@ -37,31 +34,27 @@ class ManageUsers extends React.Component {
     }
   }
 
-  async loadUsers() {
-    const response = await axios.get('/api/users');
-    const users = response.data;
-    this.setState({ users });
-  }
+  // async loadUsers() {
+  //   const response = await axios.get('/api/users');
+  //   const users = response.data;
+  //   this.setState({ users });
+  // }
 
-  async destroy(user) {
-    await axios.delete(`/api/users/${user.id}`);
-    const usersResponse = await axios.get('/api/users');
-    const users = usersResponse.data;
-    this.setState({ users });
-  }
-
-  async makeAdmin(currentUser) {
-    const { id } = currentUser;
-    if (currentUser.admin === false) {
-      await axios.put(`api/users/${id}`, { admin: true });
+  async makeAdmin(user) {
+    const { update } = this.props;
+    if (user.admin === false) {
+      user.admin = true;
+      await update(user));
     } else {
-      await axios.put(`api/users/${id}`, { admin: false });
+      user.admin = false;
+      await update(user));
     }
   }
 
   render() {
-    const { auth, users } = this.state;
-    const { destroy, makeAdmin } = this;
+    const { auth } = this.state;
+    const { makeAdmin } = this;
+    const { users, destroy } = this.props;
     if (!auth.admin) {
       return (
         <div>
@@ -101,4 +94,19 @@ class ManageUsers extends React.Component {
   }
 }
 
-export default ManageUsers;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch, { history }) => {
+  return {
+    destroy: (user) => {
+      return dispatch(destroyUser(user, history));
+    },
+    update: (user) => {
+      return dispatch(updateUser(user, history));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageUsers);
