@@ -19,7 +19,7 @@ router.post('/', async (req, res, next) => {
     const env = require('../../env');
     process.env.JWT = env.JWT;
     const token = await User.authenticate(req.body);
-    res.send({ token: token });
+    res.send({ token });
   } catch (error) {
     next(error);
   }

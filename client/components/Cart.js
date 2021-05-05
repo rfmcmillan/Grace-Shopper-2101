@@ -14,8 +14,8 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    if (this.props.user) {
-      this.props.getCart(this.props.user.cart);
+    if (this.props.users) {
+      this.props.getCart(this.props.users.cart);
     }
   }
 

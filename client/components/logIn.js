@@ -21,6 +21,12 @@ class LogIn extends React.Component {
     this.exchangeToken();
   }
 
+  onChange(event) {
+    const change = {};
+    change[event.target.name] = event.target.value;
+    this.setState(change);
+  }
+
   // this exchangeToken function can be copied over to other components to set the state's 'auth' property to the logged-in user object
   async exchangeToken() {
     const token = window.localStorage.getItem('token');
@@ -33,12 +39,6 @@ class LogIn extends React.Component {
       const user = response.data;
       this.setState({ auth: user });
     }
-  }
-
-  onChange(event) {
-    const change = {};
-    change[event.target.name] = event.target.value;
-    this.setState(change);
   }
 
   async login(event, email, password) {
@@ -54,13 +54,15 @@ class LogIn extends React.Component {
   }
 
   render() {
-    const { auth, error, email, password } = this.state;
+    const {
+      auth, error, email, password,
+    } = this.state;
     const { login, onChange, logout } = this;
     if (!auth.id) {
       return (
         <div>
           <h4>Log In:</h4>
-          <form onSubmit={(event) => login(event, email, password)}>
+          <form onSubmit={(event) => { return login(event, email, password); }}>
             <label>Email Address:</label>
             <input name="email" value={email} onChange={onChange} />
             <br />
@@ -71,17 +73,18 @@ class LogIn extends React.Component {
           </form>
         </div>
       );
-    } else {
-      return (
-        <div>
-          <h4>
-            Welcome{auth.firstName ? `, ${auth.firstName}` : ''}! You are now
-            logged in!
-          </h4>
-          <button onClick={logout}>Log Out</button>
-        </div>
-      );
     }
+    return (
+      <div>
+        <h4>
+          Welcome
+          {auth.firstName ? `, ${auth.firstName}` : ''}
+          ! You are now
+          logged in!
+        </h4>
+        <button onClick={logout}>Log Out</button>
+      </div>
+    );
   }
 }
 

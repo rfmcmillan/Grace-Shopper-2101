@@ -14,6 +14,7 @@ import ManageUsers from './ManageUsers';
 
 import Nav from './Nav';
 import Home from './Home';
+import CreateAccountPage from './CreateAccountPage';
 class Main extends React.Component {
   render() {
     return (
@@ -26,6 +27,8 @@ class Main extends React.Component {
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/manage-users" component={ManageUsers} />
             <Route exact path="/cart" component={Cart}/>
+            <Route exact path="/login" component={LogInPage} />
+            <Route exact path="/createaccount" component={CreateAccountPage} />
           </Switch>
         </div>
       </Router>
