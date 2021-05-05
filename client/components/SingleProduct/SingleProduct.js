@@ -25,6 +25,7 @@ class SingleProduct extends Component {
     const { id } = this.props.match.params;
     this.props.getProduct(id);
     this.exchangeToken();
+    console.log('HERERE', this.props.user);
   }
 
   async exchangeToken() {
@@ -60,6 +61,8 @@ class SingleProduct extends Component {
     if (this.props.user) {
       cart = this.props.user.cart;
     }
+    console.log('HERERE', this.props.user);
+
     //ADD AMOUNT
     this.props.addItem(product, cart);
   }
