@@ -6,17 +6,19 @@ import { getSingleProduct } from '../../store/products/singleProduct';
 import Reviews from './Reviews';
 import NewReview from './NewReviewForm';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
+import { addToCart } from '../../store/cart';
 
 class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
       auth: {},
+      purchased: false,
     };
 
     this.updateReviews = this.updateReviews.bind(this);
     this.checkIfReviewed = this.checkIfReviewed.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -43,13 +45,23 @@ class SingleProduct extends Component {
       const { id } = this.props.match.params;
       this.props.getProduct(id);
     }
-
-    console.log('herees');
   }
 
   updateReviews() {
     const { id } = this.props.match.params;
     this.props.getProduct(id);
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    const amount = evt.target.amount.value;
+    const product = this.props.product;
+    let cart = null;
+    if (this.props.user) {
+      cart = this.props.user.cart;
+    }
+    //ADD AMOUNT
+    this.props.addItem(product, cart);
   }
 
   checkIfReviewed(userId, reviews) {
@@ -85,17 +97,16 @@ class SingleProduct extends Component {
           {product.price}
         </p>
         <img src={product.imageUrl} alt={product.description} />
-        <select name="quanity">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-        </select>
-        <button type="submit">Add to Cart</button>
-
+        <form onSubmit={this.handleSubmit}>
+          <select name="amount">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button type="submit">Add to Cart</button>
+        </form>
         <h1>Reviews</h1>
 
         {auth.id ? (
@@ -125,13 +136,20 @@ class SingleProduct extends Component {
 }
 
 const mapStateToProps = (state, otherProps) => {
-  return { product: state.currProduct, reviews: state.currProduct.reviews };
+  return {
+    product: state.currProduct,
+    reviews: state.currProduct.reviews,
+    user: state.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     getProduct: (id) => {
       dispatch(getSingleProduct(id));
+    },
+    addItem: (productId, cart) => {
+      dispatch(addToCart(productId, cart));
     },
   };
 };
