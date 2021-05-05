@@ -32,14 +32,9 @@ class Main extends React.Component {
             <Route exact path="/manage-products" component={ManageProducts} />
             <Route exact path="/manage-products/:id" component={EditProduct} />
             <Route exact path="/manage-users" component={ManageUsers} />
-<<<<<<< HEAD
             <Route exact path="/cart" component={Cart}/>
             <Route exact path="/login" component={LogInPage} />
             <Route exact path="/createaccount" component={CreateAccountPage} />
-=======
-            <Route exact path="/login" component={LogInPage} />
-            <Route exact path="/cart" component={Cart} />
->>>>>>> 295e8b0c044da6a66c82fffa4ce62131642a05e0
           </Switch>
         </div>
       </Router>

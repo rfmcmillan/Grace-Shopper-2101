@@ -26,7 +26,7 @@ Order.addProducts = function (orderId, dupletsarr) {
     });
     if (pair) {
       pair.product_amount++;
-      pair.save();
+      await pair.save();
     } else {
       promises.push(
         ProductOrders.create({
@@ -37,7 +37,7 @@ Order.addProducts = function (orderId, dupletsarr) {
       );
     }
   });
-  return Promise.all(promises);
+  Promise.all(promises);
 };
 
 // an instance method designed to remove products from an order based on the amount
