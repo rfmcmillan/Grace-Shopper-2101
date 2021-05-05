@@ -1,22 +1,21 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { destroyUser } from '../store/users';
+import { destroyUser, loadUsers, updateUser } from '../store/users';
 
 class ManageUsers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       auth: {},
-      users: [],
     };
-    this.destroy = this.destroy.bind(this);
     this.makeAdmin = this.makeAdmin.bind(this);
   }
 
   componentDidMount() {
+    const { load } = this.props;
     this.exchangeToken();
-    // this.loadUsers();
+    // load();
   }
 
   async exchangeToken() {
@@ -41,6 +40,7 @@ class ManageUsers extends React.Component {
   // }
 
   async makeAdmin(user) {
+    console.log('user:', user);
     const { update } = this.props;
     if (user.admin === false) {
       user.admin = true;
@@ -54,7 +54,8 @@ class ManageUsers extends React.Component {
   render() {
     const { auth } = this.state;
     const { makeAdmin } = this;
-    const { users, destroy } = this.props;
+    const { users, destroy, load } = this.props;
+    console.log('users:', users);
     if (!auth.admin) {
       return (
         <div>
@@ -104,7 +105,11 @@ const mapDispatchToProps = (dispatch, { history }) => {
       return dispatch(destroyUser(user, history));
     },
     update: (user) => {
+      console.log('inside user function: user:', user);
       return dispatch(updateUser(user, history));
+    },
+    load: () => {
+      return dispatch(loadUsers());
     },
   };
 };

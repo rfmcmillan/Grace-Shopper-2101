@@ -52,13 +52,17 @@ const updateUserActionCreator = (user) => {
   };
 };
 
-const updateUser = (id, firstName, lastName, email, history) => {
+const updateUser = (user, history) => {
+  console.log('in updateUser thunk: user:', user);
+  const { id, firstName, lastName, email, admin } = user;
+  console.log('id:', id);
   return async (dispatch) => {
     const user = (
-      await axios.put(`/api/userss/${id}`, {
+      await axios.put(`/api/users/${id}`, {
         firstName,
         lastName,
         email,
+        admin,
       })
     ).data;
     dispatch(updateUserActionCreator(user));
