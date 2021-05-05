@@ -37,8 +37,13 @@ router.delete('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const { name, flag } = req.body;
-    const createCountry = await Country.create({ name, flag });
+    const { name, flag, latitude, longitude } = req.body;
+    const createCountry = await Country.create({
+      name,
+      flag,
+      latitude,
+      longitude,
+    });
     res.status(201).send(createCountry);
   } catch (ex) {
     next(ex);
