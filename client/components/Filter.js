@@ -1,24 +1,24 @@
 import React from 'react';
 
 const Filter = (props) => {
-  const { countries, categories, handleChange } = props;
+  const { countries, categories, handleChange, handleQueryChange } = props;
   return (
     <div id="filter">
-      <select name="COUNTRY" onChange={handleChange}>
+      <select name="countries" onChange={handleQueryChange}>
         <option selected>--Select Country--</option>
         {countries.map((country) => {
           return (
-            <option key={country.id} value={country.id}>
+            <option key={country.id} value={country.name}>
               {country.name}
             </option>
           );
         })}
       </select>
-      <select name="CATEGORY" onChange={handleChange}>
+      <select name="categories">
         <option selected>--Select Category--</option>
         {categories.map((category) => {
           return (
-            <option key={category.id} value={category.id}>
+            <option key={category.id} value={category.name}>
               {category.name}
             </option>
           );
@@ -30,7 +30,7 @@ const Filter = (props) => {
         type="range"
         name="price"
         min="0"
-        max="100"
+        max="50"
         onChange={handleChange}
       />
     </div>
