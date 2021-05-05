@@ -1,4 +1,4 @@
-//Assertions
+// Assertions
 import enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
@@ -12,12 +12,14 @@ import {
 import { reducer } from '../client/store';
 
 const chai = require('chai');
+
 const { expect } = chai;
 const chaiThings = require('chai-things');
+
 chai.use(chaiThings);
 
-const app = require('../server/server');
 const agent = require('supertest')(app);
+const app = require('../server/server');
 const { db } = require('../server/db');
 const User = require('../server/db/models/User');
 

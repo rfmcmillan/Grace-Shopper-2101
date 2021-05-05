@@ -7,11 +7,12 @@ const LOAD_CART = 'LOAD_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const UPDATE_AMOUNT = 'UPDATE_AMOUNT';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+const CLEAR_CART = 'CLEAR_CART';
 
 const cartReducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_CART: {
-      return [...state, action.cart];
+      return [...action.cart];
     }
     case ADD_TO_CART: {
       const key = state.find((e) => { return e.id === action.product.id; });
@@ -22,12 +23,15 @@ const cartReducer = (state = [], action) => {
       return [...state, { ...action.product, amount: 1 }];
     }
     case UPDATE_AMOUNT: {
-      const key = state.find((e) => { return e.id === action.update.product; });
+      const key = state.find((e) => { return e.id === action.update.productId; });
       key.amount = action.update.amount;
       return [...state];
     }
     case REMOVE_FROM_CART: {
       return state.filter((product) => { return product.id !== action.productId; });
+    }
+    case CLEAR_CART: {
+      return action.cart;
     }
     default: {
       return state;
@@ -59,7 +63,7 @@ const addToCart = (product, cart = null) => {
   return async (dispatch) => {
     try {
       if (cart) {
-        await axios.post('/api/order/addToCart', (cart, [product.id, 1]));
+        await axios.put('/api/order/addToCart', { orderId: cart, products: [[product.id, 1]] });
       }
       dispatch(_addToCart(product));
     } catch (err) {
@@ -72,13 +76,13 @@ const _updateCart = (update) => {
   return { type: UPDATE_AMOUNT, update };
 };
 
-const updateCart = (orderId, product, amount) => {
+const updateCart = (orderId, productId, amount) => {
   return async (dispatch) => {
     try {
       if (orderId) {
-        await axios.post('/api/order/updateCart', (orderId, product, amount));
+        await axios.put('/api/order/updateCart', { orderId, productId, amount });
       }
-      dispatch(_updateCart({ product, amount }));
+      dispatch(_updateCart({ productId, amount }));
     } catch (err) {
       console.log(err);
     }
@@ -89,11 +93,11 @@ const _removeItem = (productId) => {
   return { type: REMOVE_FROM_CART, productId };
 };
 
-const removeItem = (cart, productId) => {
+const removeItem = (orderId, productId) => {
   return async (dispatch) => {
     try {
-      if (cart) {
-        await axios.post('/api/order/updateCart', (cart, productId, 0));
+      if (orderId) {
+        await axios.put('/api/order/updateCart', { orderId, productId, amount: 0 });
       }
 
       dispatch(_removeItem(productId));
@@ -102,8 +106,17 @@ const removeItem = (cart, productId) => {
     }
   };
 };
+const _resetCart = (cart = []) => {
+  return { type: CLEAR_CART, cart };
+};
+
+const resetCart = () => {
+  return (dispatch) => {
+    dispatch(_resetCart());
+  };
+};
 
 export {
-  loadCart, addToCart, updateCart, removeItem,
+  loadCart, addToCart, updateCart, removeItem, resetCart,
 };
 export default cartReducer;

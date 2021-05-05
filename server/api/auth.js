@@ -8,7 +8,9 @@ const {
 
 router.get('/', async (req, res, next) => {
   try {
-    res.send(await User.byToken(req.headers.authorization));
+    const user = await User.byToken(req.headers.authorization);
+    const { admin, cart, email } = user;
+    res.send({ admin, cart, email });
   } catch (error) {
     next(error);
   }
@@ -19,7 +21,7 @@ router.post('/', async (req, res, next) => {
     const env = require('../../env');
     process.env.JWT = env.JWT;
     const token = await User.authenticate(req.body);
-    res.send({ token: token });
+    res.send({ token });
   } catch (error) {
     next(error);
   }
