@@ -51,7 +51,7 @@ describe('Product routes', function () {
         inventory: 126,
         imageUrl:
           'https://sethlui.com/wp-content/uploads/2019/11/Tiger-Sugar-Boba-Ice-Cream-Online-2.jpg',
-        location: 'Turkey',
+        reqCountry: 'Turkey',
       });
       expect(response.body.title).to.equal('Grenadine Juice');
     });
@@ -77,7 +77,6 @@ describe('Product routes', function () {
       await app
         .put(`/api/products/${product1.id}`)
         .send({ title: 'Lemon Puff' });
-
       const products = await Product.findAll();
       expect(products[0].title).to.equal('Lemon Puff');
     });

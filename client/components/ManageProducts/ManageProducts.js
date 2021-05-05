@@ -2,6 +2,8 @@ import axios from 'axios';
 import React from 'react';
 import CreateProduct from './CreateProduct';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loadStudents } from '../../store/products/products.js';
 
 class ManageProducts extends React.Component {
   constructor() {
@@ -17,9 +19,12 @@ class ManageProducts extends React.Component {
     this.loadProducts();
   }
 
-  componentDidUpdate() {
-    this.loadProducts();
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(prevState);
+  //   if (prevState.products !== this.state.products) {
+  //     this.loadProducts();
+  //   }
+  // }
 
   async exchangeToken() {
     const token = window.localStorage.getItem('token');
@@ -88,4 +93,10 @@ class ManageProducts extends React.Component {
   }
 }
 
-export default ManageProducts;
+const mapDispatchToProps = (dispatch, { history }) => {
+  return {
+    load: () => dispatch(loadProducts()),
+  };
+};
+
+export default connect(null, null)(ManageProducts);

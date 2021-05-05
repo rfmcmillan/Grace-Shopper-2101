@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { Component } from 'react';
 
 class CreateProduct extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: '',
       brand: '',
@@ -25,6 +25,8 @@ class CreateProduct extends Component {
   }
 
   async onSave(ev) {
+    const { history } = this.props;
+    console.log(this.props);
     ev.preventDefault();
     try {
       const {
@@ -37,17 +39,21 @@ class CreateProduct extends Component {
         reqCountry,
       } = this.state;
 
-      const product = await axios.post('/api/products', {
-        title,
-        brand,
-        description,
-        price,
-        inventory,
-        imageUrl,
-        reqCountry,
-      });
+      const product = (
+        await axios.post('/api/products', {
+          title,
+          brand,
+          description,
+          price,
+          inventory,
+          imageUrl,
+          reqCountry,
+        })
+      ).data;
+      console.log(product);
+      history.push('/manage-products');
     } catch (error) {
-      this.setState({ error: error.response.data.error });
+      console.log(error);
     }
   }
 

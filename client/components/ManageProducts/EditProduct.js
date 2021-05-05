@@ -6,7 +6,13 @@ class EditProduct extends Component {
     super(props);
     this.state = {
       auth: {},
-      currProduct: {},
+      title: '',
+      brand: '',
+      description: '',
+      price: 0,
+      inventory: 0,
+      imageUrl: '',
+      reqCountry: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -20,12 +26,12 @@ class EditProduct extends Component {
   onChange(ev) {
     const change = {};
     change[ev.target.name] = ev.target.value;
-    this.setState({ currProduct: change });
+    this.setState(change);
   }
 
   async onSave(ev) {
+    const { history } = this.props;
     ev.preventDefault();
-
     const { id } = this.props.match.params;
     try {
       const {
@@ -36,7 +42,7 @@ class EditProduct extends Component {
         inventory,
         imageUrl,
         reqCountry,
-      } = this.state.currProduct;
+      } = this.state;
 
       const currProduct = (
         await axios.put(`/api/products/${id}`, {
@@ -49,6 +55,7 @@ class EditProduct extends Component {
           reqCountry,
         })
       ).data;
+      history.push('/manage-products');
     } catch (error) {
       this.setState({ error: error.response.data.error });
     }
@@ -57,7 +64,24 @@ class EditProduct extends Component {
   async getCurrProduct() {
     const { id } = this.props.match.params;
     const currProduct = (await axios.get(`/api/products/${id}`)).data;
-    this.setState({ currProduct });
+    const {
+      title,
+      brand,
+      description,
+      price,
+      inventory,
+      imageUrl,
+      reqCountry,
+    } = currProduct;
+    this.setState({
+      title,
+      brand,
+      description,
+      price,
+      inventory,
+      imageUrl,
+      reqCountry,
+    });
   }
 
   render() {
@@ -69,7 +93,7 @@ class EditProduct extends Component {
       inventory,
       imageUrl,
       reqCountry,
-    } = this.state.currProduct;
+    } = this.state;
     const { onChange, onSave } = this;
     return (
       <div id="edit-product">
@@ -86,7 +110,7 @@ class EditProduct extends Component {
           <input name="description" value={description} onChange={onChange} />
           <br />
           <label>Price:*</label>
-          <input name="price" value={price} type="number" onChange={onChange} />
+          <input name="price" value={price} onChange={onChange} />
           <br />
           <label>Inventory*:</label>
           <input
