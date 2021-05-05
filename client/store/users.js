@@ -97,10 +97,13 @@ const usersReducer = (state = [], action) => {
     });
   }
   if (action.type === UPDATE_USER) {
-    const otherUsers = state.filter((user) => {
-      return user.id !== action.user.id;
+    const users = state.map((user) => {
+      if (user === action.user) {
+        return action.user;
+      }
+      return user;
     });
-    state = [...otherUsers, action.user];
+    state = users;
   }
   return state;
 };
