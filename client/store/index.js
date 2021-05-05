@@ -5,12 +5,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import loginReducer from './login';
 import cartReducer from './cart';
 import { usersReducer } from './usersStore';
 import productReducer from './products/products';
 import singleProductReducer from './products/singleProduct';
 import countriesReducer from './countries';
-import loginReducer from './login';
 
 const persistConfig = {
   key: 'root',
