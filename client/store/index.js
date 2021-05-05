@@ -7,7 +7,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import cartReducer from './cart';
-import { usersReducer } from './usersStore';
+import { usersReducer } from './users';
 import productReducer from './products/products';
 import singleProductReducer from './products/singleProduct';
 import countriesReducer from './countries';

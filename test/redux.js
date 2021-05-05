@@ -8,7 +8,7 @@ import {
   loadUsersActionCreator,
   CREATE_USER,
   createUserActionCreator,
-} from '../client/store/usersStore';
+} from '../client/store/users';
 import { reducer } from '../client/store';
 
 const chai = require('chai');

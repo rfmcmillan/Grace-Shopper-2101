@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { destroyUser } from '../store/usersStore';
+import { destroyUser } from '../store/users';
 
 class ManageUsers extends React.Component {
   constructor(props) {
@@ -44,10 +44,10 @@ class ManageUsers extends React.Component {
     const { update } = this.props;
     if (user.admin === false) {
       user.admin = true;
-      await update(user));
+      await update(user);
     } else {
       user.admin = false;
-      await update(user));
+      await update(user);
     }
   }
 
