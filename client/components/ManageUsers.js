@@ -15,7 +15,7 @@ class ManageUsers extends React.Component {
   componentDidMount() {
     const { load } = this.props;
     this.exchangeToken();
-    // load();
+    load();
   }
 
   async exchangeToken() {
@@ -40,7 +40,6 @@ class ManageUsers extends React.Component {
   // }
 
   async makeAdmin(user) {
-    console.log('user:', user);
     const { update } = this.props;
     if (user.admin === false) {
       user.admin = true;
@@ -55,7 +54,6 @@ class ManageUsers extends React.Component {
     const { auth } = this.state;
     const { makeAdmin } = this;
     const { users, destroy, load } = this.props;
-    console.log('users:', users);
     if (!auth.admin) {
       return (
         <div>

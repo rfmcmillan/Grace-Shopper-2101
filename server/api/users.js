@@ -8,7 +8,10 @@ const {
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({ include: Review });
+    const users = await User.findAll({
+      include: Review,
+      order: [['email', 'DESC']],
+    });
     res.send(users);
   } catch (error) {
     next(error);
@@ -46,7 +49,6 @@ router.delete('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    console.log('req.params.id:', req.params.id);
     const userToModify = await User.findByPk(req.params.id);
     const updated = await userToModify.update(req.body);
     res.status(200).send(updated);
