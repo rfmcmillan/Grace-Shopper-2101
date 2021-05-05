@@ -10,6 +10,7 @@ import CreateAccount from './CreateAccount.js';
 import Cart from './Cart'
 import SingleProduct from './SingleProduct/SingleProduct';
 import LogInPage from './LogInPage';
+import ManageUsers from './ManageUsers';
 
 import Nav from './Nav';
 import Home from './Home';
@@ -23,8 +24,8 @@ class Main extends React.Component {
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
+            <Route exact path="/manage-users" component={ManageUsers} />
             <Route exact path="/cart" component={Cart}/>
-            <Route component={LogInPage} path="/login" exact />
           </Switch>
         </div>
       </Router>
