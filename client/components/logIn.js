@@ -4,7 +4,7 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../store/Login';
+import { loginUser } from '../store/login';
 
 class LogIn extends React.Component {
   constructor() {

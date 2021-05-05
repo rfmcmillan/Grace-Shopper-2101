@@ -11,7 +11,7 @@ import { usersReducer } from './usersStore';
 import productReducer from './products/products';
 import singleProductReducer from './products/singleProduct';
 import countriesReducer from './countries';
-import loginReducer from './login';
+import loginReducer from './login.js';
 
 const persistConfig = {
   key: 'root',
