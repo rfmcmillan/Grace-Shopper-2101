@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React from 'react';
-import CreateProduct from './CreateProduct';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadProducts } from '../../store/products/products.js';
-import countriesReducer, { loadCountries } from '../../store/countries';
+import { loadProducts } from '../../store/products/products';
+import { loadCountries } from '../../store/countries';
+import { loadCategories } from '../../store/categories';
+import CreateProduct from './CreateProduct';
 
 class ManageProducts extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class ManageProducts extends React.Component {
     this.exchangeToken();
     this.props.load();
     this.props.loadCountries();
+    this.props.loadCategories();
   }
 
   async exchangeToken() {
@@ -36,7 +38,8 @@ class ManageProducts extends React.Component {
   }
 
   render() {
-    const { products, countries } = this.props;
+    const { countries } = this.props;
+    const { products } = this.props.products;
     const { auth } = this.state;
     const {} = this;
     if (!auth.admin) {
@@ -46,6 +49,7 @@ class ManageProducts extends React.Component {
         </div>
       );
     }
+
     return (
       <div id="manage-products">
         <h2>Manage Products</h2>
@@ -96,6 +100,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
   return {
     load: () => dispatch(loadProducts()),
     loadCountries: () => dispatch(loadCountries()),
+    loadCategories: () => dispatch(loadCategories()),
   };
 };
 

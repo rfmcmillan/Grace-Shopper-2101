@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { updateProduct } from '../../store/products/products.js';
+import { deleteProduct, updateProduct } from '../../store/products/products.js';
 import { loadCountries } from '../../store/countries';
 import { connect } from 'react-redux';
 
@@ -15,7 +15,7 @@ class EditProduct extends Component {
       price: 0,
       inventory: 0,
       imageUrl: '',
-      countryId: '',
+      countryId: 0,
     };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -28,7 +28,6 @@ class EditProduct extends Component {
   }
 
   onChange(ev) {
-    console.log('change');
     const change = {};
     change[ev.target.name] = ev.target.value;
     this.setState(change);
@@ -96,11 +95,12 @@ class EditProduct extends Component {
       price,
       inventory,
       imageUrl,
-      reqCountry,
+      countryId,
     } = this.state;
     const { onChange, onSave } = this;
-    const { countries } = this.props;
-    console.log(this.props);
+    const { countries, deleteProduct } = this.props;
+    const { id } = this.props.match.params;
+
     return (
       <div id="edit-product">
         <h3>Edit Product:</h3>
@@ -116,7 +116,13 @@ class EditProduct extends Component {
           <input name="description" value={description} onChange={onChange} />
           <br />
           <label>Price:*</label>
-          <input name="price" type="number" value={price} onChange={onChange} />
+          <input
+            name="price"
+            type="number"
+            value={price}
+            step=".10"
+            onChange={onChange}
+          />
           <br />
           <label>Inventory*:</label>
           <input
@@ -130,10 +136,10 @@ class EditProduct extends Component {
           <input name="imageUrl" value={imageUrl} onChange={onChange} />
           <br />
           <label>Country*:</label>
-          <select name="countryId" onChange={onChange}>
-            {countries.map((country, idx) => {
+          <select value={countryId} name="countryId" onChange={onChange}>
+            {countries.map((country) => {
               return (
-                <option key={idx} value={country.id}>
+                <option key={country.id} value={country.id}>
                   {country.name}
                 </option>
               );
@@ -142,6 +148,7 @@ class EditProduct extends Component {
           <br />
           <button>Submit Changes</button>
         </form>
+        <button onClick={() => deleteProduct(id)}>Delete Product</button>
       </div>
     );
   }
@@ -156,6 +163,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
     update: (updatedProduct) =>
       dispatch(updateProduct(updatedProduct, history)),
     loadCountries: () => dispatch(loadCountries()),
+    deleteProduct: (productId) => dispatch(deleteProduct(productId, history)),
   };
 };
 

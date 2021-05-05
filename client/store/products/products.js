@@ -16,7 +16,7 @@ const productReducer = (state = { products: [], max: Infinity }, action) => {
     }
     case DELETE_PRODUCT: {
       const products = state.products.filter(
-        (product) => product.id !== action.product.id
+        (product) => product.id !== action.productId
       );
       return { ...state, products };
     }
@@ -56,23 +56,22 @@ const postingProduct = (product) => {
   return { type: POST_PRODUCT, product };
 };
 
-const postProduct = (newProduct, history) => {
+const postProduct = (newProduct) => {
   return async (dispatch) => {
     const product = (await axios.post('/api/products', newProduct)).data;
     dispatch(postingProduct(product));
-    history.push('/products');
   };
 };
 
-const deletingProduct = (product) => {
-  return { type: DELETE_PRODUCT, product };
+const deletingProduct = (productId) => {
+  return { type: DELETE_PRODUCT, productId };
 };
 
-const deleteProduct = (product, history) => {
+const deleteProduct = (productId, history) => {
   return async (dispatch) => {
-    await axios.delete(`/api/products/${product.id}`);
-    dispatch(deletingProduct(product));
-    history.push('/products');
+    await axios.delete(`/api/products/${productId}`);
+    dispatch(deletingProduct(productId));
+    history.push('/manage-products');
   };
 };
 const updatingProduct = (product) => {
