@@ -11,14 +11,16 @@ import { usersReducer } from './usersStore';
 import productReducer from './products/products';
 import singleProductReducer from './products/singleProduct';
 import countriesReducer from './countries';
+import loginReducer from './login';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['cart'],
+  whitelist: ['cart', 'login'],
 };
 
 const initialState = {
+  login: [],
   products: [],
   users: [],
   singleProduct: {},
@@ -42,6 +44,7 @@ export const reducer = combineReducers({
   users: usersReducer,
   products: productReducer,
   currProduct: singleProductReducer,
+  login: loginReducer,
   countries: countriesReducer,
 });
 

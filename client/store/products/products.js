@@ -8,13 +8,13 @@ const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const productReducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_PRODUCTS: {
-      return [...action.products];
+      return action.products;
     }
     case POST_PRODUCT: {
       return [...state, action.product];
     }
     case DELETE_PRODUCT: {
-      return state.filter((product) => product.id !== action.product.id);
+      return state.filter((product) => { return product.id !== action.product.id; });
     }
     case UPDATE_PRODUCT: {
       return state.map((product) => {
@@ -87,5 +87,7 @@ const updateProduct = (updatedProduct, history) => {
   };
 };
 
-export { loadProducts, postProduct, deleteProduct, updateProduct };
+export {
+  loadProducts, postProduct, deleteProduct, updateProduct,
+};
 export default productReducer;

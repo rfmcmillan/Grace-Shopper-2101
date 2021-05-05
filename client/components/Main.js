@@ -15,6 +15,8 @@ import ManageUsers from './ManageUsers';
 import Nav from './Nav';
 import Home from './Home';
 import CreateAccountPage from './CreateAccountPage';
+import Map from './Map';
+
 class Main extends React.Component {
   render() {
     return (

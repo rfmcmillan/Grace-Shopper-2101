@@ -8,7 +8,9 @@ const {
 
 router.get('/', async (req, res, next) => {
   try {
-    res.send(await User.byToken(req.headers.authorization));
+    const user = await User.byToken(req.headers.authorization);
+    const { admin, cart, email } = user;
+    res.send({ admin, cart, email });
   } catch (error) {
     next(error);
   }

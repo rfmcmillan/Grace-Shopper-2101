@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 // import models from relationships
@@ -19,14 +20,22 @@ this accepts an array of duplets ex [[product, amount], [product2, amount]] */
 
 Order.addProducts = function (orderId, dupletsarr) {
   const promises = [];
-  dupletsarr.forEach((i) => {
-    promises.push(
-      ProductOrders.create({
-        orderId,
-        productId: i[0],
-        product_amount: i[1],
-      }),
-    );
+  dupletsarr.forEach(async (i) => {
+    const pair = await ProductOrders.findOne({
+      where: { orderId, productId: i[0] },
+    });
+    if (pair) {
+      pair.product_amount++;
+      pair.save();
+    } else {
+      promises.push(
+        ProductOrders.create({
+          orderId,
+          productId: i[0],
+          product_amount: i[1],
+        }),
+      );
+    }
   });
   return Promise.all(promises);
 };
@@ -105,7 +114,7 @@ User.beforeSave(async (user) => {
 // a hook for users to create an order after the user is created so
 // there is always an empty order in the database to be used by the cart on the client side
 User.afterCreate(async (user) => {
-  const cart = await Order.create({ userId: user.id }); 
+  const cart = await Order.create({ userId: user.id });
   user.cart = cart.id;
 });
 
@@ -115,12 +124,14 @@ User.findPurchases = async function (userId) {
 };
 // a class method for users to find the active open order
 // this might need review becuase it may be way over engineered haha
-User.getCart = async function (userId) {
+User.getCart = async function (orderId) {
   try {
     const returnobj = [];
-    const order = await Order.findOne({
-      where: { userId, complete: false },
-      include: [Product],
+    const order = await Order.findByPk(orderId, {
+      include: {
+        all: true,
+        nested: true,
+      },
     });
     order.products.forEach((e) => {
       returnobj.push({

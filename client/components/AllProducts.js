@@ -20,8 +20,8 @@ class AllProducts extends Component {
 
   handleClick(product) {
     let cart = null;
-    if (this.props.user) {
-      cart = this.props.user.cart;
+    if (this.props.login.cart) {
+      cart = this.props.login.cart;
     }
     this.props.addItem(product, cart);
   }
@@ -67,12 +67,12 @@ class AllProducts extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { products, cart, user } = state;
+  const { products, login } = state;
   if (!products) {
     return "There's no products now...";
   }
   return {
-    products, cart, user,
+    products, login,
   };
 };
 

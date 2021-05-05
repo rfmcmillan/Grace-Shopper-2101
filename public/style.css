@@ -1,6 +1,7 @@
 /*Style Sheet*/
-* {
+body {
   background-color: darkseagreen;
+  z-index: 0;
   color: white;
   margin: 0;
   padding: 0;
@@ -98,6 +99,11 @@
   width: 300px;
 }
 
+#map {
+  height: 300px;
+  width: 200px;
+  /* z-index: 1; */
+}
 #user {
   border-color: black;
   border: 0.1em;
@@ -114,4 +120,8 @@
 
 #edit-user {
   margin: 2em;
+}
+
+#logged {
+  color: black;
 }
