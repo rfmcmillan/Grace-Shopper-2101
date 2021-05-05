@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loadProducts } from '../store/products/products';
+import { loadCountries } from '../store/countries';
+import { loadCategories } from '../store/categories';
 import { addToCart } from '../store/cart';
+import Filter from './Filter';
+
 // import ProductCreate from './ProductCreate';
 // import { deleteProduct } from '../store';
 
@@ -11,11 +15,15 @@ class AllProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const { loadAllProducts } = this.props;
+    const { loadAllProducts, loadCategories, loadCountries } = this.props;
     loadAllProducts();
+    loadCountries();
+    loadCategories();
   }
 
   handleClick(product) {
@@ -26,11 +34,20 @@ class AllProducts extends Component {
     this.props.addItem(product, cart);
   }
 
+  handleChange(event) {
+    console.log(event.target);
+  }
+
   render() {
-    const { products } = this.props;
+    const { products, countries, categories } = this.props;
     return (
       <div id="main">
         <h1>Products</h1>
+        <Filter
+          countries={countries}
+          categories={categories}
+          handleChange={this.handleChange}
+        />
         <div id="allProducts">
           {products.map((product) => {
             return (
@@ -67,12 +84,16 @@ class AllProducts extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { products, cart, user } = state;
+  const { products, cart, user, categories, countries } = state;
   if (!products) {
     return "There's no products now...";
   }
   return {
-    products, cart, user,
+    products,
+    cart,
+    user,
+    categories,
+    countries,
   };
 };
 
@@ -81,6 +102,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadAllProducts: () => {
       dispatch(loadProducts());
+    },
+    loadCategories: () => {
+      dispatch(loadCategories());
+    },
+    loadCountries: () => {
+      dispatch(loadCountries());
     },
     addItem: (productId, cart) => {
       dispatch(addToCart(productId, cart));
