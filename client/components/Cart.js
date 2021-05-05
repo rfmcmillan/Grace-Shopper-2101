@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadCart, updateCart } from '../store/cart';
+import { loadCart, updateCart, removeItem } from '../store/cart';
 
 class Cart extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class Cart extends Component {
     this.state = {};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   componentDidMount() {
@@ -18,11 +19,22 @@ class Cart extends Component {
     }
   }
 
+  handleRemove(id) {
+    let orderId = null;
+    if (this.props.user) {
+      orderId = this.props.user.cart;
+    }
+    this.props.removeItem(orderId, id);
+  }
+
   handleSubmit(evt) {
     evt.preventDefault();
     const { name } = evt.target.querySelector('input');
-    let cart = null;
-    this.props.updateItem(cart, name, this.state[name]);
+    let orderId = null;
+    if (this.props.user) {
+      orderId = this.props.user.cart;
+    }
+    this.props.updateItem(orderId, name, this.state[name]);
     window.location.reload();
   }
 
@@ -61,6 +73,9 @@ class Cart extends Component {
                     Update Amount
                   </button>
                 </form>
+                <button onClick={() => { return this.handleRemove(product.id); }}>
+                  Delete Item
+                </button>
               </div>
             );
           })}
@@ -82,8 +97,11 @@ const mapDispatchToProps = (dispatch) => {
     getCart: (id) => {
       dispatch(loadCart(id));
     },
-    updateItem: (cart, orderId, amount) => {
-      dispatch(updateCart(cart, orderId, amount));
+    updateItem: (cart, product, amount) => {
+      dispatch(updateCart(cart, product, amount));
+    },
+    removeItem: (cart, productId) => {
+      dispatch(removeItem(cart, productId));
     },
   };
 };

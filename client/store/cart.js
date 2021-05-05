@@ -27,7 +27,7 @@ const cartReducer = (state = [], action) => {
       return [...state];
     }
     case REMOVE_FROM_CART: {
-      return [...state, action.cart];
+      return state.filter((product) => { return product.id !== action.productId; });
     }
     default: {
       return state;
@@ -85,5 +85,25 @@ const updateCart = (orderId, product, amount) => {
   };
 };
 
-export { loadCart, addToCart, updateCart };
+const _removeItem = (productId) => {
+  return { type: REMOVE_FROM_CART, productId };
+};
+
+const removeItem = (cart, productId) => {
+  return async (dispatch) => {
+    try {
+      if (cart) {
+        await axios.post('/api/order/updateCart', (cart, productId, 0));
+      }
+
+      dispatch(_removeItem(productId));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export {
+  loadCart, addToCart, updateCart, removeItem,
+};
 export default cartReducer;
