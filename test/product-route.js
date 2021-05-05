@@ -50,7 +50,7 @@ describe('Product routes', function () {
         inventory: 126,
         imageUrl:
           'https://sethlui.com/wp-content/uploads/2019/11/Tiger-Sugar-Boba-Ice-Cream-Online-2.jpg',
-        reqCountry: 'Turkey',
+        countryId: '12dcef96-5107-4a19-b1be-e9d7af3def57',
       });
       expect(response.body.title).to.equal('Grenadine Juice');
     });
