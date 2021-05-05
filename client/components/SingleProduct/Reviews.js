@@ -1,4 +1,5 @@
 import React from 'react';
+import timeAgo from 'node-time-ago';
 
 const Reviews = ({ reviews }) => {
   return (
@@ -15,6 +16,8 @@ const Reviews = ({ reviews }) => {
                   {review.rating}
                   User:
                   {`${review.user.firstName} ${review.user.lastName}`}
+                  When:
+                  {timeAgo(review.createdAt)}
                 </div>
               </li>
             );

@@ -6,7 +6,6 @@ import { getSingleProduct } from '../../store/products/singleProduct';
 import Reviews from './Reviews';
 import NewReview from './NewReviewForm';
 import axios from 'axios';
-
 // import { Link } from 'react-router-dom';
 
 class SingleProduct extends Component {
