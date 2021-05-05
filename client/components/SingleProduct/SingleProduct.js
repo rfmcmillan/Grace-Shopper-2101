@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getSingleProduct } from '../../store/products/singleProduct';
 import Reviews from './Reviews';
 import NewReview from './NewReviewForm';
@@ -13,7 +14,7 @@ class SingleProduct extends Component {
     super(props);
     this.state = {
       auth: {},
-      purchased: false,
+      addedToCart: false,
     };
 
     this.updateReviews = this.updateReviews.bind(this);
@@ -61,10 +62,10 @@ class SingleProduct extends Component {
     if (this.props.user) {
       cart = this.props.user.cart;
     }
-    console.log('HERERE', this.props.user);
 
     //ADD AMOUNT
     this.props.addItem(product, cart);
+    this.setState({ addedToCart: true });
   }
 
   checkIfReviewed(userId, reviews) {
@@ -110,6 +111,13 @@ class SingleProduct extends Component {
           </select>
           <button type="submit">Add to Cart</button>
         </form>
+        {this.state.addedToCart ? (
+          <Link to="/cart">
+            <button>Continue To Checkout</button>
+          </Link>
+        ) : (
+          <div></div>
+        )}
         <h1>Reviews</h1>
 
         {auth.id ? (
