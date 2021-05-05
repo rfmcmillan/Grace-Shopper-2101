@@ -100,8 +100,8 @@ describe('Order model and join table defination', function () {
       expect(purchase.userId).to.equal(null);
       expect(purchase.complete).to.equal(true);
       expect(purchase.date_of_purchase).to.equal('2016-05-05');
-      expect(purchase.purchased_items.length).to.equal(2);
-      expect(purchase.purchased_items[0].title).to.equal('Pineapple Cake');
+      expect(purchase.purchased_items.find((element) => element.amount === 2));
+      expect(purchase.purchased_items.find((element) => element.title === 'Strawberry Puff'));
     });
     it('if order doesnt exist should still be able to purchase by adding in products', async function () {
       const purchase = await Order.purchase(
@@ -115,7 +115,7 @@ describe('Order model and join table defination', function () {
       expect(purchase.complete).to.equal(true);
       expect(purchase.date_of_purchase).to.equal('2016-05-08');
       expect(purchase.purchased_items.length).to.equal(1);
-      expect(purchase.purchased_items[0].title).to.equal('Strawberry Puff');
+      expect(purchase.purchased_items.find((element) => element.title === 'Strawberry Puff'));
     });
     it('it should also be able to add in a userId incase the user logs in at the time of purchase and keep track of amounts', async function () {
       const purchase = await Order.purchase(
@@ -132,8 +132,8 @@ describe('Order model and join table defination', function () {
       expect(purchase.complete).to.equal(true);
       expect(purchase.date_of_purchase).to.equal('2016-05-06');
       expect(purchase.purchased_items.length).to.equal(2);
-      expect(purchase.purchased_items[1].amount).to.equal(5);
-      expect(purchase.purchased_items[0].title).to.equal('Strawberry Puff');
+      expect(purchase.purchased_items.find((element) => element.amount === 5));
+      expect(purchase.purchased_items.find((element) => element.title === 'Strawberry Puff'));
     });
     it('it should allow products amount to be increased with the instance methods created', async function () {
       await Order.updateProductsAmount(order1.id, StrawberryPuff.id, 10);

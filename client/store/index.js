@@ -3,10 +3,20 @@ import axios from 'axios';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+import cartReducer from './cart';
 import { usersReducer } from './usersStore';
 import productReducer from './products/products';
 import singleProductReducer from './products/singleProduct';
 import countriesReducer from './countries';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['cart'],
+};
 
 const initialState = {
   products: [],
@@ -15,7 +25,7 @@ const initialState = {
   loading: true,
 };
 
-//Loading check
+// Loading check
 const LOADED = 'LOADED';
 
 const loaded = (state = true, action) => {
@@ -28,13 +38,18 @@ const loaded = (state = true, action) => {
 // enter different reducers into combineReducers({}) as a key-value pair.
 // e.g. 'products: productsReducer'
 export const reducer = combineReducers({
+  cart: cartReducer,
   users: usersReducer,
   products: productReducer,
   currProduct: singleProductReducer,
   countries: countriesReducer,
 });
 
-//Create Store
+const persistedReducer = persistReducer(persistConfig, reducer);
 
-const store = createStore(reducer, applyMiddleware(thunk, logger));
-export default store;
+// Create Store
+
+const store = createStore(persistedReducer, applyMiddleware(thunk, logger));
+const persistor = persistStore(store);
+
+export default { store, persistor };
