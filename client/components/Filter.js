@@ -33,6 +33,8 @@ const Filter = (props) => {
         max="50"
         onChange={handleChange}
       />
+
+      <input type="text" placeholder="search" />
     </div>
   );
 };
