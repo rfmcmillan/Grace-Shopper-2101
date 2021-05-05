@@ -20,7 +20,6 @@ class LogIn extends React.Component {
   //  when the component mounts, it checks local storage for a token and if there is one, then it sets the local state's auth property to the user object. You can then use the 'auth object' in an if/else statement inside the render method to change the appearance of the component based on whether or not the auth property has a user or not (in other words, whether a user is logged in or not)
   componentDidMount() {
     const { load } = this.props;
-    console.log('this.props:', this.props);
     this.exchangeToken();
     this.props.load();
   }
@@ -42,7 +41,7 @@ class LogIn extends React.Component {
   onChange(event) {
     const change = {};
     change[event.target.name] = event.target.value;
-    console.log('state:', this.state);
+
     this.setState(change);
   }
 
@@ -59,11 +58,9 @@ class LogIn extends React.Component {
   }
 
   render() {
-    console.log('props:', this.props);
     const { auth, email, password } = this.state;
     const { login, onChange, logout } = this;
     const { reset } = this.props;
-    console.log('auth:', auth);
     if (!auth.id) {
       return (
         <div>
@@ -91,7 +88,6 @@ class LogIn extends React.Component {
           </div>
         );
       } else {
-        console.log('password:', password, 'auth:', auth);
         return (
           <div>
             <h4>

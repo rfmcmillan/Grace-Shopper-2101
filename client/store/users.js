@@ -97,12 +97,11 @@ const triggerPasswordReset = (user) => {
     const userToReturn = (
       await axios.put(`api/users/${user.id}`, { passwordResetTriggered: true })
     ).data;
-    console.log('userToReturn:', userToReturn);
     dispatch(triggerPasswordResetActionCreator(userToReturn));
   };
 };
 
-//Trigger Password Reset
+//Reset Password
 const ResetPasswordActionCreator = (user) => {
   return {
     type: RESET_PASSWORD,
