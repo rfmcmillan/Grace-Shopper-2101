@@ -54,7 +54,7 @@ class AllProducts extends Component {
                     this.handleClick(product);
                   }}
                 >
-                  Add To Cart
+                  Quick Add
                 </button>
               </div>
             );
@@ -72,7 +72,13 @@ const mapStateToProps = (state) => {
     return "There's no products now...";
   }
   return {
+<<<<<<< HEAD
     products, login,
+=======
+    products,
+    cart,
+    user,
+>>>>>>> 295e8b0c044da6a66c82fffa4ce62131642a05e0
   };
 };
 

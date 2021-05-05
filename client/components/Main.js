@@ -7,9 +7,11 @@ import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import CreateAccount from './CreateAccount.js';
-import Cart from './Cart'
+import Cart from './Cart';
 import SingleProduct from './SingleProduct/SingleProduct';
 import LogInPage from './LogInPage';
+import ManageProducts from './ManageProducts/ManageProducts';
+import EditProduct from './ManageProducts/EditProduct';
 import ManageUsers from './ManageUsers';
 
 import Nav from './Nav';
@@ -27,10 +29,17 @@ class Main extends React.Component {
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/products" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
+            <Route exact path="/manage-products" component={ManageProducts} />
+            <Route exact path="/manage-products/:id" component={EditProduct} />
             <Route exact path="/manage-users" component={ManageUsers} />
+<<<<<<< HEAD
             <Route exact path="/cart" component={Cart}/>
             <Route exact path="/login" component={LogInPage} />
             <Route exact path="/createaccount" component={CreateAccountPage} />
+=======
+            <Route exact path="/login" component={LogInPage} />
+            <Route exact path="/cart" component={Cart} />
+>>>>>>> 295e8b0c044da6a66c82fffa4ce62131642a05e0
           </Switch>
         </div>
       </Router>

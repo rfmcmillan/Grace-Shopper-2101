@@ -114,6 +114,14 @@ body {
   width: 33%;
 }
 
+#create-product {
+  border: 0.1em;
+  border-style: solid;
+  margin: 0.5em;
+  padding: 0.2em;
+  border-radius: 0.4em;
+  width: 33%;
+}
 #manage-users {
   padding: 1rem;
 }
