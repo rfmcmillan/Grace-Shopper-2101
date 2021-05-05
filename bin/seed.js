@@ -18,31 +18,63 @@ const init = async () => {
     const Australia = await Country.create({
       name: 'Australia',
       flag: 'em-flag-au',
+      latitude: '-20.617881888101394',
+      longitude: '135.09110442991363',
     });
 
-    const China = await Country.create({ name: 'China', flag: 'em-cn' });
-    const French = await Country.create({ name: 'French', flag: 'em-fr' });
+    const China = await Country.create({
+      name: 'China',
+      flag: 'em-cn',
+      latitude: '34.35094695144762',
+      longitude: '108.84219110307014',
+    });
+    const French = await Country.create({
+      name: 'French',
+      flag: 'em-fr',
+      latitude: '48.8611546464059',
+      longitude: '2.3358046534193906',
+    });
     const India = await Country.create({
       name: 'India',
       flag: 'em-flag-in',
+      latitude: '17.422635674938114',
+      longitude: '78.46911411149898',
     });
-    const Japan = await Country.create({ name: 'Japan', flag: 'em-jp' });
+    const Japan = await Country.create({
+      name: 'Japan',
+      flag: 'em-jp',
+      latitude: '35.72392626089728',
+      longitude: '139.79853405592576',
+    });
     const Singapore = await Country.create({
       name: 'Singapore',
       flag: 'em-flag-sg',
+      latitude: '1.3676500002443548',
+      longitude: '103.8517041624466',
     });
     const SKorea = await Country.create({
       name: 'South Korea',
       flag: 'em-kr',
+      latitude: '37.57978703298325',
+      longitude: '126.97703026833248',
     });
-    const Spain = await Country.create({ name: 'Spain', flag: 'em-es' });
+    const Spain = await Country.create({
+      name: 'Spain',
+      flag: 'em-es',
+      latitude: '40.42950704004299',
+      longitude: '-3.7022071210846486',
+    });
     const Taiwan = await Country.create({
       name: 'Taiwan',
       flag: 'em-flag-tw',
+      latitude: '23.84406215203008',
+      longitude: '120.9230499363364',
     });
     const Thailand = await Country.create({
       name: 'Thailand',
       flag: 'em-flag-th',
+      latitude: '13.770136520329599',
+      longitude: '100.49857517316434',
     });
 
     const Puff = await Product.create({

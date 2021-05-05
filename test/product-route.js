@@ -1,11 +1,10 @@
 const chai = require('chai');
-
+const app = require('supertest')(require('../server/server'));
 const { expect } = chai;
 const {
   db,
-  models: { Product, Country },
+  models: { Product },
 } = require('../server/db');
-const app = require('supertest')(require('../server/server'));
 
 describe('Product routes', function () {
   let product;
@@ -51,7 +50,7 @@ describe('Product routes', function () {
         inventory: 126,
         imageUrl:
           'https://sethlui.com/wp-content/uploads/2019/11/Tiger-Sugar-Boba-Ice-Cream-Online-2.jpg',
-        location: 'Turkey',
+        location: 'Taiwan',
       });
       expect(response.body.title).to.equal('Grenadine Juice');
     });
