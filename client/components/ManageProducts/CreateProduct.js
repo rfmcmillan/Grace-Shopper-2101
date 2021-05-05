@@ -27,7 +27,8 @@ class CreateProduct extends Component {
   }
 
   async onSave(ev) {
-    const { create, history } = this.props;
+    const { create, history, countries } = this.props;
+
     ev.preventDefault();
     try {
       const {
@@ -37,17 +38,9 @@ class CreateProduct extends Component {
         price,
         inventory,
         imageUrl,
-        reqCountry,
+        countryId,
       } = this.state;
-      // const newProduct = {
-      //   title,
-      //   brand,
-      //   description,
-      //   price,
-      //   inventory,
-      //   imageUrl,
-      //   reqCountry,
-      // };
+
       await create({
         title,
         brand,
@@ -55,7 +48,7 @@ class CreateProduct extends Component {
         price,
         inventory,
         imageUrl,
-        reqCountry,
+        countryId,
       });
       history.push('/manage-products');
     } catch (error) {
@@ -71,10 +64,10 @@ class CreateProduct extends Component {
       price,
       inventory,
       imageUrl,
-      reqCountry,
+      countryId,
     } = this.state;
     const { onChange, onSave } = this;
-
+    const { countries } = this.props;
     return (
       <div id="create-product">
         <h3>Add A Product:</h3>
@@ -103,7 +96,11 @@ class CreateProduct extends Component {
           <input name="imageUrl" value={imageUrl} onChange={onChange} />
           <br />
           <label>Country*:</label>
-          <input name="reqCountry" value={reqCountry} onChange={onChange} />
+          <select name="countryId" onChange={onChange}>
+            {countries.map((country) => {
+              return <option value={country.id}>{country.name}</option>;
+            })}
+          </select>
           <br />
           <button>Create Product</button>
         </form>
@@ -111,10 +108,15 @@ class CreateProduct extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return state;
+};
+
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     create: (newProduct) => dispatch(postProduct(newProduct, history)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(CreateProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProduct);

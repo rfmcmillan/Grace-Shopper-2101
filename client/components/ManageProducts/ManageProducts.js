@@ -4,6 +4,7 @@ import CreateProduct from './CreateProduct';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loadProducts } from '../../store/products/products.js';
+import countriesReducer, { loadCountries } from '../../store/countries';
 
 class ManageProducts extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class ManageProducts extends React.Component {
   componentDidMount() {
     this.exchangeToken();
     this.props.load();
+    this.props.loadCountries();
   }
 
   async exchangeToken() {
@@ -34,7 +36,7 @@ class ManageProducts extends React.Component {
   }
 
   render() {
-    const { load, products } = this.props;
+    const { products, countries } = this.props;
     const { auth } = this.state;
     const {} = this;
     if (!auth.admin) {
@@ -68,7 +70,13 @@ class ManageProducts extends React.Component {
                   <li>Brand: {brand}</li>
                   <li>Description: {description}</li>
                   <li>Price: {price}</li>
-                  <li>Inventory:{inventory}</li>
+                  <li>Inventory: {inventory}</li>
+                  <li>
+                    Country:{' '}
+                    {countries
+                      .filter((country) => country.id === countryId)
+                      .map((country) => country.name)}
+                  </li>
                 </ul>
                 <Link to={`/manage-products/${product.id}`}>Edit</Link>
               </div>
@@ -87,6 +95,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     load: () => dispatch(loadProducts()),
+    loadCountries: () => dispatch(loadCountries()),
   };
 };
 

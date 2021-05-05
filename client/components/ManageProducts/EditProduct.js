@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { updateProduct } from '../../store/products/products.js';
+import { loadCountries } from '../../store/countries';
 import { connect } from 'react-redux';
 
 class EditProduct extends Component {
@@ -14,7 +15,7 @@ class EditProduct extends Component {
       price: 0,
       inventory: 0,
       imageUrl: '',
-      reqCountry: '',
+      countryId: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -23,9 +24,11 @@ class EditProduct extends Component {
 
   componentDidMount() {
     this.getCurrProduct();
+    this.props.loadCountries();
   }
 
   onChange(ev) {
+    console.log('change');
     const change = {};
     change[ev.target.name] = ev.target.value;
     this.setState(change);
@@ -43,7 +46,7 @@ class EditProduct extends Component {
         price,
         inventory,
         imageUrl,
-        reqCountry,
+        countryId,
       } = this.state;
       update({
         id,
@@ -53,7 +56,7 @@ class EditProduct extends Component {
         price,
         inventory,
         imageUrl,
-        reqCountry,
+        countryId,
       });
 
       history.push('/manage-products');
@@ -72,7 +75,7 @@ class EditProduct extends Component {
       price,
       inventory,
       imageUrl,
-      reqCountry,
+      countryId,
     } = currProduct;
     this.setState({
       title,
@@ -81,7 +84,7 @@ class EditProduct extends Component {
       price,
       inventory,
       imageUrl,
-      reqCountry,
+      countryId,
     });
   }
 
@@ -96,6 +99,8 @@ class EditProduct extends Component {
       reqCountry,
     } = this.state;
     const { onChange, onSave } = this;
+    const { countries } = this.props;
+    console.log(this.props);
     return (
       <div id="edit-product">
         <h3>Edit Product:</h3>
@@ -111,7 +116,7 @@ class EditProduct extends Component {
           <input name="description" value={description} onChange={onChange} />
           <br />
           <label>Price:*</label>
-          <input name="price" value={price} onChange={onChange} />
+          <input name="price" type="number" value={price} onChange={onChange} />
           <br />
           <label>Inventory*:</label>
           <input
@@ -125,7 +130,15 @@ class EditProduct extends Component {
           <input name="imageUrl" value={imageUrl} onChange={onChange} />
           <br />
           <label>Country*:</label>
-          <input name="reqCountry" value={reqCountry} onChange={onChange} />
+          <select name="countryId" onChange={onChange}>
+            {countries.map((country, idx) => {
+              return (
+                <option key={idx} value={country.id}>
+                  {country.name}
+                </option>
+              );
+            })}
+          </select>
           <br />
           <button>Submit Changes</button>
         </form>
@@ -134,11 +147,16 @@ class EditProduct extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return state;
+};
+
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     update: (updatedProduct) =>
       dispatch(updateProduct(updatedProduct, history)),
+    loadCountries: () => dispatch(loadCountries()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(EditProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProduct);
