@@ -48,11 +48,7 @@ const postingProduct = (product) => {
 
 const postProduct = (newProduct, history) => {
   return async (dispatch) => {
-    const product = (
-      await axios.post('/api/products', {
-        newProduct,
-      })
-    ).data;
+    const product = (await axios.post('/api/products', newProduct)).data;
     dispatch(postingProduct(product));
     history.push('/products');
   };
@@ -78,12 +74,9 @@ const updatingProduct = (product) => {
 const updateProduct = (updatedProduct, history) => {
   return async (dispatch) => {
     const product = (
-      await axios.put(`/api/products/${updatedProduct.id}`, {
-        updatedProduct,
-      })
+      await axios.put(`/api/products/${updatedProduct.id}`, updatedProduct)
     ).data;
     dispatch(updatingProduct(product));
-    history.push('/products');
   };
 };
 

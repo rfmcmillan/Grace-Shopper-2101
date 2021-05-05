@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { postProduct } from '../../store/products/products.js';
 
 class CreateProduct extends Component {
   constructor(props) {
@@ -25,8 +27,7 @@ class CreateProduct extends Component {
   }
 
   async onSave(ev) {
-    const { history } = this.props;
-    console.log(this.props);
+    const { create, history } = this.props;
     ev.preventDefault();
     try {
       const {
@@ -38,19 +39,24 @@ class CreateProduct extends Component {
         imageUrl,
         reqCountry,
       } = this.state;
-
-      const product = (
-        await axios.post('/api/products', {
-          title,
-          brand,
-          description,
-          price,
-          inventory,
-          imageUrl,
-          reqCountry,
-        })
-      ).data;
-      console.log(product);
+      // const newProduct = {
+      //   title,
+      //   brand,
+      //   description,
+      //   price,
+      //   inventory,
+      //   imageUrl,
+      //   reqCountry,
+      // };
+      await create({
+        title,
+        brand,
+        description,
+        price,
+        inventory,
+        imageUrl,
+        reqCountry,
+      });
       history.push('/manage-products');
     } catch (error) {
       console.log(error);
@@ -105,5 +111,10 @@ class CreateProduct extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch, { history }) => {
+  return {
+    create: (newProduct) => dispatch(postProduct(newProduct, history)),
+  };
+};
 
-export default CreateProduct;
+export default connect(null, mapDispatchToProps)(CreateProduct);

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { updateProduct } from '../../store/products/products.js';
+import { connect } from 'react-redux';
 
 class EditProduct extends Component {
   constructor(props) {
@@ -30,7 +32,7 @@ class EditProduct extends Component {
   }
 
   async onSave(ev) {
-    const { history } = this.props;
+    const { history, update } = this.props;
     ev.preventDefault();
     const { id } = this.props.match.params;
     try {
@@ -43,18 +45,17 @@ class EditProduct extends Component {
         imageUrl,
         reqCountry,
       } = this.state;
+      update({
+        id,
+        title,
+        brand,
+        description,
+        price,
+        inventory,
+        imageUrl,
+        reqCountry,
+      });
 
-      const currProduct = (
-        await axios.put(`/api/products/${id}`, {
-          title,
-          brand,
-          description,
-          price,
-          inventory,
-          imageUrl,
-          reqCountry,
-        })
-      ).data;
       history.push('/manage-products');
     } catch (error) {
       this.setState({ error: error.response.data.error });
@@ -133,4 +134,11 @@ class EditProduct extends Component {
   }
 }
 
-export default EditProduct;
+const mapDispatchToProps = (dispatch, { history }) => {
+  return {
+    update: (updatedProduct) =>
+      dispatch(updateProduct(updatedProduct, history)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(EditProduct);

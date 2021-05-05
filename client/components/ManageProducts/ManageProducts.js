@@ -3,28 +3,20 @@ import React from 'react';
 import CreateProduct from './CreateProduct';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadStudents } from '../../store/products/products.js';
+import { loadProducts } from '../../store/products/products.js';
 
 class ManageProducts extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       auth: {},
-      products: [],
     };
   }
 
   componentDidMount() {
     this.exchangeToken();
-    this.loadProducts();
+    this.props.load();
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log(prevState);
-  //   if (prevState.products !== this.state.products) {
-  //     this.loadProducts();
-  //   }
-  // }
 
   async exchangeToken() {
     const token = window.localStorage.getItem('token');
@@ -41,14 +33,9 @@ class ManageProducts extends React.Component {
     }
   }
 
-  async loadProducts() {
-    const response = await axios.get('/api/products');
-    const products = response.data;
-    this.setState({ products });
-  }
-
   render() {
-    const { auth, products } = this.state;
+    const { load, products } = this.props;
+    const { auth } = this.state;
     const {} = this;
     if (!auth.admin) {
       return (
@@ -93,10 +80,14 @@ class ManageProducts extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return state;
+};
+
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     load: () => dispatch(loadProducts()),
   };
 };
 
-export default connect(null, null)(ManageProducts);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageProducts);
