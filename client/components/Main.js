@@ -6,10 +6,6 @@ import 'regenerator-runtime';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts';
-<<<<<<< HEAD
-=======
-import CreateAccount from './CreateAccount.js';
->>>>>>> main
 import Cart from './Cart';
 import SingleProduct from './SingleProduct/SingleProduct';
 import LogInPage from './LogInPage';
