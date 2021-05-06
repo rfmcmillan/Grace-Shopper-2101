@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import LogIn from './LogIn';
-import CreateAccount from './CreateAccount';
 
 const LogInPage = () => {
   return (
     <div>
-      <CreateAccount />
       <LogIn />
+      <Link to="/createaccount"><button>Create Account</button></Link>
     </div>
   );
 };

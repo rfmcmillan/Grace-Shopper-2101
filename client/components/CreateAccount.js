@@ -27,6 +27,7 @@ class CreateAccount extends Component {
     try {
       const { email, password, firstName, lastName } = this.state;
       await this.props.create(email, password, firstName, lastName);
+      window.location.hash = 'login';
     } catch (error) {
       this.setState({ error: error.response.data.error });
     }

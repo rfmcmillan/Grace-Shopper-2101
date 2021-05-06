@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 // import models from relationships
@@ -19,16 +20,24 @@ this accepts an array of duplets ex [[product, amount], [product2, amount]] */
 
 Order.addProducts = function (orderId, dupletsarr) {
   const promises = [];
-  dupletsarr.forEach((i) => {
-    promises.push(
-      ProductOrders.create({
-        orderId,
-        productId: i[0],
-        product_amount: i[1],
-      }),
-    );
+  dupletsarr.forEach(async (i) => {
+    const pair = await ProductOrders.findOne({
+      where: { orderId, productId: i[0] },
+    });
+    if (pair) {
+      pair.product_amount++;
+      await pair.save();
+    } else {
+      promises.push(
+        ProductOrders.create({
+          orderId,
+          productId: i[0],
+          product_amount: i[1],
+        }),
+      );
+    }
   });
-  return Promise.all(promises);
+  Promise.all(promises);
 };
 
 // an instance method designed to remove products from an order based on the amount
@@ -90,20 +99,10 @@ Order.purchase = async function (
   }
 };
 
-// a hook to hash the User password before creation so it is always stored in the database encrypted
-// User.beforeCreate(async (user) => {
-//   try {
-//     const hash = await bcrypt.hash(user.password, 2);
-//     user.password = hash;
-//   } catch (err) {
-//     throw new Error(err);
-//   }
-// });
-
-// an added hook to hash the password if it is changed using save()
+// an added hook to hash the password if it is changed using save() or if it is created
 User.beforeSave(async (user) => {
   try {
-    if (user._changed.has('password')) {
+    if (user.changed('password')) {
       const hash = await bcrypt.hash(user.password, 2);
       user.password = hash;
     }
@@ -112,9 +111,12 @@ User.beforeSave(async (user) => {
   }
 });
 
-// // a hook for users to create an order after the user is created so
+// a hook for users to create an order after the user is created so
 // there is always an empty order in the database to be used by the cart on the client side
-User.afterCreate((user) => { return Order.create({ userId: user.id }); });
+User.afterCreate(async (user) => {
+  const cart = await Order.create({ userId: user.id });
+  user.cart = cart.id;
+});
 
 // returns all completed purchases
 User.findPurchases = async function (userId) {
@@ -122,12 +124,14 @@ User.findPurchases = async function (userId) {
 };
 // a class method for users to find the active open order
 // this might need review becuase it may be way over engineered haha
-User.getCart = async function (userId) {
+User.getCart = async function (orderId) {
   try {
     const returnobj = [];
-    const order = await Order.findOne({
-      where: { userId, complete: false },
-      include: [Product],
+    const order = await Order.findByPk(orderId, {
+      include: {
+        all: true,
+        nested: true,
+      },
     });
     order.products.forEach((e) => {
       returnobj.push({

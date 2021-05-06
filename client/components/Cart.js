@@ -14,15 +14,15 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    if (this.props.user) {
-      this.props.getCart(this.props.user.cart);
+    if (this.props.login.cart) {
+      this.props.getCart(this.props.login.cart);
     }
   }
 
   handleRemove(id) {
     let orderId = null;
-    if (this.props.user) {
-      orderId = this.props.user.cart;
+    if (this.props.login.cart) {
+      orderId = this.props.login.cart;
     }
     this.props.removeItem(orderId, id);
   }
@@ -31,8 +31,8 @@ class Cart extends Component {
     evt.preventDefault();
     const { name } = evt.target.querySelector('input');
     let orderId = null;
-    if (this.props.user) {
-      orderId = this.props.user.cart;
+    if (this.props.login.cart) {
+      orderId = this.props.login.cart;
     }
     this.props.updateItem(orderId, name, this.state[name]);
     window.location.reload();
@@ -68,7 +68,7 @@ class Cart extends Component {
                 />
                 <h4>{product.amount}</h4>
                 <form onSubmit={this.handleSubmit}>
-                  <input name={`${product.id}`} type="number" min="1" defaultValue={product.amount} onChange={this.handleChange} />
+                  <input name={`${product.id}`} type="number" min="1" defaultValue={null} onChange={this.handleChange} />
                   <button type="submit">
                     Update Amount
                   </button>
@@ -86,9 +86,9 @@ class Cart extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { cart, user } = state;
+  const { login, cart } = state;
   return {
-    cart, user,
+    login, cart,
   };
 };
 
