@@ -15,7 +15,7 @@ const loadOrdersActionCreator = (orders) => {
 // Load Orders Thunk
 const loadOrders = () => {
   return async (dispatch) => {
-    const response = await axios.get('/api/orders');
+    const response = await axios.get('/api/order');
     const orders = response.data;
     console.log(orders);
     dispatch(loadOrdersActionCreator(orders));
