@@ -15,8 +15,6 @@ class AllProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleQueryChange = this.handleQueryChange.bind(this);
   }
 
   componentDidMount() {
@@ -28,21 +26,10 @@ class AllProducts extends Component {
 
   handleClick(product) {
     let cart = null;
-    if (this.props.user) {
-      cart = this.props.user.cart;
+    if (this.props.login.cart) {
+      cart = this.props.login.cart;
     }
     this.props.addItem(product, cart);
-  }
-
-  handleChange(event) {
-    const max = event.target.value;
-    this.props.setMax(max);
-  }
-
-  handleQueryChange(event) {
-    const name = event.target.value;
-    const { history } = this.props;
-    history.push(`products/c/${name}`);
   }
 
   render() {
@@ -50,12 +37,12 @@ class AllProducts extends Component {
     return (
       <div id="main">
         <h1>Products</h1>
-        <Filter
+        {/* <Filter
           countries={countries}
           categories={categories}
           handleChange={this.handleChange}
           handleQueryChange={this.handleQueryChange}
-        />
+        /> */}
         <div id="allProducts">
           {products.map((product) => {
             return (
@@ -95,18 +82,17 @@ class AllProducts extends Component {
 
 const mapStateToProps = (state) => {
   const { cart, user, categories, countries } = state;
-  const { max } = state.products;
-  let { products } = state.products;
+  const { products, login } = state;
   if (!products) {
     return "There's no products now...";
   }
-  products = products.filter((product) => product.price < max);
   return {
     products,
     cart,
     user,
     categories,
     countries,
+    login,
   };
 };
 
@@ -124,10 +110,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     addItem: (productId, cart) => {
       dispatch(addToCart(productId, cart));
-    },
-
-    setMax: (max) => {
-      dispatch(setMax(max));
     },
   };
 };

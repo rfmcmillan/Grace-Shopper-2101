@@ -1,11 +1,11 @@
 // Create Store Here
-import axios from 'axios';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import loginReducer from './loginstate';
 import cartReducer from './cart';
 import { usersReducer } from './usersStore';
 import productReducer from './products/products';
@@ -16,10 +16,11 @@ import categoriesReducer from './categories';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['cart'],
+  whitelist: ['cart', 'login'],
 };
 
 const initialState = {
+  login: [],
   products: [],
   users: [],
   singleProduct: {},
@@ -43,6 +44,7 @@ export const reducer = combineReducers({
   users: usersReducer,
   products: productReducer,
   currProduct: singleProductReducer,
+  login: loginReducer,
   countries: countriesReducer,
   categories: categoriesReducer,
 });

@@ -23,7 +23,7 @@ router.get('/cart/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const cart = await User.getCart(id);
-    res.status(200).send({ cart });
+    res.status(200).send(cart);
   } catch (err) {
     next(err);
   }

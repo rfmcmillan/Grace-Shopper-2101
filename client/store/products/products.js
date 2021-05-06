@@ -4,33 +4,27 @@ const LOAD_PRODUCTS = 'LOAD_PRODUCTS ';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const POST_PRODUCT = 'POST_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-const SET_MAX_FILTER = 'SET_MAX_FILTER';
 
-const productReducer = (state = { products: [], max: Infinity }, action) => {
+const productReducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_PRODUCTS: {
-      return { ...state, products: [...action.products] };
+      return action.products;
     }
     case POST_PRODUCT: {
-      return { ...state, products: [...state.products, action.product] };
+      return [...state, action.product];
     }
     case DELETE_PRODUCT: {
-      const products = state.products.filter(
-        (product) => product.id !== action.productId
-      );
-      return { ...state, products };
+      return state.filter((product) => {
+        return product.id !== action.product.id;
+      });
     }
 
     case UPDATE_PRODUCT: {
-      const products = state.products.map((product) => {
+      return state.map((product) => {
         return product.id === action.product.id ? action.product : product;
       });
-      return { ...state, products };
     }
 
-    case SET_MAX_FILTER: {
-      return { ...state, max: action.max };
-    }
     default: {
       return state;
     }
@@ -78,15 +72,6 @@ const updatingProduct = (product) => {
   return { type: UPDATE_PRODUCT, product };
 };
 
-const setMax = (max) => {
-  return {
-    type: SET_MAX_FILTER,
-    max,
-  };
-};
-
-// The put for product might need to updated...
-// If a location is passed through it will be added.
 const updateProduct = (updatedProduct, history) => {
   return async (dispatch) => {
     const product = (
@@ -97,5 +82,5 @@ const updateProduct = (updatedProduct, history) => {
   };
 };
 
-export { loadProducts, postProduct, deleteProduct, updateProduct, setMax };
+export { loadProducts, postProduct, deleteProduct, updateProduct };
 export default productReducer;
