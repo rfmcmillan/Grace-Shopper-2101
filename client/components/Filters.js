@@ -14,7 +14,7 @@ const Filters = (props) => {
     <div id="filter">
       <form onSubmit={reset}>
         <select value={name} name="countries" onChange={filterByCountry}>
-          <option value="default">--Select Country--</option>
+          <option value="all">All Countries</option>
           {countries.map((country) => {
             return (
               <option key={country.id} value={country.name}>
@@ -24,8 +24,12 @@ const Filters = (props) => {
           })}
         </select>
 
-        <select name="categories" onChange={filterByCategory}>
-          <option value="default">--Select Category--</option>
+        <select
+          defaultValue="ALL"
+          name="categories"
+          onChange={filterByCategory}
+        >
+          <option value="ALL">All</option>
           {categories.map((category) => {
             return (
               <option key={category.id} value={category.name}>
@@ -40,9 +44,9 @@ const Filters = (props) => {
           type="range"
           name="price"
           min="0"
-          max="50"
+          max="45"
           onChange={filterByPrice}
-          defaultValue="50"
+          defaultValue="45"
         />
 
         <input type="text" placeholder="search" />

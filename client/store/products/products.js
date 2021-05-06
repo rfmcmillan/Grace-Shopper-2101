@@ -5,50 +5,45 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const POST_PRODUCT = 'POST_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const FILTER_BY_PRICE = 'FILTER_BY_PRICE';
-const FILTER_BY_COUNTRY = 'FILTER_BY_COUNTRY';
 const FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY';
 const FILTER_BY_RATING = 'FILTER_BY_RATING';
 
-const productReducer = (state = [], action) => {
+const productReducer = (
+  state = { products: [], max: Infinity, category: 'ALL' },
+  action
+) => {
   switch (action.type) {
     case LOAD_PRODUCTS: {
-      return action.products;
+      const products = action.products;
+      return { ...state, products };
     }
     case POST_PRODUCT: {
-      return [...state, action.product];
+      const products = [...state.products, action.product];
+      return { ...state, products };
     }
     case DELETE_PRODUCT: {
-      return state.filter((product) => {
+      const products = state.products.filter((product) => {
         return product.id !== action.product.id;
       });
+      return { ...state, products };
     }
 
     case UPDATE_PRODUCT: {
-      return state.map((product) => {
+      const products = state.products.map((product) => {
         return product.id === action.product.id ? action.product : product;
       });
+      return { ...state, products };
     }
 
     case FILTER_BY_PRICE: {
-      const filtered = state.filter((product) => product.price <= action.max);
-      return filtered;
+      return { ...state, max: action.max };
     }
     case FILTER_BY_RATING: {
       return state;
     }
-    case FILTER_BY_COUNTRY: {
-      const filtered = state.filter(
-        (product) => product.country.name === action.country
-      );
-      return filtered;
-    }
+
     case FILTER_BY_CATEGORY: {
-      const filtered = state.filter((product) => {
-        return product.categories.some((category) => {
-          return category.name === action.category;
-        });
-      });
-      return filtered;
+      return { ...state, category: action.category };
     }
 
     default: {
@@ -132,13 +127,6 @@ const filterByPrice = (max) => {
   };
 };
 
-const filterByCountry = (country) => {
-  return {
-    type: FILTER_BY_COUNTRY,
-    country,
-  };
-};
-
 const filterByCategory = (category) => {
   return {
     type: FILTER_BY_CATEGORY,
@@ -160,7 +148,6 @@ export {
   deleteProduct,
   updateProduct,
   filterByCategory,
-  filterByCountry,
   filterByRating,
   filterByPrice,
 };

@@ -6,7 +6,6 @@ import {
   loadProducts,
   loadFilteredProducts,
   filterByCategory,
-  filterByCountry,
   filterByPrice,
   filterByRating,
 } from '../store/products/products';
@@ -44,6 +43,20 @@ class AllProducts extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const prev = prevProps.match.params.name;
+    const curr = this.props.match.params.name;
+    if (!curr && prev !== curr) {
+      this.props.loadAllProducts();
+    } else if (prev !== curr) {
+      if (curr === 'all') {
+        this.props.loadAllProducts();
+      } else {
+        this.props.loadFilteredProducts(curr);
+      }
+    }
+  }
+
   handleClick(product) {
     let cart = null;
     if (this.props.login.cart) {
@@ -56,8 +69,11 @@ class AllProducts extends Component {
 
   byCountry(ev) {
     const country = ev.target.value;
-    this.props.filterByCountry(country);
-    this.props.history.push(`/products/c/${country}`);
+    if (country === 'all') {
+      this.props.history.push(`/products`);
+    } else {
+      this.props.history.push(`/products/c/${country}`);
+    }
   }
 
   byCategory(ev) {
@@ -139,8 +155,30 @@ class AllProducts extends Component {
   }
 }
 
+const filterHelper = (products, max, categoryName) => {
+  let results = products.filter((product) => Number(product.price) < max);
+
+  if (categoryName !== 'ALL') {
+    results = results.filter((product) => {
+      return product.categories.some((category) => {
+        return category.name === categoryName;
+      });
+    });
+  }
+  return results;
+};
 const mapStateToProps = (state) => {
-  const { products, login, countries, categories, cart, user } = state;
+  const {
+    products: { max, category },
+    login,
+    countries,
+    categories,
+    cart,
+    user,
+  } = state;
+  let { products } = state.products;
+  products = filterHelper(products, max, category);
+
   if (!products) {
     return "There's no products now...";
   }
@@ -177,9 +215,7 @@ const mapDispatchToProps = (dispatch) => {
     filterByRating: (rating) => {
       return dispatch(filterByRating(rating));
     },
-    filterByCountry: (country) => {
-      dispatch(filterByCountry(country));
-    },
+
     filterByPrice: (max) => {
       dispatch(filterByPrice(max));
     },
