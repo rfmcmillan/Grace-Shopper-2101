@@ -57,7 +57,7 @@ class Cart extends Component {
     // Call your backend to create the Checkout Session
     const response = await axios.post('api/order/create-checkout-session', this.props.cart);
 
-    // When the customer clicks on the button, redirect them to Checkout.
+    // When the customer clicks on the button, redirect them to Checkout.   
     const result = await stripe.redirectToCheckout({
       sessionId: response.data.id,
     });
