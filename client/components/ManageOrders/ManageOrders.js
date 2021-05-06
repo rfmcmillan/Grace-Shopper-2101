@@ -2,11 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { loadOrders, updateOrder } from '../../store/orders';
 import { Link } from 'react-router-dom';
+import OrderFilter from './OrderFilter';
+import { loadFilteredOrders, filterByStatus } from '../../store/orders';
 
 class ManageOrders extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.byStatus = this.byStatus.bind(this);
   }
 
   componentDidMount() {
@@ -14,13 +17,21 @@ class ManageOrders extends React.Component {
     load();
   }
 
+  byStatus(ev) {
+    const status = ev.target.value;
+    this.props.filterByStatus(status);
+  }
+
   render() {
     const {
       orders,
       login: { admin },
     } = this.props;
+    console.log('props:', this.props);
+    console.log('orders:', orders);
     return admin ? (
       <div id="manage-orders">
+        <OrderFilter filterByStatus={this.byStatus} />
         <h2>Manage Orders</h2>
         <ul>
           {orders.map((order, idx) => {
@@ -65,6 +76,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     update: (order) => {
       return dispatch(updateOrder(order));
+    },
+    filterByStatus: (status) => {
+      return dispatch(filterByStatus(status));
     },
   };
 };
