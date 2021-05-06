@@ -94,6 +94,12 @@ class AllProducts extends Component {
           name={name}
         />
         <h1>Products</h1>
+        {/* <Filter
+          countries={countries}
+          categories={categories}
+          handleChange={this.handleChange}
+          handleQueryChange={this.handleQueryChange}
+        /> */}
         <div id="allProducts">
           {products.map((product) => {
             return (
@@ -112,6 +118,8 @@ class AllProducts extends Component {
                     })
                     .join(', ')}
                 </h4>
+
+                <h4>{product.price}</h4>
 
                 <img
                   className="allProductImage"
@@ -137,7 +145,7 @@ class AllProducts extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { products, login, countries, categories } = state;
+  const { products, login, countries, categories, cart, user } = state;
   if (!products) {
     return "There's no products now...";
   }
@@ -145,6 +153,8 @@ const mapStateToProps = (state) => {
     countries,
     products,
     login,
+    cart,
+    user,
     categories,
   };
 };
