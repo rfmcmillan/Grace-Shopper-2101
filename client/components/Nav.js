@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../store/loginstate';
 import { resetCart } from '../store/cart';
+
 class Nav extends React.Component {
   constructor() {
     super();
     this.state = {};
   }
+
   render() {
     const home = window.location.hash === 'disabledfornow';
     return home ? (

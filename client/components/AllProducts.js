@@ -94,12 +94,7 @@ class AllProducts extends Component {
           name={name}
         />
         <h1>Products</h1>
-        {/* <Filter
-          countries={countries}
-          categories={categories}
-          handleChange={this.handleChange}
-          handleQueryChange={this.handleQueryChange}
-        /> */}
+
         <div id="allProducts">
           {products.map((product) => {
             return (
