@@ -12,7 +12,7 @@ const loadOrdersActionCreator = (orders) => {
   };
 };
 
-// Load Orders Thunk
+//  Load Orders Thunk
 const loadOrders = () => {
   return async (dispatch) => {
     const response = await axios.get('/api/order/orders');
