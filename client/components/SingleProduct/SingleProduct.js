@@ -13,7 +13,6 @@ class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: {},
       addedToCart: false,
     };
 
@@ -25,21 +24,6 @@ class SingleProduct extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.getProduct(id);
-    this.exchangeToken();
-    console.log('HERERE', this.props.user);
-  }
-
-  async exchangeToken() {
-    const token = window.localStorage.getItem('token');
-    if (token) {
-      const response = await axios.get('/api/auth', {
-        headers: {
-          authorization: token,
-        },
-      });
-      const user = response.data;
-      this.setState({ auth: user });
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -73,8 +57,7 @@ class SingleProduct extends Component {
   }
 
   render() {
-    const { product } = this.props;
-    const { auth } = this.state;
+    const { product, login } = this.props;
     const countryName = product.country ? product.country.name : ' ';
     const flag = product.country ? product.country.flag : ' ';
     const reviews = product.reviews || [];
@@ -120,13 +103,13 @@ class SingleProduct extends Component {
         )}
         <h1>Reviews</h1>
 
-        {auth.id ? (
-          this.checkIfReviewed(auth.id, reviews) ? (
+        {login.id ? (
+          this.checkIfReviewed(login.id, reviews) ? (
             <div>Thanks! You've reviewed this already! </div>
           ) : (
             <NewReview
               productId={product.id}
-              userId={auth.id}
+              userId={login.id}
               updateReviews={this.updateReviews}
               checkIfReviewed={this.checkIfReviewed}
               reviews={reviews}
@@ -147,6 +130,7 @@ class SingleProduct extends Component {
 }
 
 const mapStateToProps = (state, otherProps) => {
+  console.log(state.login);
   return {
     product: state.currProduct,
     reviews: state.currProduct.reviews,
