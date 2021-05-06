@@ -3,11 +3,12 @@
 /* eslint-disable react/sort-comp */
 import React from 'react';
 import { connect } from 'react-redux';
+import { updateUser, loadUsers, resetPassword } from '../store/users';
 import { loginUser } from '../store/loginstate';
 
 class LogIn extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -24,6 +25,7 @@ class LogIn extends React.Component {
   onChange(event) {
     const change = {};
     change[event.target.name] = event.target.value;
+
     this.setState(change);
   }
 
@@ -35,14 +37,16 @@ class LogIn extends React.Component {
   }
 
   render() {
-    const {
-      email, password,
-    } = this.state;
+    const { email, password } = this.state;
     const { onChange } = this;
     return (
       <div>
         <h4>Log In:</h4>
-        <form onSubmit={(event) => { return this.handleLogin(event, email, password); }}>
+        <form
+          onSubmit={(event) => {
+            return this.handleLogin(event, email, password);
+          }}
+        >
           <label>Email Address:</label>
           <input name="email" value={email} onChange={onChange} />
           <br />

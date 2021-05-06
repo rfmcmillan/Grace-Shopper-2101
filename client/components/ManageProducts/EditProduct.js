@@ -28,7 +28,6 @@ class EditProduct extends Component {
   }
 
   onChange(ev) {
-    console.log('change');
     const change = {};
     change[ev.target.name] = ev.target.value;
     this.setState(change);
@@ -100,7 +99,6 @@ class EditProduct extends Component {
     } = this.state;
     const { onChange, onSave } = this;
     const { countries } = this.props;
-    console.log(this.props);
     return (
       <div id="edit-product">
         <h3>Edit Product:</h3>
