@@ -6,15 +6,29 @@ const {
   models: { Order, User, StripeId },
 } = require('../db');
 
+//All Orders get route
+router.get('/orders', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll();
+    res.status(200).send(orders);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/orders/:id', async (req, res, next) => {
+  try {
+    const order = await Order.findByPk(req.params.id);
+    res.send(order);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Purchase Order route
 router.post('/purchase', async (req, res, next) => {
   try {
-    const {
-      date,
-      orderId,
-      products,
-      userId,
-    } = req.body;
+    const { date, orderId, products, userId } = req.body;
     const order = await Order.purchase(date, orderId, products, userId);
     res.status(200).send({ order });
   } catch (err) {
@@ -39,6 +53,17 @@ router.get('/purchases/:id', async (req, res, next) => {
     res.status(200).send({ purchases });
   } catch (err) {
     next(err);
+  }
+});
+
+//Order Put Route
+router.put('/orders/:id', async (req, res, next) => {
+  try {
+    const orderToModify = await Order.findByPk(req.params.id);
+    const updated = await orderToModify.update(req.body);
+    res.status(200).send(updated);
+  } catch (error) {
+    next(error);
   }
 });
 

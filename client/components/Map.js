@@ -15,8 +15,8 @@ class DisplayMap extends Component {
     this.props.getCountries();
   }
 
-  handleClick(id) {
-    window.location.hash = `/products/${id}`;
+  handleClick(name) {
+    window.location.hash = `/products/c/${name}`;
   }
 
   render() {
@@ -30,8 +30,13 @@ class DisplayMap extends Component {
           {this.props.countries.map((e) => {
             return (
               <Marker
-                onClick={() => { return this.handleClick(e.id); }}
-                position={{ lat: parseInt(e.latitude), lng: parseInt(e.longitude) }}
+                onClick={() => {
+                  return this.handleClick(e.name);
+                }}
+                position={{
+                  lat: parseInt(e.latitude),
+                  lng: parseInt(e.longitude),
+                }}
                 key={e.id}
               />
             );

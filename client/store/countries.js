@@ -13,6 +13,7 @@ const loadCountries = () => {
   return async (dispatch) => {
     try {
       const countries = (await axios.get('/api/countries')).data;
+
       dispatch(loadAllCountries(countries));
     } catch (err) {
       console.log(err);

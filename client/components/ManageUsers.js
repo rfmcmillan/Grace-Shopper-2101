@@ -41,7 +41,7 @@ class ManageUsers extends React.Component {
   // async loadUsers() {
   //   const response = await axios.get('/api/users');
   //   const users = response.data;
-  //   this.setState({ users });
+  //    this.setState({ users });
   // }
 
   async makeAdmin(user) {

@@ -4,13 +4,13 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
 import loginReducer from './loginstate';
 import cartReducer from './cart';
 import { usersReducer } from './users';
 import productReducer from './products/products';
 import singleProductReducer from './products/singleProduct';
 import countriesReducer from './countries';
+import ordersReducer from './orders';
 import categoriesReducer from './categories';
 
 const persistConfig = {
@@ -25,6 +25,7 @@ const initialState = {
   users: [],
   singleProduct: {},
   loading: true,
+  categories: [],
 };
 
 // Loading check
@@ -46,6 +47,7 @@ export const reducer = combineReducers({
   currProduct: singleProductReducer,
   login: loginReducer,
   countries: countriesReducer,
+  orders: ordersReducer,
   categories: categoriesReducer,
 });
 

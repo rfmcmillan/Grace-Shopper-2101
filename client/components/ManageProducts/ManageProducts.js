@@ -69,8 +69,8 @@ class ManageProducts extends React.Component {
               ? categories.map((category) => category.name)
               : [];
             return (
-              <div key={idx}>
-                <img src={imageUrl} alt="snack" width="100" />}
+              <div key={idx} className="product-manage">
+                <img src={imageUrl} alt="snack" width="100" />
                 <ul id="product-manage">
                   <li>Title: {title}</li>
                   <li>Brand: {brand}</li>
