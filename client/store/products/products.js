@@ -41,6 +41,8 @@ const productReducer = (
   switch (action.type) {
     case LOAD_PRODUCTS: {
       const { products } = action;
+      const max = Infinity;
+      const category = 'ALL';
       return { ...state, products };
     }
     case POST_PRODUCT: {

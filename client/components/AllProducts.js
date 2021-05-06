@@ -103,6 +103,8 @@ class AllProducts extends Component {
     const form = ev.target;
     ev.preventDefault();
     form.reset();
+    this.props.filterByPrice(Infinity);
+    this.props.filterByCategory('ALL');
     this.props.loadAllProducts();
     this.props.history.push('/products');
   }
