@@ -27,11 +27,12 @@ class Main extends React.Component {
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/products/c/:name" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/manage-products" component={ManageProducts} />
             <Route exact path="/manage-products/:id" component={EditProduct} />
             <Route exact path="/manage-users" component={ManageUsers} />
-            <Route exact path="/cart" component={Cart}/>
+            <Route exact path="/cart" component={Cart} />
             <Route exact path="/login" component={LogInPage} />
             <Route exact path="/createaccount" component={CreateAccountPage} />
           </Switch>

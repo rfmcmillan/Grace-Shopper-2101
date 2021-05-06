@@ -36,7 +36,7 @@ const productReducer = (state = [], action) => {
       return state;
     }
     case FILTER_BY_COUNTRY: {
-      const filtered = state.filtered(
+      const filtered = state.filter(
         (product) => product.country.name === action.country
       );
       return filtered;
@@ -50,6 +50,22 @@ const productReducer = (state = [], action) => {
       return state;
     }
   }
+};
+
+const _loadFilteredProducts = (products) => {
+  return { type: LOAD_PRODUCTS, products };
+};
+
+const loadFilteredProducts = (country) => {
+  return async (dispatch) => {
+    try {
+      let products = (await axios.get('/api/products')).data;
+      products = products.filter((product) => product.country.name === country);
+      dispatch(_loadFilteredProducts(products));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 };
 
 const loadingProducts = (products) => {
@@ -136,6 +152,7 @@ const filterByRating = (rating) => {
 
 export {
   loadProducts,
+  loadFilteredProducts,
   postProduct,
   deleteProduct,
   updateProduct,
