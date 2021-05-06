@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 const {
   db,
-  models: { Category, Product, Country, Review, User },
+  models: { Category, Product, Country, Review, User, Order },
 } = require('../server/db');
 
 const init = async () => {

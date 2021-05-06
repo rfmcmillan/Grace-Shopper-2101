@@ -20,8 +20,10 @@ class EditOrder extends Component {
     this.getCurrOrder = this.getCurrOrder.bind(this);
   }
 
-  componentDidMount() {
-    this.getCurrOrder();
+  async componentDidMount() {
+    console.log(this.state);
+    await this.getCurrOrder();
+    console.log(this.state);
   }
 
   onChange(ev) {
@@ -52,7 +54,7 @@ class EditOrder extends Component {
         status,
       });
 
-      history.push('/manage-order');
+      history.push('/manage-orders');
     } catch (error) {
       this.setState({ error: error.response.data.error });
     }
@@ -61,7 +63,6 @@ class EditOrder extends Component {
   async getCurrOrder() {
     const { id } = this.props.match.params;
     const currOrder = (await axios.get(`/api/order/orders/${id}`)).data;
-    console.log('currOrder:', currOrder);
     const {
       complete,
       date_of_purchase,
@@ -88,34 +89,30 @@ class EditOrder extends Component {
       userId,
       status,
     } = this.state;
+    console.log('purchased items:', purchased_items);
     const { onChange, onSave } = this;
     return (
-      <div>
+      <div id="edit-order">
         <h3>Edit Order:</h3>
         <form onSubmit={onSave}>
-          <label>Order ID:</label>
-          <input name="id" value={id} onChange={onChange} />
+          <label>Order ID: </label>
+          <span>{id}</span>
           <br />
-          <label>User ID:</label>
-          <input name="userId" value={userId} onChange={onChange} />
+          <span>User ID: {userId}</span>
           <br />
           <label>Date:*</label>
           <input
             name="date_of_purchase"
-            value={date_of_purchase}
+            value={date_of_purchase || ''}
             type="date"
             onChange={onChange}
           />
           <br />
           <label>Complete:</label>
-          <input
-            name="complete"
-            value={complete}
-            onChange={onChange}
-            type="checkbox"
-          />
+          <input name="complete" onChange={onChange} type="checkbox" />
           <br />
           <label>Items:</label>
+          {/* {JSON.parse(purchased_items)} */}
           <br />
           <label>Status:</label>
           <select name="status" value={status} onChange={onChange}>
