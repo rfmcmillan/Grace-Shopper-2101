@@ -1,5 +1,3 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-undef */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -51,7 +49,6 @@ const mapStateToProps = (state) => {
   const { login, cart } = state;
   return { login, cart };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
     logOut: () => {

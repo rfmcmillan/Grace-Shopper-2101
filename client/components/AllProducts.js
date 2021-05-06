@@ -107,7 +107,9 @@ class AllProducts extends Component {
                 </h4>
                 <h4>
                   {product.categories
-                    .map((category) => category.name)
+                    .map((category) => {
+                      return category.name;
+                    })
                     .join(', ')}
                 </h4>
 
