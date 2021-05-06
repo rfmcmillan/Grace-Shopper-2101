@@ -103,16 +103,7 @@ class SingleProduct extends Component {
         )}
         <h1>Reviews</h1>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        {login.email ? (
-=======
         {login.id ? (
->>>>>>> 9908e68f3f003679458ae5051c3970ad2e50055a
-=======
-
-        {login.id ? (
->>>>>>> d4ba80cdacb5144592f62b38a13bcf6f28bec95e
           this.checkIfReviewed(login.id, reviews) ? (
             <div>Thanks! You've reviewed this already! </div>
           ) : (

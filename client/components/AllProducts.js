@@ -2,26 +2,59 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loadProducts, setMax } from '../store/products/products';
+import {
+  loadProducts,
+  loadFilteredProducts,
+  filterByCategory,
+  filterByPrice,
+  filterByRating,
+} from '../store/products/products';
+import { addToCart } from '../store/cart';
 import { loadCountries } from '../store/countries';
 import { loadCategories } from '../store/categories';
-import { addToCart } from '../store/cart';
-import Filter from './Filter';
 
-// import ProductCreate from './ProductCreate';
-// import { deleteProduct } from '../store';
+import Filters from './Filters';
 
 class AllProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.byCategory = this.byCategory.bind(this);
+    this.byPrice = this.byPrice.bind(this);
+    this.byCountry = this.byCountry.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   componentDidMount() {
-    const { loadAllProducts, loadCategories, loadCountries } = this.props;
-    loadAllProducts();
-    loadCountries();
-    loadCategories();
+    const {
+      loadAllProducts,
+      loadAllCountries,
+      loadAllCategories,
+      loadFilteredProducts,
+    } = this.props;
+    const { name } = this.props.match.params;
+    loadAllCategories();
+    loadAllCountries();
+    if (name) {
+      console.log(name);
+      loadFilteredProducts(name);
+    } else {
+      loadAllProducts();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const prev = prevProps.match.params.name;
+    const curr = this.props.match.params.name;
+    if (!curr && prev !== curr) {
+      this.props.loadAllProducts();
+    } else if (prev !== curr) {
+      if (curr === 'all') {
+        this.props.loadAllProducts();
+      } else {
+        this.props.loadFilteredProducts(curr);
+      }
+    }
   }
 
   handleClick(product) {
@@ -32,17 +65,52 @@ class AllProducts extends Component {
     this.props.addItem(product, cart);
   }
 
+  // byRating(ev) {}
+
+  byCountry(ev) {
+    const country = ev.target.value;
+    if (country === 'all') {
+      this.props.history.push(`/products`);
+    } else {
+      this.props.history.push(`/products/c/${country}`);
+    }
+  }
+
+  byCategory(ev) {
+    const category = ev.target.value;
+    this.props.filterByCategory(category);
+  }
+
+  byPrice(ev) {
+    const max = ev.target.value;
+    this.props.filterByPrice(max);
+  }
+
+  reset(ev) {
+    const form = ev.target;
+    ev.preventDefault();
+    form.reset();
+    this.props.loadAllProducts();
+    this.props.history.push('/products');
+  }
+
   render() {
-    const { products, countries, categories } = this.props;
+    const { products, categories, countries } = this.props;
+    const name = this.props.match.params.name || 'default';
     return (
       <div id="main">
-        <h1>Products</h1>
-        {/* <Filter
+        <Filters
           countries={countries}
           categories={categories}
-          handleChange={this.handleChange}
-          handleQueryChange={this.handleQueryChange}
-        /> */}
+          filterByCategory={this.byCategory}
+          // filterByRating={this.byRating}
+          filterByPrice={this.byPrice}
+          filterByCountry={this.byCountry}
+          reset={this.reset}
+          name={name}
+        />
+        <h1>Products</h1>
+
         <div id="allProducts">
           {products.map((product) => {
             return (
@@ -53,6 +121,13 @@ class AllProducts extends Component {
                 <h4>
                   {product.country.name}
                   <i className={`em ${product.country.flag}`} />
+                </h4>
+                <h4>
+                  {product.categories
+                    .map((category) => {
+                      return category.name;
+                    })
+                    .join(', ')}
                 </h4>
 
                 <h4>{product.price}</h4>
@@ -80,19 +155,40 @@ class AllProducts extends Component {
   }
 }
 
+const filterHelper = (products, max, categoryName) => {
+  let results = products.filter((product) => Number(product.price) < max);
+
+  if (categoryName !== 'ALL') {
+    results = results.filter((product) => {
+      return product.categories.some((category) => {
+        return category.name === categoryName;
+      });
+    });
+  }
+  return results;
+};
 const mapStateToProps = (state) => {
-  const { cart, user, categories, countries } = state;
-  const { products, login } = state;
+  const {
+    products: { max, category },
+    login,
+    countries,
+    categories,
+    cart,
+    user,
+  } = state;
+  let { products } = state.products;
+  products = filterHelper(products, max, category);
+
   if (!products) {
     return "There's no products now...";
   }
   return {
+    countries,
     products,
+    login,
     cart,
     user,
     categories,
-    countries,
-    login,
   };
 };
 
@@ -102,14 +198,29 @@ const mapDispatchToProps = (dispatch) => {
     loadAllProducts: () => {
       dispatch(loadProducts());
     },
-    loadCategories: () => {
-      dispatch(loadCategories());
+    loadFilteredProducts: (country) => {
+      dispatch(loadFilteredProducts(country));
     },
-    loadCountries: () => {
+
+    loadAllCountries: () => {
       dispatch(loadCountries());
+    },
+    loadAllCategories: () => {
+      dispatch(loadCategories());
     },
     addItem: (productId, cart) => {
       dispatch(addToCart(productId, cart));
+    },
+
+    filterByRating: (rating) => {
+      return dispatch(filterByRating(rating));
+    },
+
+    filterByPrice: (max) => {
+      dispatch(filterByPrice(max));
+    },
+    filterByCategory: (category) => {
+      dispatch(filterByCategory(category));
     },
   };
 };
