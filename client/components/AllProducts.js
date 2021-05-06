@@ -105,6 +105,11 @@ class AllProducts extends Component {
                   {product.country.name}
                   <i className={`em ${product.country.flag}`} />
                 </h4>
+                <h4>
+                  {product.categories
+                    .map((category) => category.name)
+                    .join(', ')}
+                </h4>
 
                 <img
                   className="allProductImage"

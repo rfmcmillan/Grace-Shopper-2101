@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const {
-  models: { Product, Country },
+  models: { Product, Country, Category },
 } = require('../db');
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({ include: [Country] });
+    const products = await Product.findAll({ include: [Country, Category] });
     res.send(products);
   } catch (ex) {
     next(ex);

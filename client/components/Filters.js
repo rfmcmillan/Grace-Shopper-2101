@@ -24,7 +24,7 @@ const Filters = (props) => {
           })}
         </select>
 
-        <select name="categories">
+        <select name="categories" onChange={filterByCategory}>
           <option value="default">--Select Category--</option>
           {categories.map((category) => {
             return (

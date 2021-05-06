@@ -42,8 +42,12 @@ const productReducer = (state = [], action) => {
       return filtered;
     }
     case FILTER_BY_CATEGORY: {
-      console.log(state, 'LINE 45');
-      return state;
+      const filtered = state.filter((product) => {
+        return product.categories.some((category) => {
+          return category.name === action.category;
+        });
+      });
+      return filtered;
     }
 
     default: {
