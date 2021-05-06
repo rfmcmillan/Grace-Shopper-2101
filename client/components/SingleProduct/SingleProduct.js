@@ -13,7 +13,6 @@ class SingleProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: {},
       addedToCart: false,
     };
 
@@ -120,13 +119,13 @@ class SingleProduct extends Component {
         )}
         <h1>Reviews</h1>
 
-        {auth.id ? (
-          this.checkIfReviewed(auth.id, reviews) ? (
+        {login.email ? (
+          this.checkIfReviewed(login.id, reviews) ? (
             <div>Thanks! You've reviewed this already! </div>
           ) : (
             <NewReview
               productId={product.id}
-              userId={auth.id}
+              userId={login.id}
               updateReviews={this.updateReviews}
               checkIfReviewed={this.checkIfReviewed}
               reviews={reviews}

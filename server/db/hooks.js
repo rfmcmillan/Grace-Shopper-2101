@@ -2,6 +2,7 @@
 /* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 // import models from relationships
+const stripe = require('stripe')('sk_test_51InvgGCzEJe0jWa9qwf4rTyGBxHY1GvAFSTaFniDqqGSJRt1mLTy9hIaLM3gcm7CJNV2T1GenLopTlj1HA9rFDNG00jDxVqD6W');
 const bcrypt = require('bcrypt');
 const {
   Order,
@@ -11,6 +12,7 @@ const {
   Category,
   User,
   Review,
+  StripeId,
 } = require('./relationships');
 
 // export models
@@ -172,6 +174,21 @@ Product.getSingleProduct = function (id) {
   });
 };
 
+Product.afterCreate(async (product) => {
+  try {
+    const stripeproduct = await stripe.products.create({ name: product.title, images: [product.imageUrl] });
+    const priceId = await stripe.prices.create({
+      billing_scheme: 'per_unit',
+      product: stripeproduct.id,
+      unit_amount: Math.round(product.price * 100),
+      currency: 'usd',
+    });
+    await StripeId.create({ id: priceId.id, productId: product.id });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = {
   Order,
   Product,
@@ -180,4 +197,5 @@ module.exports = {
   Category,
   User,
   Review,
+  StripeId,
 };

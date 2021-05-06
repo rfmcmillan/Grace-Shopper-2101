@@ -1,6 +1,9 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable max-len */
+const stripe = require('stripe')('sk_test_51InvgGCzEJe0jWa9qwf4rTyGBxHY1GvAFSTaFniDqqGSJRt1mLTy9hIaLM3gcm7CJNV2T1GenLopTlj1HA9rFDNG00jDxVqD6W');
 const router = require('express').Router();
 const {
-  models: { Order, User },
+  models: { Order, User, StripeId },
 } = require('../db');
 
 // Purchase Order route
@@ -57,6 +60,30 @@ router.put('/addToCart', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+router.post('/create-checkout-session', async (req, res) => {
+  const products = req.body;
+  const promises = [];
+  const Ids = [];
+  for (i of products) {
+    promises.push(StripeId.findOne({ where: { productId: i.id } }));
+  }
+  Promise.all(promises).then((results) => {
+    products.forEach((e) => {
+      Ids.push({ price: results.find((element) => { return element.productId === e.id; }).id, quantity: e.amount });
+    });
+    return Ids;
+  }).then(async (results) => {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: results,
+      mode: 'payment',
+      success_url: 'http://localhost:3000/#/order?success=true',
+      cancel_url: 'http://localhost:3000/#/order?canceled=true',
+    });
+    res.json({ id: session.id });
+  });
 });
 
 module.exports = router;
