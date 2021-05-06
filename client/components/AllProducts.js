@@ -8,6 +8,8 @@ import {
   filterByCategory,
   filterByPrice,
   filterByRating,
+  sortByAlpha,
+  sortByPrice,
 } from '../store/products/products';
 import { addToCart } from '../store/cart';
 import { loadCountries } from '../store/countries';
@@ -22,6 +24,7 @@ class AllProducts extends Component {
     this.byCategory = this.byCategory.bind(this);
     this.byPrice = this.byPrice.bind(this);
     this.byCountry = this.byCountry.bind(this);
+    this.sortByInput = this.sortByInput.bind(this);
     this.reset = this.reset.bind(this);
   }
 
@@ -70,7 +73,7 @@ class AllProducts extends Component {
   byCountry(ev) {
     const country = ev.target.value;
     if (country === 'all') {
-      this.props.history.push(`/products`);
+      this.props.history.push('/products');
     } else {
       this.props.history.push(`/products/c/${country}`);
     }
@@ -84,6 +87,16 @@ class AllProducts extends Component {
   byPrice(ev) {
     const max = ev.target.value;
     this.props.filterByPrice(max);
+  }
+
+  sortByInput(ev) {
+    const sortBy = ev.target.value;
+    console.log(sortBy);
+    if (sortBy.includes('alpha')) {
+      this.props.sortByAlpha(sortBy);
+    } else {
+      this.props.sortByPrice(sortBy);
+    }
   }
 
   reset(ev) {
@@ -106,6 +119,7 @@ class AllProducts extends Component {
           // filterByRating={this.byRating}
           filterByPrice={this.byPrice}
           filterByCountry={this.byCountry}
+          sortByInput={this.sortByInput}
           reset={this.reset}
           name={name}
         />
@@ -156,7 +170,9 @@ class AllProducts extends Component {
 }
 
 const filterHelper = (products, max, categoryName) => {
-  let results = products.filter((product) => Number(product.price) < max);
+  let results = products.filter((product) => {
+    return Number(product.price) < max;
+  });
 
   if (categoryName !== 'ALL') {
     results = results.filter((product) => {
@@ -178,7 +194,6 @@ const mapStateToProps = (state) => {
   } = state;
   let { products } = state.products;
   products = filterHelper(products, max, category);
-
   if (!products) {
     return "There's no products now...";
   }
@@ -221,6 +236,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     filterByCategory: (category) => {
       dispatch(filterByCategory(category));
+    },
+
+    sortByPrice: (direction) => {
+      return dispatch(sortByPrice(direction));
+    },
+    sortByAlpha: (direction) => {
+      return dispatch(sortByAlpha(direction));
     },
   };
 };
