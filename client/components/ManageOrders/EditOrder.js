@@ -109,19 +109,12 @@ class EditOrder extends Component {
     return (
       <div id="edit-order">
         <h3>Edit Order:</h3>
-        <form onSubmit={onSave}>
-          <label>Order ID: </label>
-          <span>{id}</span>
+        <div id="order-details">
+          <span>Order ID: {id}</span>
           <br />
           <span>User ID: {userId}</span>
           <br />
-          <label>Date:*</label>
-          <input
-            name="date_of_purchase"
-            value={date_of_purchase || ''}
-            type="date"
-            onChange={onChange}
-          />
+          <span>Date: {date_of_purchase || ''}</span>
           <br />
           <span>
             Order Total: $
@@ -132,11 +125,8 @@ class EditOrder extends Component {
               : '0.00'}
           </span>
           <br />
-          <label>Complete:</label>
-          <input name="complete" onChange={onChange} type="checkbox" />
-          <br />
+          <span>Items:</span>
           <ul>
-            Items:{' '}
             {products.map((product, idx) => {
               return (
                 <li key={`name-${idx}`}>
@@ -146,24 +136,26 @@ class EditOrder extends Component {
             })}
           </ul>
           <br />
-          <label>Status:</label>
-          <select name="status" value={status} onChange={onChange}>
-            <option key="created" value="Created">
-              Created
-            </option>
-            <option key="processing" value="Processing">
-              Processing
-            </option>
-            <option key="complete" value="Complete">
-              Complete
-            </option>
-            <option key="cancelled" value="Cancelled">
-              Cancelled
-            </option>
-          </select>
-          <br />
-          <button>Submit Changes</button>
-        </form>
+          <form onSubmit={onSave}>
+            <label>Status:</label>
+            <select name="status" value={status} onChange={onChange}>
+              <option key="created" value="Created">
+                Created
+              </option>
+              <option key="processing" value="Processing">
+                Processing
+              </option>
+              <option key="complete" value="Complete">
+                Complete
+              </option>
+              <option key="cancelled" value="Cancelled">
+                Cancelled
+              </option>
+            </select>
+            <br />
+            <button>Submit Changes</button>
+          </form>
+        </div>
       </div>
     );
   }
