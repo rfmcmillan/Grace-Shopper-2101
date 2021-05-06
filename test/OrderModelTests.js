@@ -5,9 +5,7 @@ const { expect } = require('chai');
 const app = require('supertest')(require('../server/server'));
 const {
   db,
-  models: {
-    Order, Product, ProductOrders, User,
-  },
+  models: { Order, Product, ProductOrders, User },
 } = require('../server/db');
 
 describe('Order model and join table defination', function () {
@@ -76,9 +74,7 @@ describe('Order model and join table defination', function () {
     expect((await Order.findAll({})).length).to.equal(2);
   });
   it('should contain the right datatypes and defaults', async function () {
-    const {
-      userId, complete, date_of_purchase, purchased_items,
-    } = (
+    const { userId, complete, date_of_purchase, purchased_items } = (
       await Order.findAll({})
     )[0];
 
@@ -105,27 +101,35 @@ describe('Order model and join table defination', function () {
       expect(purchase.complete).to.equal(true);
       expect(purchase.date_of_purchase).to.equal('2016-05-05');
       expect(purchase.purchased_items.find((element) => element.amount === 2));
-      expect(purchase.purchased_items.find((element) => element.title === 'Strawberry Puff'));
+      expect(
+        purchase.purchased_items.find(
+          (element) => element.title === 'Strawberry Puff'
+        )
+      );
     });
     it('it should allow products amount to be increased with the instance methods created', async function () {
       await Order.updateProductsAmount(order1.id, StrawberryPuff.id, 10);
       const products = await User.getCart(user.cart);
       expect(
         products.find(
-          (element) => element.title === StrawberryPuff.title && element.amount === 10,
-        ),
+          (element) =>
+            element.title === StrawberryPuff.title && element.amount === 10
+        )
       );
       expect(
         products.find(
-          (element) => element.title === IceCreamBar.title && element.amount === 5,
-        ),
+          (element) =>
+            element.title === IceCreamBar.title && element.amount === 5
+        )
       );
     });
 
     it('it should allow products to be removed with the instance methods created', async function () {
       await Order.updateProductsAmount(order1.id, StrawberryPuff.id, 0);
       const products = await User.getCart(user.cart);
-      expect(products.length).to.equal(2);
+      expect(
+        !products.find((element) => element.title === StrawberryPuff.title)
+      );
     });
   });
   describe('Join table', function () {
@@ -133,11 +137,11 @@ describe('Order model and join table defination', function () {
       expect(ProductOrders).to.exist;
     });
     xit('It should be filled when orders are created', async function () {
-      expect((console.log(await ProductOrders.findAll({}))).length).to.equal(5);
+      expect(console.log(await ProductOrders.findAll({})).length).to.equal(5);
     });
     xit('should create one row for each product added to an order', async function () {
       expect(
-        (await ProductOrders.findAll({ where: { orderId: order1.id } })).length,
+        (await ProductOrders.findAll({ where: { orderId: order1.id } })).length
       ).to.equal(3);
     });
   });
@@ -186,7 +190,7 @@ describe('Order model and join table defination', function () {
         const response = await app.get(`/api/order/cart/${user.cart}`);
         const cart = response.body;
         expect(
-          cart.find((element) => element.title === 'Strawberry Puff').amount,
+          cart.find((element) => element.title === 'Strawberry Puff').amount
         ).to.equal(15);
       });
       it('/api/orders/addToCart', async function () {
@@ -206,7 +210,7 @@ describe('Order model and join table defination', function () {
         const response = await app.get(`/api/order/cart/${user.cart}`);
         const cart = response.body;
         expect(
-          cart.find((element) => element.title === 'Sweet Olive Oil Tortas'),
+          cart.find((element) => element.title === 'Sweet Olive Oil Tortas')
         );
       });
     });
