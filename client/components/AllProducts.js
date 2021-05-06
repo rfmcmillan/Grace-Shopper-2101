@@ -2,10 +2,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loadProducts } from '../store/products/products';
+import {
+  loadProducts,
+  filterByCategory,
+  filterByCountry,
+  filterByPrice,
+  filterByRating,
+} from '../store/products/products';
 import { addToCart } from '../store/cart';
-// import ProductCreate from './ProductCreate';
-// import { deleteProduct } from '../store';
+
+import Filter from './Filters';
 
 class AllProducts extends Component {
   constructor(props) {
@@ -16,6 +22,7 @@ class AllProducts extends Component {
   componentDidMount() {
     const { loadAllProducts } = this.props;
     loadAllProducts();
+    console.log(this.props);
   }
 
   handleClick(product) {
@@ -30,6 +37,7 @@ class AllProducts extends Component {
     const { products } = this.props;
     return (
       <div id="main">
+        <Filter />
         <h1>Products</h1>
         <div id="allProducts">
           {products.map((product) => {
@@ -72,7 +80,8 @@ const mapStateToProps = (state) => {
     return "There's no products now...";
   }
   return {
-    products, login,
+    products,
+    login,
   };
 };
 
@@ -84,6 +93,17 @@ const mapDispatchToProps = (dispatch) => {
     },
     addItem: (productId, cart) => {
       dispatch(addToCart(productId, cart));
+    },
+
+    filterByRating: (rating) => dispatch(filterByRating(rating)),
+    filterByCountry: (country) => {
+      dispatch(filterByCountry(country));
+    },
+    filterByPrice: (max) => {
+      dispatch(filterByPrice(max));
+    },
+    filterByCategory: (category) => {
+      dispatch(filterByCategory(category));
     },
   };
 };

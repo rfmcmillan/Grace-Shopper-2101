@@ -4,6 +4,10 @@ const LOAD_PRODUCTS = 'LOAD_PRODUCTS ';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const POST_PRODUCT = 'POST_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+const FILTER_BY_PRICE = 'FILTER_BY_PRICE';
+const FILTER_BY_COUNTRY = 'FILTER_BY_COUNTRY';
+const FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY';
+const FILTER_BY_RATING = 'FILTER_BY_RATING';
 
 const productReducer = (state = [], action) => {
   switch (action.type) {
@@ -14,13 +18,34 @@ const productReducer = (state = [], action) => {
       return [...state, action.product];
     }
     case DELETE_PRODUCT: {
-      return state.filter((product) => { return product.id !== action.product.id; });
+      return state.filter((product) => {
+        return product.id !== action.product.id;
+      });
     }
     case UPDATE_PRODUCT: {
       return state.map((product) => {
         return product.id === action.product.id ? action.product : product;
       });
     }
+
+    case FILTER_BY_PRICE: {
+      const filtered = state.filter((product) => product.price <= action.max);
+      return filtered;
+    }
+    case FILTER_BY_RATING: {
+      return state;
+    }
+    case FILTER_BY_COUNTRY: {
+      const filtered = state.filtered(
+        (product) => product.country.name === action.country
+      );
+      return filtered;
+    }
+    case FILTER_BY_CATEGORY: {
+      console.log(state, 'LINE 45');
+      return state;
+    }
+
     default: {
       return state;
     }
@@ -80,7 +105,43 @@ const updateProduct = (updatedProduct, history) => {
   };
 };
 
+//#region Filtering
+const filterByPrice = (max) => {
+  return {
+    type: FILTER_BY_PRICE,
+    max,
+  };
+};
+
+const filterByCountry = (country) => {
+  return {
+    type: FILTER_BY_COUNTRY,
+    country,
+  };
+};
+
+const filterByCategory = (category) => {
+  return {
+    type: FILTER_BY_CATEGORY,
+    category,
+  };
+};
+
+const filterByRating = (rating) => {
+  return {
+    type: FILTER_BY_RATING,
+    rating,
+  };
+};
+
 export {
-  loadProducts, postProduct, deleteProduct, updateProduct,
+  loadProducts,
+  postProduct,
+  deleteProduct,
+  updateProduct,
+  filterByCategory,
+  filterByCountry,
+  filterByRating,
+  filterByPrice,
 };
 export default productReducer;
