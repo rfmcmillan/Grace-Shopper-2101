@@ -17,7 +17,6 @@ describe('Product routes', function () {
         description: 'Crispy puff shell cookie with cream filling.',
         price: 3.99,
         inventory: 100,
-        // countryId: Taiwan.id,
         imageUrl:
           'https://images-na.ssl-images-amazon.com/images/I/51GkdanTqfL.jpg',
       });
@@ -41,7 +40,7 @@ describe('Product routes', function () {
   });
 
   describe('POST', function () {
-    xit('/api/products/', async function () {
+    it('/api/products/', async function () {
       const response = await app.post('/api/products').send({
         title: 'Grenadine Juice',
         brand: 'Meysu',
@@ -50,7 +49,6 @@ describe('Product routes', function () {
         inventory: 126,
         imageUrl:
           'https://sethlui.com/wp-content/uploads/2019/11/Tiger-Sugar-Boba-Ice-Cream-Online-2.jpg',
-        countryId: '12dcef96-5107-4a19-b1be-e9d7af3def57',
       });
       expect(response.body.title).to.equal('Grenadine Juice');
     });
@@ -68,7 +66,7 @@ describe('Product routes', function () {
   });
 
   describe('PUT', function () {
-    xit('/api/products/:id', async function () {
+    it('/api/products/:id', async function () {
       const product1 = await Product.findOne({
         where: { title: 'Strawberry Puff' },
       });
