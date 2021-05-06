@@ -6,6 +6,7 @@ const ProductOrders = require('./models/ProductOrders');
 const Category = require('./models/Category');
 const User = require('./models/User');
 const Review = require('./models/Review');
+const StripeId = require('./models/StripeIds');
 
 Country.hasMany(Product);
 Product.belongsTo(Country, { foreignKey: 'countryId' });
@@ -36,4 +37,5 @@ module.exports = {
   Category,
   User,
   Review,
+  StripeId,
 };

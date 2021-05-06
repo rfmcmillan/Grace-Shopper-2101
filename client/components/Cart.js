@@ -1,8 +1,13 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable react/button-has-type */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
 import { loadCart, updateCart, removeItem } from '../store/cart';
+
+const stripePromise = loadStripe('pk_test_51InvgGCzEJe0jWa9qmsLFyAIhV0dMwJeA59eCJtu4leBd9h8TcouHwM2OG1c691aHwIWcSebkNRCKTboOy2frM0p001MLpy1xK');
 
 class Cart extends Component {
   constructor(props) {
@@ -11,6 +16,7 @@ class Cart extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +47,19 @@ class Cart extends Component {
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value,
+    });
+  }
+
+  async handleClick(event) {
+    // Get Stripe.js instance
+    const stripe = await stripePromise;
+
+    // Call your backend to create the Checkout Session
+    const response = await axios.post('api/order/create-checkout-session', this.props.cart);
+
+    // When the customer clicks on the button, redirect them to Checkout.   
+    const result = await stripe.redirectToCheckout({
+      sessionId: response.data.id,
     });
   }
 
@@ -80,6 +99,7 @@ class Cart extends Component {
             );
           })}
         </div>
+        <button onClick={this.handleClick}>Checkout</button>
       </div>
     );
   }
