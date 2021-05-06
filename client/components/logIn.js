@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/sort-comp */
-import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../store/login';
+import { loginUser } from '../store/loginstate';
 
 class LogIn extends React.Component {
   constructor() {

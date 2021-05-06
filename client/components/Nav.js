@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logoutUser } from '../store/login';
+import { logoutUser } from '../store/loginstate';
 import { resetCart } from '../store/cart';
 
 class Nav extends React.Component {
@@ -13,13 +13,12 @@ class Nav extends React.Component {
   }
 
   render() {
-    const home = window.location.hash === '#/';
+    const home = window.location.hash === 'disabledfornow';
     return home ? ((<div> </div>)) : (
       (
         <div className="navBar">
           <Link to="/">The Global Snacker</Link>
           <Link to="/products"> Products</Link>
-          <Link to="/countries"> Countries</Link>
           <input type="text" placeholder="search" />
           {this.props.login.email ? (
             <div>
