@@ -12,7 +12,7 @@ import LogInPage from './LogInPage';
 import ManageProducts from './ManageProducts/ManageProducts';
 import EditProduct from './ManageProducts/EditProduct';
 import ManageUsers from './ManageUsers';
-import ManageOrders from './ManageOrders';
+import ManageOrders from './ManageOrders/ManageOrders';
 import Nav from './Nav';
 import Home from './Home';
 import CreateAccountPage from './CreateAccountPage';

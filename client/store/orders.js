@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const LOAD_ORDERS = 'LOAD_ORDERS';
-const CREATE_ORDER = 'CREATE_ORDER';
+const UPDATE_ORDER = 'UPDATE_ORDER';
 
 //Create Action Creators & Thunks
 
@@ -15,39 +15,58 @@ const loadOrdersActionCreator = (orders) => {
 // Load Orders Thunk
 const loadOrders = () => {
   return async (dispatch) => {
-    const response = await axios.get('/api/order');
+    const response = await axios.get('/api/order/orders');
     const orders = response.data;
     console.log(orders);
     dispatch(loadOrdersActionCreator(orders));
   };
 };
 
-// const createOrderActionCreator = (order) => {
-//   return {
-//     type: CREATE_ORDER,
-//     user,
-//   };
-// };
+//Update Order Action Creator and Thunk
+const updateOrderActionCreator = (order) => {
+  return {
+    type: UPDATE_ORDER,
+    order,
+  };
+};
 
-// //Create User Thunk
-// const createUser = (email, password, firstName, lastName, history) => {
-//   return async (dispatch) => {
-//     const response = await axios.post('/api/users', {
-//       email,
-//       password,
-//       firstName,
-//       lastName,
-//     });
-//     const user = response.data;
-//     dispatch(createUserActionCreator(user));
-//   };
-// };
+const updateOrder = (order) => {
+  const {
+    id,
+    complete,
+    date_of_purchase,
+    purchased_items,
+    userId,
+    status,
+  } = order;
+  return async (dispatch) => {
+    const orderToUpdate = (
+      await axios.put(`/api/order/orders/${id}`, {
+        complete,
+        date_of_purchase,
+        purchased_items,
+        userId,
+        status,
+      })
+    ).data;
+    dispatch(updateOrderActionCreator(orderToUpdate));
+  };
+};
 
 const ordersReducer = (state = [], action) => {
   if (action.type === LOAD_ORDERS) {
     state = action.orders;
   }
+  if (action.type === UPDATE_ORDER) {
+    const orders = state.map((order) => {
+      if (order.id === action.order.id) {
+        return action.order;
+      }
+      return order;
+    });
+    state = orders;
+  }
   return state;
 };
 export default ordersReducer;
-export { loadOrdersActionCreator, loadOrders };
+export { loadOrdersActionCreator, loadOrders, updateOrder };

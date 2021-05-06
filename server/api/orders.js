@@ -3,7 +3,8 @@ const {
   models: { Order, User },
 } = require('../db');
 
-router.get('/', async (req, res, next) => {
+//All Orders get route
+router.get('/orders', async (req, res, next) => {
   try {
     const orders = await Order.findAll();
     res.status(200).send(orders);
@@ -40,6 +41,17 @@ router.get('/purchases/:id', async (req, res, next) => {
     res.status(200).send({ purchases });
   } catch (err) {
     next(err);
+  }
+});
+
+//Order Put Route
+router.put('/orders/:id', async (req, res, next) => {
+  try {
+    const orderToModify = await Order.findByPk(req.params.id);
+    const updated = await orderToModify.update(req.body);
+    res.status(200).send(updated);
+  } catch (error) {
+    next(error);
   }
 });
 

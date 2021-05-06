@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loadOrders } from '../store/orders';
+import { loadOrders, updateOrder } from '../../store/orders';
 
 class ManageOrders extends React.Component {
   constructor(props) {
@@ -28,14 +28,17 @@ class ManageOrders extends React.Component {
               date_of_purchase,
               purchased_items,
               userId,
+              status,
             } = order;
             return (
               <div key={idx} className="order-manage">
                 <li>Order ID: {id}</li>
                 <li>User ID: {userId}</li>
-                <li>Complete: {complete.toString() ? 'Yes' : 'No'}</li>
+                <li>Complete: {complete ? 'Yes' : 'No'}</li>
                 <li>Date: {date_of_purchase}</li>
                 <li>Items: {purchased_items}</li>
+                <li>Status: {status}</li>
+                <Link to={`/manage-orders/${order.id}`}>Edit</Link>
               </div>
             );
           })}
@@ -53,6 +56,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     load: () => {
       return dispatch(loadOrders());
+    },
+    update: (order) => {
+      return dispatch(updateOrder(order));
     },
   };
 };
