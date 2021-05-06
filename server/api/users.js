@@ -8,7 +8,10 @@ const {
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({ include: Review });
+    const users = await User.findAll({
+      include: Review,
+      order: [['email', 'DESC']],
+    });
     res.send(users);
   } catch (error) {
     next(error);
