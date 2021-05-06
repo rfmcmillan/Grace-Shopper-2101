@@ -14,7 +14,7 @@ router.use('/users', users);
 router.use('/reviews', reviews);
 router.use('/products', products);
 router.use('/countries', country);
-router.use('/order', orders);
+router.use('/orders', orders);
 router.use('/auth', auth);
 
 module.exports = router;

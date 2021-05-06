@@ -3,15 +3,19 @@ const {
   models: { Order, User },
 } = require('../db');
 
+router.get('/', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll();
+    res.status(200).send(orders);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Purchase Order route
 router.post('/purchase', async (req, res, next) => {
   try {
-    const {
-      date,
-      orderId,
-      products,
-      userId,
-    } = req.body;
+    const { date, orderId, products, userId } = req.body;
     const order = await Order.purchase(date, orderId, products, userId);
     res.status(200).send({ order });
   } catch (err) {
