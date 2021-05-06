@@ -8,6 +8,7 @@ const products = require('./products');
 const country = require('./countries');
 const orders = require('./orders');
 const auth = require('./auth');
+
 // api/categories
 router.use('/categories', categories);
 router.use('/users', users);

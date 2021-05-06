@@ -125,9 +125,7 @@ describe('Order model and join table defination', function () {
     it('it should allow products to be removed with the instance methods created', async function () {
       await Order.updateProductsAmount(order1.id, StrawberryPuff.id, 0);
       const products = await User.getCart(user.cart);
-      expect(!products.find(
-        (element) => element.title === StrawberryPuff.title,
-      ));
+      expect(products.length).to.equal(2);
     });
   });
   describe('Join table', function () {

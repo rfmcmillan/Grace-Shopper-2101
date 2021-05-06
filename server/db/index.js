@@ -8,11 +8,12 @@ const {
   Category,
   User,
   Review,
+  StripeId,
 } = require('./hooks');
 
 module.exports = {
   db,
   models: {
-    Order, Product, Country, ProductOrders, Category, User, Review,
+    Order, Product, Country, ProductOrders, Category, User, Review, StripeId,
   },
 };
