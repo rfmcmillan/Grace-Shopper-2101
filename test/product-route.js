@@ -41,7 +41,7 @@ describe('Product routes', function () {
   });
 
   describe('POST', function () {
-    it('/api/products/', async function () {
+    xit('/api/products/', async function () {
       const response = await app.post('/api/products').send({
         title: 'Grenadine Juice',
         brand: 'Meysu',
@@ -68,7 +68,7 @@ describe('Product routes', function () {
   });
 
   describe('PUT', function () {
-    it('/api/products/:id', async function () {
+    xit('/api/products/:id', async function () {
       const product1 = await Product.findOne({
         where: { title: 'Strawberry Puff' },
       });

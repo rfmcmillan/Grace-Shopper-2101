@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React from 'react';
-import CreateProduct from './CreateProduct';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadProducts } from '../../store/products/products.js';
-import countriesReducer, { loadCountries } from '../../store/countries';
+import { loadProducts } from '../../store/products/products';
+import { loadCountries } from '../../store/countries';
+import { loadCategories } from '../../store/categories';
+import CreateProduct from './CreateProduct';
 
 class ManageProducts extends React.Component {
   constructor(props) {
@@ -14,10 +15,11 @@ class ManageProducts extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.exchangeToken();
     this.props.load();
     this.props.loadCountries();
+    this.props.loadCategories();
   }
 
   async exchangeToken() {
@@ -36,7 +38,8 @@ class ManageProducts extends React.Component {
   }
 
   render() {
-    const { products, countries } = this.props;
+    const { countries } = this.props;
+    const { products } = this.props.products;
     const { auth } = this.state;
     const {} = this;
     if (!auth.admin) {
@@ -59,24 +62,23 @@ class ManageProducts extends React.Component {
               price,
               inventory,
               imageUrl,
-              countryId,
+              country,
             } = product;
-
+            let { categories } = product || [];
+            categories = categories
+              ? categories.map((category) => category.name)
+              : [];
             return (
               <div key={idx}>
-                <img src={imageUrl} alt="snack" width="100" />
+                <img src={imageUrl} alt="snack" width="100" />}
                 <ul id="product-manage">
                   <li>Title: {title}</li>
                   <li>Brand: {brand}</li>
                   <li>Description: {description}</li>
                   <li>Price: {price}</li>
                   <li>Inventory: {inventory}</li>
-                  <li>
-                    Country:{' '}
-                    {countries
-                      .filter((country) => country.id === countryId)
-                      .map((country) => country.name)}
-                  </li>
+                  <li>Country:{country ? country.name : ''}</li>
+                  <li>Categories: {categories.join(', ')}</li>
                 </ul>
                 <Link to={`/manage-products/${product.id}`}>Edit</Link>
               </div>
@@ -96,6 +98,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
   return {
     load: () => dispatch(loadProducts()),
     loadCountries: () => dispatch(loadCountries()),
+    loadCategories: () => dispatch(loadCategories()),
   };
 };
 

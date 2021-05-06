@@ -42,6 +42,10 @@ const User = db.define('user', {
     type: DataTypes.UUID,
     defaultValue: null,
   },
+  passwordResetTriggered: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 User.authenticate = async function ({ email, password }) {
@@ -54,7 +58,7 @@ User.authenticate = async function ({ email, password }) {
     return token;
   }
   const error = Error(
-    'The email address or password that you provided is incorrect.',
+    'The email address or password that you provided is incorrect.'
   );
   error.status = 401;
   throw error;

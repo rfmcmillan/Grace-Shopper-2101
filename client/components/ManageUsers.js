@@ -1,25 +1,26 @@
 import axios from 'axios';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {
+  destroyUser,
+  loadUsers,
+  updateUser,
+  triggerPasswordReset,
+} from '../store/users';
 
 class ManageUsers extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       auth: {},
-      users: [],
     };
-    this.destroy = this.destroy.bind(this);
     this.makeAdmin = this.makeAdmin.bind(this);
   }
 
   componentDidMount() {
+    const { load } = this.props;
     this.exchangeToken();
-    this.loadUsers();
-  }
-
-  componentDidUpdate() {
-    this.loadUsers();
+    load();
   }
 
   async exchangeToken() {
@@ -37,31 +38,27 @@ class ManageUsers extends React.Component {
     }
   }
 
-  async loadUsers() {
-    const response = await axios.get('/api/users');
-    const users = response.data;
-    this.setState({ users });
-  }
+  // async loadUsers() {
+  //   const response = await axios.get('/api/users');
+  //   const users = response.data;
+  //   this.setState({ users });
+  // }
 
-  async destroy(user) {
-    await axios.delete(`/api/users/${user.id}`);
-    const usersResponse = await axios.get('/api/users');
-    const users = usersResponse.data;
-    this.setState({ users });
-  }
-
-  async makeAdmin(currentUser) {
-    const { id } = currentUser;
-    if (currentUser.admin === false) {
-      await axios.put(`api/users/${id}`, { admin: true });
+  async makeAdmin(user) {
+    const { update } = this.props;
+    if (user.admin === false) {
+      user.admin = true;
+      await update(user);
     } else {
-      await axios.put(`api/users/${id}`, { admin: false });
+      user.admin = false;
+      await update(user);
     }
   }
 
   render() {
-    const { auth, users } = this.state;
-    const { destroy, makeAdmin } = this;
+    const { auth } = this.state;
+    const { makeAdmin } = this;
+    const { users, destroy, load, trigger } = this.props;
     if (!auth.admin) {
       return (
         <div>
@@ -81,6 +78,10 @@ class ManageUsers extends React.Component {
                   <li key="last-name">Last Name: {user.lastName}</li>
                   <li key="email">Email: {user.email}</li>
                   <li key="admin">Admin: {user.admin ? 'Yes' : 'No'}</li>
+                  <li key="passwordResetTriggered">
+                    Password Reset Triggered:{' '}
+                    {user.passwordResetTriggered.toString()}
+                  </li>
                 </ul>
                 <button
                   type="button"
@@ -92,6 +93,14 @@ class ManageUsers extends React.Component {
                 <button type="button" onClick={() => makeAdmin(user)}>
                   {user.admin ? 'Remove Admin Status' : 'Make Admin'}
                 </button>
+
+                {user.passwordResetTriggered ? (
+                  ''
+                ) : (
+                  <button type="button" onClick={() => trigger(user)}>
+                    Trigger Password Reset
+                  </button>
+                )}
               </div>
             );
           })}
@@ -101,4 +110,25 @@ class ManageUsers extends React.Component {
   }
 }
 
-export default ManageUsers;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch, { history }) => {
+  return {
+    destroy: (user) => {
+      return dispatch(destroyUser(user, history));
+    },
+    update: (user) => {
+      return dispatch(updateUser(user, history));
+    },
+    load: () => {
+      return dispatch(loadUsers());
+    },
+    trigger: (user) => {
+      return dispatch(triggerPasswordReset(user));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageUsers);
