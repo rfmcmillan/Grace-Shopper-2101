@@ -7,9 +7,11 @@ const Filters = (props) => {
     filterByPrice,
     filterByCategory,
     filterByCountry,
+    sortByInput,
     reset,
     name,
   } = props;
+
   return (
     <div id="filter">
       <form onSubmit={reset}>
@@ -50,6 +52,16 @@ const Filters = (props) => {
         />
 
         <input type="text" placeholder="search" />
+
+        <label htmlFor="sorting">Sory By: </label>
+        <select defaultValue={'sort'} name="sorting" onChange={sortByInput}>
+          <option value="default">--Sort--</option>
+          <option value="alpha_asc">A-Z</option>
+          <option value="alpha_des">Z-A</option>
+          <option value="price_asc">Low-High</option>
+          <option value="price_des">High-Low</option>
+        </select>
+
         <button type="submit">Reset</button>
       </form>
     </div>
