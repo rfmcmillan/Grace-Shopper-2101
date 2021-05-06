@@ -13,22 +13,30 @@ class CreateProduct extends Component {
       price: '',
       inventory: '',
       imageUrl: '',
-      //location didn't work because location already references the current url
-      reqCountry: '',
+      // location didn't work because location already references the current url
+      countryId: '',
+      categories: [],
     };
+    this.originalState = this.state;
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
   }
 
   onChange(ev) {
     const change = {};
+    let { categories } = this.state;
+    if (ev.target.name === 'categories') {
+      categories = [...ev.target.selectedOptions].map((selected) => {
+        return selected.value;
+      });
+    }
     change[ev.target.name] = ev.target.value;
+    change.categories = categories;
     this.setState(change);
   }
 
   async onSave(ev) {
-    const { create, history, countries } = this.props;
-
+    const { create, history } = this.props;
     ev.preventDefault();
     try {
       const {
@@ -39,8 +47,8 @@ class CreateProduct extends Component {
         inventory,
         imageUrl,
         countryId,
+        categories,
       } = this.state;
-
       await create({
         title,
         brand,
@@ -49,8 +57,10 @@ class CreateProduct extends Component {
         inventory,
         imageUrl,
         countryId,
+        categories,
       });
-      history.push('/manage-products');
+
+      this.setState(this.originalState);
     } catch (error) {
       console.log(error);
     }
@@ -64,45 +74,76 @@ class CreateProduct extends Component {
       price,
       inventory,
       imageUrl,
-      countryId,
     } = this.state;
     const { onChange, onSave } = this;
-    const { countries } = this.props;
+    const { countries, categories } = this.props;
+
     return (
       <div id="create-product">
         <h3>Add A Product:</h3>
         <form onSubmit={onSave}>
-          <label>Title*:</label>
+          <label htmlFor="title">Title*:</label>
           <input name="title" value={title} onChange={onChange} />
           <br />
-          <label>Brand*:</label>
+
+          <label htmlFor="brand">Brand*:</label>
           <input name="brand" value={brand} onChange={onChange} />
           <br />
-          <label>Description*:</label>
+
+          <label htmlFor="description">Description*:</label>
           <input name="description" value={description} onChange={onChange} />
           <br />
-          <label>Price:*</label>
-          <input name="price" value={price} type="number" onChange={onChange} />
+
+          <label htmlFor="price">Price:*</label>
+          <input
+            name="price"
+            value={price}
+            type="number"
+            min="0"
+            onChange={onChange}
+          />
           <br />
-          <label>Inventory*:</label>
+
+          <label htmlFor="inventory">Inventory*:</label>
           <input
             name="inventory"
             value={inventory}
             type="number"
+            min="1"
             onChange={onChange}
           />
           <br />
-          <label>Image Url*:</label>
+
+          <label htmlFor="imageUrl">Image Url*:</label>
           <input name="imageUrl" value={imageUrl} onChange={onChange} />
           <br />
-          <label>Country*:</label>
-          <select name="countryId" onChange={onChange}>
+
+          <label htmlFor="countryId">Country*:</label>
+          <select defaultValue="default" name="countryId" onChange={onChange}>
+            <option value="default">--Select Country--</option>
             {countries.map((country) => {
-              return <option value={country.id}>{country.name}</option>;
+              return (
+                <option key={country.id} value={country.id}>
+                  {country.name}
+                </option>
+              );
             })}
           </select>
           <br />
-          <button>Create Product</button>
+
+          <label htmlFor="categories">Pick the categories:</label>
+          <select name="categories" onChange={onChange} multiple>
+            {categories.map((category) => {
+              return (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              );
+            })}
+          </select>
+
+          <br />
+          <button type="submit">Create Product</button>
         </form>
       </div>
     );
@@ -110,12 +151,15 @@ class CreateProduct extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return state;
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    create: (newProduct) => dispatch(postProduct(newProduct, history)),
+    create: (newProduct) => {
+      return dispatch(postProduct(newProduct, history));
+    },
   };
 };
 

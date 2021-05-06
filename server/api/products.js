@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const {
-  models: { Product, Country },
+  models: { Product, Country, Category },
 } = require('../db');
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({ include: [Country] });
+    const products = await Product.findAll({ include: [Country, Category] });
     res.send(products);
   } catch (ex) {
     next(ex);
@@ -45,6 +45,7 @@ router.post('/', async (req, res, next) => {
       inventory,
       imageUrl,
       countryId,
+      categories,
     } = req.body;
     const createProduct = await Product.create({
       title,
@@ -53,11 +54,10 @@ router.post('/', async (req, res, next) => {
       price,
       inventory,
       imageUrl,
+      countryId,
     });
-    const [country] = await Country.findOrCreate({
-      where: { id: countryId },
-    });
-    await createProduct.setCountry(country);
+    await createProduct.setCategories(categories);
+    console.log('CREATE PRODUCT', createProduct);
     res.status(201).send(createProduct);
   } catch (ex) {
     next(ex);
@@ -66,8 +66,29 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const productToModify = await Product.findByPk(req.params.id);
-    const updated = await productToModify.update(req.body);
+    let productToModify = await Product.findByPk(req.params.id);
+
+    const {
+      title,
+      brand,
+      description,
+      price,
+      inventory,
+      imageUrl,
+      countryId,
+      categories,
+    } = req.body;
+
+    const updated = await productToModify.update({
+      title,
+      brand,
+      description,
+      price,
+      inventory,
+      imageUrl,
+      countryId,
+    });
+    await updated.setCategories(categories);
     res.status(200).send(updated);
   } catch (error) {
     next(error);
