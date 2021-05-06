@@ -20,7 +20,6 @@ class ManageProducts extends React.Component {
     this.props.load();
     this.props.loadCountries();
     this.props.loadCategories();
-    console.log('I DONT THINK IM CALLED');
   }
 
   async exchangeToken() {
@@ -71,7 +70,7 @@ class ManageProducts extends React.Component {
               : [];
             return (
               <div key={idx}>
-                <img src={imageUrl} alt="snack" width="100" />
+                <img src={imageUrl} alt="snack" width="100" />}
                 <ul id="product-manage">
                   <li>Title: {title}</li>
                   <li>Brand: {brand}</li>

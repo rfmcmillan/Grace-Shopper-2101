@@ -35,9 +35,9 @@ class EditProduct extends Component {
     const change = {};
     let { categories } = this.state;
     if (ev.target.name === 'categories') {
-      categories = [...ev.target.selectedOptions].map(
-        (selected) => selected.value
-      );
+      categories = [...ev.target.selectedOptions].map((selected) => {
+        return selected.value;
+      });
     }
     change[ev.target.name] = ev.target.value;
     change.categories = categories;
@@ -89,7 +89,9 @@ class EditProduct extends Component {
     } = currProduct;
 
     let { categories } = currProduct;
-    categories = categories.map((category) => category.id);
+    categories = categories.map((category) => {
+      return category.id;
+    });
     this.setState({
       title,
       brand,
@@ -117,7 +119,7 @@ class EditProduct extends Component {
     const { countries, deleteProduct } = this.props;
     const { id } = this.props.match.params;
     const allCategories = this.props.categories;
-    console.log(this.state);
+
     return (
       <div id="edit-product">
         <h3>Edit Product:</h3>
@@ -126,12 +128,15 @@ class EditProduct extends Component {
           <label htmlFor="title">Title*:</label>
           <input name="title" value={title} onChange={onChange} />
           <br />
+
           <label htmlFor="brand">Brand*:</label>
           <input name="brand" value={brand} onChange={onChange} />
           <br />
+
           <label htmlFor="description">Description*:</label>
           <input name="description" value={description} onChange={onChange} />
           <br />
+
           <label htmlFor="price">Price:*</label>
           <input
             name="price"
@@ -141,6 +146,7 @@ class EditProduct extends Component {
             onChange={onChange}
           />
           <br />
+
           <label htmlFor="inventory">Inventory*:</label>
           <input
             name="inventory"
@@ -149,9 +155,11 @@ class EditProduct extends Component {
             onChange={onChange}
           />
           <br />
+
           <label htmlFor="imageUrl">Image Url*:</label>
           <input name="imageUrl" value={imageUrl} onChange={onChange} />
           <br />
+
           <label htmlFor="countryId">Country*:</label>
           <select value={countryId} name="countryId" onChange={onChange}>
             {countries.map((country) => {
@@ -163,7 +171,7 @@ class EditProduct extends Component {
             })}
           </select>
           <br />
-          <button>Submit Changes</button>
+          <button type="submit">Submit Changes</button>
 
           <label htmlFor="categories">Categories*:</label>
           <select
@@ -181,12 +189,21 @@ class EditProduct extends Component {
             })}
           </select>
         </form>
-        <button type="submit" onClick={() => deleteProduct(id)}>
-          Delete Product
-        </button>
+
         <button
           type="submit"
-          onClick={() => this.props.history.push('/manage-products')}
+          onClick={() => {
+            return deleteProduct(id);
+          }}
+        >
+          Delete Product
+        </button>
+
+        <button
+          type="submit"
+          onClick={() => {
+            return this.props.history.push('/manage-products');
+          }}
         >
           Cancel
         </button>
@@ -201,11 +218,18 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    update: (updatedProduct) =>
-      dispatch(updateProduct(updatedProduct, history)),
-    loadCountries: () => dispatch(loadCountries()),
-    deleteProduct: (productId) => dispatch(deleteProduct(productId, history)),
-    loadCategories: () => dispatch(loadCategories()),
+    update: (updatedProduct) => {
+      return dispatch(updateProduct(updatedProduct, history));
+    },
+    loadCountries: () => {
+      return dispatch(loadCountries());
+    },
+    deleteProduct: (productId) => {
+      return dispatch(deleteProduct(productId, history));
+    },
+    loadCategories: () => {
+      return dispatch(loadCategories());
+    },
   };
 };
 

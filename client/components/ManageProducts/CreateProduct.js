@@ -77,6 +77,7 @@ class CreateProduct extends Component {
     } = this.state;
     const { onChange, onSave } = this;
     const { countries, categories } = this.props;
+
     return (
       <div id="create-product">
         <h3>Add A Product:</h3>
@@ -84,12 +85,15 @@ class CreateProduct extends Component {
           <label htmlFor="title">Title*:</label>
           <input name="title" value={title} onChange={onChange} />
           <br />
+
           <label htmlFor="brand">Brand*:</label>
           <input name="brand" value={brand} onChange={onChange} />
           <br />
+
           <label htmlFor="description">Description*:</label>
           <input name="description" value={description} onChange={onChange} />
           <br />
+
           <label htmlFor="price">Price:*</label>
           <input
             name="price"
@@ -99,6 +103,7 @@ class CreateProduct extends Component {
             onChange={onChange}
           />
           <br />
+
           <label htmlFor="inventory">Inventory*:</label>
           <input
             name="inventory"
@@ -108,6 +113,7 @@ class CreateProduct extends Component {
             onChange={onChange}
           />
           <br />
+
           <label htmlFor="imageUrl">Image Url*:</label>
           <input name="imageUrl" value={imageUrl} onChange={onChange} />
           <br />
@@ -124,6 +130,7 @@ class CreateProduct extends Component {
             })}
           </select>
           <br />
+
           <label htmlFor="categories">Pick the categories:</label>
           <select name="categories" onChange={onChange} multiple>
             {categories.map((category) => {
@@ -136,7 +143,7 @@ class CreateProduct extends Component {
           </select>
 
           <br />
-          <button>Create Product</button>
+          <button type="submit">Create Product</button>
         </form>
       </div>
     );
