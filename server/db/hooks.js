@@ -33,7 +33,7 @@ Order.addProducts = function (orderId, dupletsarr) {
           orderId,
           productId: i[0],
           product_amount: i[1],
-        }),
+        })
       );
     }
   });
@@ -63,7 +63,7 @@ Order.purchase = async function (
   date,
   orderId = null,
   products = [],
-  userId = null,
+  userId = null
 ) {
   try {
     let order;
@@ -160,6 +160,7 @@ Product.getSingleProduct = function (id) {
   return Product.findByPk(id, {
     include: [
       { model: Country },
+      { model: Category },
       {
         model: Review,
         attributes: ['id', 'rating', 'text', 'userId', 'createdAt'],
