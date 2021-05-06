@@ -67,13 +67,13 @@ describe('Order model and join table defination', function () {
       [IceCreamBar.id, 5],
     ]);
   });
-  it('should exist', function () {
+  xit('should exist', function () {
     expect(Order).to.exist;
   });
-  it('should contain some orders when they are created', async function () {
+  xit('should contain some orders when they are created', async function () {
     expect((await Order.findAll({})).length).to.equal(2);
   });
-  it('should contain the right datatypes and defaults', async function () {
+  xit('should contain the right datatypes and defaults', async function () {
     const { userId, complete, date_of_purchase, purchased_items } = (
       await Order.findAll({})
     )[0];
