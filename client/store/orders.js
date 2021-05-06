@@ -21,7 +21,7 @@ const loadOrders = () => {
   };
 };
 
-//Update Order Action Creator and Thunk
+// Update Order Action Creator and Thunk
 const updateOrderActionCreator = (order) => {
   return {
     type: UPDATE_ORDER,
