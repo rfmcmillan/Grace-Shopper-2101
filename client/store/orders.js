@@ -55,23 +55,23 @@ const updateOrder = (order) => {
   };
 };
 // filterByStatus Action Creator and Thunk (no async call needed)
-const filterByStatus = (status) => {
+const filterByStatusActionCreator = (status) => {
   return {
     type: FILTER_BY_STATUS,
     status,
   };
 };
 
-const loadFilteredOrdersActionCreator = (orders) => {
-  return { type: LOAD_ORDERS, orders };
-};
+// const loadFilteredOrdersActionCreator = (orders) => {
+//   return { type: LOAD_ORDERS, orders };
+// };
 
-const loadFilteredOrders = (status) => {
+const filterByStatus = (status) => {
   return async (dispatch) => {
     try {
       let orders = (await axios.get('/api/order/orders')).data;
       orders = orders.filter((order) => order.status === status);
-      dispatch(loadFilteredOrdersActionCreator(orders));
+      dispatch(filterByStatusActionCreator(status));
     } catch (err) {
       console.log(err);
     }
@@ -92,15 +92,13 @@ const ordersReducer = (state = [], action) => {
     state = orders;
   }
   if (action.type === FILTER_BY_STATUS) {
-    state = { ...state, status: action.status };
+    const orders = state.filter((order) => {
+      return order.status === action.status;
+    });
+
+    state = orders;
   }
   return state;
 };
 export default ordersReducer;
-export {
-  loadOrdersActionCreator,
-  loadOrders,
-  updateOrder,
-  loadFilteredOrders,
-  filterByStatus,
-};
+export { loadOrdersActionCreator, loadOrders, updateOrder, filterByStatus };

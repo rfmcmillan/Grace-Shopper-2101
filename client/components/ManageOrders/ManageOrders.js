@@ -10,16 +10,24 @@ class ManageOrders extends React.Component {
     super(props);
     this.state = {};
     this.byStatus = this.byStatus.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   componentDidMount() {
-    const { load, orders } = this.props;
+    const { load } = this.props;
     load();
   }
 
   byStatus(ev) {
+    const { load, filterByStatus } = this.props;
     const status = ev.target.value;
-    this.props.filterByStatus(status);
+    load();
+    filterByStatus(status);
+  }
+
+  reset() {
+    console.log(this);
+    this.props.load();
   }
 
   render() {
@@ -31,7 +39,7 @@ class ManageOrders extends React.Component {
     console.log('orders:', orders);
     return admin ? (
       <div id="manage-orders">
-        <OrderFilter filterByStatus={this.byStatus} />
+        <OrderFilter filterByStatus={this.byStatus} reset={this.reset} />
         <h2>Manage Orders</h2>
         <ul>
           {orders.map((order, idx) => {

@@ -1,12 +1,12 @@
 import React from 'react';
 
 const OrderFilter = (props) => {
-  const { status, filterByStatus } = props;
+  const { status, filterByStatus, reset } = props;
   const statusOptions = ['Created', 'Processing', 'Complete', 'Cancelled'];
-  console;
+
   return (
     <div id="filter">
-      <form>
+      <form onSubmit={reset}>
         <select defaultValue="ALL" name="status" onChange={filterByStatus}>
           <option value="ALL">All</option>
           {statusOptions.map((statusOption, idx) => {
@@ -17,6 +17,7 @@ const OrderFilter = (props) => {
             );
           })}
         </select>
+        <button type="submit">Reset</button>
       </form>
     </div>
   );
