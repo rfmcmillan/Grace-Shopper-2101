@@ -63,7 +63,7 @@ class ManageProducts extends React.Component {
             } = product;
 
             return (
-              <div key={idx}>
+              <div key={idx} className="product-manage">
                 <img src={imageUrl} alt="snack" width="100" />
                 <ul id="product-manage">
                   <li>Title: {title}</li>

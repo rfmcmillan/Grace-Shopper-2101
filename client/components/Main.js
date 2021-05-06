@@ -13,6 +13,7 @@ import ManageProducts from './ManageProducts/ManageProducts';
 import EditProduct from './ManageProducts/EditProduct';
 import ManageUsers from './ManageUsers';
 import ManageOrders from './ManageOrders/ManageOrders';
+import EditOrder from './ManageOrders/EditOrder';
 import Nav from './Nav';
 import Home from './Home';
 import CreateAccountPage from './CreateAccountPage';
@@ -32,6 +33,7 @@ class Main extends React.Component {
             <Route exact path="/manage-products/:id" component={EditProduct} />
             <Route exact path="/manage-users" component={ManageUsers} />
             <Route exact path="/manage-orders" component={ManageOrders} />
+            <Route exact path="/manage-orders/:id" component={EditOrder} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/login" component={LogInPage} />
             <Route exact path="/createaccount" component={CreateAccountPage} />

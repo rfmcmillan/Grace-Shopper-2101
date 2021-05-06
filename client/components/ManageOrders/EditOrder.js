@@ -1,12 +1,20 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { updateOrder } from '../../store/orders';
 import { connect } from 'react-redux';
+import { updateOrder } from '../../store/orders';
 
 class EditOrder extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      id: '',
+      complete: false,
+      date_of_purchase: '',
+      purchased_items: {},
+      userId: '',
+      status: '',
+      error: '',
+    };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.getCurrOrder = this.getCurrOrder.bind(this);
@@ -28,103 +36,101 @@ class EditOrder extends Component {
     const { id } = this.props.match.params;
     try {
       const {
-        title,
-        brand,
-        description,
-        price,
-        inventory,
-        imageUrl,
-        countryId,
+        id,
+        complete,
+        date_of_purchase,
+        purchased_items,
+        userId,
+        status,
       } = this.state;
       update({
         id,
-        title,
-        brand,
-        description,
-        price,
-        inventory,
-        imageUrl,
-        countryId,
+        complete,
+        date_of_purchase,
+        purchased_items,
+        userId,
+        status,
       });
 
-      history.push('/manage-products');
+      history.push('/manage-order');
     } catch (error) {
       this.setState({ error: error.response.data.error });
     }
   }
 
-  async getCurrProduct() {
+  async getCurrOrder() {
     const { id } = this.props.match.params;
-    const currProduct = (await axios.get(`/api/products/${id}`)).data;
+    const currOrder = (await axios.get(`/api/order/orders/${id}`)).data;
+    console.log('currOrder:', currOrder);
     const {
-      title,
-      brand,
-      description,
-      price,
-      inventory,
-      imageUrl,
-      countryId,
-    } = currProduct;
+      complete,
+      date_of_purchase,
+      purchased_items,
+      userId,
+      status,
+    } = currOrder;
     this.setState({
-      title,
-      brand,
-      description,
-      price,
-      inventory,
-      imageUrl,
-      countryId,
+      id,
+      complete,
+      date_of_purchase,
+      purchased_items,
+      userId,
+      status,
     });
   }
 
   render() {
     const {
-      title,
-      brand,
-      description,
-      price,
-      inventory,
-      imageUrl,
-      reqCountry,
+      id,
+      complete,
+      date_of_purchase,
+      purchased_items,
+      userId,
+      status,
     } = this.state;
     const { onChange, onSave } = this;
-    const { countries } = this.props;
     return (
-      <div id="edit-product">
-        <h3>Edit Product:</h3>
-        <img src={imageUrl} alt="snack" width="100" />
+      <div>
+        <h3>Edit Order:</h3>
         <form onSubmit={onSave}>
-          <label>Title*:</label>
-          <input name="title" value={title} onChange={onChange} />
+          <label>Order ID:</label>
+          <input name="id" value={id} onChange={onChange} />
           <br />
-          <label>Brand*:</label>
-          <input name="brand" value={brand} onChange={onChange} />
+          <label>User ID:</label>
+          <input name="userId" value={userId} onChange={onChange} />
           <br />
-          <label>Description*:</label>
-          <input name="description" value={description} onChange={onChange} />
-          <br />
-          <label>Price:*</label>
-          <input name="price" type="number" value={price} onChange={onChange} />
-          <br />
-          <label>Inventory*:</label>
+          <label>Date:*</label>
           <input
-            name="inventory"
-            value={inventory}
-            type="number"
+            name="date_of_purchase"
+            value={date_of_purchase}
+            type="date"
             onChange={onChange}
           />
           <br />
-          <label>Image Url*:</label>
-          <input name="imageUrl" value={imageUrl} onChange={onChange} />
+          <label>Complete:</label>
+          <input
+            name="complete"
+            value={complete}
+            onChange={onChange}
+            type="checkbox"
+          />
           <br />
-          <label>Country*:</label>
-          <select name="countryId" onChange={onChange}>
-            {countries.map((country, idx) => {
-              return (
-                <option key={idx} value={country.id}>
-                  {country.name}
-                </option>
-              );
-            })}
+          <label>Items:</label>
+          <br />
+          <label>Status:</label>
+          <select name="status" value={status} onChange={onChange}>
+            <option key="created" value="Created">
+              Created
+            </option>
+            <option key="processing" value="Processing">
+              Processing
+            </option>
+            <option key="complete" value="Complete">
+              Complete
+            </option>
+            <option key="cancelled" value="Cancelled">
+              Cancelled
+            </option>
           </select>
           <br />
           <button>Submit Changes</button>
@@ -140,9 +146,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    update: (updatedProduct) =>
-      dispatch(updateProduct(updatedProduct, history)),
-    loadCountries: () => dispatch(loadCountries()),
+    update: (updatedOrder) => dispatch(updateOrder(updatedOrder, history)),
   };
 };
 

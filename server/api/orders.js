@@ -13,6 +13,15 @@ router.get('/orders', async (req, res, next) => {
   }
 });
 
+router.get('/orders/:id', async (req, res, next) => {
+  try {
+    const order = await Order.findByPk(req.params.id);
+    res.send(order);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Purchase Order route
 router.post('/purchase', async (req, res, next) => {
   try {

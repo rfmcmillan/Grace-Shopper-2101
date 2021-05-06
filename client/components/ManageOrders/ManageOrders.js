@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loadOrders, updateOrder } from '../../store/orders';
+import { Link } from 'react-router-dom';
 
 class ManageOrders extends React.Component {
   constructor(props) {
@@ -9,7 +10,6 @@ class ManageOrders extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     const { load, orders } = this.props;
     load();
   }
@@ -32,12 +32,12 @@ class ManageOrders extends React.Component {
             } = order;
             return (
               <div key={idx} className="order-manage">
-                <li>Order ID: {id}</li>
-                <li>User ID: {userId}</li>
-                <li>Complete: {complete ? 'Yes' : 'No'}</li>
-                <li>Date: {date_of_purchase}</li>
-                <li>Items: {purchased_items}</li>
-                <li>Status: {status}</li>
+                <li key="order-id">Order ID: {id}</li>
+                <li key="user-id">User ID: {userId}</li>
+                <li key="complete">Complete: {complete ? 'Yes' : 'No'}</li>
+                <li key="date">Date: {date_of_purchase}</li>
+                <li key="items">Items: {purchased_items}</li>
+                <li key="status">Status: {status}</li>
                 <Link to={`/manage-orders/${order.id}`}>Edit</Link>
               </div>
             );
