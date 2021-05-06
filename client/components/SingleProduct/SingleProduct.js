@@ -59,8 +59,8 @@ class SingleProduct extends Component {
     const amount = evt.target.amount.value;
     const product = this.props.product;
     let cart = null;
-    if (this.props.user) {
-      cart = this.props.user.cart;
+    if (this.props.login.cart) {
+      cart = this.props.login.cart;
     }
 
     //ADD AMOUNT
@@ -151,6 +151,7 @@ const mapStateToProps = (state, otherProps) => {
     product: state.currProduct,
     reviews: state.currProduct.reviews,
     user: state.user,
+    login: state.login,
   };
 };
 
