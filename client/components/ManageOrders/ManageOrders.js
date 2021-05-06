@@ -26,7 +26,6 @@ class ManageOrders extends React.Component {
   }
 
   reset() {
-    console.log(this);
     this.props.load();
   }
 
@@ -35,8 +34,6 @@ class ManageOrders extends React.Component {
       orders,
       login: { admin },
     } = this.props;
-    console.log('props:', this.props);
-    console.log('orders:', orders);
     return admin ? (
       <div id="manage-orders">
         <OrderFilter filterByStatus={this.byStatus} reset={this.reset} />

@@ -36,7 +36,6 @@ class AllProducts extends Component {
     loadAllCategories();
     loadAllCountries();
     if (name) {
-      console.log(name);
       loadFilteredProducts(name);
     } else {
       loadAllProducts();
@@ -97,7 +96,7 @@ class AllProducts extends Component {
   render() {
     const { products, categories, countries } = this.props;
     const name = this.props.match.params.name || 'default';
-    console.log(products);
+
     return (
       <div id="main">
         <Filters

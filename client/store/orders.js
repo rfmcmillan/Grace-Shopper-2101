@@ -54,17 +54,14 @@ const updateOrder = (order) => {
     dispatch(updateOrderActionCreator(orderToUpdate));
   };
 };
-// filterByStatus Action Creator and Thunk (no async call needed)
+
+// filterByStatus Action Creator and Thunk
 const filterByStatusActionCreator = (status) => {
   return {
     type: FILTER_BY_STATUS,
     status,
   };
 };
-
-// const loadFilteredOrdersActionCreator = (orders) => {
-//   return { type: LOAD_ORDERS, orders };
-// };
 
 const filterByStatus = (status) => {
   return async (dispatch) => {

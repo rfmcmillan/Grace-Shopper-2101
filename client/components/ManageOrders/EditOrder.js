@@ -90,9 +90,6 @@ class EditOrder extends Component {
     });
   }
 
-  getOrderTotal() {
-    console.log(this.props);
-  }
   render() {
     const {
       id,
@@ -104,7 +101,6 @@ class EditOrder extends Component {
       products,
       total,
     } = this.state;
-    console.log('products', products);
     const { onChange, onSave } = this;
     return (
       <div id="edit-order">
