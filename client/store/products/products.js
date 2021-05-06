@@ -93,6 +93,7 @@ const updateProduct = (updatedProduct, history) => {
       await axios.put(`/api/products/${updatedProduct.id}`, updatedProduct)
     ).data;
     dispatch(updatingProduct(product));
+    history.push('/manage-products');
   };
 };
 

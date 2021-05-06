@@ -25,7 +25,7 @@ Order.addProducts = function (orderId, dupletsarr) {
         orderId,
         productId: i[0],
         product_amount: i[1],
-      }),
+      })
     );
   });
   return Promise.all(promises);
@@ -54,7 +54,7 @@ Order.purchase = async function (
   date,
   orderId = null,
   products = [],
-  userId = null,
+  userId = null
 ) {
   try {
     let order;
@@ -114,7 +114,9 @@ User.beforeSave(async (user) => {
 
 // // a hook for users to create an order after the user is created so
 // there is always an empty order in the database to be used by the cart on the client side
-User.afterCreate((user) => { return Order.create({ userId: user.id }); });
+User.afterCreate((user) => {
+  return Order.create({ userId: user.id });
+});
 
 // returns all completed purchases
 User.findPurchases = async function (userId) {
@@ -156,6 +158,7 @@ Product.getSingleProduct = function (id) {
   return Product.findByPk(id, {
     include: [
       { model: Country },
+      { model: Category },
       {
         model: Review,
         attributes: ['id', 'rating', 'text', 'userId', 'createdAt'],

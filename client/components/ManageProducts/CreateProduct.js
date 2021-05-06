@@ -13,7 +13,7 @@ class CreateProduct extends Component {
       price: '',
       inventory: '',
       imageUrl: '',
-      //location didn't work because location already references the current url
+      // location didn't work because location already references the current url
       countryId: '',
       categories: [],
     };
@@ -26,9 +26,9 @@ class CreateProduct extends Component {
     const change = {};
     let { categories } = this.state;
     if (ev.target.name === 'categories') {
-      categories = [...ev.target.selectedOptions].map(
-        (selected) => selected.value
-      );
+      categories = [...ev.target.selectedOptions].map((selected) => {
+        return selected.value;
+      });
     }
     change[ev.target.name] = ev.target.value;
     change.categories = categories;
@@ -37,7 +37,6 @@ class CreateProduct extends Component {
 
   async onSave(ev) {
     const { create, history } = this.props;
-    const form = ev.target;
     ev.preventDefault();
     try {
       const {
@@ -151,7 +150,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    create: (newProduct) => dispatch(postProduct(newProduct, history)),
+    create: (newProduct) => {
+      return dispatch(postProduct(newProduct, history));
+    },
   };
 };
 

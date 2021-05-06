@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import { deleteProduct, updateProduct } from '../../store/products/products.js';
 import { loadCountries } from '../../store/countries';
-import { connect } from 'react-redux';
+import { loadCategories } from '../../store/categories';
 
 class EditProduct extends Component {
   constructor(props) {
@@ -16,6 +18,7 @@ class EditProduct extends Component {
       inventory: 0,
       imageUrl: '',
       countryId: 0,
+      categories: [],
     };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -25,11 +28,19 @@ class EditProduct extends Component {
   componentDidMount() {
     this.getCurrProduct();
     this.props.loadCountries();
+    this.props.loadCategories();
   }
 
   onChange(ev) {
     const change = {};
+    let { categories } = this.state;
+    if (ev.target.name === 'categories') {
+      categories = [...ev.target.selectedOptions].map(
+        (selected) => selected.value
+      );
+    }
     change[ev.target.name] = ev.target.value;
+    change.categories = categories;
     this.setState(change);
   }
 
@@ -46,6 +57,7 @@ class EditProduct extends Component {
         inventory,
         imageUrl,
         countryId,
+        categories,
       } = this.state;
       update({
         id,
@@ -56,9 +68,8 @@ class EditProduct extends Component {
         inventory,
         imageUrl,
         countryId,
+        categories,
       });
-
-      history.push('/manage-products');
     } catch (error) {
       this.setState({ error: error.response.data.error });
     }
@@ -76,6 +87,9 @@ class EditProduct extends Component {
       imageUrl,
       countryId,
     } = currProduct;
+
+    let { categories } = currProduct;
+    categories = categories.map((category) => category.id);
     this.setState({
       title,
       brand,
@@ -84,6 +98,7 @@ class EditProduct extends Component {
       inventory,
       imageUrl,
       countryId,
+      categories,
     });
   }
 
@@ -96,26 +111,28 @@ class EditProduct extends Component {
       inventory,
       imageUrl,
       countryId,
+      categories,
     } = this.state;
     const { onChange, onSave } = this;
     const { countries, deleteProduct } = this.props;
     const { id } = this.props.match.params;
-
+    const allCategories = this.props.categories;
+    console.log(this.state);
     return (
       <div id="edit-product">
         <h3>Edit Product:</h3>
         <img src={imageUrl} alt="snack" width="100" />
         <form onSubmit={onSave}>
-          <label>Title*:</label>
+          <label htmlFor="title">Title*:</label>
           <input name="title" value={title} onChange={onChange} />
           <br />
-          <label>Brand*:</label>
+          <label htmlFor="brand">Brand*:</label>
           <input name="brand" value={brand} onChange={onChange} />
           <br />
-          <label>Description*:</label>
+          <label htmlFor="description">Description*:</label>
           <input name="description" value={description} onChange={onChange} />
           <br />
-          <label>Price:*</label>
+          <label htmlFor="price">Price:*</label>
           <input
             name="price"
             type="number"
@@ -124,7 +141,7 @@ class EditProduct extends Component {
             onChange={onChange}
           />
           <br />
-          <label>Inventory*:</label>
+          <label htmlFor="inventory">Inventory*:</label>
           <input
             name="inventory"
             value={inventory}
@@ -132,10 +149,10 @@ class EditProduct extends Component {
             onChange={onChange}
           />
           <br />
-          <label>Image Url*:</label>
+          <label htmlFor="imageUrl">Image Url*:</label>
           <input name="imageUrl" value={imageUrl} onChange={onChange} />
           <br />
-          <label>Country*:</label>
+          <label htmlFor="countryId">Country*:</label>
           <select value={countryId} name="countryId" onChange={onChange}>
             {countries.map((country) => {
               return (
@@ -147,8 +164,32 @@ class EditProduct extends Component {
           </select>
           <br />
           <button>Submit Changes</button>
+
+          <label htmlFor="categories">Categories*:</label>
+          <select
+            value={categories}
+            name="categories"
+            onChange={onChange}
+            multiple
+          >
+            {allCategories.map((category) => {
+              return (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              );
+            })}
+          </select>
         </form>
-        <button onClick={() => deleteProduct(id)}>Delete Product</button>
+        <button type="submit" onClick={() => deleteProduct(id)}>
+          Delete Product
+        </button>
+        <button
+          type="submit"
+          onClick={() => this.props.history.push('/manage-products')}
+        >
+          Cancel
+        </button>
       </div>
     );
   }
@@ -164,6 +205,7 @@ const mapDispatchToProps = (dispatch, { history }) => {
       dispatch(updateProduct(updatedProduct, history)),
     loadCountries: () => dispatch(loadCountries()),
     deleteProduct: (productId) => dispatch(deleteProduct(productId, history)),
+    loadCategories: () => dispatch(loadCategories()),
   };
 };
 

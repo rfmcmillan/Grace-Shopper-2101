@@ -15,11 +15,12 @@ class ManageProducts extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.exchangeToken();
     this.props.load();
     this.props.loadCountries();
     this.props.loadCategories();
+    console.log('I DONT THINK IM CALLED');
   }
 
   async exchangeToken() {
@@ -49,7 +50,6 @@ class ManageProducts extends React.Component {
         </div>
       );
     }
-
     return (
       <div id="manage-products">
         <h2>Manage Products</h2>
@@ -63,9 +63,12 @@ class ManageProducts extends React.Component {
               price,
               inventory,
               imageUrl,
-              countryId,
+              country,
             } = product;
-
+            let { categories } = product || [];
+            categories = categories
+              ? categories.map((category) => category.name)
+              : [];
             return (
               <div key={idx}>
                 <img src={imageUrl} alt="snack" width="100" />
@@ -75,12 +78,8 @@ class ManageProducts extends React.Component {
                   <li>Description: {description}</li>
                   <li>Price: {price}</li>
                   <li>Inventory: {inventory}</li>
-                  <li>
-                    Country:{' '}
-                    {countries
-                      .filter((country) => country.id === countryId)
-                      .map((country) => country.name)}
-                  </li>
+                  <li>Country:{country ? country.name : ''}</li>
+                  <li>Categories: {categories.join(', ')}</li>
                 </ul>
                 <Link to={`/manage-products/${product.id}`}>Edit</Link>
               </div>
