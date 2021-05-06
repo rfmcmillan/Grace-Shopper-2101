@@ -16,7 +16,7 @@ class Nav extends React.Component {
     const home = window.location.hash === 'disabledfornow';
     return home ? (
       <div> </div>
-    ) : this.props.login.email ? (
+    ) : this.props.login.admin ? (
       <div className="navBar">
         <Link to="/">The Global Snacker</Link>
         <Link to="/products"> Products</Link>

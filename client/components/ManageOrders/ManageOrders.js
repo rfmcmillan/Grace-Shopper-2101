@@ -15,9 +15,11 @@ class ManageOrders extends React.Component {
   }
 
   render() {
-    const { orders } = this.props;
-
-    return (
+    const {
+      orders,
+      login: { admin },
+    } = this.props;
+    return admin ? (
       <div id="manage-orders">
         <h2>Manage Orders</h2>
         <ul>
@@ -43,6 +45,10 @@ class ManageOrders extends React.Component {
             );
           })}
         </ul>
+      </div>
+    ) : (
+      <div>
+        <h4>You are not authorized to view this page.</h4>
       </div>
     );
   }
