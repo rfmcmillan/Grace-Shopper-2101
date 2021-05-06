@@ -17,7 +17,6 @@ const loadOrders = () => {
   return async (dispatch) => {
     const response = await axios.get('/api/order/orders');
     const orders = response.data;
-    console.log(orders);
     dispatch(loadOrdersActionCreator(orders));
   };
 };

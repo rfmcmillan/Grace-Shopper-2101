@@ -21,9 +21,7 @@ class EditOrder extends Component {
   }
 
   async componentDidMount() {
-    console.log(this.state);
     await this.getCurrOrder();
-    console.log(this.state);
   }
 
   onChange(ev) {
@@ -89,7 +87,6 @@ class EditOrder extends Component {
       userId,
       status,
     } = this.state;
-    console.log('purchased items:', purchased_items);
     const { onChange, onSave } = this;
     return (
       <div id="edit-order">
