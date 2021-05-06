@@ -38,8 +38,9 @@ class ManageProducts extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const { countries } = this.props;
-    const { products } = this.props;
+    const { products } = this.props.products;
     const { auth } = this.state;
     const {} = this;
     if (!auth.admin) {

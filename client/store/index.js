@@ -25,6 +25,7 @@ const initialState = {
   users: [],
   singleProduct: {},
   loading: true,
+  categories: [],
 };
 
 // Loading check

@@ -59,6 +59,7 @@ class Nav extends React.Component {
               {this.props.login.email}
             </h5>
             <button
+              type="submit"
               onClick={() => {
                 this.props.logOut();
                 this.props.clearCart();
