@@ -37,6 +37,7 @@ const updateOrder = (order) => {
     purchased_items,
     userId,
     status,
+    products,
   } = order;
   return async (dispatch) => {
     const orderToUpdate = (
@@ -46,6 +47,7 @@ const updateOrder = (order) => {
         purchased_items,
         userId,
         status,
+        products,
       })
     ).data;
     dispatch(updateOrderActionCreator(orderToUpdate));

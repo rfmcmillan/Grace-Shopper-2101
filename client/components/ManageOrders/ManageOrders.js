@@ -31,6 +31,7 @@ class ManageOrders extends React.Component {
               purchased_items,
               userId,
               status,
+              products,
             } = order;
             return (
               <div key={idx} className="order-manage">
@@ -38,7 +39,6 @@ class ManageOrders extends React.Component {
                 <li key="user-id">User ID: {userId}</li>
                 <li key="complete">Complete: {complete ? 'Yes' : 'No'}</li>
                 <li key="date">Date: {date_of_purchase}</li>
-                <li key="items">Items: {purchased_items}</li>
                 <li key="status">Status: {status}</li>
                 <Link to={`/manage-orders/${order.id}`}>Edit</Link>
               </div>

@@ -13,15 +13,19 @@ class EditOrder extends Component {
       purchased_items: {},
       userId: '',
       status: '',
+      products: [],
+      total: 0,
       error: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.getCurrOrder = this.getCurrOrder.bind(this);
+    this.getOrderTotal = this.getOrderTotal.bind(this);
   }
 
   async componentDidMount() {
     await this.getCurrOrder();
+    this.getOrderTotal();
   }
 
   onChange(ev) {
@@ -42,6 +46,8 @@ class EditOrder extends Component {
         purchased_items,
         userId,
         status,
+        products,
+        total,
       } = this.state;
       update({
         id,
@@ -50,6 +56,8 @@ class EditOrder extends Component {
         purchased_items,
         userId,
         status,
+        products,
+        total,
       });
 
       history.push('/manage-orders');
@@ -67,6 +75,8 @@ class EditOrder extends Component {
       purchased_items,
       userId,
       status,
+      products,
+      total,
     } = currOrder;
     this.setState({
       id,
@@ -75,9 +85,14 @@ class EditOrder extends Component {
       purchased_items,
       userId,
       status,
+      products,
+      total,
     });
   }
 
+  getOrderTotal() {
+    console.log(this.props);
+  }
   render() {
     const {
       id,
@@ -86,7 +101,10 @@ class EditOrder extends Component {
       purchased_items,
       userId,
       status,
+      products,
+      total,
     } = this.state;
+    console.log('products', products);
     const { onChange, onSave } = this;
     return (
       <div id="edit-order">
@@ -105,11 +123,28 @@ class EditOrder extends Component {
             onChange={onChange}
           />
           <br />
+          <span>
+            Order Total: $
+            {products
+              ? products.reduce((total, product) => {
+                  return (total += product.price * 1);
+                }, 0)
+              : '0.00'}
+          </span>
+          <br />
           <label>Complete:</label>
           <input name="complete" onChange={onChange} type="checkbox" />
           <br />
-          <label>Items:</label>
-          {/* {JSON.parse(purchased_items)} */}
+          <ul>
+            Items:{' '}
+            {products.map((product, idx) => {
+              return (
+                <li key={`name-${idx}`}>
+                  {product.brand} {product.title} ${product.price}
+                </li>
+              );
+            })}
+          </ul>
           <br />
           <label>Status:</label>
           <select name="status" value={status} onChange={onChange}>
