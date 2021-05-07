@@ -1,6 +1,19 @@
 import React from 'react';
+import { Select, FormControl, InputLabel, MenuItem } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const Filters = (props) => {
+  const classes = useStyles();
   const {
     countries,
     categories,
@@ -15,16 +28,24 @@ const Filters = (props) => {
   return (
     <div id="filter">
       <form onSubmit={reset}>
-        <select value={name} name="countries" onChange={filterByCountry}>
-          <option value="all">All Countries</option>
-          {countries.map((country) => {
-            return (
-              <option key={country.id} value={country.name}>
-                {country.name}
-              </option>
-            );
-          })}
-        </select>
+        <FormControl variant="outlined">
+          <InputLabel>All Countries</InputLabel>
+          <Select
+            label="All Countries"
+            value={name}
+            name="countries"
+            onChange={filterByCountry}
+          >
+            <option value="all">All Countries</option>
+            {countries.map((country) => {
+              return (
+                <option key={country.id} value={country.name}>
+                  {country.name}
+                </option>
+              );
+            })}
+          </Select>
+        </FormControl>
 
         <select
           defaultValue="ALL"
