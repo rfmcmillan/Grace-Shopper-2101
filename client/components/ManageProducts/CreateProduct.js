@@ -74,6 +74,7 @@ class CreateProduct extends Component {
       price,
       inventory,
       imageUrl,
+      countryId,
     } = this.state;
     const { onChange, onSave } = this;
     const { countries, categories } = this.props;

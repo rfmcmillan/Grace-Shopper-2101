@@ -164,6 +164,14 @@ body {
   border-radius: 0.4em;
   width: 33%;
 }
+#order-details {
+  border: 0.1em;
+  border-style: solid;
+  margin: 0.5em;
+  padding: 0.2em;
+  border-radius: 0.4em;
+  width: 33%;
+}
 
 #logged {
   color: black;

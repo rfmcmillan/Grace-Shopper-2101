@@ -1,6 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
-const stripe = require('stripe')('sk_test_51InvgGCzEJe0jWa9qwf4rTyGBxHY1GvAFSTaFniDqqGSJRt1mLTy9hIaLM3gcm7CJNV2T1GenLopTlj1HA9rFDNG00jDxVqD6W');
+const stripe = require('stripe')(
+  'sk_test_51InvgGCzEJe0jWa9qwf4rTyGBxHY1GvAFSTaFniDqqGSJRt1mLTy9hIaLM3gcm7CJNV2T1GenLopTlj1HA9rFDNG00jDxVqD6W'
+);
 const router = require('express').Router();
 const {
   models: { Order, User, StripeId },
@@ -9,7 +11,12 @@ const {
 //All Orders get route
 router.get('/orders', async (req, res, next) => {
   try {
-    const orders = await Order.findAll();
+    const orders = await Order.findAll({
+      include: {
+        all: true,
+        nested: true,
+      },
+    });
     res.status(200).send(orders);
   } catch (error) {
     next(error);
@@ -18,7 +25,12 @@ router.get('/orders', async (req, res, next) => {
 
 router.get('/orders/:id', async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.params.id);
+    const order = await Order.findByPk(req.params.id, {
+      include: {
+        all: true,
+        nested: true,
+      },
+    });
     res.send(order);
   } catch (error) {
     next(error);
@@ -94,21 +106,28 @@ router.post('/create-checkout-session', async (req, res) => {
   for (i of products) {
     promises.push(StripeId.findOne({ where: { productId: i.id } }));
   }
-  Promise.all(promises).then((results) => {
-    products.forEach((e) => {
-      Ids.push({ price: results.find((element) => { return element.productId === e.id; }).id, quantity: e.amount });
+  Promise.all(promises)
+    .then((results) => {
+      products.forEach((e) => {
+        Ids.push({
+          price: results.find((element) => {
+            return element.productId === e.id;
+          }).id,
+          quantity: e.amount,
+        });
+      });
+      return Ids;
+    })
+    .then(async (results) => {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: results,
+        mode: 'payment',
+        success_url: 'http://localhost:3000/#/order?success=true',
+        cancel_url: 'http://localhost:3000/#/order?canceled=true',
+      });
+      res.json({ id: session.id });
     });
-    return Ids;
-  }).then(async (results) => {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: results,
-      mode: 'payment',
-      success_url: 'http://localhost:3000/#/order?success=true',
-      cancel_url: 'http://localhost:3000/#/order?canceled=true',
-    });
-    res.json({ id: session.id });
-  });
 });
 
 module.exports = router;
