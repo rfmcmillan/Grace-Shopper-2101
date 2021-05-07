@@ -15,7 +15,7 @@ import { addToCart } from '../store/cart';
 import { loadCountries } from '../store/countries';
 import { loadCategories } from '../store/categories';
 import Filters from './Filters';
-import { Button, Link, Grid, Paper } from '@material-ui/core';
+import { Button, Link, Grid, Paper, Card } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 class AllProducts extends Component {
@@ -133,12 +133,12 @@ class AllProducts extends Component {
           direction="row"
           justify="space-evenly"
           alignItems="center"
-          spacing={1}
+          spacing={3}
         >
           {products.map((product) => {
             return (
               <Grid item xs={4}>
-                <Paper key={product.id}>
+                <Card key={product.id}>
                   <Link href={`#/products/${product.id}`}>
                     <h3>{`${product.title}`}</h3>
                   </Link>
@@ -178,7 +178,7 @@ class AllProducts extends Component {
                   >
                     Quick Add
                   </Button>
-                </Paper>
+                </Card>
               </Grid>
             );
           })}

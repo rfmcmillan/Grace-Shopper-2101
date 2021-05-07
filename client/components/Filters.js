@@ -1,5 +1,12 @@
 import React from 'react';
-import { Select, FormControl, InputLabel, MenuItem } from '@material-ui/core';
+import {
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  TextField,
+  Button,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,39 +35,44 @@ const Filters = (props) => {
   return (
     <div id="filter">
       <form onSubmit={reset}>
-        <FormControl variant="outlined">
-          <InputLabel>All Countries</InputLabel>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="countries">Countries</InputLabel>
           <Select
+            labelId="countries"
+            id="countries"
             label="All Countries"
             value={name}
-            name="countries"
             onChange={filterByCountry}
           >
-            <option value="all">All Countries</option>
+            <MenuItem value="all">All</MenuItem>
             {countries.map((country) => {
               return (
-                <option key={country.id} value={country.name}>
+                <MenuItem key={country.id} value={country.name}>
                   {country.name}
-                </option>
+                </MenuItem>
               );
             })}
           </Select>
         </FormControl>
-
-        <select
-          defaultValue="ALL"
-          name="categories"
-          onChange={filterByCategory}
-        >
-          <option value="ALL">All</option>
-          {categories.map((category) => {
-            return (
-              <option key={category.id} value={category.name}>
-                {category.name}
-              </option>
-            );
-          })}
-        </select>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="categories-label">Categories</InputLabel>
+          <Select
+            labelId="categories-label"
+            id="categories"
+            defaultValue="ALL"
+            name="categories"
+            onChange={filterByCategory}
+          >
+            <MenuItem value="ALL">All</MenuItem>
+            {categories.map((category) => {
+              return (
+                <MenuItem key={category.id} value={category.name}>
+                  {category.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
 
         <label htmlFor="price"> Max Price</label>
         <input
@@ -72,18 +84,29 @@ const Filters = (props) => {
           defaultValue="45"
         />
 
-        <input type="text" placeholder="search" />
+        <TextField variant="outlined" type="text" placeholder="search" />
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="sort-by-label" htmlFor="sorting">
+            Sort By:{' '}
+          </InputLabel>
+          <Select
+            labelId="sort-by-label"
+            id="sort-by"
+            defaultValue={'sort'}
+            name="sorting"
+            onChange={sortByInput}
+          >
+            <MenuItem value="default">--Sort--</MenuItem>
+            <MenuItem value="alpha_asc">A-Z</MenuItem>
+            <MenuItem value="alpha_des">Z-A</MenuItem>
+            <MenuItem value="price_asc">Low-High</MenuItem>
+            <MenuItem value="price_des">High-Low</MenuItem>
+          </Select>
+        </FormControl>
 
-        <label htmlFor="sorting">Sory By: </label>
-        <select defaultValue={'sort'} name="sorting" onChange={sortByInput}>
-          <option value="default">--Sort--</option>
-          <option value="alpha_asc">A-Z</option>
-          <option value="alpha_des">Z-A</option>
-          <option value="price_asc">Low-High</option>
-          <option value="price_des">High-Low</option>
-        </select>
-
-        <button type="submit">Reset</button>
+        <Button variant="contained" color="primary" type="submit">
+          Reset
+        </Button>
       </form>
     </div>
   );
