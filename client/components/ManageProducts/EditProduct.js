@@ -193,7 +193,7 @@ class EditProduct extends Component {
         <button
           type="submit"
           onClick={() => {
-            return deleteProduct(id);
+            deleteProduct(id);
           }}
         >
           Delete Product
