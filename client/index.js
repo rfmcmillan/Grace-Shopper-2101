@@ -10,7 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 render(
   <Provider store={reduxStore.store}>
     {/* The below is Material UI's baseline styling: comment this out to return to Alejandra's styling  */}
-    <CssBaseline />
+    {/* <CssBaseline /> */}
     <PersistGate loading={null} persistor={reduxStore.persistor}>
       <Main />
     </PersistGate>

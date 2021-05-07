@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   loadProducts,
   loadFilteredProducts,
@@ -15,8 +15,7 @@ import { addToCart } from '../store/cart';
 import { loadCountries } from '../store/countries';
 import { loadCategories } from '../store/categories';
 import Filters from './Filters';
-import { Button, Link, Grid, Paper, Card } from '@material-ui/core';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Button, Card } from '@material-ui/core';
 
 class AllProducts extends Component {
   constructor(props) {
@@ -126,63 +125,55 @@ class AllProducts extends Component {
           reset={this.reset}
           name={name}
         />
-        <h1>Products</h1>
+        <h1 id="products-title">Products</h1>
 
-        <Grid
-          container
-          direction="row"
-          justify="space-evenly"
-          alignItems="center"
-          spacing={3}
-        >
+        <div id="allProducts">
           {products.map((product) => {
             return (
-              <Grid item xs={4}>
-                <Card key={product.id}>
-                  <Link href={`#/products/${product.id}`}>
-                    <h3>{`${product.title}`}</h3>
-                  </Link>
-                  <h4>
-                    {product.country.name}
-                    <i className={`em ${product.country.flag}`} />
-                  </h4>
-                  <h4>
-                    {product.categories
-                      .map((category) => {
-                        return category.name;
-                      })
-                      .join(', ')}
-                  </h4>
+              <div key={product.id} className="product">
+                <Link to={`/products/${product.id}`}>
+                  <h3 id="product-link">{`${product.title}`}</h3>
+                </Link>
+                <span>
+                  {product.country.name}
+                  <i className={`em ${product.country.flag}`} />
+                </span>
+                <span id="item-category">
+                  {product.categories
+                    .map((category) => {
+                      return category.name;
+                    })
+                    .join(', ')}
+                </span>
 
-                  <h4>{product.price}</h4>
+                <span id="price">${product.price}</span>
+                <br />
+                <img
+                  className="allProductImage"
+                  src={product.imageUrl}
+                  alt={product.description}
+                />
 
-                  <img
-                    className="allProductImage"
-                    src={product.imageUrl}
-                    alt={product.description}
-                  />
-
-                  {/* <button
+                {/* <button
                   onClick={() => {
                     this.handleClick(product);
                   }}
                 >
                   Quick Add
                 </button> */}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                      this.handleClick(product);
-                    }}
-                  >
-                    Quick Add
-                  </Button>
-                </Card>
-              </Grid>
+                <Button
+                  id="quick-add"
+                  variant="contained"
+                  onClick={() => {
+                    this.handleClick(product);
+                  }}
+                >
+                  Quick Add
+                </Button>
+              </div>
             );
           })}
-        </Grid>
+        </div>
         {/* <productCreate history={history} /> */}
       </div>
     );

@@ -6,6 +6,8 @@ import {
   MenuItem,
   TextField,
   Button,
+  Slider,
+  Grid,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -35,78 +37,86 @@ const Filters = (props) => {
   return (
     <div id="filter">
       <form onSubmit={reset}>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="countries">Countries</InputLabel>
-          <Select
-            labelId="countries"
-            id="countries"
-            label="All Countries"
-            value={name}
-            onChange={filterByCountry}
-          >
-            <MenuItem value="all">All</MenuItem>
-            {countries.map((country) => {
-              return (
-                <MenuItem key={country.id} value={country.name}>
-                  {country.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="categories-label">Categories</InputLabel>
-          <Select
-            labelId="categories-label"
-            id="categories"
-            defaultValue="ALL"
-            name="categories"
-            onChange={filterByCategory}
-          >
-            <MenuItem value="ALL">All</MenuItem>
-            {categories.map((category) => {
-              return (
-                <MenuItem key={category.id} value={category.name}>
-                  {category.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+        <Grid
+          direction="row"
+          justify="flex-start"
+          alignItems="baseline"
+          container
+        >
+          <FormControl className={classes.formControl}>
+            <InputLabel id="countries">Countries</InputLabel>
+            <Select
+              labelId="countries"
+              id="countries"
+              label="All Countries"
+              value={name}
+              onChange={filterByCountry}
+            >
+              <MenuItem value="all">All</MenuItem>
+              {countries.map((country) => {
+                return (
+                  <MenuItem key={country.id} value={country.name}>
+                    {country.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="categories-label">Categories</InputLabel>
+            <Select
+              labelId="categories-label"
+              id="categories"
+              defaultValue="ALL"
+              name="categories"
+              onChange={filterByCategory}
+            >
+              <MenuItem value="ALL">All</MenuItem>
+              {categories.map((category) => {
+                return (
+                  <MenuItem key={category.id} value={category.name}>
+                    {category.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
 
-        <label htmlFor="price"> Max Price</label>
-        <input
-          type="range"
-          name="price"
-          min="0"
-          max="45"
-          onChange={filterByPrice}
-          defaultValue="45"
-        />
+          <label htmlFor="price"> Max Price</label>
+          <input
+            id="slider"
+            type="range"
+            name="price"
+            min="0"
+            max="45"
+            onChange={filterByPrice}
+            defaultValue="45"
+          />
 
-        <TextField variant="outlined" type="text" placeholder="search" />
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="sort-by-label" htmlFor="sorting">
-            Sort By:{' '}
-          </InputLabel>
-          <Select
-            labelId="sort-by-label"
-            id="sort-by"
-            defaultValue={'sort'}
-            name="sorting"
-            onChange={sortByInput}
-          >
-            <MenuItem value="default">--Sort--</MenuItem>
-            <MenuItem value="alpha_asc">A-Z</MenuItem>
-            <MenuItem value="alpha_des">Z-A</MenuItem>
-            <MenuItem value="price_asc">Low-High</MenuItem>
-            <MenuItem value="price_des">High-Low</MenuItem>
-          </Select>
-        </FormControl>
+          <TextField type="text" placeholder="search" />
+          <FormControl className={classes.formControl}>
+            <InputLabel id="sort-by-label" htmlFor="sorting">
+              Sort By:{' '}
+            </InputLabel>
+            <Select
+              labelId="sort-by-label"
+              id="sort-by"
+              defaultValue={'sort'}
+              name="sorting"
+              onChange={sortByInput}
+            >
+              <option value="default">--Sort--</option>
+              <option value="alpha_asc">A-Z</option>
+              <option value="alpha_des">Z-A</option>
+              <option value="price_asc">Low-High</option>
+              <option value="price_des">High-Low</option>
+            </Select>
+          </FormControl>
 
-        <Button variant="contained" color="primary" type="submit">
-          Reset
-        </Button>
+          <Button variant="contained" color="default" type="submit">
+            Reset
+          </Button>
+        </Grid>
       </form>
     </div>
   );

@@ -80,8 +80,28 @@ body {
   background-color: lavender;
 }
 
+#slider {
+  fill: black;
+  stroke: none;
+}
+
+#products-title {
+  margin: 5px;
+  margin-left: 1rem;
+}
+
 .allProductImage {
   width: 250px;
+  margin: 0.2rem;
+}
+
+#product-link {
+  margin-top: 0.2rem;
+  color: rgb(18, 39, 18);
+  text-decoration: underline;
+}
+.product > a {
+  text-decoration: none;
 }
 
 #allProducts {
@@ -89,10 +109,33 @@ body {
   flex-wrap: wrap;
 }
 
+.products-grid {
+  margin: 1rem;
+}
+
+.card {
+  margin: 1rem;
+}
+
 .product {
   margin: 1rem;
-  width: calc(100% / 3 - 2rem - 2px);
+  width: calc(100% / 3 - 2rem - 12px);
+  min-width: 300px;
+  padding: 5px;
   border: 1px solid white;
+  border-radius: 0.3em;
+  filter: drop-shadow(5px 4px 4px rgb(115, 153, 115));
+  background-color: darkseagreen;
+}
+#item-category {
+  margin-left: 1rem;
+}
+#price {
+  margin-left: 1rem;
+}
+#quick-add {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0.2rem;
 }
 
 #singleProduct > img {

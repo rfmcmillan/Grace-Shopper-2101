@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../store/loginstate';
 import { resetCart } from '../store/cart';
 
+import { AppBar, Button, ThemeProvider, Tab } from '@material-ui/core';
+
 class Nav extends React.Component {
   constructor() {
     super();
