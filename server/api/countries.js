@@ -50,14 +50,14 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// router.put('/:id', async (req, res, next) => {
-//     try {
-//         const countryToModify = await Country.findByPk(req.params.id)
-//         const updated = await countryToModify.update(req.body)
-//         res.status(200).send(updated)
-//     } catch (error) {
-//         next(error)
-//     }
-// })
+router.put('/:id', async (req, res, next) => {
+  try {
+    const countryToModify = await Country.findByPk(req.params.id);
+    const updated = await countryToModify.update(req.body);
+    res.status(200).send(updated);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

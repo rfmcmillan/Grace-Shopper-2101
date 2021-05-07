@@ -159,7 +159,7 @@ class AllProducts extends Component {
                     this.handleClick(product);
                   }}
                 >
-                  Quick Add
+                  Add Product
                 </button>
               </div>
             );

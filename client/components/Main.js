@@ -18,6 +18,7 @@ import Nav from './Nav';
 import Home from './Home';
 import CreateAccountPage from './CreateAccountPage';
 import Map from './Map';
+import CrearteCountry from './ManageCountries/CrearteCountry';
 
 class Main extends React.Component {
   render() {
@@ -28,6 +29,7 @@ class Main extends React.Component {
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/products" component={AllProducts} />
+            <Route exact path="/countries" component={CrearteCountry} />
             <Route exact path="/products/c/:name" component={AllProducts} />
             <Route exact path="/products/:id" component={SingleProduct} />
             <Route exact path="/manage-products" component={ManageProducts} />

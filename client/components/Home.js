@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Map from './Map';
-
+// import { Button } from '@material-ui/core';
 const Home = () => {
   return (
     <div id="test">
@@ -15,7 +15,7 @@ const Home = () => {
               <button>All Snacks</button>
             </Link>
             <Link to="/countries">
-              <button>All Countries</button>
+              <button>Add A Country</button>
             </Link>
           </div>
           <div id="homeLinks">
