@@ -14,8 +14,10 @@ import {
 import { addToCart } from '../store/cart';
 import { loadCountries } from '../store/countries';
 import { loadCategories } from '../store/categories';
-
 import Filters from './Filters';
+import Button from '../../public/material-ui/components/Button';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Grid from '@material-ui/core/Button';
 
 class AllProducts extends Component {
   constructor(props) {
@@ -154,13 +156,20 @@ class AllProducts extends Component {
                   alt={product.description}
                 />
 
-                <button
+                {/* <button
                   onClick={() => {
                     this.handleClick(product);
                   }}
                 >
                   Quick Add
-                </button>
+                </button> */}
+                <Button
+                  onClick={() => {
+                    this.handleClick(product);
+                  }}
+                >
+                  Quick Add
+                </Button>
               </div>
             );
           })}

@@ -5,6 +5,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateUser, loadUsers, resetPassword } from '../store/users';
 import { loginUser } from '../store/loginstate';
+
+import { TextField, Button, ThemeProvider } from '@material-ui/core';
+
 // fix login issues
 class LogIn extends React.Component {
   constructor(props) {
@@ -42,18 +45,36 @@ class LogIn extends React.Component {
     return (
       <div>
         <h4>Log In:</h4>
-        <form
-          onSubmit={(event) => {
-            return this.handleLogin(event, email, password);
-          }}
-        >
-          <label>Email Address:</label>
-          <input name="email" value={email} onChange={onChange} />
+        <form>
+          {/* <label>Email Address:</label>
+          <input name="email" value={email} onChange={onChange} /> */}
+          <TextField
+            label="Email Address"
+            variant="outlined"
+            name="email"
+            value={email}
+            onChange={onChange}
+          />
           <br />
-          <label>Password:</label>
-          <input name="password" value={password} onChange={onChange} />
+          {/* <label>Password:</label>
+          <input name="password" value={password} onChange={onChange} /> */}
+          <TextField
+            label="Password"
+            variant="outlined"
+            name="password"
+            value={password}
+            onChange={onChange}
+          />
           <br />
-          <button>Log In</button>
+          <Button
+            onClick={(event) => {
+              return this.handleLogin(event, email, password);
+            }}
+            variant="contained"
+            color="primary"
+          >
+            Log In
+          </Button>
         </form>
       </div>
     );

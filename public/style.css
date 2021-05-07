@@ -1,5 +1,5 @@
 /*Style Sheet*/
-body {
+/* body {
   background-color: darkseagreen;
   z-index: 0;
   color: white;
@@ -102,8 +102,9 @@ body {
 #map {
   height: 300px;
   width: 200px;
-  /* z-index: 1; */
+  z-index: 1;
 }
+
 #user {
   border-color: black;
   border: 0.1em;
@@ -167,4 +168,4 @@ body {
 
 #logged {
   color: black;
-}
+} */

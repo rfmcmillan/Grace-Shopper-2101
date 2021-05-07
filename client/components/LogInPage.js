@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LogIn from './Login';
+import { Button } from '@material-ui/core';
 
 const LogInPage = () => {
   return (
     <div>
       <LogIn />
       <Link to="/createaccount">
-        <button>Create Account</button>
+        <Button variant="contained">Create Account</Button>
       </Link>
     </div>
   );

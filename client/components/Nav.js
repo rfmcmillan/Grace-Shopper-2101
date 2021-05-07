@@ -45,8 +45,7 @@ class Nav extends React.Component {
         <Link to="/manage-users">Manage Users</Link>
         <Link to="/cart">
           Cart(
-          {this.props.cart.length}
-          )
+          {this.props.cart.length})
         </Link>
       </div>
     ) : (
@@ -75,8 +74,7 @@ class Nav extends React.Component {
         )}
         <Link to="/cart">
           Cart(
-          {this.props.cart.length}
-          )
+          {this.props.cart.length})
         </Link>
       </div>
     );
