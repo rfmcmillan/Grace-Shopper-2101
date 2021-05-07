@@ -30,6 +30,7 @@ class CreateCountry extends Component {
     try {
       const { name, flag, latitude, longitude } = this.state;
       await create({ name, flag, latitude, longitude });
+      this.setState(this.originalState);
       // this.props.postCountry(
       //   this.state.name,
       //   this.state.flag,
@@ -52,15 +53,12 @@ class CreateCountry extends Component {
           <label htmlFor="title">Name*:</label>
           <input name="name" value={name} onChange={onChange} />
           <br />
-
           <label htmlFor="flag">Flag*:</label>
           <input name="flag" value={flag} onChange={onChange} />
           <br />
-
           <label htmlFor="latitude">Latitude*:</label>
           <input name="latitude" value={latitude} onChange={onChange} />
           <br />
-
           <label htmlFor="longitude">Longitude*:</label>
           <input name="longitude" value={longitude} onChange={onChange} />
           <br />
