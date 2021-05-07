@@ -57,10 +57,20 @@ class CreateCountry extends Component {
           <input name="flag" value={flag} onChange={onChange} />
           <br />
           <label htmlFor="latitude">Latitude*:</label>
-          <input name="latitude" value={latitude} onChange={onChange} />
+          <input
+            type="number"
+            name="latitude"
+            value={latitude}
+            onChange={onChange}
+          />
           <br />
           <label htmlFor="longitude">Longitude*:</label>
-          <input name="longitude" value={longitude} onChange={onChange} />
+          <input
+            type="number"
+            name="longitude"
+            value={longitude}
+            onChange={onChange}
+          />
           <br />
           <button onClick={onSave}>Save</button>
           <button>
