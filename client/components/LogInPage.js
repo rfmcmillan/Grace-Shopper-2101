@@ -7,7 +7,9 @@ const LogInPage = () => {
   return (
     <div>
       <LogIn />
-      <Link to="/createaccount"><button>Create Account</button></Link>
+      <Link to="/createaccount">
+        <button>Create Account</button>
+      </Link>
     </div>
   );
 };
