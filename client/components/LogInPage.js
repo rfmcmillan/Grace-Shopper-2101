@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LogIn from './LogIn';
+import LogIn from './Login';
 
 const LogInPage = () => {
   return (
