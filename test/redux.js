@@ -28,7 +28,7 @@ enzyme.configure({ adapter: new Adapter() });
 //  Redux
 describe('Users in Redux Store', function () {
   describe('loadUsersActionCreator', function () {
-    it('creates an object with `type` and `users`', async function () {
+    xit('creates an object with `type` and `users`', async function () {
       await db.sync({ force: true });
       await Promise.all([
         User.create({

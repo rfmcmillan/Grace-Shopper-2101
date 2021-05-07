@@ -29,7 +29,7 @@ const init = async () => {
       longitude: '108.84219110307014',
     });
     const French = await Country.create({
-      name: 'French',
+      name: 'France',
       flag: 'em-fr',
       latitude: '48.8611546464059',
       longitude: '2.3358046534193906',
@@ -348,6 +348,7 @@ const init = async () => {
       brand: 'La Laitière',
       description: 'It is made of heavy cream, caramel, sugar and eggs.',
       inventory: 154,
+      price: 15.99,
       countryId: French.id,
       imageUrl: 'https://media.auchan.fr/MEDIASTEP101391290_1200x1200/B2CD/',
     });
@@ -358,6 +359,7 @@ const init = async () => {
       description:
         'French butter biscuit topped with glossy European milk chocolate',
       inventory: 229,
+      price: 5.99,
       countryId: French.id,
       imageUrl:
         'https://images-na.ssl-images-amazon.com/images/I/9106CKpWAcL._SX679_.jpg',
