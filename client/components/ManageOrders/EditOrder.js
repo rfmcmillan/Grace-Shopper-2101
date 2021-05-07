@@ -20,7 +20,6 @@ class EditOrder extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSave = this.onSave.bind(this);
     this.getCurrOrder = this.getCurrOrder.bind(this);
-    this.getOrderTotal = this.getOrderTotal.bind(this);
   }
 
   async componentDidMount() {
