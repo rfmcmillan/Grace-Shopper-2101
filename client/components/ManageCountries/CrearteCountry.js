@@ -49,7 +49,7 @@ class CreateCountry extends Component {
     return (
       <div id="create-country">
         <h3>Add A Country:</h3>
-        <form onSubmit={onSave}>
+        <form onSubmit={onSave} action="/">
           <label htmlFor="title">Name*:</label>
           <input name="name" value={name} onChange={onChange} />
           <br />
