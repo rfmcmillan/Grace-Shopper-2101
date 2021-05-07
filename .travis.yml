@@ -8,3 +8,7 @@ before_script:
 
 env:
   - JWT=snack
+# deploy:
+#   provider: heroku
+#   api_key:
+#     secure:

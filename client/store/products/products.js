@@ -51,7 +51,7 @@ const productReducer = (
     }
     case DELETE_PRODUCT: {
       const products = state.products.filter((product) => {
-        return product.id !== action.product.id;
+        return product.id !== action.productId;
       });
       return { ...state, products };
     }
