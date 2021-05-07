@@ -50,7 +50,7 @@
     "regenerator-runtime": "^0.13.7",
     "sequelize": "^6.6.2",
     "stripe": "^8.147.0",
-    "travis-ci": "^2.2.0",
+    "travis-ci": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
