@@ -191,7 +191,7 @@ const init = async () => {
       inventory: 231,
       countryId: Singapore.id,
       imageUrl:
-        'https://media.karousell.com/media/photos/products/2017/07/18/___1500389373_f4d4f335.jpg',
+        'https://media.karousell.com/media/photos/products/2017/08/15/golden_duck_chips_1502793198_f68c067a.jpg',
     });
 
     const Kueh = await Product.create({
@@ -218,7 +218,7 @@ const init = async () => {
     });
 
     const MangoCookies = await Product.create({
-      title: "Koala's March Mango(Only in Thailand)",
+      title: "Koala's March Mango",
       brand: 'Lotte',
       description: 'Biscuit with Mango Cream Filling',
       price: 7.99,
@@ -372,8 +372,7 @@ const init = async () => {
       price: 20.99,
       inventory: 117,
       countryId: French.id,
-      imageUrl:
-        'https://cdn11.bigcommerce.com/s-arl5b/images/stencil/1280x1280/products/1036/9571/StMichelLargeGaletteSalt__60837.1605033438.png?c=2',
+      imageUrl: 'https://i.ebayimg.com/images/g/6tMAAOSwWXFdTnKJ/s-l400.jpg',
     });
 
     const Chips = await Product.create({
