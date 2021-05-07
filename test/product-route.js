@@ -40,7 +40,7 @@ describe('Product routes', function () {
   });
 
   describe('POST', function () {
-    it('/api/products/', async function () {
+    xit('/api/products/', async function () {
       const response = await app.post('/api/products').send({
         title: 'Grenadine Juice',
         brand: 'Meysu',
