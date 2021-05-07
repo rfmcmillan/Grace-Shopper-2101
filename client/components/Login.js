@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateUser, loadUsers, resetPassword } from '../store/users';
 import { loginUser } from '../store/loginstate';
-
+// fix login issues
 class LogIn extends React.Component {
   constructor(props) {
     super(props);
