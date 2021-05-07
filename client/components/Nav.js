@@ -54,7 +54,7 @@ class Nav extends React.Component {
       <div className="navBar">
         <Link to="/">The Global Snacker</Link>
         <Link to="/products"> Products</Link>
-        <input type="text" placeholder="search" />
+
         {this.props.login.email ? (
           <div>
             <h5 id="logged">

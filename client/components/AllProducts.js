@@ -39,7 +39,6 @@ class AllProducts extends Component {
     loadAllCategories();
     loadAllCountries();
     if (name) {
-      console.log(name);
       loadFilteredProducts(name);
     } else {
       loadAllProducts();
@@ -91,7 +90,6 @@ class AllProducts extends Component {
 
   sortByInput(ev) {
     const sortBy = ev.target.value;
-    console.log(sortBy);
     if (sortBy.includes('alpha')) {
       this.props.sortByAlpha(sortBy);
     } else {

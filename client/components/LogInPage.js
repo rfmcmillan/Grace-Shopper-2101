@@ -10,7 +10,9 @@ const LogInPage = () => {
       <div id="login-item">
         <LogIn id="login-button" />
         <Link to="/createaccount">
-          <Button variant="contained">Create Account</Button>
+          <Button variant="contained" id="quick-add">
+            Create Account
+          </Button>
         </Link>
       </div>
     </div>
