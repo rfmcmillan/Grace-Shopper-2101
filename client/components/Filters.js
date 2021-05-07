@@ -52,12 +52,12 @@ const Filters = (props) => {
               value={name}
               onChange={filterByCountry}
             >
-              <MenuItem value="all">All</MenuItem>
+              <option value="all">All</option>
               {countries.map((country) => {
                 return (
-                  <MenuItem key={country.id} value={country.name}>
+                  <option key={country.id} value={country.name}>
                     {country.name}
-                  </MenuItem>
+                  </option>
                 );
               })}
             </Select>
@@ -71,12 +71,12 @@ const Filters = (props) => {
               name="categories"
               onChange={filterByCategory}
             >
-              <MenuItem value="ALL">All</MenuItem>
+              <option value="ALL">All</option>
               {categories.map((category) => {
                 return (
-                  <MenuItem key={category.id} value={category.name}>
+                  <option key={category.id} value={category.name}>
                     {category.name}
-                  </MenuItem>
+                  </option>
                 );
               })}
             </Select>

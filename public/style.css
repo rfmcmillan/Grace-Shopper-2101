@@ -38,6 +38,13 @@ body {
   height: 25%;
   padding: 15%;
 }
+/* #test {
+  .flex: 1 200px;
+} */
+
+#all-snacks-btn {
+  text-decoration: none;
+}
 
 .homeButtons {
   display: flex;
@@ -211,4 +218,48 @@ body {
 
 #logged {
   color: black;
+}
+
+#login-contain {
+  border: 1px solid white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  filter: drop-shadow(5px 4px 4px rgb(79, 105, 79));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 33vw;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#login-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#login-button {
+  flex: 1;
+  left: 54;
+  margin-top: 1rem;
+}
+
+#create-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+#create-form > * {
+  margin: 2px;
+}
+
+#create-button {
+  flex: 1;
 }

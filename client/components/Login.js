@@ -43,12 +43,13 @@ class LogIn extends React.Component {
     const { email, password } = this.state;
     const { onChange } = this;
     return (
-      <div>
+      <div id="login-item">
         <h4>Log In:</h4>
         <form>
           {/* <label>Email Address:</label>
           <input name="email" value={email} onChange={onChange} /> */}
           <TextField
+            required
             label="Email Address"
             variant="outlined"
             name="email"
@@ -59,6 +60,7 @@ class LogIn extends React.Component {
           {/* <label>Password:</label>
           <input name="password" value={password} onChange={onChange} /> */}
           <TextField
+            required
             label="Password"
             variant="outlined"
             name="password"
@@ -67,6 +69,7 @@ class LogIn extends React.Component {
           />
           <br />
           <Button
+            id="login-button"
             onClick={(event) => {
               return this.handleLogin(event, email, password);
             }}

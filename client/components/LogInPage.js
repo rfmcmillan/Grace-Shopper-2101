@@ -6,11 +6,13 @@ import { Button } from '@material-ui/core';
 
 const LogInPage = () => {
   return (
-    <div>
-      <LogIn />
-      <Link to="/createaccount">
-        <Button variant="contained">Create Account</Button>
-      </Link>
+    <div id="login-contain">
+      <div id="login-item">
+        <LogIn id="login-button" />
+        <Link to="/createaccount">
+          <Button variant="contained">Create Account</Button>
+        </Link>
+      </div>
     </div>
   );
 };
