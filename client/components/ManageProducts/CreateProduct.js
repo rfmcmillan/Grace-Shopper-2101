@@ -2,7 +2,13 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { postProduct } from '../../store/products/products.js';
-import { Button, TextField, Select, FormControl } from '@material-ui/core';
+import {
+  Button,
+  TextField,
+  Select,
+  FormControl,
+  FormHelperText,
+} from '@material-ui/core';
 
 class CreateProduct extends Component {
   constructor(props) {
@@ -80,9 +86,9 @@ class CreateProduct extends Component {
     const { countries, categories } = this.props;
 
     return (
-      <div id="create-product">
+      <div>
         <h3>Add A Product:</h3>
-        <form>
+        <form id="create-product-form">
           <TextField
             label="Title"
             required
@@ -140,6 +146,7 @@ class CreateProduct extends Component {
             value={imageUrl}
             onChange={onChange}
           />
+          <br />
           <FormControl variant="outlined">
             <Select defaultValue="default" name="countryId" onChange={onChange}>
               <option value="default">Country</option>
@@ -151,19 +158,26 @@ class CreateProduct extends Component {
                 );
               })}
             </Select>
+            <FormHelperText>Required</FormHelperText>
           </FormControl>
-          <br />
-
-          <label htmlFor="categories">Pick the categories:</label>
-          <select name="categories" onChange={onChange} multiple>
-            {categories.map((category) => {
-              return (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              );
-            })}
-          </select>
+          <FormControl variant="outlined">
+            <Select
+              defaultValue="default"
+              name="categories"
+              onChange={onChange}
+            >
+              {' '}
+              <option value="default">Category</option>;
+              {categories.map((category) => {
+                return (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                );
+              })}
+            </Select>
+            <FormHelperText>Required</FormHelperText>
+          </FormControl>
 
           <br />
           <Button

@@ -263,3 +263,12 @@ body {
 #create-button {
   flex: 1;
 }
+
+#create-product-form {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1;
+  max-width: 100vw;
+}

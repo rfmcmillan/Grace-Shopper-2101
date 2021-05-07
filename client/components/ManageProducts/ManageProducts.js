@@ -50,10 +50,10 @@ class ManageProducts extends React.Component {
       );
     }
     return (
-      <div id="manage-products">
+      <div>
         <h2>Manage Products</h2>
         <CreateProduct />
-        <div>
+        <div id="manage-products">
           {products.map((product, idx) => {
             const {
               title,
