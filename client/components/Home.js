@@ -14,7 +14,7 @@ const Home = () => {
             <Link to="/products">
               <button>All Snacks</button>
             </Link>
-            <Link to="/countries">
+            <Link to="/manage-countries">
               <button>Add A Country</button>
             </Link>
           </div>
