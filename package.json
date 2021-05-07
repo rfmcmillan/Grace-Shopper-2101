@@ -2,7 +2,9 @@
   "name": "Grace-Shopper-2101",
   "version": "1.0.0",
   "description": "Cornwall-Athletics Grace Shopper Repository",
-  "engines":{"node":"15.x"},
+  "engines": {
+    "node": "15.x"
+  },
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
@@ -47,7 +49,8 @@
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.7",
     "sequelize": "^6.6.2",
-    "stripe": "^8.147.0"
+    "stripe": "^8.147.0",
+    "travis-ci": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
