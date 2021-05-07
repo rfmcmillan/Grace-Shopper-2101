@@ -7,9 +7,3 @@ before_script:
 - psql -c 'create database snacker;' -U postgres
 env:
 - JWT=snack
-deploy:
-  provider: heroku
-  on:
-    branch: main
-  api_key:
-    secure: Hh+01yIrDCMVoWFNVec7F6TkvB/RHONyEBql7QuiKqMm685cydiAIM+Pj2Ogf2jxsBxbmd4L+k1YpLv7BiQ7abn3zDcNoycIDCKjXq8xRx3DAZnFmh4hvWndKPAOP6ps1ARP9pVIBA+QjV8U9+o/q7w095+5q9q8g/cvPKtwfW5TxRDK1g4ov1VWGm9MyNQmSS0+Ndm3s9pP66l68eUzE+hMjGJEVF4msa5A8IndgR2uzneAzBHwxX6YqGchIBDEV5KZ962eRIMAYgGH10qbF7ybnazCdPiGfNSj3LJENuuRs4padUdUeMVXejLJeLkbBgA1HSb+p1SNPV8rBP8jfvBK9WH3Mb8zFU9E/n+mGx3wTcNqoXFslONArRpRUouhSPBRe3mjE3PmwHKUmEshJeyhMVmspfM9D54CN8p6jvygetq4rCyADbBo86jIHIyDtAsLWWO3pnF5lvUYx2JEBFg0Kup53t+cTXExel5jklOCLLE3AWg4JcN2Bb21jW0Z4UyvhOi6cQ0jaRvtBAs4V+PhIaVNfcuvgvkX9VZozvVS0TSYwnIDW5QC0FlADL9Qq7PKYyHheRj1OyOIqM75j/w1t86LboVQcNJpiNV334zCiFf103cwCLmnh4HCavzm1V+YWsdx1XJRDQEVsBHHXP5R0f6nc0ZgrbPk2CqHtXY=
