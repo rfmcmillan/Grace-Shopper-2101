@@ -2,6 +2,7 @@
   "name": "Grace-Shopper-2101",
   "version": "1.0.0",
   "description": "Cornwall-Athletics Grace Shopper Repository",
+  "engines":{"node":"15.x"},
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
