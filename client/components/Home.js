@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Map from './Map';
+<<<<<<< HEAD
 import { Button } from '@material-ui/core';
 
+=======
+// import { Button } from '@material-ui/core';
+>>>>>>> main
 const Home = () => {
   return (
     <div id="test">
@@ -12,6 +16,7 @@ const Home = () => {
         {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0Czh5f_nGC5M_EHN4KYNnLVIok4mHvkE&map_ids=4deaa8c67ed436b3&callback=initMap" /> */}
         <div className="homeButtons">
           <div id="mainButtons">
+<<<<<<< HEAD
             <form action="/#/products">
               <Button
                 id="quick-add"
@@ -22,6 +27,14 @@ const Home = () => {
                 All Snacks
               </Button>
             </form>
+=======
+            <Link to="/products">
+              <button>All Snacks</button>
+            </Link>
+            <Link to="/countries">
+              <button>Add A Country</button>
+            </Link>
+>>>>>>> main
           </div>
           <div id="homeLinks">
             <Link to="/login">Log In</Link>

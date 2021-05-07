@@ -152,7 +152,10 @@ body {
 #map {
   height: 300px;
   width: 200px;
+<<<<<<< HEAD
   z-index: 1;
+=======
+>>>>>>> main
 }
 
 #user {
@@ -228,6 +231,7 @@ body {
   color: black;
 }
 
+<<<<<<< HEAD
 #login-contain {
   border: 1px solid white;
   padding: 1rem;
@@ -281,4 +285,10 @@ body {
   justify-content: center;
   flex: 1;
   max-width: 100vw;
+=======
+.allProductImage {
+  width: 300px;
+  height: 330px;
+  /* Or You can try 250/280 */
+>>>>>>> main
 }
