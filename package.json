@@ -2,6 +2,9 @@
   "name": "Grace-Shopper-2101",
   "version": "1.0.0",
   "description": "Cornwall-Athletics Grace Shopper Repository",
+  "engines": {
+    "node": "15.x"
+  },
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
@@ -13,7 +16,7 @@
     "lint": "eslint client server test --fix",
     "seed": "node ./bin/seed",
     "start:dev": "NODE_ENV=development npm run build:dev & nodemon ./server/main.js --ignore public/ --ignore client/",
-    "start": "NODE_ENV=production npm run seed && npm run build && node ./server/main.js",
+    "start": "NODE_ENV=production node ./server/main.js",
     "windows-start:dev": "SET NODE_ENV=development && nodemon ./server/main.js --ignore public/ --ignore client/"
   },
   "repository": {
@@ -46,7 +49,8 @@
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.7",
     "sequelize": "^6.6.2",
-    "stripe": "^8.147.0"
+    "stripe": "^8.147.0",
+    "travis-ci": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",

@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/button-has-type */
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -22,6 +22,16 @@ class Cart extends Component {
   componentDidMount() {
     if (this.props.login.cart) {
       this.props.getCart(this.props.login.cart);
+    }
+
+    const query = new URLSearchParams(window.location.search);
+    if (query.get('success')) {
+      setMessage('Order placed! You will receive an email confirmation.');
+    }
+    if (query.get('canceled')) {
+      setMessage(
+        "Order canceled -- continue to shop around and checkout when you're ready.",
+      );
     }
   }
 
@@ -57,7 +67,7 @@ class Cart extends Component {
     // Call your backend to create the Checkout Session
     const response = await axios.post('api/order/create-checkout-session', this.props.cart);
 
-    // When the customer clicks on the button, redirect them to Checkout.   
+    // When the customer clicks on the button, redirect them to Checkout.
     const result = await stripe.redirectToCheckout({
       sessionId: response.data.id,
     });
