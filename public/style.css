@@ -102,7 +102,6 @@ body {
 #map {
   height: 300px;
   width: 200px;
-  /* z-index: 1; */
 }
 #user {
   border-color: black;
@@ -175,4 +174,10 @@ body {
 
 #logged {
   color: black;
+}
+
+.allProductImage {
+  width: 300px;
+  height: 330px;
+  /* Or You can try 250/280 */
 }
