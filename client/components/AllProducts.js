@@ -110,6 +110,7 @@ class AllProducts extends Component {
   render() {
     const { products, categories, countries } = this.props;
     const name = this.props.match.params.name || 'default';
+
     return (
       <div id="main">
         <Filters
