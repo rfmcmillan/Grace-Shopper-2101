@@ -38,7 +38,8 @@ class LogIn extends React.Component {
     const { onChange } = this;
     return (
       <div id="login-item">
-        <h4>Log In:</h4>
+        <h4>Welcome to Global Snacker!</h4>
+        <h4>Please Log In:</h4>
         <form>
           {/* <label>Email Address:</label>
           <input name="email" value={email} onChange={onChange} /> */}
