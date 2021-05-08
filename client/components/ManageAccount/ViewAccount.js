@@ -1,25 +1,51 @@
 import React from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadOrders, updateOrder } from '../../store/orders';
 import { loadPurchases } from '../../store/purchases';
 import LogInPage from '../LogInPage';
 import SinglePurchase from './SinglePurchase';
+import { updateUser } from '../../store/users';
+import { TextField, Button, ThemeProvider } from '@material-ui/core';
 
 class ViewAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: {},
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      updated: false,
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    const { id } = this.props.login;
+    const { id, firstName, lastName, email } = this.props.login;
     if (id) {
       this.props.loadPurchases(id);
+      this.setState({ id, firstName, lastName, email });
     }
+  }
+
+  handleChange(ev) {
+    this.setState({ [ev.target.name]: ev.target.value });
+  }
+
+  handleSubmit(ev) {
+    const form = ev.target;
+    ev.preventDefault();
+    const { id, email, firstName, lastName, password } = this.state;
+    if (!password.trim().length) {
+      this.props.updateUser({ id, email, firstName, lastName });
+    } else {
+      this.props.updateUser({ id, email, firstName, lastName, password });
+    }
+
+    this.setState({ password: '', updated: true });
+    form.reset();
   }
 
   render() {
@@ -27,17 +53,51 @@ class ViewAccount extends React.Component {
     if (!login.id) {
       return <LogInPage />;
     }
+
     const purchases = this.props.purchases.purchases || [];
     return (
       <div id="manage-account">
         <h2>Account Info</h2>
-        <ul>
-          <li>
-            Name: {login.firstName} {login.lastNames}
-          </li>
-          <li>Email: {login.email}</li>
-          <Link to="/update-account">Update Info</Link>
-        </ul>
+        <form onSubmit={this.handleSubmit} className="account">
+          <TextField
+            name="firstName"
+            value={this.state.firstName}
+            onChange={this.handleChange}
+            variant="outlined"
+            label="First Name"
+          />
+          <br />
+          <TextField
+            name="lastName"
+            value={this.state.lastName}
+            onChange={this.handleChange}
+            variant="outlined"
+            label="Last Name"
+          />
+          <br />
+
+          <TextField
+            name="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+            variant="outlined"
+            label="Email"
+          />
+          <br />
+
+          <TextField
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange}
+            variant="outlined"
+            label="New Password"
+          />
+
+          <Button type="submit" variant="contained" id="quick-add">
+            Create Account
+          </Button>
+        </form>
+
         <h2>Past Orders</h2>
 
         {purchases.length ? (
@@ -64,6 +124,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     loadPurchases: (id) => dispatch(loadPurchases(id)),
+    updateUser: (user) => dispatch(updateUser(user)),
   };
 };
 
