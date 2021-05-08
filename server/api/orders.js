@@ -1,6 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable max-len */
-const stripe = require('stripe')('sk_test_51InvgGCzEJe0jWa9qwf4rTyGBxHY1GvAFSTaFniDqqGSJRt1mLTy9hIaLM3gcm7CJNV2T1GenLopTlj1HA9rFDNG00jDxVqD6W');
+const stripe = require('stripe')(
+  'sk_test_51InvgGCzEJe0jWa9qwf4rTyGBxHY1GvAFSTaFniDqqGSJRt1mLTy9hIaLM3gcm7CJNV2T1GenLopTlj1HA9rFDNG00jDxVqD6W'
+);
 const router = require('express').Router();
 const {
   models: { Order, User, StripeId },
@@ -9,7 +11,12 @@ const {
 //All Orders get route
 router.get('/orders', async (req, res, next) => {
   try {
-    const orders = await Order.findAll();
+    const orders = await Order.findAll({
+      include: {
+        all: true,
+        nested: true,
+      },
+    });
     res.status(200).send(orders);
   } catch (error) {
     next(error);
@@ -18,7 +25,12 @@ router.get('/orders', async (req, res, next) => {
 
 router.get('/orders/:id', async (req, res, next) => {
   try {
-    const order = await Order.findByPk(req.params.id);
+    const order = await Order.findByPk(req.params.id, {
+      include: {
+        all: true,
+        nested: true,
+      },
+    });
     res.send(order);
   } catch (error) {
     next(error);

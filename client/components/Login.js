@@ -5,6 +5,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateUser, loadUsers, resetPassword } from '../store/users';
 import { loginUser } from '../store/loginstate';
+
+import { TextField, Button, ThemeProvider } from '@material-ui/core';
+
 // fix login issues
 class LogIn extends React.Component {
   constructor(props) {
@@ -17,11 +20,6 @@ class LogIn extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  //  when the component mounts, it checks local storage for a token and if there is one, then it sets the local state's auth property to the user object. You can then use the 'auth object' in an if/else statement inside the render method to change the appearance of the component based on whether or not the auth property has a user or not (in other words, whether a user is logged in or not)
-  componentDidMount() {
-    //this.exchangeToken();
-  }
-
   onChange(event) {
     const change = {};
     change[event.target.name] = event.target.value;
@@ -32,7 +30,6 @@ class LogIn extends React.Component {
   handleLogin(event, email, password) {
     event.preventDefault();
     this.props.login(email, password);
-    // this.exchangeToken();
     window.location.hash = '/products';
   }
 
@@ -40,20 +37,42 @@ class LogIn extends React.Component {
     const { email, password } = this.state;
     const { onChange } = this;
     return (
-      <div>
-        <h4>Log In:</h4>
-        <form
-          onSubmit={(event) => {
-            return this.handleLogin(event, email, password);
-          }}
-        >
-          <label>Email Address:</label>
-          <input name="email" value={email} onChange={onChange} />
+      <div id="login-item">
+        <h4>Welcome to Global Snacker!</h4>
+        <h4>Please Log In:</h4>
+        <form>
+          {/* <label>Email Address:</label>
+          <input name="email" value={email} onChange={onChange} /> */}
+          <TextField
+            required
+            label="Email Address"
+            variant="outlined"
+            name="email"
+            value={email}
+            onChange={onChange}
+          />
           <br />
-          <label>Password:</label>
-          <input name="password" value={password} onChange={onChange} />
+          {/* <label>Password:</label>
+          <input name="password" value={password} onChange={onChange} /> */}
+          <TextField
+            required
+            label="Password"
+            variant="outlined"
+            name="password"
+            value={password}
+            onChange={onChange}
+          />
           <br />
-          <button>Log In</button>
+          <Button
+            id="login-button"
+            onClick={(event) => {
+              return this.handleLogin(event, email, password);
+            }}
+            variant="contained"
+            color="primary"
+          >
+            Log In
+          </Button>
         </form>
       </div>
     );

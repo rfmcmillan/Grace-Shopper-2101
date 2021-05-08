@@ -23,7 +23,7 @@ class DisplayMap extends Component {
     return (
       <LoadScript googleMapsApiKey={API_KEY}>
         <GoogleMap
-          zoom={4}
+          zoom={3}
           center={{ lat: 28.65643220817304, lng: 77.2411275855953 }}
           mapContainerStyle={{ height: '500px', width: '1000px' }}
         >

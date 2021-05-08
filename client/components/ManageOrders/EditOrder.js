@@ -13,6 +13,8 @@ class EditOrder extends Component {
       purchased_items: {},
       userId: '',
       status: '',
+      products: [],
+      total: 0,
       error: '',
     };
     this.onChange = this.onChange.bind(this);
@@ -22,6 +24,7 @@ class EditOrder extends Component {
 
   async componentDidMount() {
     await this.getCurrOrder();
+    this.getOrderTotal();
   }
 
   onChange(ev) {
@@ -42,6 +45,8 @@ class EditOrder extends Component {
         purchased_items,
         userId,
         status,
+        products,
+        total,
       } = this.state;
       update({
         id,
@@ -50,6 +55,8 @@ class EditOrder extends Component {
         purchased_items,
         userId,
         status,
+        products,
+        total,
       });
 
       history.push('/manage-orders');
@@ -67,6 +74,8 @@ class EditOrder extends Component {
       purchased_items,
       userId,
       status,
+      products,
+      total,
     } = currOrder;
     this.setState({
       id,
@@ -75,6 +84,8 @@ class EditOrder extends Component {
       purchased_items,
       userId,
       status,
+      products,
+      total,
     });
   }
 
@@ -86,49 +97,60 @@ class EditOrder extends Component {
       purchased_items,
       userId,
       status,
+      products,
+      total,
     } = this.state;
     const { onChange, onSave } = this;
     return (
       <div id="edit-order">
         <h3>Edit Order:</h3>
-        <form onSubmit={onSave}>
-          <label>Order ID: </label>
-          <span>{id}</span>
+        <div id="order-details">
+          <span>Order ID: {id}</span>
           <br />
           <span>User ID: {userId}</span>
           <br />
-          <label>Date:*</label>
-          <input
-            name="date_of_purchase"
-            value={date_of_purchase || ''}
-            type="date"
-            onChange={onChange}
-          />
+          <span>Date: {date_of_purchase || ''}</span>
           <br />
-          <label>Complete:</label>
-          <input name="complete" onChange={onChange} type="checkbox" />
+          <span>
+            Order Total: $
+            {products
+              ? products.reduce((total, product) => {
+                  return (total += product.price * 1);
+                }, 0)
+              : '0.00'}
+          </span>
           <br />
-          <label>Items:</label>
-          {/* {JSON.parse(purchased_items)} */}
+          <span>Items:</span>
+          <ul>
+            {products.map((product, idx) => {
+              return (
+                <li key={`name-${idx}`}>
+                  {product.brand} {product.title} ${product.price}
+                </li>
+              );
+            })}
+          </ul>
           <br />
-          <label>Status:</label>
-          <select name="status" value={status} onChange={onChange}>
-            <option key="created" value="Created">
-              Created
-            </option>
-            <option key="processing" value="Processing">
-              Processing
-            </option>
-            <option key="complete" value="Complete">
-              Complete
-            </option>
-            <option key="cancelled" value="Cancelled">
-              Cancelled
-            </option>
-          </select>
-          <br />
-          <button>Submit Changes</button>
-        </form>
+          <form onSubmit={onSave}>
+            <label>Status:</label>
+            <select name="status" value={status} onChange={onChange}>
+              <option key="created" value="Created">
+                Created
+              </option>
+              <option key="processing" value="Processing">
+                Processing
+              </option>
+              <option key="complete" value="Complete">
+                Complete
+              </option>
+              <option key="cancelled" value="Cancelled">
+                Cancelled
+              </option>
+            </select>
+            <br />
+            <button>Submit Changes</button>
+          </form>
+        </div>
       </div>
     );
   }

@@ -150,7 +150,7 @@ describe('Order model and join table defination', function () {
 
   describe('Order Routes', function () {
     describe('GET', function () {
-      it('/api/Orders', async function () {
+      xit('/api/Orders', async function () {
         const response = await app.get(`/api/order/cart/${user.cart}`);
         const cart = response.body;
         expect(response.status).to.equal(200);
@@ -169,7 +169,7 @@ describe('Order model and join table defination', function () {
     });
 
     describe('PUT/POST', function () {
-      it('/api/Orders/purchase', async function () {
+      xit('/api/Orders/purchase', async function () {
         const purchase = {
           date: '2016-05-06',
           orderId: order1.id,
@@ -182,7 +182,7 @@ describe('Order model and join table defination', function () {
         expect(order).to.exist;
         expect(order.purchased_items.length).to.equal(3);
       });
-      it('/api/order/updateCart', async function () {
+      xit('/api/order/updateCart', async function () {
         const update = {
           orderId: order1.id,
           productId: StrawberryPuff.id,
@@ -195,7 +195,7 @@ describe('Order model and join table defination', function () {
           cart.find((element) => element.title === 'Strawberry Puff').amount
         ).to.equal(15);
       });
-      it('/api/orders/addToCart', async function () {
+      xit('/api/orders/addToCart', async function () {
         const Tortas = await Product.create({
           title: 'Sweet Olive Oil Tortas',
           brand: 'Inés Rosales',

@@ -138,14 +138,14 @@ const postProduct = (newProduct) => {
   };
 };
 
-const deletingProduct = (productId) => {
-  return { type: DELETE_PRODUCT, productId };
+const deletingProduct = (id) => {
+  return { type: DELETE_PRODUCT, id };
 };
 
-const deleteProduct = (productId, history) => {
+const deleteProduct = (id, history) => {
   return async (dispatch) => {
-    await axios.delete(`/api/products/${productId}`);
-    dispatch(deletingProduct(productId));
+    await axios.delete(`/api/products/${id}`);
+    dispatch(deletingProduct(id));
     history.push('/manage-products');
   };
 };

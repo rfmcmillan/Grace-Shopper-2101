@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const LOAD_ORDERS = 'LOAD_ORDERS';
 const UPDATE_ORDER = 'UPDATE_ORDER';
+const FILTER_BY_STATUS = 'FILTER_BY_STATUS';
 
 //Create Action Creators & Thunks
 
@@ -37,6 +38,7 @@ const updateOrder = (order) => {
     purchased_items,
     userId,
     status,
+    products,
   } = order;
   return async (dispatch) => {
     const orderToUpdate = (
@@ -46,9 +48,30 @@ const updateOrder = (order) => {
         purchased_items,
         userId,
         status,
+        products,
       })
     ).data;
     dispatch(updateOrderActionCreator(orderToUpdate));
+  };
+};
+
+// filterByStatus Action Creator and Thunk
+const filterByStatusActionCreator = (status) => {
+  return {
+    type: FILTER_BY_STATUS,
+    status,
+  };
+};
+
+const filterByStatus = (status) => {
+  return async (dispatch) => {
+    try {
+      let orders = (await axios.get('/api/order/orders')).data;
+      orders = orders.filter((order) => order.status === status);
+      dispatch(filterByStatusActionCreator(status));
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
@@ -65,7 +88,14 @@ const ordersReducer = (state = [], action) => {
     });
     state = orders;
   }
+  if (action.type === FILTER_BY_STATUS) {
+    const orders = state.filter((order) => {
+      return order.status === action.status;
+    });
+
+    state = orders;
+  }
   return state;
 };
 export default ordersReducer;
-export { loadOrdersActionCreator, loadOrders, updateOrder };
+export { loadOrdersActionCreator, loadOrders, updateOrder, filterByStatus };

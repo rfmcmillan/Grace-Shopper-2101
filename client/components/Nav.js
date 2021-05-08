@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../store/loginstate';
 import { resetCart } from '../store/cart';
 
+import { AppBar, Button, ThemeProvider, Tab } from '@material-ui/core';
+
 class Nav extends React.Component {
   constructor() {
     super();
@@ -21,7 +23,6 @@ class Nav extends React.Component {
       <div className="navBar">
         <Link to="/">The Global Snacker</Link>
         <Link to="/products"> Products</Link>
-        <input type="text" placeholder="search" />
         {this.props.login.email ? (
           <div>
             <h5 id="logged">
@@ -45,15 +46,14 @@ class Nav extends React.Component {
         <Link to="/manage-users">Manage Users</Link>
         <Link to="/cart">
           Cart(
-          {this.props.cart.length}
-          )
+          {this.props.cart.length})
         </Link>
       </div>
     ) : (
       <div className="navBar">
         <Link to="/">The Global Snacker</Link>
         <Link to="/products"> Products</Link>
-        <input type="text" placeholder="search" />
+
         {this.props.login.email ? (
           <div>
             <h5 id="logged">
@@ -75,8 +75,7 @@ class Nav extends React.Component {
         )}
         <Link to="/cart">
           Cart(
-          {this.props.cart.length}
-          )
+          {this.props.cart.length})
         </Link>
       </div>
     );

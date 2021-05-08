@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../store/users';
+import { Button, TextField } from '@material-ui/core';
 
 class CreateAccount extends Component {
   constructor() {
@@ -38,22 +39,46 @@ class CreateAccount extends Component {
     const { onChange, onSave } = this;
 
     return (
-      <div>
+      <div id="login-contain">
         <h4 id="add-user">Create Account:</h4>
-        <form onSubmit={onSave}>
-          <label>Email Address:</label>
-          <input name="email" value={email} onChange={onChange} />
-          <br />
-          <label>Password:</label>
-          <input name="password" value={password} onChange={onChange} />
-          <br />
-          <label>First Name:</label>
-          <input name="firstName" value={firstName} onChange={onChange} />
-          <br />
-          <label>Last Name:</label>
-          <input name="lastName" value={lastName} onChange={onChange} />
-          <br />
-          <button>Create Account</button>
+        <form id="create-form" onSubmit={onSave}>
+          <TextField
+            required
+            label="Email Address"
+            variant="outlined"
+            name="email"
+            value={email}
+            onChange={onChange}
+          />
+
+          <TextField
+            required
+            label="Password"
+            name="password"
+            variant="outlined"
+            value={password}
+            onChange={onChange}
+          />
+
+          <TextField
+            label="First Name"
+            name="firstName"
+            variant="outlined"
+            value={firstName}
+            onChange={onChange}
+          />
+
+          <TextField
+            label="Last Name"
+            name="lastName"
+            variant="outlined"
+            value={lastName}
+            onChange={onChange}
+          />
+
+          <Button id="create-button" variant="contained" onClick={onSave}>
+            Create Account
+          </Button>
         </form>
       </div>
     );
