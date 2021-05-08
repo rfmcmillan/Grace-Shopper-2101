@@ -199,6 +199,7 @@ body {
   padding: 0.2em;
   border-radius: 0.4em;
   width: 33%;
+  list-style-type: none;
 }
 
 #create-product {

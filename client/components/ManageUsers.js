@@ -7,6 +7,15 @@ import {
   updateUser,
   triggerPasswordReset,
 } from '../store/users';
+import {
+  Button,
+  TextField,
+  Select,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core';
 
 class ManageUsers extends React.Component {
   constructor(props) {
@@ -89,16 +98,21 @@ class ManageUsers extends React.Component {
                     {user.passwordResetTriggered.toString()}
                   </li> */}
                 </ul>
-                <button
+                <Button
                   type="button"
                   id="mainButtons"
+                  variant="outlined"
                   onClick={() => destroy(user)}
                 >
                   Delete
-                </button>
-                <button type="button" onClick={() => makeAdmin(user)}>
+                </Button>
+                <Button
+                  variant="outlined"
+                  type="button"
+                  onClick={() => makeAdmin(user)}
+                >
                   {user.admin ? 'Remove Admin Status' : 'Make Admin'}
-                </button>
+                </Button>
 
                 {/* {user.passwordResetTriggered ? (
                   ''
