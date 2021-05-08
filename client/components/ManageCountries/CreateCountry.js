@@ -1,7 +1,8 @@
+/* eslint-disable react/button-has-type */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { postCountry } from '../../store/countries';
+import { postCountry, loadCountries, deleteCountry } from '../../store/countries';
 
 class CreateCountry extends Component {
   constructor(props) {
@@ -18,6 +19,10 @@ class CreateCountry extends Component {
     this.onSave = this.onSave.bind(this);
   }
 
+  componentDidMount() {
+    this.props.load();
+  }
+
   onChange(event) {
     const { name } = event.target;
     const { value } = event.target;
@@ -28,8 +33,12 @@ class CreateCountry extends Component {
     const { create, history } = this.props;
     ev.preventDefault();
     try {
-      const { name, flag, latitude, longitude } = this.state;
-      await create({ name, flag, latitude, longitude });
+      const {
+        name, flag, latitude, longitude,
+      } = this.state;
+      await create({
+        name, flag, latitude, longitude,
+      });
       this.setState(this.originalState);
       // this.props.postCountry(
       //   this.state.name,
@@ -43,9 +52,10 @@ class CreateCountry extends Component {
   }
 
   render() {
-    const { name, flag, latitude, longitude } = this.state;
+    const {
+      name, flag, latitude, longitude,
+    } = this.state;
     const { onChange, onSave } = this;
-
     return (
       <div id="create-country">
         <h3>Add A Country:</h3>
@@ -77,19 +87,53 @@ class CreateCountry extends Component {
             <Link to="/">Cancel</Link>
           </button>
         </form>
+        <div id="country list">
+          <ul key="key">
+            {this.props.countries.map((e) => {
+              return (
+                <div>
+                  <ul key={`${e.id}`}>
+                    <li id="name">
+                      {e.name}
+                      <i className={`em ${e.flag}`} />
+                    </li>
+                    <li id="latitude">
+                      Latitude:
+                      {' '}
+                      {e.latitude}
+                      , Longitude:
+                      {' '}
+                      {e.longitude}
+                    </li>
+                    <button onClick={() => { this.props.delete(e.id); }}>Delete</button>
+                    <br />
+                    <br />
+                  </ul>
+                </div>
+              );
+            })}
+          </ul>
+
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return state;
+const mapStateToProps = ({ countries }) => {
+  return { countries };
 };
 
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     create: (newCountry) => {
       return dispatch(postCountry(newCountry, history));
+    },
+    load: () => {
+      return dispatch(loadCountries());
+    },
+    delete: (id) => {
+      return dispatch(deleteCountry(id));
     },
   };
 };

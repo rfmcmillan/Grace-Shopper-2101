@@ -44,6 +44,7 @@ class Nav extends React.Component {
         <Link to="/manage-products">Manage Products</Link>
         <Link to="/manage-orders">Manage Orders</Link>
         <Link to="/manage-users">Manage Users</Link>
+        <Link to="/manage-countries"> Manage Countries</Link>
         <Link to="/cart">
           Cart(
           {this.props.cart.length})
