@@ -113,7 +113,7 @@ body {
   color: black;
   margin-top: 0.2rem;
   text-decoration: underline;
-  font-weight: bold;
+  font-weight: lighter;
 }
 .product > a {
   text-decoration: none;
