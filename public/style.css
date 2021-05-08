@@ -111,7 +111,8 @@ body {
   text-decoration: none;
 }
 
-#allProducts, #accountOrders {
+#allProducts,
+#accountOrders {
   display: flex;
   flex-wrap: wrap;
 }
@@ -298,4 +299,14 @@ body {
   background-color: darkseagreen;
 }
 
+.account {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+#manage-account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
