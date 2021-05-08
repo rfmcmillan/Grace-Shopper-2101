@@ -74,7 +74,7 @@ class ManageProducts extends React.Component {
             return (
               <div key={idx} className="product-manage">
                 <img src={imageUrl} alt="snack" width="100" />
-                <ul id="product-manage">
+                <ul>
                   <li>Title: {title}</li>
                   <li>Brand: {brand}</li>
                   <li>Description: {description}</li>

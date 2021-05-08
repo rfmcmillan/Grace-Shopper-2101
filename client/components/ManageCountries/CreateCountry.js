@@ -2,7 +2,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { postCountry, loadCountries, deleteCountry } from '../../store/countries';
+import {
+  postCountry,
+  loadCountries,
+  deleteCountry,
+} from '../../store/countries';
+
+import {
+  Button,
+  TextField,
+  Select,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core';
 
 class CreateCountry extends Component {
   constructor(props) {
@@ -33,11 +47,12 @@ class CreateCountry extends Component {
     const { create, history } = this.props;
     ev.preventDefault();
     try {
-      const {
-        name, flag, latitude, longitude,
-      } = this.state;
+      const { name, flag, latitude, longitude } = this.state;
       await create({
-        name, flag, latitude, longitude,
+        name,
+        flag,
+        latitude,
+        longitude,
       });
       this.setState(this.originalState);
       // this.props.postCountry(
@@ -52,60 +67,82 @@ class CreateCountry extends Component {
   }
 
   render() {
-    const {
-      name, flag, latitude, longitude,
-    } = this.state;
+    const { name, flag, latitude, longitude } = this.state;
     const { onChange, onSave } = this;
     return (
       <div id="create-country">
         <h3>Add A Country:</h3>
         <form onSubmit={onSave} action="/">
-          <label htmlFor="title">Name*:</label>
-          <input name="name" value={name} onChange={onChange} />
+          <TextField
+            label="Name"
+            required
+            variant="outlined"
+            name="name"
+            value={name}
+            onChange={onChange}
+          />
           <br />
-          <label htmlFor="flag">Flag:</label>
-          <input name="flag" value={flag} onChange={onChange} />
+
+          <TextField
+            label="Flag"
+            required
+            variant="outlined"
+            name="flag"
+            value={flag}
+            onChange={onChange}
+          />
           <br />
-          <label htmlFor="latitude">Latitude:</label>
-          <input
+
+          <TextField
+            label="Latitude"
+            required
+            variant="outlined"
             type="number"
             name="latitude"
             value={latitude}
             onChange={onChange}
           />
           <br />
-          <label htmlFor="longitude">Longitude:</label>
-          <input
+
+          <TextField
+            label="Longitude"
+            required
+            variant="outlined"
             type="number"
             name="longitude"
             value={longitude}
             onChange={onChange}
           />
           <br />
-          <button onClick={onSave}>Save</button>
-          <button>
+          <Button variant="outlined" id="quick-add" onClick={onSave}>
+            Save
+          </Button>
+          <Button variant="outlined" id="quick-add">
             <Link to="/">Cancel</Link>
-          </button>
+          </Button>
         </form>
         <div id="country list">
           <ul key="key">
             {this.props.countries.map((e) => {
               return (
                 <div>
-                  <ul key={`${e.id}`}>
+                  <ul id="country-manage" key={`${e.id}`}>
                     <li id="name">
                       {e.name}
                       <i className={`em ${e.flag}`} />
                     </li>
                     <li id="latitude">
-                      Latitude:
-                      {' '}
-                      {e.latitude}
-                      , Longitude:
-                      {' '}
-                      {e.longitude}
+                      Latitude: {e.latitude}, Longitude: {e.longitude}
                     </li>
-                    <button onClick={() => { this.props.delete(e.id); }}>Delete</button>
+                    <Button
+                      variant="outlined"
+                      id="quick-add"
+                      onClick={() => {
+                        this.props.delete(e.id);
+                      }}
+                    >
+                      Delete
+                    </Button>
                     <br />
                     <br />
                   </ul>
@@ -113,7 +150,6 @@ class CreateCountry extends Component {
               );
             })}
           </ul>
-
         </div>
       </div>
     );

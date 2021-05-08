@@ -197,16 +197,15 @@ class CreateProduct extends Component {
             <FormHelperText>Required</FormHelperText>
           </FormControl>
 
-          <div>
-            <Button
-              variant="contained"
-              id="quick-add"
-              type="submit"
-              onClick={onSave}
-            >
-              Create Product
-            </Button>
-          </div>
+          <br />
+          <Button
+            variant="outlined"
+            id="quick-add"
+            type="submit"
+            onClick={onSave}
+          >
+            Create Product
+          </Button>
         </form>
       </div>
     );
