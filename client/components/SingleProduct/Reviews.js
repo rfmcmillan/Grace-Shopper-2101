@@ -17,14 +17,15 @@ const Reviews = ({ reviews }) => {
             return (
               <li key={review.id} className="review;">
                 <div>
-                  Text:
-                  {review.text}
                   Rating:
                   {review.rating}
+                  <br />
                   User:
-                  {`${review.user.firstName} ${review.user.lastName}`}
+                  {` ${review.user.firstName} ${review.user.lastName}`}
+                  <br />
                   When:
                   {timeAgo(review.createdAt)}
+                  <br />"{review.text}"
                 </div>
               </li>
             );
