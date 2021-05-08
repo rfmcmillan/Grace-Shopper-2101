@@ -98,22 +98,24 @@ class ManageUsers extends React.Component {
                     {user.passwordResetTriggered.toString()}
                   </li> */}
                 </ul>
-                <Button
-                  type="button"
-                  id="mainButtons"
-                  variant="outlined"
-                  onClick={() => destroy(user)}
-                >
-                  Delete
-                </Button>
-                <Button
-                  variant="outlined"
-                  type="button"
-                  onClick={() => makeAdmin(user)}
-                >
-                  {user.admin ? 'Remove Admin Status' : 'Make Admin'}
-                </Button>
-
+                <div id="button-contain">
+                  <Button
+                    type="button"
+                    id="user-button"
+                    variant="outlined"
+                    onClick={() => destroy(user)}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    id="user-button"
+                    type="button"
+                    onClick={() => makeAdmin(user)}
+                  >
+                    {user.admin ? 'Remove Admin Status' : 'Make Admin'}
+                  </Button>
+                </div>
                 {/* {user.passwordResetTriggered ? (
                   ''
                 ) : (

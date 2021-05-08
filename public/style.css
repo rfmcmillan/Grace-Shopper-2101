@@ -236,6 +236,9 @@ body {
   border-radius: 0.4em;
   width: 33%;
 }
+.product-manage > ul {
+  list-style-type: none;
+}
 
 #manage-orders {
   padding: 0.5rem;
@@ -248,6 +251,7 @@ body {
   padding: 0.2em;
   border-radius: 0.4em;
   width: 33%;
+  list-style-type: none;
 }
 
 #edit-order {
@@ -369,4 +373,26 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#button-contain {
+  display: flex;
+  flex-direction: row;
+  width: 33%;
+}
+#user-button {
+  flex: 1;
+}
+
+#country-manage {
+  border: 0.1em;
+  border-style: solid;
+  margin: 0.5em;
+  padding: 0.2em;
+  border-radius: 0.4em;
+  width: 33%;
+  list-style-type: none;
+}
+#create-country {
+  margin-left: 2em;
 }
