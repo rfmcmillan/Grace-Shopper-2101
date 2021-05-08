@@ -25,7 +25,6 @@ class NewReview extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.updateReviews = updateReviews;
-    console.log(checkIfReviewed(userId, reviews));
   }
 
   async handleSubmit(ev) {

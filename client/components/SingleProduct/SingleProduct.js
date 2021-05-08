@@ -48,8 +48,7 @@ class SingleProduct extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log('clicked');
-    console.log('evt.target:', evt.target);
+
     const amount = evt.target.amount.value;
     const product = this.props.product;
     let cart = null;
@@ -159,7 +158,6 @@ class SingleProduct extends Component {
 }
 
 const mapStateToProps = (state, otherProps) => {
-  console.log(state.login);
   return {
     product: state.currProduct,
     reviews: state.currProduct.reviews,

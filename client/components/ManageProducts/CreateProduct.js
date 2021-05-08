@@ -87,7 +87,7 @@ class CreateProduct extends Component {
     } = this.state;
     const { onChange, onSave } = this;
     const { countries, categories } = this.props;
-    console.log(categories);
+
     return (
       <div>
         <h3>Add A Product:</h3>
