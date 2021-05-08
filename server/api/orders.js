@@ -130,8 +130,8 @@ router.post('/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'],
       line_items: results,
       mode: 'payment',
-      success_url: 'http://localhost:3000/#/cart?success=true',
-      cancel_url: 'http://localhost:3000/#/cart?canceled=true',
+      success_url: 'https://global-snacker-2101.herokuapp.com/#/cart?success=true',
+      cancel_url: 'https://global-snacker-2101.herokuapp.com/#/cart?canceled=true',
     });
     res.json({ id: session.id });
   });
