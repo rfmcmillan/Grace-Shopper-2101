@@ -111,7 +111,7 @@ body {
   text-decoration: none;
 }
 
-#allProducts {
+#allProducts, #accountOrders {
   display: flex;
   flex-wrap: wrap;
 }
@@ -280,8 +280,22 @@ body {
   justify-content: center;
   flex: 1;
   max-width: 100vw;
+}
 .allProductImage {
   width: 300px;
   height: 330px;
   /* Or You can try 250/280 */
+}
+
+.singlePurchase {
+  margin: 1rem;
+  width: calc(100% / 3 - 2rem - 12px);
+  min-width: 300px;
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 0.3em;
+  filter: drop-shadow(5px 4px 4px rgb(115, 153, 115));
+  background-color: darkseagreen;
+}
+
 }

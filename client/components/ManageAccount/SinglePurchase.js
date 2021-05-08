@@ -8,12 +8,10 @@ const SinglePurchase = ({ purchase }) => {
       <h3>Ordered on {purchase.date_of_purchase}</h3>
       <ul>
         {purchased_items.map((item) => {
-          {
-            total += parseFloat(item.price);
-          }
+          total += parseFloat(item.price);
           return (
             <li key={item.id}>
-              {item.title}, Amount: {item.amount}, Price: {item.price}{' '}
+              {item.title}, Amount: {item.amount}, Price: {item.price}
             </li>
           );
         })}

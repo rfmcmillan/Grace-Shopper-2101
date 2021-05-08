@@ -38,10 +38,10 @@ class ViewAccount extends React.Component {
           <li>Email: {login.email}</li>
           <Link to="/update-account">Update Info</Link>
         </ul>
-        {purchases.length ? (
-          <div>
-            <h2>Past Orders</h2>
+        <h2>Past Orders</h2>
 
+        {purchases.length ? (
+          <div id="accountOrders">
             {purchases.map((purchase) => {
               return <SinglePurchase key={purchase.id} purchase={purchase} />;
             })}
