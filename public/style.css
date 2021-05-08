@@ -225,6 +225,9 @@ body {
 
 #logged {
   color: black;
+  margin-top: .6rem;
+  word-wrap: break-word;
+
 }
 
 #login-contain {

@@ -152,14 +152,7 @@ class AllProducts extends Component {
                   src={product.imageUrl}
                   alt={product.description}
                 />
-
-                {/* <button
-                  onClick={() => {
-                    this.handleClick(product);
-                  }}
-                >
-                  Quick Add
-                </button> */}
+                <br />
                 <Button
                   id="quick-add"
                   variant="contained"

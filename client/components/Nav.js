@@ -23,60 +23,67 @@ class Nav extends React.Component {
       <div className="navBar">
         <Link to="/">The Global Snacker</Link>
         <Link to="/products"> Products</Link>
-        {this.props.login.email ? (
-          <div>
-            <h5 id="logged">
-              logged in as:
-              {this.props.login.email}
-            </h5>
-            <button
-              onClick={() => {
-                this.props.logOut();
-                this.props.clearCart();
-              }}
-            >
-              logout
-            </button>
-          </div>
-        ) : (
-          <Link to="/login">Log in</Link>
-        )}
+
         <Link to="/manage-products">Manage Products</Link>
         <Link to="/manage-orders">Manage Orders</Link>
         <Link to="/manage-users">Manage Users</Link>
+
         <Link to="/cart">
           Cart(
           {this.props.cart.length})
         </Link>
+        {this.props.login.email ? (
+          <span id="logged">
+            logged in as:
+            {this.props.login.email}
+          </span>
+        ) : (
+          <Link to="/login">Log in</Link>
+        )}
+        {this.props.login.email ? (
+          <Button
+            id="quick-add"
+            onClick={() => {
+              this.props.logOut();
+              this.props.clearCart();
+            }}
+          >
+            logout
+          </Button>
+        ) : (
+          ''
+        )}
       </div>
     ) : (
       <div className="navBar">
         <Link to="/">The Global Snacker</Link>
         <Link to="/products"> Products</Link>
 
-        {this.props.login.email ? (
-          <div>
-            <h5 id="logged">
-              logged in as:
-              {this.props.login.email}
-            </h5>
-            <button
-              type="submit"
-              onClick={() => {
-                this.props.logOut();
-                this.props.clearCart();
-              }}
-            >
-              logout
-            </button>
-          </div>
-        ) : (
-          <Link to="/login">Log in</Link>
-        )}
         <Link to="/cart">
           Cart(
           {this.props.cart.length})
         </Link>
+        {this.props.login.email ? (
+          <span id="logged">
+            logged in as:
+            {this.props.login.email}
+          </span>
+        ) : (
+          <Link to="/login">Log in</Link>
+        )}
+        {this.props.login.email ? (
+          <Button
+            id="quick-add"
+            onClick={() => {
+              this.props.logOut();
+              this.props.clearCart();
+            }}
+          >
+            logout
+          </Button>
+        ) : (
+          ''
+        )}
       </div>
     );
   }

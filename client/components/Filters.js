@@ -112,7 +112,12 @@ const Filters = (props) => {
             defaultValue="45"
           />
 
-          <Button variant="contained" color="default" type="submit">
+          <Button
+            id="quick-add"
+            variant="contained"
+            color="default"
+            type="submit"
+          >
             Reset
           </Button>
         </Grid>
