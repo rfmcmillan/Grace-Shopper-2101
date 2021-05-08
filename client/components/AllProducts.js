@@ -239,7 +239,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(loadCategories());
     },
     addItem: (productId, cart) => {
-      dispatch(addToCart(productId, cart));
+      dispatch(addToCart(productId, cart, 1));
     },
 
     filterByRating: (rating) => {
