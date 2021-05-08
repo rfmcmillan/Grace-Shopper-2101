@@ -20,7 +20,7 @@ class CreateProduct extends Component {
       price: '',
       inventory: '',
       imageUrl: '',
-      // location didn't work because location already references the current url
+      // location didn't work  because location already references the current url
       countryId: '',
       categories: [],
     };
