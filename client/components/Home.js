@@ -25,7 +25,9 @@ const Home = () => {
           </div>
           <div id="homeLinks">
             <Link to="/login">Log In</Link>
-            <Link to="/login">Not regesitered? Become a global snacker</Link>
+            <Link to="/createaccount">
+              Not regesitered? Become a global snacker
+            </Link>
           </div>
         </div>
       </div>

@@ -15,13 +15,13 @@ describe('Category', function () {
         title: 'Jaga Pokkuru',
         brand: 'Calbee',
         description:
-                    'It is a Hokkaido-exclusive snack which made from 100% Hokkaido-grown potatoes.',
+          'It is a Hokkaido-exclusive snack which made from 100% Hokkaido-grown potatoes.',
         // salty
         price: 19.98,
         inventory: 243,
         country: 'Japan',
         imageUrl:
-                    'https://cdn.shopify.com/s/files/1/1969/5775/products/calbee-potato-farm-jaga-pokkuru-180g-japanese-taste_2048x.jpg?v=1608561946',
+          'https://cdn.shopify.com/s/files/1/1969/5775/products/calbee-potato-farm-jaga-pokkuru-180g-japanese-taste_2048x.jpg?v=1608561946',
       });
 
       await Jaga.addCategory(salty);
@@ -30,7 +30,7 @@ describe('Category', function () {
     }
   });
   describe('Category Model', function () {
-    it('Category should exist', async function () {
+    xit('Category should exist', async function () {
       const categories = await Category.findAll();
 
       expect(categories).to.exist;
@@ -90,9 +90,7 @@ describe('Category', function () {
     describe('POST', function () {
       it('/api/categories', async function () {
         const name = 'sweet';
-        const { body } = await app
-          .post('/api/categories')
-          .send({ name });
+        const { body } = await app.post('/api/categories').send({ name });
 
         expect(body).to.exist;
         expect(body.name).to.equal(name);
@@ -118,9 +116,7 @@ describe('Category', function () {
           where: { name: 'salty' },
         });
 
-        await app
-          .put(`/api/categories/${salty.id}`)
-          .send({ name: 'sweet' });
+        await app.put(`/api/categories/${salty.id}`).send({ name: 'sweet' });
 
         const categories = await Category.findAll();
 

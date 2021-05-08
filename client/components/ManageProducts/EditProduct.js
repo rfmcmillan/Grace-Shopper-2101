@@ -5,6 +5,15 @@ import { connect } from 'react-redux';
 import { deleteProduct, updateProduct } from '../../store/products/products.js';
 import { loadCountries } from '../../store/countries';
 import { loadCategories } from '../../store/categories';
+import {
+  Button,
+  TextField,
+  Select,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core';
 
 class EditProduct extends Component {
   constructor(props) {
@@ -127,22 +136,42 @@ class EditProduct extends Component {
         <form onSubmit={onSave}>
           <label htmlFor="title">Title*:</label>
           <br />
-          <input name="title" value={title} onChange={onChange} />
+          <TextField
+            required
+            variant="outlined"
+            name="title"
+            value={title}
+            onChange={onChange}
+          />
           <br />
 
           <label htmlFor="brand">Brand*:</label>
           <br />
-          <input name="brand" value={brand} onChange={onChange} />
+          <TextField
+            required
+            variant="outlined"
+            name="brand"
+            value={brand}
+            onChange={onChange}
+          />
           <br />
 
           <label htmlFor="description">Description*:</label>
           <br />
-          <input name="description" value={description} onChange={onChange} />
+          <TextField
+            required
+            variant="outlined"
+            name="description"
+            value={description}
+            onChange={onChange}
+          />
           <br />
 
           <label htmlFor="price">Price:*</label>
           <br />
-          <input
+          <TextField
+            required
+            variant="outlined"
             name="price"
             type="number"
             value={price}
@@ -153,7 +182,9 @@ class EditProduct extends Component {
 
           <label htmlFor="inventory">Inventory*:</label>
           <br />
-          <input
+          <TextField
+            required
+            variant="outlined"
             name="inventory"
             value={inventory}
             type="number"
@@ -163,20 +194,28 @@ class EditProduct extends Component {
 
           <label htmlFor="imageUrl">Image Url*:</label>
           <br />
-          <input name="imageUrl" value={imageUrl} onChange={onChange} />
+          <TextField
+            required
+            variant="outlined"
+            name="imageUrl"
+            value={imageUrl}
+            onChange={onChange}
+          />
           <br />
 
-          <label htmlFor="countryId">Country*:</label>
           <br />
-          <select value={countryId} name="countryId" onChange={onChange}>
-            {countries.map((country) => {
-              return (
-                <option key={country.id} value={country.id}>
-                  {country.name}
-                </option>
-              );
-            })}
-          </select>
+          <FormControl variant="outlined">
+            <InputLabel id="edit-country">Country</InputLabel>
+            <Select value={countryId} name="countryId" onChange={onChange}>
+              {countries.map((country) => {
+                return (
+                  <option key={country.id} value={country.id}>
+                    {country.name}
+                  </option>
+                );
+              })}
+            </Select>
+          </FormControl>
           <br />
 
           <label htmlFor="categories">Categories*:</label>
@@ -196,28 +235,32 @@ class EditProduct extends Component {
             })}
           </select>
           <br />
-          <button id="edit-prod-btn" type="submit">
+          <Button variant="contained" id="quick-add" type="submit">
             Submit Changes
-          </button>
+          </Button>
         </form>
 
-        <button
+        <Button
           type="submit"
+          variant="contained"
+          id="quick-add"
           onClick={() => {
             deleteProduct(id);
           }}
         >
           Delete Product
-        </button>
+        </Button>
 
-        <button
+        <Button
           type="submit"
+          variant="contained"
+          id="quick-add"
           onClick={() => {
             return this.props.history.push('/manage-products');
           }}
         >
           Cancel
-        </button>
+        </Button>
       </div>
     );
   }
