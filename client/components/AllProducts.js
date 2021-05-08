@@ -122,6 +122,7 @@ class AllProducts extends Component {
             filterByPrice={this.byPrice}
             filterByCountry={this.byCountry}
             sortByInput={this.sortByInput}
+            filterByValue={this.props.filterByValue}
             reset={this.reset}
             name={name}
           />
