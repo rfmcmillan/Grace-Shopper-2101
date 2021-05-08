@@ -11,15 +11,17 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+const useStyles = makeStyles((theme) => {
+  return {
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  };
+});
 
 const Filters = (props) => {
   const classes = useStyles();
@@ -32,7 +34,13 @@ const Filters = (props) => {
     sortByInput,
     reset,
     name,
+    filterByValue,
   } = props;
+
+  function handleChange(e) {
+    const input = e.target.value;
+    filterByValue(input);
+  }
 
   return (
     <div id="filter">
@@ -82,15 +90,16 @@ const Filters = (props) => {
             </Select>
           </FormControl>
 
-          <TextField type="text" placeholder="search" />
+          <TextField type="text" placeholder="search" onChange={(e) => { handleChange(e); }} />
           <FormControl className={classes.formControl}>
             <InputLabel id="sort-by-label" htmlFor="sorting">
-              Sort By:{' '}
+              Sort By:
+              {' '}
             </InputLabel>
             <Select
               labelId="sort-by-label"
               id="sort-by"
-              defaultValue={'sort'}
+              defaultValue="sort"
               name="sorting"
               onChange={sortByInput}
             >
