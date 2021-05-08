@@ -1,7 +1,18 @@
 const router = require('express').Router();
 const {
-  models: { Category },
+  models: { Category, User },
 } = require('../db');
+
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.byToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
 // categories
 router.get('/', async (req, res, next) => {
@@ -24,7 +35,7 @@ router.get('/:category', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
     const { name } = req.body;
     const newCategory = await Category.create({ name });
@@ -34,7 +45,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const { id } = req.params;
     const toDestroy = await Category.findByPk(id);
@@ -44,7 +55,7 @@ router.delete('/:id', async (req, res, next) => {
     next(error);
   }
 });
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, async (req, res, next) => {
   try {
     const { id } = req.params;
     const category = await Category.findByPk(id);

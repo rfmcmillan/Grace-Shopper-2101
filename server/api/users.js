@@ -6,7 +6,18 @@ const {
   models: { User, Review },
 } = require('../db');
 
-router.get('/', async (req, res, next) => {
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.byToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+router.get('/', requireToken, async (req, res, next) => {
   try {
     const users = await User.findAll({
       include: Review,
@@ -18,7 +29,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id, { include: Review });
     res.send(user);
@@ -27,7 +38,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
     const { email, password, firstName, lastName } = req.body;
     const user = await User.create({ email, password, firstName, lastName });
@@ -37,7 +48,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const userToDelete = await User.findByPk(req.params.id);
     await userToDelete.destroy();
@@ -47,7 +58,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, async (req, res, next) => {
   try {
     const userToModify = await User.findByPk(req.params.id);
     const updated = await userToModify.update(req.body);

@@ -1,7 +1,18 @@
 const router = require('express').Router();
 const {
-  models: { Product, Country, Category },
+  models: { Product, Country, Category, User },
 } = require('../db');
+
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.byToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
 router.get('/', async (req, res, next) => {
   try {
@@ -23,7 +34,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const DeleteProduct = await Product.destroy({
       where: { id: req.params.id },
@@ -57,14 +68,13 @@ router.post('/', async (req, res, next) => {
       countryId,
     });
     await createProduct.setCategories(categories);
-    console.log('CREATE PRODUCT', createProduct);
     res.status(201).send(createProduct);
   } catch (ex) {
     next(ex);
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, async (req, res, next) => {
   try {
     let productToModify = await Product.findByPk(req.params.id);
 

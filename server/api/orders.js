@@ -8,8 +8,22 @@ const {
   models: { Order, User, StripeId },
 } = require('../db');
 
+
+
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.byToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 //All Orders get route
-router.get('/orders', async (req, res, next) => {
+router.get('/orders', requireToken, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       include: {
@@ -23,7 +37,7 @@ router.get('/orders', async (req, res, next) => {
   }
 });
 
-router.get('/orders/:id', async (req, res, next) => {
+router.get('/orders/:id', requireToken, async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id, {
       include: {
@@ -48,7 +62,7 @@ router.post('/purchase', async (req, res, next) => {
   }
 });
 
-router.get('/cart/:id', async (req, res, next) => {
+router.get('/cart/:id', requireToken, async (req, res, next) => {
   try {
     const { id } = req.params;
     const cart = await User.getCart(id);
@@ -58,7 +72,7 @@ router.get('/cart/:id', async (req, res, next) => {
   }
 });
 
-router.get('/purchases/:id', async (req, res, next) => {
+router.get('/purchases/:id', requireToken, async (req, res, next) => {
   try {
     const { id } = req.params;
     const purchases = await User.findPurchases(id);
@@ -69,7 +83,7 @@ router.get('/purchases/:id', async (req, res, next) => {
 });
 
 //Order Put Route
-router.put('/orders/:id', async (req, res, next) => {
+router.put('/orders/:id', requireToken, async (req, res, next) => {
   try {
     const orderToModify = await Order.findByPk(req.params.id);
     const updated = await orderToModify.update(req.body);
