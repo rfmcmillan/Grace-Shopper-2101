@@ -58,8 +58,14 @@ class ManageUsers extends React.Component {
   render() {
     const { auth } = this.state;
     const { makeAdmin } = this;
-    const { users, destroy, load, trigger } = this.props;
-    if (!auth.admin) {
+    const {
+      users,
+      destroy,
+      load,
+      trigger,
+      login: { admin },
+    } = this.props;
+    if (!admin) {
       return (
         <div>
           <h4>You are not authorized to view this page.</h4>

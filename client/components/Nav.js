@@ -23,10 +23,10 @@ class Nav extends React.Component {
       <div className="navBar">
         <Link to="/">The Global Snacker</Link>
         <Link to="/products"> Products</Link>
-
         <Link to="/manage-products">Manage Products</Link>
         <Link to="/manage-orders">Manage Orders</Link>
         <Link to="/manage-users">Manage Users</Link>
+        <Link to="/manage-countries">Manage Countries</Link>
 
         <Link to="/cart">
           Cart(
@@ -34,10 +34,13 @@ class Nav extends React.Component {
         </Link>
 
         {this.props.login.email ? (
-          <span id="logged">
-            logged in as:
-            {this.props.login.email}
-          </span>
+          <Link to="/view-account">
+            <span id="logged">
+              {`
+             logged in as:
+             ${this.props.login.email}`}
+            </span>
+          </Link>
         ) : (
           <Link to="/login">Log in</Link>
         )}
@@ -65,10 +68,13 @@ class Nav extends React.Component {
           {this.props.cart.length})
         </Link>
         {this.props.login.email ? (
-          <span id="logged">
-            logged in as:
-            {this.props.login.email}
-          </span>
+          <Link to="/view-account">
+            <span id="logged">
+              {`
+          logged in as:
+          ${this.props.login.email}`}
+            </span>
+          </Link>
         ) : (
           <Link to="/login">Log in</Link>
         )}

@@ -39,11 +39,13 @@ class ManageProducts extends React.Component {
   }
 
   render() {
-    const { countries } = this.props;
+    const {
+      login: { admin },
+    } = this.props;
     const { products } = this.props.products;
     const { auth } = this.state;
     const {} = this;
-    if (!auth.admin) {
+    if (!admin) {
       return (
         <div>
           <h4>You are not authorized to view this page.</h4>

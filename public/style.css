@@ -38,9 +38,12 @@ body {
   height: 25%;
   padding: 15%;
 }
-/* #test {
-  .flex: 1 200px;
-} */
+#test {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 #all-snacks-btn {
   text-decoration: none;
