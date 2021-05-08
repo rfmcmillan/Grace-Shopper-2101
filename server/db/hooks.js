@@ -27,7 +27,7 @@ Order.addProducts = function (orderId, dupletsarr) {
       where: { orderId, productId: i[0] },
     });
     if (pair) {
-      pair.product_amount++;
+      pair.product_amount += i[1];
       await pair.save();
     } else {
       promises.push(
