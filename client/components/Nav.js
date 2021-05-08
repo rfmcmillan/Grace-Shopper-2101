@@ -32,6 +32,7 @@ class Nav extends React.Component {
           Cart(
           {this.props.cart.length})
         </Link>
+
         {this.props.login.email ? (
           <span id="logged">
             logged in as:
