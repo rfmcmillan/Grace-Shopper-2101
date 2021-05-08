@@ -53,10 +53,10 @@ class CreateCountry extends Component {
           <label htmlFor="title">Name*:</label>
           <input name="name" value={name} onChange={onChange} />
           <br />
-          <label htmlFor="flag">Flag*:</label>
+          <label htmlFor="flag">Flag:</label>
           <input name="flag" value={flag} onChange={onChange} />
           <br />
-          <label htmlFor="latitude">Latitude*:</label>
+          <label htmlFor="latitude">Latitude:</label>
           <input
             type="number"
             name="latitude"
@@ -64,7 +64,7 @@ class CreateCountry extends Component {
             onChange={onChange}
           />
           <br />
-          <label htmlFor="longitude">Longitude*:</label>
+          <label htmlFor="longitude">Longitude:</label>
           <input
             type="number"
             name="longitude"

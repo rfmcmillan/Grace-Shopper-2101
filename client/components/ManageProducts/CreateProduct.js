@@ -9,6 +9,7 @@ import {
   FormControl,
   FormHelperText,
   InputLabel,
+  MenuItem,
 } from '@material-ui/core';
 
 class CreateProduct extends Component {
@@ -86,7 +87,7 @@ class CreateProduct extends Component {
     } = this.state;
     const { onChange, onSave } = this;
     const { countries, categories } = this.props;
-
+    console.log(categories);
     return (
       <div>
         <h3>Add A Product:</h3>
@@ -150,39 +151,41 @@ class CreateProduct extends Component {
           />
           <br />
           <FormControl variant="outlined">
-            <InputLabel>Country</InputLabel>
+            <InputLabel id="select-country">Country</InputLabel>
             <Select
+              labelId="select-country"
               id="select-manage-products"
               name="countryId"
               onChange={onChange}
             >
               {countries.map((country) => {
                 return (
-                  <option key={country.id} value={country.id}>
+                  <MenuItem key={country.id} value={country.id}>
                     {country.name}
-                  </option>
+                  </MenuItem>
                 );
               })}
             </Select>
             <FormHelperText>Required</FormHelperText>
           </FormControl>
-          <FormControl variant="outlined">
-            <InputLabel>Category</InputLabel>
+          {/* <FormControl variant="outlined">
+            <InputLabel id="select-category">Category</InputLabel>
             <Select
+              labelId="select-category"
               id="select-manage-products"
-              name="categories"
+              name="categoryId"
               onChange={onChange}
             >
               {categories.map((category) => {
                 return (
-                  <option key={category.id} value={category.id}>
+                  <MenuItem key={category.id} value={category.id}>
                     {category.name}
-                  </option>
+                  </MenuItem>
                 );
               })}
             </Select>
             <FormHelperText>Required</FormHelperText>
-          </FormControl>
+          </FormControl> */}
 
           <br />
           <Button

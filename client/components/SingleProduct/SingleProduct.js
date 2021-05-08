@@ -120,7 +120,7 @@ class SingleProduct extends Component {
           )}
           <Reviews reviews={reviews} />
         </div>
-        <div>
+        <div id="singleProduct">
           {' '}
           <img
             id="single-product-img"
@@ -128,7 +128,7 @@ class SingleProduct extends Component {
             alt={product.description}
           />
         </div>
-        <div>
+        <div id="singleProduct">
           <h2>${product.price}</h2>
           <hr></hr>
           <form onSubmit={this.handleSubmit}>

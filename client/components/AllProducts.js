@@ -131,8 +131,9 @@ class AllProducts extends Component {
               return (
                 <div key={product.id} className="product">
                   <Link to={`/products/${product.id}`}>
-                    <h3 id="product-link">{`${product.title}`}</h3>
+                    <h2 id="product-link">{`${product.title}`}</h2>
                   </Link>
+
                   <span>
                     {product.country.name}
                     <i className={`em ${product.country.flag}`} />
@@ -146,6 +147,7 @@ class AllProducts extends Component {
                   </span>
 
                   <span id="price">${product.price}</span>
+                  <hr />
                   <br />
                   <img
                     className="allProductImage"
