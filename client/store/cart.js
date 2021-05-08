@@ -16,7 +16,6 @@ const cartReducer = (state = [], action) => {
       return [...action.cart];
     }
     case ADD_TO_CART: {
-      console.log(action)
       const key = state.find((e) => { return e.id === action.product.id; });
       if (key) {
         // eslint-disable-next-line operator-assignment

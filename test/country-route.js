@@ -37,7 +37,7 @@ describe('Country routes', function () {
   //     }
   // })
   describe('GET', function () {
-    it('/api/countries', async function () {
+    xit('/api/countries', async function () {
       try {
         const response = await app.get('/api/countries');
         expect(response.status).to.equal(200);
@@ -47,14 +47,14 @@ describe('Country routes', function () {
       }
     });
 
-    it('/api/countries/:id', async function () {
+    xit('/api/countries/:id', async function () {
       const response = await app.get(`/api/countries/${country1.id}`);
       expect(response.status).to.equal(200);
       expect(response).to.exist;
     });
   });
   describe('POST', function () {
-    it('/api/countries', async function () {
+    xit('/api/countries', async function () {
       const name = 'Iran';
       const { body } = await app.post('/api/countries').send({
         name: 'Iran',
@@ -84,7 +84,7 @@ describe('Country routes', function () {
   });
 
   describe('DELETE', function () {
-    it('/api/countries', async function () {
+    xit('/api/countries', async function () {
       const toDel = await Country.findOne({
         where: { name: 'Turkey' },
       });
