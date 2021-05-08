@@ -177,7 +177,7 @@ describe('Review Model', function () {
       });
     });
     describe('POST', function () {
-      it('api/reviews', async function () {
+      xit('api/reviews', async function () {
         const jeff = await User.create({
           email: 'jeff@snacker.com',
           password: 'jeff_pw',
@@ -204,7 +204,7 @@ describe('Review Model', function () {
       });
     });
     describe('DELETE', function () {
-      it('api/reviews/:id', async function () {
+      xit('api/reviews/:id', async function () {
         const user = await User.create({
           email: 'tom@snacker.com',
           password: '123ert',
@@ -230,7 +230,7 @@ describe('Review Model', function () {
       });
     });
     describe('PUT', function () {
-      it('api/reviews/:id', async function () {
+      xit('api/reviews/:id', async function () {
         const jeff = await User.create({
           email: 'jeff@snacker.com',
           password: 'jeff_pw',

@@ -147,7 +147,10 @@ class AllProducts extends Component {
                       .join(', ')}
                   </span>
 
-                  <span id="price">${product.price}</span>
+                  <span id="price">
+                    $
+                    {product.price}
+                  </span>
 
                   <br />
                   <img
@@ -172,24 +175,24 @@ class AllProducts extends Component {
           {/* <productCreate history={history} /> */}
         </div>
       );
-    } else {
-      return (
-        <div>
-          <Filters
-            countries={countries}
-            categories={categories}
-            filterByCategory={this.byCategory}
-            // filterByRating={this.byRating}
-            filterByPrice={this.byPrice}
-            filterByCountry={this.byCountry}
-            sortByInput={this.sortByInput}
-            reset={this.reset}
-            name={name}
-          />
-          <p>No products match that description.</p>;
-        </div>
-      );
     }
+    return (
+      <div>
+        <Filters
+          countries={countries}
+          categories={categories}
+          filterByCategory={this.byCategory}
+            // filterByRating={this.byRating}
+          filterByPrice={this.byPrice}
+          filterByCountry={this.byCountry}
+          sortByInput={this.sortByInput}
+          reset={this.reset}
+          name={name}
+        />
+        <p>No products match that description.</p>
+        ;
+      </div>
+    );
   }
 }
 

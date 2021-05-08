@@ -6,6 +6,17 @@ const {
   models: { User, Review, Product },
 } = require('../db');
 
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.byToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 router.get('/', async (req, res, next) => {
   try {
     const reviews = await Review.findAll({
@@ -28,7 +39,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
     const { userId, productId, rating, text } = req.body;
     const review = await Review.writeNew(userId, productId, rating, text);
@@ -38,7 +49,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const review = await Review.findByPk(req.params.id);
     await review.destroy();
@@ -48,7 +59,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, async (req, res, next) => {
   try {
     const reviewToModify = await Review.findByPk(req.params.id);
     const updated = await reviewToModify.update(req.body);

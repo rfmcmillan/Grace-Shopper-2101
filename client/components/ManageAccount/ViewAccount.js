@@ -94,7 +94,7 @@ class ViewAccount extends React.Component {
           />
 
           <Button type="submit" variant="contained" id="quick-add">
-            Create Account
+            Update Account
           </Button>
         </form>
 
