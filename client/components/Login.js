@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { updateUser, loadUsers, resetPassword } from '../store/users';
 import { loginUser } from '../store/loginstate';
 
+import { TextField, Button, ThemeProvider } from '@material-ui/core';
+
 // fix login issues
 class LogIn extends React.Component {
   constructor(props) {
@@ -35,20 +37,42 @@ class LogIn extends React.Component {
     const { email, password } = this.state;
     const { onChange } = this;
     return (
-      <div>
-        <h4>Log In:</h4>
-        <form
-          onSubmit={(event) => {
-            return this.handleLogin(event, email, password);
-          }}
-        >
-          <label>Email Address:</label>
-          <input name="email" value={email} onChange={onChange} />
+      <div id="login-item">
+        <h4>Welcome to Global Snacker!</h4>
+        <h4>Please Log In:</h4>
+        <form>
+          {/* <label>Email Address:</label>
+          <input name="email" value={email} onChange={onChange} /> */}
+          <TextField
+            required
+            label="Email Address"
+            variant="outlined"
+            name="email"
+            value={email}
+            onChange={onChange}
+          />
           <br />
-          <label>Password:</label>
-          <input name="password" value={password} onChange={onChange} />
+          {/* <label>Password:</label>
+          <input name="password" value={password} onChange={onChange} /> */}
+          <TextField
+            required
+            label="Password"
+            variant="outlined"
+            name="password"
+            value={password}
+            onChange={onChange}
+          />
           <br />
-          <button>Log In</button>
+          <Button
+            id="login-button"
+            onClick={(event) => {
+              return this.handleLogin(event, email, password);
+            }}
+            variant="contained"
+            color="primary"
+          >
+            Log In
+          </Button>
         </form>
       </div>
     );
