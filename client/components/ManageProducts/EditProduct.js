@@ -235,14 +235,14 @@ class EditProduct extends Component {
             })}
           </select>
           <br />
-          <Button variant="contained" id="quick-add" type="submit">
+          <Button variant="outlined" id="quick-add" type="submit">
             Submit Changes
           </Button>
         </form>
 
         <Button
           type="submit"
-          variant="contained"
+          variant="outlined"
           id="quick-add"
           onClick={() => {
             deleteProduct(id);
@@ -253,7 +253,7 @@ class EditProduct extends Component {
 
         <Button
           type="submit"
-          variant="contained"
+          variant="outlined"
           id="quick-add"
           onClick={() => {
             return this.props.history.push('/manage-products');

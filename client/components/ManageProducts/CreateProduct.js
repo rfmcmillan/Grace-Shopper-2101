@@ -189,7 +189,7 @@ class CreateProduct extends Component {
 
           <br />
           <Button
-            variant="contained"
+            variant="outlined"
             id="quick-add"
             type="submit"
             onClick={onSave}
