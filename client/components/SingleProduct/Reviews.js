@@ -25,7 +25,8 @@ const Reviews = ({ reviews }) => {
                   <br />
                   When:
                   {timeAgo(review.createdAt)}
-                  <br />"{review.text}"
+                  <br />
+                  {review.text}
                 </div>
               </li>
             );
