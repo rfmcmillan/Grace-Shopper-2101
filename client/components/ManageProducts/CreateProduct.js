@@ -8,6 +8,7 @@ import {
   Select,
   FormControl,
   FormHelperText,
+  InputLabel,
 } from '@material-ui/core';
 
 class CreateProduct extends Component {
@@ -20,7 +21,7 @@ class CreateProduct extends Component {
       price: '',
       inventory: '',
       imageUrl: '',
-      // location didn't work  because location already references the current url
+      // location didn't work because location already references the current url
       countryId: '',
       categories: [],
     };
@@ -149,8 +150,12 @@ class CreateProduct extends Component {
           />
           <br />
           <FormControl variant="outlined">
-            <Select defaultValue="default" name="countryId" onChange={onChange}>
-              <option value="default">Country</option>
+            <InputLabel>Country</InputLabel>
+            <Select
+              id="select-manage-products"
+              name="countryId"
+              onChange={onChange}
+            >
               {countries.map((country) => {
                 return (
                   <option key={country.id} value={country.id}>
@@ -162,13 +167,12 @@ class CreateProduct extends Component {
             <FormHelperText>Required</FormHelperText>
           </FormControl>
           <FormControl variant="outlined">
+            <InputLabel>Category</InputLabel>
             <Select
-              defaultValue="default"
+              id="select-manage-products"
               name="categories"
               onChange={onChange}
             >
-              {' '}
-              <option value="default">Category</option>;
               {categories.map((category) => {
                 return (
                   <option key={category.id} value={category.id}>

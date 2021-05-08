@@ -110,65 +110,83 @@ class AllProducts extends Component {
   render() {
     const { products, categories, countries } = this.props;
     const name = this.props.match.params.name || 'default';
+    if (products.length) {
+      return (
+        <div id="main">
+          <Filters
+            countries={countries}
+            categories={categories}
+            filterByCategory={this.byCategory}
+            // filterByRating={this.byRating}
+            filterByPrice={this.byPrice}
+            filterByCountry={this.byCountry}
+            sortByInput={this.sortByInput}
+            reset={this.reset}
+            name={name}
+          />
+          <h1 id="products-title">Products</h1>
 
-    return (
-      <div id="main">
-        <Filters
-          countries={countries}
-          categories={categories}
-          filterByCategory={this.byCategory}
-          // filterByRating={this.byRating}
-          filterByPrice={this.byPrice}
-          filterByCountry={this.byCountry}
-          sortByInput={this.sortByInput}
-          reset={this.reset}
-          name={name}
-        />
-        <h1 id="products-title">Products</h1>
+          <div id="allProducts">
+            {products.map((product) => {
+              return (
+                <div key={product.id} className="product">
+                  <Link to={`/products/${product.id}`}>
+                    <h3 id="product-link">{`${product.title}`}</h3>
+                  </Link>
+                  <span>
+                    {product.country.name}
+                    <i className={`em ${product.country.flag}`} />
+                  </span>
+                  <span id="item-category">
+                    {product.categories
+                      .map((category) => {
+                        return category.name;
+                      })
+                      .join(', ')}
+                  </span>
 
-        <div id="allProducts">
-          {products.map((product) => {
-            return (
-              <div key={product.id} className="product">
-                <Link to={`/products/${product.id}`}>
-                  <h3 id="product-link">{`${product.title}`}</h3>
-                </Link>
-                <span>
-                  {product.country.name}
-                  <i className={`em ${product.country.flag}`} />
-                </span>
-                <span id="item-category">
-                  {product.categories
-                    .map((category) => {
-                      return category.name;
-                    })
-                    .join(', ')}
-                </span>
-
-                <span id="price">${product.price}</span>
-                <br />
-                <img
-                  className="allProductImage"
-                  src={product.imageUrl}
-                  alt={product.description}
-                />
-                <br />
-                <Button
-                  id="quick-add"
-                  variant="contained"
-                  onClick={() => {
-                    this.handleClick(product);
-                  }}
-                >
-                  Add Product
-                </Button>
-              </div>
-            );
-          })}
+                  <span id="price">${product.price}</span>
+                  <br />
+                  <img
+                    className="allProductImage"
+                    src={product.imageUrl}
+                    alt={product.description}
+                  />
+                  <br />
+                  <Button
+                    id="quick-add"
+                    variant="contained"
+                    onClick={() => {
+                      this.handleClick(product);
+                    }}
+                  >
+                    Add Product
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+          {/* <productCreate history={history} /> */}
         </div>
-        {/* <productCreate history={history} /> */}
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>
+          <Filters
+            countries={countries}
+            categories={categories}
+            filterByCategory={this.byCategory}
+            // filterByRating={this.byRating}
+            filterByPrice={this.byPrice}
+            filterByCountry={this.byCountry}
+            sortByInput={this.sortByInput}
+            reset={this.reset}
+            name={name}
+          />
+          <p>No products match that description.</p>;
+        </div>
+      );
+    }
   }
 }
 

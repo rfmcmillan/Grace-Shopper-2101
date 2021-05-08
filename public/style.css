@@ -123,6 +123,9 @@ body {
 .card {
   margin: 1rem;
 }
+#single-product-img {
+  max-width: 500px;
+}
 
 .product {
   margin: 1rem;
@@ -149,6 +152,22 @@ body {
   width: 300px;
 }
 
+#add-to-cart-btn {
+  margin-top: 20px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+#select-manage-products {
+  min-width: 80px;
+}
+
+#single-contain {
+  margin-top: 250px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
 #map {
   height: 300px;
   width: 200px;
@@ -225,9 +244,8 @@ body {
 
 #logged {
   color: black;
-  margin-top: .6rem;
+  margin-top: 0.6rem;
   word-wrap: break-word;
-
 }
 
 #login-contain {
@@ -283,6 +301,7 @@ body {
   justify-content: center;
   flex: 1;
   max-width: 100vw;
+}
 .allProductImage {
   width: 300px;
   height: 330px;
