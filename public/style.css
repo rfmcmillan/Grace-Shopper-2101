@@ -216,6 +216,16 @@ body {
 #edit-user {
   margin: 2em;
 }
+#edit-product {
+  margin-left: 1em;
+}
+#edit-prod-btn {
+  margin-top: 0.5em;
+}
+
+#edit-product > input {
+  min-width: 100px;
+}
 
 .product-manage {
   border: 0.1em;
