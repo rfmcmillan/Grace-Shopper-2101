@@ -60,12 +60,12 @@ const Filters = (props) => {
               value={name}
               onChange={filterByCountry}
             >
-              <option value="all">All</option>
+              {/* <MenuItem value="all">All</MenuItem> */}
               {countries.map((country) => {
                 return (
-                  <option key={country.id} value={country.name}>
+                  <MenuItem key={country.id} value={country.name}>
                     {country.name}
-                  </option>
+                  </MenuItem>
                 );
               })}
             </Select>
@@ -79,12 +79,12 @@ const Filters = (props) => {
               name="categories"
               onChange={filterByCategory}
             >
-              <option value="ALL">All</option>
+              {/* <MenuItem value="ALL">All</MenuItem> */}
               {categories.map((category) => {
                 return (
-                  <option key={category.id} value={category.name}>
+                  <MenuItem key={category.id} value={category.name}>
                     {category.name}
-                  </option>
+                  </MenuItem>
                 );
               })}
             </Select>
@@ -121,7 +121,12 @@ const Filters = (props) => {
             defaultValue="45"
           />
 
-          <Button variant="contained" color="default" type="submit">
+          <Button
+            id="quick-add"
+            variant="contained"
+            color="default"
+            type="submit"
+          >
             Reset
           </Button>
         </Grid>
