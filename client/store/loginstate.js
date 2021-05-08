@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
+const PURCHASE_ITEMS = 'PURCHASE_ITEMS';
 
 // Create Action Creators & Thunks
 
@@ -30,7 +31,6 @@ const loginUser = (email, password) => {
   };
 };
 
-
 const _logoutUser = (user_data) => {
   return {
     type: LOGOUT_USER,
@@ -53,6 +53,9 @@ const loginReducer = (state = [], action) => {
   }
   if (action.type === LOGOUT_USER) {
     return intialstate;
+  }
+  if (action.type === PURCHASE_ITEMS) {
+    return { ...state, cart: action.id };
   }
   return state;
 };

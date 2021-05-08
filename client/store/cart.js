@@ -8,6 +8,7 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const UPDATE_AMOUNT = 'UPDATE_AMOUNT';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const CLEAR_CART = 'CLEAR_CART';
+const PURCHASE_ITEMS = 'PURCHASE_ITEMS';
 
 const cartReducer = (state = [], action) => {
   switch (action.type) {
@@ -32,6 +33,9 @@ const cartReducer = (state = [], action) => {
     }
     case CLEAR_CART: {
       return action.cart;
+    }
+    case PURCHASE_ITEMS: {
+      return [];
     }
     default: {
       return state;
@@ -116,7 +120,20 @@ const resetCart = () => {
   };
 };
 
+const _purchaseItems = (id = null) => {
+  return { type: PURCHASE_ITEMS, id };
+};
+
+const purchaseItems = (date, items, orderId, userId) => {
+  return async (dispatch) => {
+    const { data } = await axios.post('api/order/purchase', {
+      date, items, orderId, userId,
+    });
+    dispatch(_purchaseItems(data));
+  };
+};
+
 export {
-  loadCart, addToCart, updateCart, removeItem, resetCart,
+  loadCart, addToCart, updateCart, removeItem, resetCart, purchaseItems,
 };
 export default cartReducer;

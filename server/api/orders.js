@@ -28,9 +28,9 @@ router.get('/orders/:id', async (req, res, next) => {
 // Purchase Order route
 router.post('/purchase', async (req, res, next) => {
   try {
-    const { date, orderId, products, userId } = req.body;
-    const order = await Order.purchase(date, orderId, products, userId);
-    res.status(200).send({ order });
+    const { date, items, orderId, userId } = req.body;
+    const id = await Order.purchase(date, items, orderId, userId);
+    res.status(200).send(id);
   } catch (err) {
     next(err);
   }
@@ -91,7 +91,7 @@ router.post('/create-checkout-session', async (req, res) => {
   const products = req.body;
   const promises = [];
   const Ids = [];
-  for (i of products) {
+  for (const i of products) {
     promises.push(StripeId.findOne({ where: { productId: i.id } }));
   }
   Promise.all(promises).then((results) => {
@@ -104,8 +104,8 @@ router.post('/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'],
       line_items: results,
       mode: 'payment',
-      success_url: 'http://localhost:3000/#/order?success=true',
-      cancel_url: 'http://localhost:3000/#/order?canceled=true',
+      success_url: 'http://localhost:3000/#/cart?success=true',
+      cancel_url: 'http://localhost:3000/#/cart?canceled=true',
     });
     res.json({ id: session.id });
   });
