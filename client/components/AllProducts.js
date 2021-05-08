@@ -147,7 +147,7 @@ class AllProducts extends Component {
                   </span>
 
                   <span id="price">${product.price}</span>
-                  <hr />
+
                   <br />
                   <img
                     className="allProductImage"
