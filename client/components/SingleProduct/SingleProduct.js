@@ -48,8 +48,7 @@ class SingleProduct extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-
-    const amount = evt.target.amount.value;
+    const amount = parseInt(evt.target.amount.value);
     const product = this.props.product;
     let cart = null;
     if (this.props.login.cart) {
@@ -57,7 +56,7 @@ class SingleProduct extends Component {
     }
 
     //ADD AMOUNT
-    this.props.addItem(product, cart);
+    this.props.addItem(product, cart, amount);
     this.setState({ addedToCart: true });
   }
 
@@ -171,8 +170,8 @@ const mapDispatchToProps = (dispatch, { history }) => {
     getProduct: (id) => {
       dispatch(getSingleProduct(id));
     },
-    addItem: (productId, cart) => {
-      dispatch(addToCart(productId, cart));
+    addItem: (product, cart, amount) => {
+      dispatch(addToCart(product, cart, amount));
     },
   };
 };

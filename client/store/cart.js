@@ -16,12 +16,14 @@ const cartReducer = (state = [], action) => {
       return [...action.cart];
     }
     case ADD_TO_CART: {
+      console.log(action)
       const key = state.find((e) => { return e.id === action.product.id; });
       if (key) {
-        key.amount++;
+        // eslint-disable-next-line operator-assignment
+        key.amount = key.amount + action.amount;
         return [...state];
       }
-      return [...state, { ...action.product, amount: 1 }];
+      return [...state, { ...action.product, amount: action.amount }];
     }
     case UPDATE_AMOUNT: {
       const key = state.find((e) => { return e.id === action.update.productId; });
@@ -59,17 +61,17 @@ const loadCart = (id) => {
     }
   };
 };
-const _addToCart = (product) => {
-  return { type: ADD_TO_CART, product };
+const _addToCart = (product, amount) => {
+  return { type: ADD_TO_CART, product, amount };
 };
 
-const addToCart = (product, cart = null) => {
+const addToCart = (product, cart = null, amount) => {
   return async (dispatch) => {
     try {
       if (cart) {
-        await axios.put('/api/order/addToCart', { orderId: cart, products: [[product.id, 1]] });
+        await axios.put('/api/order/addToCart', { orderId: cart, products: [[product.id, amount]] });
       }
-      dispatch(_addToCart(product));
+      dispatch(_addToCart(product, amount));
     } catch (err) {
       console.log(err);
     }
