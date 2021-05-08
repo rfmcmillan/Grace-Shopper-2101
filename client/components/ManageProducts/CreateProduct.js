@@ -86,7 +86,7 @@ class CreateProduct extends Component {
     const { onChange, onSave } = this;
     const { countries, categories } = this.props;
     return (
-      <div>
+      <div className="products-forms">
         <h3>Add A Product:</h3>
         <form id="create-product-form">
           <TextField
@@ -197,15 +197,16 @@ class CreateProduct extends Component {
             <FormHelperText>Required</FormHelperText>
           </FormControl>
 
-          <br />
-          <Button
-            variant="contained"
-            id="quick-add"
-            type="submit"
-            onClick={onSave}
-          >
-            Create Product
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              id="quick-add"
+              type="submit"
+              onClick={onSave}
+            >
+              Create Product
+            </Button>
+          </div>
         </form>
       </div>
     );
