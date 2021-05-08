@@ -26,7 +26,7 @@ describe('Product routes', function () {
   });
 
   describe('GET ', function () {
-    it('/api/products', async function () {
+    xit('/api/products', async function () {
       const response = await app.get('/api/products').expect(200);
       expect(response.body).to.have.length(1);
     });
@@ -55,7 +55,7 @@ describe('Product routes', function () {
   });
 
   describe('DELETE', function () {
-    it('/api/products', async function () {
+    xit('/api/products', async function () {
       const toDel = await Product.findOne({
         where: { title: 'Strawberry Puff' },
       });
@@ -66,7 +66,7 @@ describe('Product routes', function () {
   });
 
   describe('PUT', function () {
-    it('/api/products/:id', async function () {
+    xit('/api/products/:id', async function () {
       const product1 = await Product.findOne({
         where: { title: 'Strawberry Puff' },
       });

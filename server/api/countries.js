@@ -1,7 +1,18 @@
 const router = require('express').Router();
 const {
-  models: { Product, Country },
+  models: { Product, Country, User },
 } = require('../db');
+
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.byToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
 router.get('/', async (req, res, next) => {
   try {
@@ -23,7 +34,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const DeleteCountry = await Country.destroy({
       where: { id: req.params.id },
@@ -35,7 +46,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
     const { name, flag, latitude, longitude } = req.body;
     const createCountry = await Country.create({
@@ -50,7 +61,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, async (req, res, next) => {
   try {
     const countryToModify = await Country.findByPk(req.params.id);
     const { name, flag, lat, lon } = await countryToModify.update(req.body);
