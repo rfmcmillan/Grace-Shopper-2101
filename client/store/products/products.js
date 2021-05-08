@@ -47,8 +47,14 @@ function sortDesPrice(arr, field) {
 }
 
 const productReducer = (
-  state = { products: [], max: Infinity, category: 'ALL', appliedFilters: [], filteredProducts: [] },
-  action,
+  state = {
+    products: [],
+    max: Infinity,
+    category: 'ALL',
+    appliedFilters: [],
+    filteredProducts: [],
+  },
+  action
 ) => {
   switch (action.type) {
     case LOAD_PRODUCTS: {
@@ -106,7 +112,7 @@ const productReducer = (
       const { value } = action.value;
       const filteredValues = state.products.filter((product) => {
         // look for objects with the received value in their ‘name’ or ‘designer’ fields
-        return product.title.toLowerCase().includes(value)
+        return product.title.toLowerCase().includes(value);
       });
 
       let appliedFilters = state.appliedFilters;
@@ -114,9 +120,10 @@ const productReducer = (
       if (value) {
         // check if the filter already exists in the tracking array
         const index = appliedFilters.indexOf(FILTER_BY_VALUE);
-        if (index === -1)
-        // if it doesn’t, add it.
-        { appliedFilters.push(FILTER_BY_VALUE); }
+        if (index === -1) {
+          // if it doesn’t, add it.
+          appliedFilters.push(FILTER_BY_VALUE);
+        }
         // change the filtered products to reflect the change
         newState.filteredProducts = filteredValues;
       } else {
@@ -175,7 +182,7 @@ const postingProduct = (product) => {
   return { type: POST_PRODUCT, product };
 };
 
-const postProduct = (newProduct) => {
+const postProduct = (newProduct, history) => {
   return async (dispatch) => {
     const product = (await axios.post('/api/products', newProduct)).data;
     dispatch(postingProduct(product));

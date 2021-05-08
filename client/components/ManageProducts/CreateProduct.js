@@ -35,9 +35,7 @@ class CreateProduct extends Component {
     const change = {};
     let { categories } = this.state;
     if (ev.target.name === 'categories') {
-      categories = [...ev.target.selectedOptions].map((selected) => {
-        return selected.value;
-      });
+      categories = ev.target.value;
     }
     change[ev.target.name] = ev.target.value;
     change.categories = categories;
@@ -87,9 +85,8 @@ class CreateProduct extends Component {
     } = this.state;
     const { onChange, onSave } = this;
     const { countries, categories } = this.props;
-
     return (
-      <div>
+      <div className="products-forms">
         <h3>Add A Product:</h3>
         <form id="create-product-form">
           <TextField
@@ -127,6 +124,11 @@ class CreateProduct extends Component {
             value={price}
             type="number"
             min="0"
+            InputProps={{
+              inputProps: {
+                min: 0,
+              },
+            }}
             onChange={onChange}
           />
 
@@ -137,7 +139,11 @@ class CreateProduct extends Component {
             variant="outlined"
             value={inventory}
             type="number"
-            min="1"
+            InputProps={{
+              inputProps: {
+                min: 0,
+              },
+            }}
             onChange={onChange}
           />
 
@@ -157,6 +163,7 @@ class CreateProduct extends Component {
               id="select-manage-products"
               name="countryId"
               onChange={onChange}
+              value={this.state.countryId}
             >
               {countries.map((country) => {
                 return (
@@ -168,13 +175,16 @@ class CreateProduct extends Component {
             </Select>
             <FormHelperText>Required</FormHelperText>
           </FormControl>
-          {/* <FormControl variant="outlined">
+
+          <FormControl variant="outlined">
             <InputLabel id="select-category">Category</InputLabel>
             <Select
               labelId="select-category"
               id="select-manage-products"
-              name="categoryId"
+              name="categories"
               onChange={onChange}
+              multiple
+              value={this.state.categories}
             >
               {categories.map((category) => {
                 return (
@@ -185,17 +195,18 @@ class CreateProduct extends Component {
               })}
             </Select>
             <FormHelperText>Required</FormHelperText>
-          </FormControl> */}
+          </FormControl>
 
-          <br />
-          <Button
-            variant="contained"
-            id="quick-add"
-            type="submit"
-            onClick={onSave}
-          >
-            Create Product
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              id="quick-add"
+              type="submit"
+              onClick={onSave}
+            >
+              Create Product
+            </Button>
+          </div>
         </form>
       </div>
     );

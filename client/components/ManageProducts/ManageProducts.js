@@ -80,8 +80,8 @@ class ManageProducts extends React.Component {
                   <li>Description: {description}</li>
                   <li>Price: {price}</li>
                   <li>Inventory: {inventory}</li>
-                  {/* <li>Country:{country ? country.name : ''}</li> */}
-                  {/* <li>Categories: {categories.join(', ')}</li> */}
+                  <li>Country:{country ? country.name : ''}</li>
+                  <li>Categories: {categories.join(', ')}</li>
                 </ul>
                 <Link to={`/manage-products/${product.id}`}>Edit</Link>
               </div>

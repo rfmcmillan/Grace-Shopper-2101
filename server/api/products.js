@@ -77,7 +77,9 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', requireToken, async (req, res, next) => {
   try {
-    let productToModify = await Product.findByPk(req.params.id);
+    let productToModify = await Product.findByPk(req.params.id, {
+      include: [Country, Category],
+    });
 
     const {
       title,
