@@ -37,7 +37,7 @@ class Cart extends Component {
       this.props.purchase(date, items, orderId, userId);
     }
     if (query.get('canceled')) {
-      setMessage(
+      window.alert(
         "Order canceled -- continue to shop around and checkout when you're ready.",
       );
     }

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button, Card } from '@material-ui/core';
 import {
   loadProducts,
   loadFilteredProducts,
@@ -10,12 +11,12 @@ import {
   filterByRating,
   sortByAlpha,
   sortByPrice,
+  sortBySearch,
 } from '../store/products/products';
 import { addToCart } from '../store/cart';
 import { loadCountries } from '../store/countries';
 import { loadCategories } from '../store/categories';
 import Filters from './Filters';
-import { Button, Card } from '@material-ui/core';
 
 class AllProducts extends Component {
   constructor(props) {
@@ -215,7 +216,7 @@ const mapStateToProps = (state) => {
     cart,
     user,
   } = state;
-  let { products } = state.products;
+  let products = state.products.filteredProducts;
   products = filterHelper(products, max, category);
   if (!products) {
     return "There's no products now...";
@@ -266,6 +267,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     sortByAlpha: (direction) => {
       return dispatch(sortByAlpha(direction));
+    },
+    filterByValue: (input) => {
+      return dispatch(sortBySearch({ value: input }));
     },
   };
 };
