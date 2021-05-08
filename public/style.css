@@ -40,7 +40,7 @@ body {
   align-items: center;
   flex-direction: column;
   height: 25%;
-  padding: 15%;
+  padding: 5%;
 }
 #test {
   position: fixed;
