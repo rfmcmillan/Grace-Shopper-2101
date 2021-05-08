@@ -6,11 +6,8 @@ import { connect } from 'react-redux';
 import { updateUser, loadUsers, resetPassword } from '../store/users';
 import { loginUser } from '../store/loginstate';
 
-<<<<<<< HEAD
 import { TextField, Button, ThemeProvider } from '@material-ui/core';
 
-=======
->>>>>>> main
 // fix login issues
 class LogIn extends React.Component {
   constructor(props) {

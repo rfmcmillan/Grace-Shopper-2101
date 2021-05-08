@@ -82,17 +82,6 @@ const Filters = (props) => {
             </Select>
           </FormControl>
 
-          <label htmlFor="price"> Max Price</label>
-          <input
-            id="slider"
-            type="range"
-            name="price"
-            min="0"
-            max="45"
-            onChange={filterByPrice}
-            defaultValue="45"
-          />
-
           <TextField type="text" placeholder="search" />
           <FormControl className={classes.formControl}>
             <InputLabel id="sort-by-label" htmlFor="sorting">
@@ -112,6 +101,16 @@ const Filters = (props) => {
               <option value="price_des">High-Low</option>
             </Select>
           </FormControl>
+          <label htmlFor="price"> Max Price</label>
+          <input
+            id="slider"
+            type="range"
+            name="price"
+            min="0"
+            max="45"
+            onChange={filterByPrice}
+            defaultValue="45"
+          />
 
           <Button variant="contained" color="default" type="submit">
             Reset
