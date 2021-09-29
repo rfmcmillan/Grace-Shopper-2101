@@ -6,7 +6,6 @@ import {
   MenuItem,
   TextField,
   Button,
-  Slider,
   Grid,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -90,11 +89,16 @@ const Filters = (props) => {
             </Select>
           </FormControl>
 
-          <TextField type="text" placeholder="search" onChange={(e) => { handleChange(e); }} />
+          <TextField
+            type="text"
+            placeholder="search"
+            onChange={(e) => {
+              handleChange(e);
+            }}
+          />
           <FormControl className={classes.formControl}>
             <InputLabel id="sort-by-label" htmlFor="sorting">
-              Sort By:
-              {' '}
+              Sort By:{' '}
             </InputLabel>
             <Select
               labelId="sort-by-label"
