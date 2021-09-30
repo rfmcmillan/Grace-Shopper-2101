@@ -20,6 +20,7 @@ import Filters from './Filters';
 
 const AllProducts = (props) => {
   const { name } = props.match.params;
+  // const name = this.props.match.params.name || 'default';
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries);
   const products = useSelector((state) => state.products);
@@ -27,16 +28,9 @@ const AllProducts = (props) => {
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
   const categories = useSelector((state) => state.categories);
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {};
-  // this.byCategory = this.byCategory.bind(this);
-  // this.byPrice = this.byPrice.bind(this);
-  // this.byCountry = this.byCountry.bind(this);
-  // this.sortByInput = this.sortByInput.bind(this);
-  // this.reset = this.reset.bind(this);
-  // }
+  let { filteredProducts } = products;
+  const allProducts = products.products;
+  const { max, category } = products;
 
   console.log('name:', name);
   useEffect(() => {
@@ -49,28 +43,10 @@ const AllProducts = (props) => {
     }
   }, []);
 
-  // componentDidMount() {
-  //   const {
-  //     loadAllProducts,
-  //     loadAllCountries,
-  //     loadAllCategories,
-  //     loadFilteredProducts,
-  //   } = this.props;
-  //   const { name } = this.props.match.params;
-  //   loadAllCategories();
-  //   loadAllCountries();
-  //   if (name) {
-  //     loadFilteredProducts(name);
-  //   } else {
-  //     loadAllProducts();
-  //   }
-  // }
-
-  const { filteredProducts } = products;
-
   useEffect(() => {
+    console.log('products:', products);
     console.log('filteredProducts:', filteredProducts);
-    console.log('products.products:', products.products);
+    console.log('allProducts:', allProducts);
   }, [products]);
 
   useEffect(() => {
@@ -82,6 +58,9 @@ const AllProducts = (props) => {
       dispatch(loadFilteredProducts(name));
     }
   }, [name]);
+
+  filteredProducts = filterHelper(allProducts, max, category);
+  console.log('filteredProducts after filterHelper:', filteredProducts);
 
   // componentDidUpdate(prevProps) {
   //   const prev = prevProps.match.params.name;
@@ -118,7 +97,7 @@ const AllProducts = (props) => {
 
   const byCategory = (ev) => {
     const category = ev.target.value;
-    console.log('debug', category);
+    console.log('category', category);
     dispatch(filterByCategory(category));
   };
 
@@ -147,7 +126,7 @@ const AllProducts = (props) => {
   };
   console.log('products before return:', products.products);
 
-  if (products.products.length) {
+  if (products.length) {
     return (
       <div id="main">
         <Filters
@@ -165,7 +144,70 @@ const AllProducts = (props) => {
         <h1 id="products-title">Products</h1>
 
         <div id="allProducts">
-          {products.products.map((product) => {
+          {products.map((product) => {
+            return (
+              <div key={product.id} className="product">
+                <Link to={`/products/${product.id}`}>
+                  <h2 id="product-link">{`${product.title}`}</h2>
+                </Link>
+
+                <span>
+                  {product.country.name}
+                  <i className={`em ${product.country.flag}`} />
+                </span>
+                <span id="item-category">
+                  {product.categories
+                    .map((category) => {
+                      return category.name;
+                    })
+                    .join(', ')}
+                </span>
+
+                <span id="price">${product.price}</span>
+
+                <br />
+                <img
+                  className="allProductImage"
+                  src={product.imageUrl}
+                  alt={product.description}
+                />
+                <br />
+                <Button
+                  id="quick-add"
+                  variant="contained"
+                  onClick={() => {
+                    handleClick(product);
+                  }}
+                >
+                  Add Product
+                </Button>
+              </div>
+            );
+          })}
+        </div>
+        {/* <productCreate history={history} /> */}
+      </div>
+    );
+  }
+  if (filteredProducts.length) {
+    return (
+      <div id="main">
+        <Filters
+          countries={countries}
+          categories={categories}
+          filterByCategory={byCategory}
+          // filterByRating={this.byRating}
+          filterByPrice={byPrice}
+          filterByCountry={byCountry}
+          sortByInput={sortByInput}
+          filterByValue={sortBySearch}
+          reset={reset}
+          name={name}
+        />
+        <h1 id="products-title">Products</h1>
+
+        <div id="allProducts">
+          {filteredProducts.map((product) => {
             return (
               <div key={product.id} className="product">
                 <Link to={`/products/${product.id}`}>
@@ -223,7 +265,7 @@ const AllProducts = (props) => {
         reset={reset}
         name={name}
       />
-      <p>No products match that description.</p>;
+      <p>No products match that description.</p>
     </div>
   );
 };
@@ -247,31 +289,32 @@ const filterHelper = (products, max, categoryName) => {
   return results;
 };
 
-const mapStateToProps = (state) => {
-  const {
-    products: { max, category },
-    login,
-    countries,
-    categories,
-    cart,
-    user,
-  } = state;
-  let products = state.products.filteredProducts;
-  console.log('products before filterHelper:', products);
-  products = filterHelper(products, max, category);
-  console.log('products after filterHelper:', products);
-  if (!products) {
-    return "There's no products now...";
-  }
-  return {
-    countries,
-    products,
-    login,
-    cart,
-    user,
-    categories,
-  };
-};
+// const mapStateToProps = (state) => {
+//   const {
+//     products: { max, category },
+//     login,
+//     countries,
+//     categories,
+//     cart,
+//     user,
+//   } = state;
+//   let products = state.products.filteredProducts;
+//   console.log('products before filterHelper:', products);
+//   products = filterHelper(products, max, category);
+//   console.log('products after filterHelper:', products);
+
+//   if (!products) {
+//     return "There's no products now...";
+//   }
+//   return {
+//     countries,
+//     products,
+//     login,
+//     cart,
+//     user,
+//     categories,
+//   };
+// };
 
 // const mapDispatchToProps = (dispatch) => {
 //   // const { history } = ownProps;
@@ -315,4 +358,5 @@ const mapStateToProps = (state) => {
 //     },
 //   };
 // };
-export default connect(mapStateToProps)(AllProducts);
+// export default connect(mapStateToProps)(AllProducts);
+export default AllProducts;
