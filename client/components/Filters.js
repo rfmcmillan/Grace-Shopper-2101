@@ -114,7 +114,7 @@ const Filters = (props) => {
               <option value="price_des">High-Low</option>
             </Select>
           </FormControl>
-          <label htmlFor="price"> Max Price</label>
+          <InputLabel htmlFor="price"> Max Price</InputLabel>
           <input
             id="slider"
             type="range"

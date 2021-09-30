@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
-const NavButton = withStyles({
+const LinkButton = withStyles({
   root: {
     fontSize: 'medium',
     textTransform: 'none',
@@ -11,4 +11,4 @@ const NavButton = withStyles({
   },
 })(Button);
 
-export default NavButton;
+export default LinkButton;

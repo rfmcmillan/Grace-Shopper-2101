@@ -21,27 +21,27 @@ const theme = createTheme({
       paper: '#ffffff',
     },
     error: {
-      contrastText: '#ffffff',
+      contrastText: '#000000',
       main: '#a83942',
     },
     primary: {
-      contrastText: '#e4ddee',
+      contrastText: '#000000',
       main: '#5061a9',
     },
     secondary: {
-      contrastText: '#9FE2BF',
+      contrastText: '#000000',
       main: '#5c4fa8',
     },
     success: {
-      contrastText: '#ffffff',
+      contrastText: '#000000',
       main: '#261689',
     },
     info: {
       main: '#5061a9',
     },
     text: {
-      primary: '#4d2a4e',
-      secondary: '#9671a2',
+      primary: '#000000',
+      secondary: '#000000',
     },
   },
   typography: {

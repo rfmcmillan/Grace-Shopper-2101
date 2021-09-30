@@ -1,8 +1,8 @@
 /* eslint-disable react/button-has-type */
 import React, { Component, useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Button, Card, Typography } from '@material-ui/core';
+// import { Link } from 'react-router-dom';
+import { Button, Typography, Paper, Link } from '@material-ui/core';
 import {
   loadProducts,
   loadFilteredProducts,
@@ -146,15 +146,15 @@ const AllProducts = (props) => {
         <div id="allProducts">
           {products.map((product) => {
             return (
-              <div key={product.id} className="product">
-                <Link to={`/products/${product.id}`}>
-                  <h2 id="product-link">{`${product.title}`}</h2>
+              <Paper key={product.id} className="product">
+                <Link href={`/#/products/${product.id}`}>
+                  <Typography id="product-link">{`${product.title}`}</Typography>
                 </Link>
 
-                <span>
+                <Typography>
                   {product.country.name}
                   <i className={`em ${product.country.flag}`} />
-                </span>
+                </Typography>
                 <span id="item-category">
                   {product.categories
                     .map((category) => {
@@ -181,7 +181,7 @@ const AllProducts = (props) => {
                 >
                   Add Product
                 </Button>
-              </div>
+              </Paper>
             );
           })}
         </div>
@@ -209,24 +209,24 @@ const AllProducts = (props) => {
         <div id="allProducts">
           {filteredProducts.map((product) => {
             return (
-              <div key={product.id} className="product">
-                <Link to={`/products/${product.id}`}>
-                  <h2 id="product-link">{`${product.title}`}</h2>
+              <Paper key={product.id} className="product">
+                <Link href={`/#/products/${product.id}`}>
+                  <Typography id="product-link">{`${product.title}`}</Typography>
                 </Link>
 
-                <span>
+                <Typography>
                   {product.country.name}
                   <i className={`em ${product.country.flag}`} />
-                </span>
-                <span id="item-category">
+                </Typography>
+                <Typography id="item-category">
                   {product.categories
                     .map((category) => {
                       return category.name;
                     })
                     .join(', ')}
-                </span>
+                </Typography>
 
-                <span id="price">${product.price}</span>
+                <Typography id="price">${product.price}</Typography>
 
                 <br />
                 <img
@@ -244,7 +244,7 @@ const AllProducts = (props) => {
                 >
                   Add Product
                 </Button>
-              </div>
+              </Paper>
             );
           })}
         </div>
