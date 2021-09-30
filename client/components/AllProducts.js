@@ -117,8 +117,8 @@ const AllProducts = (props) => {
   };
 
   const byCategory = (ev) => {
-    console.log('value', ev.target.value);
     const category = ev.target.value;
+    console.log('debug', category);
     dispatch(filterByCategory(category));
   };
 
@@ -234,14 +234,19 @@ const filterHelper = (products, max, categoryName) => {
   });
 
   if (categoryName !== 'ALL') {
+    console.log('categoryName:', categoryName);
     results = results.filter((product) => {
-      return product.categories.some((category) => {
+      const includeInFilter = product.categories.some((category) => {
         return category.name === categoryName;
       });
+      console.log('includeInFilter:', includeInFilter);
+      return includeInFilter;
     });
   }
+  console.log('results:', results);
   return results;
 };
+
 const mapStateToProps = (state) => {
   const {
     products: { max, category },
@@ -252,7 +257,9 @@ const mapStateToProps = (state) => {
     user,
   } = state;
   let products = state.products.filteredProducts;
+  console.log('products before filterHelper:', products);
   products = filterHelper(products, max, category);
+  console.log('products after filterHelper:', products);
   if (!products) {
     return "There's no products now...";
   }
