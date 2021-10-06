@@ -1,51 +1,48 @@
-/* eslint-disable*/
+// /* eslint-disable*/
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getSingleProduct } from '../../store/products/singleProduct';
 import Reviews from './Reviews';
 import NewReview from './NewReviewForm';
 import { addToCart } from '../../store/cart';
-import {
-  Button,
-  TextField,
-  Select,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-} from '@material-ui/core';
+import { Button, Select, FormControl, InputLabel } from '@material-ui/core';
 
-class SingleProduct extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addedToCart: false,
-    };
+const SingleProduct = (props) => {
+  const { product, login } = props;
+  const countryName = product.country ? product.country.name : ' ';
+  const flag = product.country ? product.country.flag : ' ';
+  const reviews = product.reviews || [];
+  const [addedToCart, setAddedToCart] = useState(false);
+  const dispatch = useDispatch();
 
-    this.updateReviews = this.updateReviews.bind(this);
-    this.checkIfReviewed = this.checkIfReviewed.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  useEffect(() => {
+    const { id } = props.match.params;
+    dispatch(getSingleProduct(id));
+  }, []);
 
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.getProduct(id);
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.match.params.id !== this.props.match.params.id) {
+  //     const { id } = this.props.match.params;
+  //     this.props.getProduct(id);
+  //   }
+  // }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      const { id } = this.props.match.params;
-      this.props.getProduct(id);
-    }
-  }
+  useEffect(
+    (prevProps) => {
+      const { id } = props.match.params;
+      dispatch(getSingleProduct(id));
+    },
+    [props.match.params.id]
+  );
 
-  updateReviews() {
-    const { id } = this.props.match.params;
-    this.props.getProduct(id);
-  }
+  const updateReviews = () => {
+    const { id } = props.match.params;
+    dispatch(getSingleProduct(id));
+  };
 
-  handleSubmit(evt) {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     const amount = parseInt(evt.target.amount.value);
     const product = this.props.product;
@@ -53,107 +50,97 @@ class SingleProduct extends Component {
     if (this.props.login.cart) {
       cart = this.props.login.cart;
     }
-
-    //ADD AMOUNT
     this.props.addItem(product, cart, amount);
     this.setState({ addedToCart: true });
-  }
+  };
 
-  checkIfReviewed(userId, reviews) {
+  const checkIfReviewed = (userId, reviews) => {
     return reviews.some((review) => review.userId === userId);
-  }
+  };
 
-  render() {
-    const { product, login } = this.props;
-    const countryName = product.country ? product.country.name : ' ';
-    const flag = product.country ? product.country.flag : ' ';
-    const reviews = product.reviews || [];
+  return product ? (
+    <div id="single-contain">
+      <div id="singleProduct" key={product.id}>
+        <h1>{product.title}</h1>
+        <hr />
+        <p>
+          Brand:
+          {product.brand}
+        </p>
+        <p>
+          Country:
+          {countryName}
+        </p>
 
-    // const history = this.props.history;
-    return product ? (
-      <div id="single-contain">
-        <div id="singleProduct" key={product.id}>
-          <h1>{product.title}</h1>
-          <hr />
-          <p>
-            Brand:
-            {product.brand}
-          </p>
-          <p>
-            Country:
-            {countryName}
-          </p>
+        <i className={`em ${flag}`} />
+        <hr />
+        <p>
+          Description:
+          {[product.description]}
+        </p>
 
-          <i className={`em ${flag}`} />
-          <hr />
-          <p>
-            Description:
-            {[product.description]}
-          </p>
+        {addedToCart ? (
+          <Link to="/cart">
+            <button>Continue To Checkout</button>
+          </Link>
+        ) : (
+          <div></div>
+        )}
+        <h1>Reviews</h1>
 
-          {this.state.addedToCart ? (
-            <Link to="/cart">
-              <button>Continue To Checkout</button>
-            </Link>
+        {login.id ? (
+          checkIfReviewed(login.id, reviews) ? (
+            <div>Thanks! You've reviewed this already! </div>
           ) : (
-            <div></div>
-          )}
-          <h1>Reviews</h1>
-
-          {login.id ? (
-            this.checkIfReviewed(login.id, reviews) ? (
-              <div>Thanks! You've reviewed this already! </div>
-            ) : (
-              <NewReview
-                productId={product.id}
-                userId={login.id}
-                updateReviews={this.updateReviews}
-                checkIfReviewed={this.checkIfReviewed}
-                reviews={reviews}
-              />
-            )
-          ) : (
-            <div>Please log in to leave a review</div>
-          )}
-          <Reviews reviews={reviews} />
-        </div>
-        <div id="singleProduct">
-          {' '}
-          <img
-            id="single-product-img"
-            src={product.imageUrl}
-            alt={product.description}
-          />
-        </div>
-        <div id="singleProduct">
-          <h2>${product.price}</h2>
-          <hr></hr>
-          <form onSubmit={this.handleSubmit}>
-            <FormControl variant="outlined">
-              <InputLabel id="add-to-cart">Qty</InputLabel>
-              <Select name="amount">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </Select>
-            </FormControl>
-            <br />
-            <Button variant="contained" id="add-to-cart-btn" type="submit">
-              Add to Cart
-            </Button>
-          </form>
-        </div>
+            <NewReview
+              productId={product.id}
+              userId={login.id}
+              updateReviews={this.updateReviews}
+              checkIfReviewed={this.checkIfReviewed}
+              reviews={reviews}
+            />
+          )
+        ) : (
+          <div>Please log in to leave a review</div>
+        )}
+        <Reviews reviews={reviews} />
       </div>
-    ) : (
-      <div>
-        (<h1>Product not found</h1>
-        );
+      <div id="singleProduct">
+        {' '}
+        <img
+          id="single-product-img"
+          src={product.imageUrl}
+          alt={product.description}
+        />
       </div>
-    );
-  }
-}
+      <div id="singleProduct">
+        <h2>${product.price}</h2>
+        <hr></hr>
+        <form onSubmit={handleSubmit}>
+          <FormControl variant="outlined">
+            <InputLabel id="add-to-cart">Qty</InputLabel>
+            <Select name="amount">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </Select>
+          </FormControl>
+          <br />
+          <Button variant="contained" id="add-to-cart-btn" type="submit">
+            Add to Cart
+          </Button>
+        </form>
+      </div>
+    </div>
+  ) : (
+    <div>
+      (<h1>Product not found</h1>
+      );
+    </div>
+  );
+};
 
 const mapStateToProps = (state, otherProps) => {
   return {
