@@ -4,7 +4,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, AppBar, Toolbar, Grid } from '@material-ui/core';
+import { Button, AppBar, Toolbar, Grid, Container } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { logoutUser } from '../../store/loginstate';
 import { resetCart } from '../../store/cart';
@@ -27,6 +27,7 @@ const Nav = () => {
     button: {
       color: theme.palette.text.primary,
       fontSize: 'medium',
+      fontWeight: 200,
       fontFamily: theme.typography.fontFamily,
     },
   });
@@ -37,71 +38,108 @@ const Nav = () => {
     <div></div>
   ) : login.admin ? (
     <AppBar position="static">
-      <NavButton
-        className={classes.logo}
-        component={Link}
-        to="/"
-        disableFocusRipple={true}
-        disableRipple={true}
-      >
-        The Global Snacker
-      </NavButton>
-
-      <NavButton
-        className={classes.button}
-        component={Link}
-        to="/products"
-        disableFocusRipple={true}
-        disableRipple={true}
-      >
-        Products
-      </NavButton>
-
-      <Link to="/products"> Products</Link>
-      <Link to="/manage-products">Manage Products</Link>
-      <Link to="/manage-orders">Manage Orders</Link>
-      <Link to="/manage-users">Manage Users</Link>
-      <Link to="/manage-countries"> Manage Countries</Link>
-      <NavButton
-        component={Link}
-        to="/cart"
-        disableFocusRipple={true}
-        disableRipple={true}
-      >
-        Cart({cart.length})
-      </NavButton>
-
-      {login.email ? (
-        <Link to="/view-account">
-          <span id="logged">
-            {`
-             logged in as:
-             ${login.email}`}
-          </span>
-        </Link>
-      ) : (
+      <Toolbar>
         <NavButton
+          className={classes.logo}
           component={Link}
-          to="/login"
+          to="/"
           disableFocusRipple={true}
           disableRipple={true}
         >
-          Log In
+          The Global Snacker
         </NavButton>
-      )}
-      {login.email ? (
-        <Button
-          id="quick-add"
-          onClick={() => {
-            dispatch(logoutUser());
-            dispatch(resetCart());
-          }}
-        >
-          logout
-        </Button>
-      ) : (
-        ''
-      )}
+        <Grid container justifyContent="flex-end">
+          <NavButton
+            className={classes.button}
+            component={Link}
+            to="/products"
+            disableFocusRipple={true}
+            disableRipple={true}
+          >
+            Products
+          </NavButton>
+          <NavButton
+            className={classes.button}
+            component={Link}
+            to="/manage-products"
+            disableFocusRipple={true}
+            disableRipple={true}
+          >
+            Manage Products
+          </NavButton>
+          <NavButton
+            className={classes.button}
+            component={Link}
+            to="/manage-orders"
+            disableFocusRipple={true}
+            disableRipple={true}
+          >
+            Manage Orders
+          </NavButton>
+          <NavButton
+            className={classes.button}
+            component={Link}
+            to="/manage-users"
+            disableFocusRipple={true}
+            disableRipple={true}
+          >
+            Manage Users
+          </NavButton>
+          <NavButton
+            className={classes.button}
+            component={Link}
+            to="/manage-countries"
+            disableFocusRipple={true}
+            disableRipple={true}
+          >
+            Manage Countries
+          </NavButton>
+          <NavButton
+            className={classes.button}
+            component={Link}
+            to="/cart"
+            disableFocusRipple={true}
+            disableRipple={true}
+          >
+            Cart({cart.length})
+          </NavButton>
+
+          {login.email ? (
+            <NavButton
+              className={classes.button}
+              component={Link}
+              to="/view-account"
+              disableFocusRipple={true}
+              disableRipple={true}
+            >
+              View Account
+            </NavButton>
+          ) : (
+            <NavButton
+              className={classes.button}
+              component={Link}
+              to="/login"
+              disableFocusRipple={true}
+              disableRipple={true}
+            >
+              Log In
+            </NavButton>
+          )}
+          {login.email ? (
+            <Button
+              className={classes.button}
+              onClick={() => {
+                dispatch(logoutUser());
+                dispatch(resetCart());
+              }}
+            >
+              Logout
+            </Button>
+          ) : (
+            ''
+          )}
+        </Grid>
+      </Toolbar>
     </AppBar>
   ) : (
     <AppBar position="static">
@@ -118,6 +156,7 @@ const Nav = () => {
         <Grid container justifyContent="flex-end">
           <Grid item>
             <NavButton
+              className={classes.button}
               component={Link}
               to="/products"
               disableFocusRipple={true}
@@ -128,6 +167,7 @@ const Nav = () => {
           </Grid>
           <Grid item>
             <NavButton
+              className={classes.button}
               component={Link}
               to="/cart"
               disableFocusRipple={true}
@@ -147,6 +187,7 @@ const Nav = () => {
           ) : (
             <Grid item>
               <NavButton
+                className={classes.button}
                 component={Link}
                 to="/login"
                 disableFocusRipple={true}
@@ -159,7 +200,7 @@ const Nav = () => {
         </Grid>
         {login.email ? (
           <Button
-            id="quick-add"
+            className={classes.button}
             onClick={() => {
               dispatch(logoutUser());
               dispatch(resetCart());

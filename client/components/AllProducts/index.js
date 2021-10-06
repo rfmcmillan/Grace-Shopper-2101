@@ -14,7 +14,7 @@ import {
 } from '../../store/products/products';
 import { loadCountries } from '../../store/countries';
 import { loadCategories } from '../../store/categories';
-import Filters from '../Filters';
+import Filters from './Filters';
 import ProductCard from './ProductCard';
 
 const AllProducts = (props) => {

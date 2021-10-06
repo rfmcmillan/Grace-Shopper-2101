@@ -55,11 +55,12 @@ const Filters = (props) => {
             <Select
               labelId="countries"
               id="countries"
+              defaultValue="all"
               label="All Countries"
               value={name}
               onChange={filterByCountry}
             >
-              {/* <MenuItem value="all">All</MenuItem> */}
+              <MenuItem value="all">All</MenuItem>
               {countries.map((country) => {
                 return (
                   <MenuItem key={country.id} value={country.name}>
@@ -78,7 +79,7 @@ const Filters = (props) => {
               name="categories"
               onChange={filterByCategory}
             >
-              {/* <MenuItem value="ALL">All</MenuItem> */}
+              <MenuItem value="ALL">All</MenuItem>
               {categories.map((category) => {
                 return (
                   <MenuItem key={category.id} value={category.name}>
@@ -114,7 +115,7 @@ const Filters = (props) => {
               <option value="price_des">High-Low</option>
             </Select>
           </FormControl>
-          <InputLabel htmlFor="price"> Max Price</InputLabel>
+          {/* <InputLabel htmlFor="price"> Max Price</InputLabel>
           <input
             id="slider"
             type="range"
@@ -123,14 +124,9 @@ const Filters = (props) => {
             max="45"
             onChange={filterByPrice}
             defaultValue="45"
-          />
+          /> */}
 
-          <Button
-            id="quick-add"
-            variant="contained"
-            color="default"
-            type="submit"
-          >
+          <Button variant="contained" color="default" type="submit">
             Reset
           </Button>
         </Grid>
