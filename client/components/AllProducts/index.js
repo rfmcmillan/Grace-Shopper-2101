@@ -15,6 +15,7 @@ import {
 import { addToCart } from '../../store/cart';
 import { loadCountries } from '../../store/countries';
 import { loadCategories } from '../../store/categories';
+
 import Filters from '../Filters';
 import ProductCard from './ProductCard';
 
@@ -41,6 +42,9 @@ const AllProducts = (props) => {
     },
   });
   const classes = useStyles();
+
+  console.log('props:', props);
+  console.log('login:', login);
 
   useEffect(() => {
     dispatch(loadCategories());
@@ -180,7 +184,6 @@ const AllProducts = (props) => {
           countries={countries}
           categories={categories}
           filterByCategory={byCategory}
-          // filterByRating={this.byRating}
           filterByPrice={byPrice}
           filterByCountry={byCountry}
           sortByInput={sortByInput}

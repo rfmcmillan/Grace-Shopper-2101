@@ -46,7 +46,7 @@ const Filters = (props) => {
       <form onSubmit={reset}>
         <Grid
           direction="row"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="baseline"
           container
         >

@@ -2,10 +2,12 @@ import React, { Component, useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { Button, Typography, Paper, Link } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
+import { addToCart } from '../../store/cart';
 
 const ProductCard = (props) => {
   const { product } = props;
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   const theme = useTheme();
   const useStyles = makeStyles({
@@ -22,7 +24,7 @@ const ProductCard = (props) => {
     if (props.login.cart) {
       cart = props.login.cart;
     }
-    props.addItem(prod, cart);
+    dispatch(addToCart(prod, cart));
   };
 
   return (
