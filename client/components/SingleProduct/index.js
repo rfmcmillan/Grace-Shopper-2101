@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { getSingleProduct } from '../../store/products/singleProduct';
 import Reviews from './Reviews';
 import NewReview from './NewReviewForm';
-import axios from 'axios';
 import { addToCart } from '../../store/cart';
 import {
   Button,

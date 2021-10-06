@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AllProducts from './AllProducts';
 import Cart from './Cart';
-import SingleProduct from './SingleProduct/SingleProduct';
+import SingleProduct from './SingleProduct';
 import LogInPage from './LogInPage';
 import ManageProducts from './ManageProducts/ManageProducts';
 import EditProduct from './ManageProducts/EditProduct';

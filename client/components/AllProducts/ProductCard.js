@@ -12,6 +12,7 @@ const ProductCard = (props) => {
 
   const theme = useTheme();
   const useStyles = makeStyles({
+    button: {},
     productsTitle: {
       marginLeft: 15,
       fontSize: 24,
@@ -38,11 +39,13 @@ const ProductCard = (props) => {
 
   return (
     <Paper key={product.id} className="product">
-      <img
-        className="allProductImage"
-        src={product.imageUrl}
-        alt={product.description}
-      />
+      <Grid container direction="column" alignItems="center">
+        <img
+          className="allProductImage"
+          src={product.imageUrl}
+          alt={product.description}
+        />
+      </Grid>
       <Grid container alignItems="flex-end" justifyContent="space-between">
         <Grid item>
           <Link href={`/#/products/${product.id}`}>
@@ -65,7 +68,7 @@ const ProductCard = (props) => {
         </Grid>
         <Grid item>
           <Button
-            id="quick-add"
+            className={classes.button}
             variant="text"
             onClick={() => {
               handleClick(product);

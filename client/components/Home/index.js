@@ -9,6 +9,7 @@ const Home = () => {
     welcome: {
       fontSize: 26,
       fontWeight: 700,
+      marginBottom: 40,
     },
     button: {
       margin: '10px',

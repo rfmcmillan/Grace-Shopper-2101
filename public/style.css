@@ -92,8 +92,7 @@
 
 .product {
   margin: 1rem;
-  width: calc(100% / 3 - 2rem - 12px);
-  min-width: 300px;
+  width: 350px;
   padding: 5px;
 }
 
@@ -306,9 +305,7 @@
   align-self: center;
 }
 .allProductImage {
-  width: 300px;
-  height: 330px;
-  /* Or You can try 250/280 */
+  height: 250px;
 }
 
 .singlePurchase {
