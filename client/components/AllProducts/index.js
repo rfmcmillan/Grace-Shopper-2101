@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import {
   loadProducts,
@@ -34,6 +34,7 @@ const AllProducts = (props) => {
       fontSize: 24,
       fontWeight: 400,
     },
+    filters: { marginTop: 10 },
   });
   const classes = useStyles();
 
@@ -96,10 +97,13 @@ const AllProducts = (props) => {
     dispatch(loadProducts());
     props.history.push('/products');
   };
-
+  console.log('products:', products);
   if (products.length) {
     return (
       <div>
+        {/* <Typography className={classes.productsTitle} variant="h1">
+          Products
+        </Typography> */}
         <Filters
           countries={countries}
           categories={categories}
@@ -111,9 +115,6 @@ const AllProducts = (props) => {
           reset={reset}
           name={name}
         />
-        <Typography className={classes.productsTitle} variant="h1">
-          Products
-        </Typography>
 
         <div id="allProducts">
           {products.map((product, idx) => {
@@ -127,20 +128,31 @@ const AllProducts = (props) => {
   if (filteredProducts.length) {
     return (
       <div id="main">
-        <Filters
-          countries={countries}
-          categories={categories}
-          filterByCategory={byCategory}
-          filterByPrice={byPrice}
-          filterByCountry={byCountry}
-          sortByInput={sortByInput}
-          filterByValue={sortBySearch}
-          reset={reset}
-          name={name}
-        />
-        <Typography className={classes.productsTitle} variant="h1">
-          Products
-        </Typography>
+        <Grid
+          className={classes.filters}
+          container
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Grid item>
+            <Typography className={classes.productsTitle} variant="h1">
+              Products
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Filters
+              countries={countries}
+              categories={categories}
+              filterByCategory={byCategory}
+              filterByPrice={byPrice}
+              filterByCountry={byCountry}
+              sortByInput={sortByInput}
+              filterByValue={sortBySearch}
+              reset={reset}
+              name={name}
+            />
+          </Grid>
+        </Grid>
 
         <div id="allProducts">
           {filteredProducts.map((product) => {

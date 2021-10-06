@@ -17,6 +17,7 @@ const _sortBySearch = (value) => {
 };
 
 const sortBySearch = (value) => {
+  console.log('inside sortBySearch: value: ', value);
   return (dispatch) => {
     dispatch(_sortBySearch(value));
   };
@@ -109,13 +110,14 @@ const productReducer = (
       // clone the state
       const newState = { ...state };
       // the value received from our presentational component
-      const { value } = action.value;
+      const { value } = action;
+
       const filteredValues = state.products.filter((product) => {
         // look for objects with the received value in their ‘name’ or ‘designer’ fields
         return product.title.toLowerCase().includes(value);
       });
 
-      let appliedFilters = state.appliedFilters;
+      let { appliedFilters } = state;
       // if the value from the input box is not empty
       if (value) {
         // check if the filter already exists in the tracking array

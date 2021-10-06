@@ -1,7 +1,8 @@
 import React, { Component, useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { Button, Typography, Paper, Link } from '@material-ui/core';
+import { Button, Typography, Paper, Link, Chip, Grid } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import { addToCart } from '../../store/cart';
 
 const ProductCard = (props) => {
@@ -16,6 +17,14 @@ const ProductCard = (props) => {
       fontSize: 24,
       fontWeight: 400,
     },
+    country: {},
+    icon: { color: theme.palette.primary.main },
+    price: {
+      color: theme.palette.primary.main,
+    },
+    category: {
+      margin: theme.spacing(0.5),
+    },
   });
   const classes = useStyles();
 
@@ -29,40 +38,43 @@ const ProductCard = (props) => {
 
   return (
     <Paper key={product.id} className="product">
-      <Link href={`/#/products/${product.id}`}>
-        <Typography id="product-link">{`${product.title}`}</Typography>
-      </Link>
-
-      <Typography>
-        {product.country.name}
-        <i className={`em ${product.country.flag}`} />
-      </Typography>
-      <span id="item-category">
-        {product.categories
-          .map((category) => {
-            return category.name;
-          })
-          .join(', ')}
-      </span>
-
-      <span id="price">${product.price}</span>
-
-      <br />
       <img
         className="allProductImage"
         src={product.imageUrl}
         alt={product.description}
       />
-      <br />
-      <Button
-        id="quick-add"
-        variant="contained"
-        onClick={() => {
-          handleClick(product);
-        }}
-      >
-        Add Product
-      </Button>
+      <Grid container alignItems="flex-end" justifyContent="space-between">
+        <Grid item>
+          <Link href={`/#/products/${product.id}`}>
+            <Typography>{`${product.title}`}</Typography>
+          </Link>
+          <Chip className={classes.country} label={product.country.name} />
+          {product.categories.map((category) => {
+            return (
+              <Chip
+                className={classes.category}
+                label={category.name}
+                variant="outlined"
+              />
+            );
+          })}
+
+          <Typography className={classes.price} variant="body1">
+            ${product.price}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            id="quick-add"
+            variant="text"
+            onClick={() => {
+              handleClick(product);
+            }}
+          >
+            <AddBoxIcon className={classes.icon} />
+          </Button>
+        </Grid>
+      </Grid>
     </Paper>
   );
 };
