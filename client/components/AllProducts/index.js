@@ -1,8 +1,8 @@
 /* eslint-disable react/button-has-type */
-import React, { Component, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { Button, Typography, Paper, Link } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import {
   loadProducts,
   loadFilteredProducts,
@@ -12,10 +12,8 @@ import {
   sortByPrice,
   sortBySearch,
 } from '../../store/products/products';
-import { addToCart } from '../../store/cart';
 import { loadCountries } from '../../store/countries';
 import { loadCategories } from '../../store/categories';
-
 import Filters from '../Filters';
 import ProductCard from './ProductCard';
 
@@ -25,15 +23,11 @@ const AllProducts = (props) => {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries);
   const products = useSelector((state) => state.products);
-  const login = useSelector((state) => state.login);
-  const cart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.user);
   const categories = useSelector((state) => state.categories);
   let { filteredProducts } = products;
   const allProducts = products.products;
   const { max, category } = products;
 
-  const theme = useTheme();
   const useStyles = makeStyles({
     productsTitle: {
       marginLeft: 15,
@@ -42,9 +36,6 @@ const AllProducts = (props) => {
     },
   });
   const classes = useStyles();
-
-  console.log('props:', props);
-  console.log('login:', login);
 
   useEffect(() => {
     dispatch(loadCategories());
@@ -67,14 +58,6 @@ const AllProducts = (props) => {
   }, [name]);
 
   filteredProducts = filterHelper(allProducts, max, category);
-
-  const handleClick = (product) => {
-    let cart = null;
-    if (props.login.cart) {
-      cart = props.login.cart;
-    }
-    props.addItem(product, cart);
-  };
 
   const byCountry = (ev) => {
     const country = ev.target.value;
@@ -136,44 +119,8 @@ const AllProducts = (props) => {
           {products.map((product, idx) => {
             console.log('ProductCard yay');
             return <ProductCard product={product} key={idx} />;
-            // return (
-            //   <Paper key={product.id} className="product">
-            //     <Link href={`/#/products/${product.id}`}>
-            //       <Typography id="product-link">{`${product.title}`}</Typography>
-            //     </Link>
-            //     <Typography>
-            //       {product.country.name}
-            //       <i className={`em ${product.country.flag}`} />
-            //     </Typography>
-            //     <span id="item-category">
-            //       {product.categories
-            //         .map((category) => {
-            //           return category.name;
-            //         })
-            //         .join(', ')}
-            //     </span>
-            //     <span id="price">${product.price}</span>
-            //     <br />
-            //     <img
-            //       className="allProductImage"
-            //       src={product.imageUrl}
-            //       alt={product.description}
-            //     />
-            //     <br />
-            //     <Button
-            //       id="quick-add"
-            //       variant="contained"
-            //       onClick={() => {
-            //         handleClick(product);
-            //       }}
-            //     >
-            //       Add Product
-            //     </Button>
-            //   </Paper>
-            // );
           })}
         </div>
-        {/* <productCreate history={history} /> */}
       </div>
     );
   }
@@ -198,44 +145,8 @@ const AllProducts = (props) => {
         <div id="allProducts">
           {filteredProducts.map((product) => {
             return <ProductCard product={product} />;
-            // return (
-            //   <Paper key={product.id} className="product">
-            //     <Link href={`/#/products/${product.id}`}>
-            //       <Typography>{`${product.title}`}</Typography>
-            //     </Link>
-            //     <Typography>
-            //       {product.country.name}
-            //       <i className={`em ${product.country.flag}`} />
-            //     </Typography>
-            //     <Typography id="item-category">
-            //       {product.categories
-            //         .map((category) => {
-            //           return category.name;
-            //         })
-            //         .join(', ')}
-            //     </Typography>
-            //     <Typography id="price">${product.price}</Typography>
-            //     <br />
-            //     <img
-            //       className="allProductImage"
-            //       src={product.imageUrl}
-            //       alt={product.description}
-            //     />
-            //     <br />
-            //     <Button
-            //       id="quick-add"
-            //       variant="contained"
-            //       onClick={() => {
-            //         handleClick(product);
-            //       }}
-            //     >
-            //       Add Product
-            //     </Button>
-            //   </Paper>
-            // );
           })}
         </div>
-        {/* <productCreate history={history} /> */}
       </div>
     );
   }

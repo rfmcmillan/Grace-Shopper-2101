@@ -6,7 +6,7 @@ import { addToCart } from '../../store/cart';
 
 const ProductCard = (props) => {
   const { product } = props;
-  const cart = useSelector((state) => state.cart);
+  const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   const theme = useTheme();
@@ -21,8 +21,8 @@ const ProductCard = (props) => {
 
   const handleClick = (prod) => {
     let cart = null;
-    if (props.login.cart) {
-      cart = props.login.cart;
+    if (login.cart) {
+      cart = login.cart;
     }
     dispatch(addToCart(prod, cart));
   };
