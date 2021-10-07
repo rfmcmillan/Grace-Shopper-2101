@@ -18,12 +18,11 @@ import Filters from './Filters';
 import ProductCard from './ProductCard';
 
 const AllProducts = (props) => {
-  const { name } = props.match.params;
-  // const name = this.props.match.params.name || 'default';
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries);
   const products = useSelector((state) => state.products);
   const categories = useSelector((state) => state.categories);
+  const { name } = props.match.params;
   let { filteredProducts } = products;
   const allProducts = products.products;
   const { max, category } = products;
