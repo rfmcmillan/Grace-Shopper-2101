@@ -18,14 +18,14 @@ const ProductCard = (props) => {
       fontSize: 24,
       fontWeight: 400,
     },
-    country: {},
+    country: { marginRight: theme.spacing(0.2) },
     icon: { color: theme.palette.primary.main },
     info: { marginTop: 10 },
     price: {
       color: theme.palette.primary.main,
     },
     category: {
-      margin: theme.spacing(0.5),
+      margin: theme.spacing(0.2),
     },
   });
   const classes = useStyles();
