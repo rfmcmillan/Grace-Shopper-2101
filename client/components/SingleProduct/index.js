@@ -3,9 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getSingleProduct } from '../../store/products/singleProduct';
-import Reviews from './Reviews';
-import NewReview from './NewReviewForm';
+import StarRatings from 'react-star-ratings';
 import { addToCart } from '../../store/cart';
 import {
   Button,
@@ -19,6 +17,9 @@ import {
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import ProductTabs from './ProductTabs';
+import Reviews from './Reviews';
+import NewReview from './NewReviewForm';
+import { getSingleProduct } from '../../store/products/singleProduct';
 
 const SingleProduct = (props) => {
   const dispatch = useDispatch();
@@ -38,12 +39,14 @@ const SingleProduct = (props) => {
       fontWeight: 400,
       marginLeft: 5,
     },
+    numReviews: { marginLeft: 5 },
     price: {
       fontSize: 24,
       fontWeight: 400,
       margin: '10px 0px 2px 0px',
       color: theme.palette.secondary.main,
     },
+    stars: { marginLeft: 5 },
     stock: {
       marginLeft: 2,
     },
@@ -89,16 +92,22 @@ const SingleProduct = (props) => {
     return reviews.some((review) => review.userId === userId);
   };
 
+  const ratings = product.reviews
+    ? product.reviews.map((review) => review.rating)
+    : [];
+
+  const sumRatings = ratings.length
+    ? ratings.reduce((sum, rating) => {
+        return sum + rating;
+      })
+    : 0;
+
+  const averageRating = sumRatings / ratings.length;
+  console.log('product:', product);
   return product ? (
-    <div>
+    <div className={classes.contain}>
       <Grid container direction="column" alignItems="center">
-        <Grid
-          className={classes.contain}
-          item
-          container
-          alignItems="center"
-          justifyContent="space-around"
-        >
+        <Grid item container alignItems="center" justifyContent="space-around">
           <Grid item>
             <img
               id="single-product-img"
@@ -124,6 +133,26 @@ const SingleProduct = (props) => {
                   {countryName}
                 </Typography>
               </Box>
+              <Box sx={{ display: 'flex' }}>
+                <Typography>Rated:</Typography>
+                <Box
+                  sx={{ display: 'flex', alignItems: 'center', marginLeft: 5 }}
+                >
+                  <StarRatings
+                    rating={averageRating ? averageRating : 0}
+                    starRatedColor="#FFBF00"
+                    numberOfStars={5}
+                    starDimension="18px"
+                    starSpacing="0px"
+                    name="rating"
+                  />
+                  <Typography
+                    className={classes.numReviews}
+                    variant="body2"
+                  >{`(${reviews.length})`}</Typography>
+                </Box>
+              </Box>
+
               <Typography variant="h2" className={classes.price}>
                 ${product.price}
               </Typography>
@@ -168,7 +197,7 @@ const SingleProduct = (props) => {
                 </Grid>
               </form>
 
-              {addedToCart ? (
+              {/* {addedToCart ? (
                 <Link to="/cart">
                   <button>Continue To Checkout</button>
                 </Link>
@@ -184,15 +213,15 @@ const SingleProduct = (props) => {
                   <NewReview
                     productId={product.id}
                     userId={login.id}
-                    updateReviews={this.updateReviews}
-                    checkIfReviewed={this.checkIfReviewed}
+                    updateReviews={updateReviews}
+                    checkIfReviewed={checkIfReviewed}
                     reviews={reviews}
                   />
                 )
               ) : (
                 <div>Please log in to leave a review</div>
               )}
-              <Reviews reviews={reviews} />
+              <Reviews reviews={reviews} /> */}
             </div>
           </Grid>
         </Grid>

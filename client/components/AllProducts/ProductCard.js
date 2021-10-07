@@ -20,6 +20,7 @@ const ProductCard = (props) => {
     },
     country: {},
     icon: { color: theme.palette.primary.main },
+    info: { marginTop: 10 },
     price: {
       color: theme.palette.primary.main,
     },
@@ -46,7 +47,12 @@ const ProductCard = (props) => {
           alt={product.description}
         />
       </Grid>
-      <Grid container alignItems="flex-end" justifyContent="space-between">
+      <Grid
+        className={classes.info}
+        container
+        alignItems="flex-end"
+        justifyContent="space-between"
+      >
         <Grid item>
           <Link href={`/#/products/${product.id}`}>
             <Typography>{`${product.title}`}</Typography>
