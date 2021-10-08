@@ -121,17 +121,15 @@ const Nav = () => {
           >
             Manage Countries
           </NavButton>
-          <NavButton
-            className={classes.button}
-            component={Link}
-            to="/cart"
-            disableFocusRipple={true}
-            disableRipple={true}
-          >
+          <Button onClick={toggleDrawer(true)}>
+            {' '}
             <Badge badgeContent={cart.length} color="secondary">
               <ShoppingCart />
             </Badge>
-          </NavButton>
+          </Button>
+          <Drawer anchor="right" open={isOpen} onClose={toggleDrawer(false)}>
+            <Cart />
+          </Drawer>
 
           {login.email ? (
             <NavButton
@@ -198,19 +196,6 @@ const Nav = () => {
               disableRipple={true}
             >
               Products
-            </NavButton>
-          </Grid>
-          <Grid item>
-            <NavButton
-              className={classes.button}
-              component={Link}
-              to="/cart"
-              disableFocusRipple={true}
-              disableRipple={true}
-            >
-              <Badge badgeContent={cart.length} color="secondary">
-                <ShoppingCart />
-              </Badge>
             </NavButton>
           </Grid>
           <Grid item>

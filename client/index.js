@@ -1,12 +1,7 @@
-// Where Render React Main Component
 import { render } from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-// import {
-//   ThemeProvider as MuiThemeProvider,
-//   createTheme,
-// } from '@material-ui/styles';
 import {
   ThemeProvider as MuiThemeProvider,
   createTheme,

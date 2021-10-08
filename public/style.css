@@ -1,13 +1,4 @@
 /*Style Sheet*/
-/* body {
-  background-color: #a4e9ba;
-  z-index: 0;
-  color: black;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Quicksand', sans-serif;
-} */
 
 #title-title {
   font-weight: lighter;
@@ -71,9 +62,6 @@
   margin-top: 0.2rem;
   text-decoration: underline;
   font-weight: lighter;
-}
-.product > a {
-  text-decoration: none;
 }
 
 #allProducts,
@@ -303,9 +291,6 @@
   flex: 1;
   width: 50%;
   align-self: center;
-}
-.allProductImage {
-  height: 250px;
 }
 
 .singlePurchase {
