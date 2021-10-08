@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import {
   loadProducts,
@@ -28,12 +28,13 @@ const AllProducts = (props) => {
   const { max, category } = products;
 
   const useStyles = makeStyles({
+    filters: { marginTop: 20, paddingRight: 16 },
     productsTitle: {
       marginLeft: 15,
       fontSize: 24,
       fontWeight: 400,
     },
-    filters: { marginTop: 10 },
+    root: { width: '90vw' },
   });
   const classes = useStyles();
 
@@ -99,10 +100,10 @@ const AllProducts = (props) => {
 
   if (products.length) {
     return (
-      <div>
-        {/* <Typography className={classes.productsTitle} variant="h1">
+      <div className={classes.filters}>
+        <Typography className={classes.productsTitle} variant="h1">
           Products
-        </Typography> */}
+        </Typography>
         <Filters
           countries={countries}
           categories={categories}
@@ -125,39 +126,47 @@ const AllProducts = (props) => {
   }
   if (filteredProducts.length) {
     return (
-      <div id="main">
-        <Grid
-          className={classes.filters}
-          container
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Grid item>
-            <Typography className={classes.productsTitle} variant="h1">
-              Products
-            </Typography>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
+        <Grid className={classes.root} direction="column" alignItems="center">
+          <Grid
+            className={classes.filters}
+            container
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography className={classes.productsTitle} variant="h1">
+                Products
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Filters
+                countries={countries}
+                categories={categories}
+                filterByCategory={byCategory}
+                filterByPrice={byPrice}
+                filterByCountry={byCountry}
+                sortByInput={sortByInput}
+                filterByValue={sortBySearch}
+                reset={reset}
+                name={name}
+              />
+            </Grid>
           </Grid>
-          <Grid item>
-            <Filters
-              countries={countries}
-              categories={categories}
-              filterByCategory={byCategory}
-              filterByPrice={byPrice}
-              filterByCountry={byCountry}
-              sortByInput={sortByInput}
-              filterByValue={sortBySearch}
-              reset={reset}
-              name={name}
-            />
+
+          <Grid container justifyContent="space-between">
+            {filteredProducts.map((product) => {
+              return (
+                <Grid item>
+                  <ProductCard product={product} />
+                </Grid>
+              );
+            })}
           </Grid>
         </Grid>
-
-        <div id="allProducts">
-          {filteredProducts.map((product) => {
-            return <ProductCard product={product} />;
-          })}
-        </div>
-      </div>
+      </Box>
     );
   }
   return (

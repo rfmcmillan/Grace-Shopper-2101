@@ -41,7 +41,7 @@ const Cart = (props) => {
   const theme = useTheme();
 
   const useStyles = makeStyles({
-    form: { marginLeft: 10 },
+    form: { marginLeft: 10, marginTop: 18 },
     image: { margin: '0px 10px 0px 10px' },
     info: {},
     link: {
@@ -134,7 +134,7 @@ const Cart = (props) => {
         {cart.map((product) => {
           return (
             <ListItem className={classes.listItem} key={product.id}>
-              <Grid container direction="row">
+              <Grid container direction="row" alignItems="center">
                 <Grid
                   className={classes.info}
                   item
@@ -177,8 +177,14 @@ const Cart = (props) => {
                     </Box>
                   </Grid>
                 </Grid>
-                <Grid item container xs={5} justifyContent="flex-end">
-                  <Grid item>
+                <Grid
+                  item
+                  container
+                  xs={5}
+                  justifyContent="flex-end"
+                  alignItems="center"
+                >
+                  <Grid item alignItems="center">
                     <form className={classes.form} onSubmit={handleSubmit}>
                       <TextField
                         className={classes.textField}

@@ -13,6 +13,7 @@ const ProductCard = (props) => {
   const theme = useTheme();
   const useStyles = makeStyles({
     button: {},
+    contain: { height: '100%' },
     productsTitle: {
       marginLeft: 15,
       fontSize: 24,
@@ -39,49 +40,57 @@ const ProductCard = (props) => {
   };
 
   return (
-    <Paper key={product.id} className="product">
-      <Grid container direction="column" alignItems="center">
-        <img
-          className="allProductImage"
-          src={product.imageUrl}
-          alt={product.description}
-        />
-      </Grid>
+    <Paper elevation={3} key={product.id} className="product">
       <Grid
-        className={classes.info}
+        className={classes.contain}
         container
-        alignItems="flex-end"
+        direction="column"
         justifyContent="space-between"
       >
-        <Grid item>
-          <Link href={`/#/products/${product.id}`}>
-            <Typography>{`${product.title}`}</Typography>
-          </Link>
-          <Chip className={classes.country} label={product.country.name} />
-          {product.categories.map((category) => {
-            return (
-              <Chip
-                className={classes.category}
-                label={category.name}
-                variant="outlined"
-              />
-            );
-          })}
-
-          <Typography className={classes.price} variant="body1">
-            ${product.price}
-          </Typography>
+        <Grid item container direction="column" alignItems="center">
+          <img
+            className="allProductImage"
+            src={product.imageUrl}
+            alt={product.description}
+          />
         </Grid>
-        <Grid item>
-          <Button
-            className={classes.button}
-            variant="text"
-            onClick={() => {
-              handleClick(product);
-            }}
-          >
-            <AddBoxIcon className={classes.icon} />
-          </Button>
+        <Grid
+          className={classes.info}
+          item
+          container
+          alignItems="flex-end"
+          justifyContent="space-between"
+        >
+          <Grid item>
+            <Link href={`/#/products/${product.id}`}>
+              <Typography>{`${product.title}`}</Typography>
+            </Link>
+            <Chip className={classes.country} label={product.country.name} />
+            {product.categories.map((category) => {
+              return (
+                <Chip
+                  className={classes.category}
+                  label={category.name}
+                  variant="outlined"
+                />
+              );
+            })}
+
+            <Typography className={classes.price} variant="body1">
+              ${product.price}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              className={classes.button}
+              variant="text"
+              onClick={() => {
+                handleClick(product);
+              }}
+            >
+              <AddBoxIcon className={classes.icon} />
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </Paper>
