@@ -39,9 +39,7 @@ const Filters = (props) => {
   const dispatch = useDispatch();
 
   const classes = useStyles();
-  console.log('filterByValue:', filterByValue);
   function handleChange(e) {
-    console.log('e:', e);
     const input = e.target.value;
     dispatch(sortBySearch(input));
   }

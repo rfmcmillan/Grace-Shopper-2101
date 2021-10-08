@@ -30,12 +30,12 @@ const ProductCard = (props) => {
   });
   const classes = useStyles();
 
-  const handleClick = (prod) => {
+  const handleClick = (product) => {
     let cart = null;
     if (login.cart) {
       cart = login.cart;
     }
-    dispatch(addToCart(prod, cart));
+    dispatch(addToCart(product, cart, 1));
   };
 
   return (

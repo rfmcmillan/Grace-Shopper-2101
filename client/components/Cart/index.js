@@ -111,7 +111,7 @@ const Cart = (props) => {
       sessionId: data.id,
     });
   };
-
+  console.log('cart:', cart);
   return (
     <div id="cart_container">
       <h1>Cart</h1>

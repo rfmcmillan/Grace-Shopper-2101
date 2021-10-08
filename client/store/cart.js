@@ -16,21 +16,28 @@ const cartReducer = (state = [], action) => {
       return [...action.cart];
     }
     case ADD_TO_CART: {
-      const key = state.find((e) => { return e.id === action.product.id; });
+      const key = state.find((e) => {
+        return e.id === action.product.id;
+      });
       if (key) {
         // eslint-disable-next-line operator-assignment
+
         key.amount = key.amount + action.amount;
         return [...state];
       }
       return [...state, { ...action.product, amount: action.amount }];
     }
     case UPDATE_AMOUNT: {
-      const key = state.find((e) => { return e.id === action.update.productId; });
+      const key = state.find((e) => {
+        return e.id === action.update.productId;
+      });
       key.amount = action.update.amount;
       return [...state];
     }
     case REMOVE_FROM_CART: {
-      return state.filter((product) => { return product.id !== action.productId; });
+      return state.filter((product) => {
+        return product.id !== action.productId;
+      });
     }
     case CLEAR_CART: {
       return action.cart;
@@ -65,10 +72,15 @@ const _addToCart = (product, amount) => {
 };
 
 const addToCart = (product, cart = null, amount) => {
+  console.log('product:', product);
+  console.log('amount:', amount);
   return async (dispatch) => {
     try {
       if (cart) {
-        await axios.put('/api/order/addToCart', { orderId: cart, products: [[product.id, amount]] });
+        await axios.put('/api/order/addToCart', {
+          orderId: cart,
+          products: [[product.id, amount]],
+        });
       }
       dispatch(_addToCart(product, amount));
     } catch (err) {
@@ -85,7 +97,11 @@ const updateCart = (orderId, productId, amount) => {
   return async (dispatch) => {
     try {
       if (orderId) {
-        await axios.put('/api/order/updateCart', { orderId, productId, amount });
+        await axios.put('/api/order/updateCart', {
+          orderId,
+          productId,
+          amount,
+        });
       }
       dispatch(_updateCart({ productId, amount }));
     } catch (err) {
@@ -102,7 +118,11 @@ const removeItem = (orderId, productId) => {
   return async (dispatch) => {
     try {
       if (orderId) {
-        await axios.put('/api/order/updateCart', { orderId, productId, amount: 0 });
+        await axios.put('/api/order/updateCart', {
+          orderId,
+          productId,
+          amount: 0,
+        });
       }
 
       dispatch(_removeItem(productId));
@@ -128,13 +148,21 @@ const _purchaseItems = (id = null) => {
 const purchaseItems = (date, items, orderId, userId) => {
   return async (dispatch) => {
     const { data } = await axios.post('api/order/purchase', {
-      date, items, orderId, userId,
+      date,
+      items,
+      orderId,
+      userId,
     });
     dispatch(_purchaseItems(data));
   };
 };
 
 export {
-  loadCart, addToCart, updateCart, removeItem, resetCart, purchaseItems,
+  loadCart,
+  addToCart,
+  updateCart,
+  removeItem,
+  resetCart,
+  purchaseItems,
 };
 export default cartReducer;

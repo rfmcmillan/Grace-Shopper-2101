@@ -96,7 +96,7 @@ const AllProducts = (props) => {
     dispatch(loadProducts());
     props.history.push('/products');
   };
-  console.log('products:', products);
+
   if (products.length) {
     return (
       <div>
@@ -117,7 +117,6 @@ const AllProducts = (props) => {
 
         <div id="allProducts">
           {products.map((product, idx) => {
-            console.log('ProductCard yay');
             return <ProductCard product={product} key={idx} />;
           })}
         </div>
