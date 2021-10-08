@@ -72,8 +72,6 @@ const _addToCart = (product, amount) => {
 };
 
 const addToCart = (product, cart = null, amount) => {
-  console.log('product:', product);
-  console.log('amount:', amount);
   return async (dispatch) => {
     try {
       if (cart) {

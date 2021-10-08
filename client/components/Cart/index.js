@@ -4,6 +4,7 @@ import React, { Component, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { Typography } from '@material-ui/core';
 import { loadStripe } from '@stripe/stripe-js';
 import {
   loadCart,
@@ -22,52 +23,28 @@ const Cart = (props) => {
   const dispatch = useDispatch();
   const { location } = props;
 
-  // componentDidMount() {
-  //   if (this.props.login.cart) {
-  //     this.props.getCart(this.props.login.cart);
-  //   }
-
-  //   const query = new URLSearchParams(this.props.location.search);
-  //   if (query.get('success')) {
-  //     const items = this.props.cart.map((e) => {
-  //       return { amount: e.amount, item: e };
-  //     });
-
-  //     const orderId = this.props.login.cart || null;
-  //     const userId = this.props.login.id || null;
-  //     const date = new Date().toISOString().split('T')[0];
-
-  //     this.props.purchase(date, items, orderId, userId);
-  //   }
-  //   if (query.get('canceled')) {
-  //     window.alert(
-  //       "Order canceled -- continue to shop around and checkout when you're ready."
-  //     );
-  //   }
-  // }
-
   useEffect(() => {
     if (login.cart) {
       dispatch(loadCart(login.cart));
     }
 
-    const query = new URLSearchParams(location.search);
-    if (query.get('success')) {
-      const items = cart.map((e) => {
-        return { amount: e.amount, item: e };
-      });
+    // const query = new URLSearchParams(location.search);
+    // if (query.get('success')) {
+    //   const items = cart.map((e) => {
+    //     return { amount: e.amount, item: e };
+    //   });
 
-      const orderId = login.cart || null;
-      const userId = login.id || null;
-      const date = new Date().toISOString().split('T')[0];
+    //   const orderId = login.cart || null;
+    //   const userId = login.id || null;
+    //   const date = new Date().toISOString().split('T')[0];
 
-      dispatch(purchaseItems(date, items, orderId, userId));
-    }
-    if (query.get('canceled')) {
-      window.alert(
-        "Order canceled -- continue to shop around and checkout when you're ready."
-      );
-    }
+    //   dispatch(purchaseItems(date, items, orderId, userId));
+    // }
+    // if (query.get('canceled')) {
+    //   window.alert(
+    //     "Order canceled -- continue to shop around and checkout when you're ready."
+    //   );
+    // }
   }, []);
 
   const handleRemove = (id) => {
@@ -111,10 +88,9 @@ const Cart = (props) => {
       sessionId: data.id,
     });
   };
-  console.log('cart:', cart);
   return (
     <div id="cart_container">
-      <h1>Cart</h1>
+      <Typography>Cart</Typography>
       <div id="Cart">
         {cart.map((product) => {
           return (
@@ -126,7 +102,6 @@ const Cart = (props) => {
                 {product.country.name}
                 <i className={`em ${product.country.flag}`} />
               </h4>
-
               <img
                 className="allProductImage"
                 src={product.imageUrl}
@@ -159,28 +134,4 @@ const Cart = (props) => {
   );
 };
 
-// const mapStateToProps = (state) => {
-//   const { login, cart } = state;
-//   return {
-//     login,
-//     cart,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getCart: (id) => {
-//       dispatch(loadCart(id));
-//     },
-//     updateItem: (cart, product, amount) => {
-//       dispatch(updateCart(cart, product, amount));
-//     },
-//     removeItem: (cart, productId) => {
-//       dispatch(removeItem(cart, productId));
-//     },
-//     purchase: (date, items, orderId, userId) => {
-//       dispatch(purchaseItems(date, items, orderId, userId));
-//     },
-//   };
-// };
 export default Cart;

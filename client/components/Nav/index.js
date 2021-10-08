@@ -1,16 +1,24 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-undef */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, AppBar, Toolbar, Grid, Icon, Badge } from '@material-ui/core';
+import {
+  Button,
+  AppBar,
+  Toolbar,
+  Grid,
+  Icon,
+  Badge,
+  Drawer,
+} from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { AccountCircle, ShoppingCart } from '@material-ui/icons';
 import { logoutUser } from '../../store/loginstate';
 import { resetCart } from '../../store/cart';
 import NavButton from './NavButton';
-import { logo } from '../../static';
+import Cart from '../Cart';
 
 const Nav = () => {
   const home = window.location.hash === 'disabled';
@@ -18,8 +26,7 @@ const Nav = () => {
   const cart = useSelector((state) => state.cart);
   const login = useSelector((state) => state.login);
   const theme = useTheme();
-
-  console.log('logo:', logo);
+  const [isOpen, setIsOpen] = useState(false);
 
   const useStyles = makeStyles({
     logo: {
@@ -36,6 +43,17 @@ const Nav = () => {
   });
 
   const classes = useStyles();
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setIsOpen(open);
+  };
 
   return home ? (
     <div></div>
@@ -110,7 +128,6 @@ const Nav = () => {
             disableFocusRipple={true}
             disableRipple={true}
           >
-            {/* Cart({cart.length}) */}
             <Badge badgeContent={cart.length} color="secondary">
               <ShoppingCart />
             </Badge>
@@ -191,9 +208,22 @@ const Nav = () => {
               disableFocusRipple={true}
               disableRipple={true}
             >
-              Cart({cart.length})
+              <Badge badgeContent={cart.length} color="secondary">
+                <ShoppingCart />
+              </Badge>
             </NavButton>
           </Grid>
+          <Grid item>
+            <Button onClick={toggleDrawer(true)}>
+              {' '}
+              <Badge badgeContent={cart.length} color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </Button>
+          </Grid>
+          <Drawer anchor="right" open={isOpen} onClose={toggleDrawer(false)}>
+            <Cart />
+          </Drawer>
           {login.email ? (
             <Link to="/view-account">
               <span id="logged">
@@ -211,7 +241,7 @@ const Nav = () => {
                 disableFocusRipple={true}
                 disableRipple={true}
               >
-                Log In
+                <AccountCircle />
               </NavButton>
             </Grid>
           )}
