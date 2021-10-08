@@ -4,8 +4,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, AppBar, Toolbar, Grid, Container } from '@material-ui/core';
+import { Button, AppBar, Toolbar, Grid, Icon, Badge } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
+import { AccountCircle, ShoppingCart } from '@material-ui/icons';
 import { logoutUser } from '../../store/loginstate';
 import { resetCart } from '../../store/cart';
 import NavButton from './NavButton';
@@ -109,7 +110,10 @@ const Nav = () => {
             disableFocusRipple={true}
             disableRipple={true}
           >
-            Cart({cart.length})
+            {/* Cart({cart.length}) */}
+            <Badge badgeContent={cart.length} color="secondary">
+              <ShoppingCart />
+            </Badge>
           </NavButton>
 
           {login.email ? (
@@ -120,7 +124,7 @@ const Nav = () => {
               disableFocusRipple={true}
               disableRipple={true}
             >
-              View Account
+              <AccountCircle />
             </NavButton>
           ) : (
             <NavButton

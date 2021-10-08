@@ -18,24 +18,24 @@ const ProductCard = (props) => {
       fontSize: 24,
       fontWeight: 400,
     },
-    country: {},
+    country: { marginRight: theme.spacing(0.2) },
     icon: { color: theme.palette.primary.main },
     info: { marginTop: 10 },
     price: {
       color: theme.palette.primary.main,
     },
     category: {
-      margin: theme.spacing(0.5),
+      margin: theme.spacing(0.2),
     },
   });
   const classes = useStyles();
 
-  const handleClick = (prod) => {
+  const handleClick = (product) => {
     let cart = null;
     if (login.cart) {
       cart = login.cart;
     }
-    dispatch(addToCart(prod, cart));
+    dispatch(addToCart(product, cart, 1));
   };
 
   return (
