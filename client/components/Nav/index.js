@@ -9,14 +9,16 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 import { logoutUser } from '../../store/loginstate';
 import { resetCart } from '../../store/cart';
 import NavButton from './NavButton';
+import { logo } from '../../static';
 
 const Nav = () => {
   const home = window.location.hash === 'disabled';
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const login = useSelector((state) => state.login);
-
   const theme = useTheme();
+
+  console.log('logo:', logo);
 
   const useStyles = makeStyles({
     logo: {
@@ -39,6 +41,12 @@ const Nav = () => {
   ) : login.admin ? (
     <AppBar position="static">
       <Toolbar>
+        <img
+          src="./logo-gs.png"
+          alt="Cookie Shaped Globe"
+          width="100"
+          height="100"
+        />
         <NavButton
           className={classes.logo}
           component={Link}
@@ -144,6 +152,12 @@ const Nav = () => {
   ) : (
     <AppBar position="static">
       <Toolbar>
+        <img
+          src="./logo-gs.png"
+          alt="Cookie Shaped Globe"
+          width="100"
+          height="100"
+        />
         <NavButton
           className={classes.logo}
           component={Link}
