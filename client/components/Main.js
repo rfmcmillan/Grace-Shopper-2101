@@ -16,7 +16,7 @@ import ManageOrders from './ManageOrders/ManageOrders';
 import EditOrder from './ManageOrders/EditOrder';
 import Nav from './Nav';
 import Home from './Home';
-import CreateAccountPage from './CreateAccountPage';
+import CreateAccountPage from './CreateAccount/CreateAccountPage';
 import Map from './Map';
 import CreateCountry from './ManageCountries/CreateCountry';
 import ViewAccount from './ManageAccount/ViewAccount';
