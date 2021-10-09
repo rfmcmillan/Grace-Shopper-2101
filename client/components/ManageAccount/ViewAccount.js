@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loadPurchases } from '../../store/purchases';
-import LogInPage from '../LogInPage';
+import LogInPage from '../Login/LogInPage';
 import SinglePurchase from './SinglePurchase';
 import { updateUser } from '../../store/users';
 import { TextField, Button, ThemeProvider } from '@material-ui/core';

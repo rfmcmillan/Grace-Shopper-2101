@@ -228,35 +228,12 @@
   word-wrap: break-word;
 }
 
-#login-contain {
-  border: 1px solid black;
-  padding: 1rem;
-  border-radius: 0.3rem;
-  filter: drop-shadow(5px 4px 4px rgb(166, 214, 166));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #b5f3ca;
-  width: 33vw;
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 #login-item {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-#login-button {
-  flex: 1;
-  left: 54;
-  margin-top: 1rem;
-  font-family: 'Quicksand', sans-serif;
-  margin: 0.2rem;
 }
 
 #create-form {
