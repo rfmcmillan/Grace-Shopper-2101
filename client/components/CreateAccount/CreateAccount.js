@@ -1,9 +1,35 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import { makeStyles } from '@material-ui/styles';
 import { createUser } from '../../store/users';
-import { Button, TextField } from '@material-ui/core';
+import {
+  Button,
+  TextField,
+  Typography,
+  Box,
+  FormControl,
+} from '@material-ui/core';
 
 const CreateAccount = (props) => {
+  const useStyles = makeStyles({
+    button: {
+      width: 200,
+    },
+    createForm: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    form: { width: 200 },
+    textField: {},
+    title: {
+      marginBottom: 20,
+      fontSize: 20,
+    },
+  });
+
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   const [state, setState] = useState({
     email: '',
@@ -31,57 +57,64 @@ const CreateAccount = (props) => {
   };
 
   return (
-    <div id="login-contain">
-      <h4 id="add-user">Create Account:</h4>
-      <form id="create-form" onSubmit={onSave}>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        margin: 10,
+      }}
+    >
+      <Typography className={classes.title}>Create An Account</Typography>
+      <FormControl className={classes.form} onSubmit={onSave}>
         <TextField
+          className={classes.textField}
           required
           label="Email Address"
           variant="outlined"
           name="email"
           value={email}
           onChange={onChange}
+          size="small"
         />
-
+        <br />
         <TextField
+          className={classes.textField}
           required
           label="Password"
           name="password"
           variant="outlined"
           value={password}
           onChange={onChange}
+          size="small"
         />
-
+        <br />
         <TextField
+          className={classes.textField}
           label="First Name"
           name="firstName"
           variant="outlined"
           value={firstName}
           onChange={onChange}
+          size="small"
         />
-
+        <br />
         <TextField
+          className={classes.textField}
           label="Last Name"
           name="lastName"
           variant="outlined"
           value={lastName}
           onChange={onChange}
+          size="small"
         />
-
-        <Button id="create-button" variant="contained" onClick={onSave}>
+        <br />
+        <Button className={classes.button} variant="contained" onClick={onSave}>
           Create Account
         </Button>
-      </form>
-    </div>
+      </FormControl>
+    </Box>
   );
 };
 
-// const mapDispatchToProps = (dispatch, { history }) => {
-//   return {
-//     create: (email, password, firstName, lastName) =>
-//       dispatch(createUser(email, password, firstName, lastName, history)),
-//   };
-// };
-
-// export default connect(null, mapDispatchToProps)(CreateAccount);
 export default CreateAccount;

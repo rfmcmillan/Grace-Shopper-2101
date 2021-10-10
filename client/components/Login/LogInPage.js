@@ -11,12 +11,16 @@ const LogInPage = () => {
   const useStyles = makeStyles({
     contain: {
       margin: 'auto',
-      padding: 10,
+      padding: 20,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'column',
-      width: '33vw',
+      width: 400,
+    },
+    create: {
+      fontFamily: theme.typography.fontFamily,
+      marginTop: 10,
     },
   });
   const classes = useStyles();
@@ -32,10 +36,8 @@ const LogInPage = () => {
     >
       <Paper className={classes.contain}>
         <LogIn id="login-button" />
-        <Link to="/createaccount">
-          <Button variant="contained" id="quick-add">
-            Create Account
-          </Button>
+        <Link className={classes.create} to="/createaccount">
+          Create an Account
         </Link>
       </Paper>
     </Box>

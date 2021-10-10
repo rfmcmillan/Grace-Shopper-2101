@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Box, Button, Paper, TextField, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  FormControl,
+  Paper,
+  TextField,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { updateUser, loadUsers, resetPassword } from '../../store/users';
 import { loginUser } from '../../store/loginstate';
@@ -15,18 +22,14 @@ const LogIn = (props) => {
   const theme = useTheme();
   const useStyles = makeStyles({
     email: { marginTop: 10 },
+    form: { width: 200 },
     loginButton: {
-      flex: 1,
-      left: 54,
-      marginTop: '1rem',
-      margin: '0.2rem',
+      width: 200,
     },
-    password: {
-      marginTop: 10,
-    },
+    password: {},
     welcome: {
       fontSize: 20,
-      marginBottom: 20,
+      marginBottom: 10,
     },
   });
   const classes = useStyles();
@@ -45,14 +48,13 @@ const LogIn = (props) => {
 
   return (
     <Box
-      className={classes.root}
       sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <Typography className={classes.welcome} variant="h1">
+      <Typography className={classes.welcome}>
         Welcome to Global Snacker!
       </Typography>
       <Typography>Please Log In:</Typography>
-      <form>
+      <FormControl className={classes.form}>
         <TextField
           className={classes.email}
           required
@@ -61,6 +63,7 @@ const LogIn = (props) => {
           name="email"
           value={email}
           onChange={onChange}
+          size="small"
         />
         <br />
 
@@ -72,6 +75,7 @@ const LogIn = (props) => {
           name="password"
           value={password}
           onChange={onChange}
+          size="small"
         />
         <br />
         <Button
@@ -84,7 +88,7 @@ const LogIn = (props) => {
         >
           Log In
         </Button>
-      </form>
+      </FormControl>
     </Box>
   );
 };
