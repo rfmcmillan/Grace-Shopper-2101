@@ -20,6 +20,7 @@ const LogInPage = () => {
     },
     create: {
       fontFamily: theme.typography.fontFamily,
+      fontSize: 12,
       marginTop: 10,
     },
   });
