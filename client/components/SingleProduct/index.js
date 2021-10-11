@@ -38,8 +38,9 @@ const SingleProduct = (props) => {
     description: {
       fontWeight: 400,
       marginLeft: 5,
+      color: theme.palette.text.primary,
     },
-    numReviews: { marginLeft: 5 },
+    numReviews: { marginLeft: 5, color: theme.palette.text.primary },
     price: {
       fontSize: 24,
       fontWeight: 400,
@@ -49,15 +50,21 @@ const SingleProduct = (props) => {
     stars: { marginLeft: 5 },
     stock: {
       marginLeft: 2,
+      color: theme.palette.text.primary,
+    },
+    text: {
+      color: theme.palette.text.primary,
     },
     title: {
       fontSize: 24,
       fontWeight: 600,
       marginBottom: 10,
+      color: theme.palette.text.primary,
     },
     value: {
       fontWeight: 600,
       marginLeft: 5,
+      color: theme.palette.text.primary,
     },
   });
   const classes = useStyles();
@@ -121,20 +128,20 @@ const SingleProduct = (props) => {
                 {product.title}
               </Typography>
               <Box sx={{ display: 'flex' }}>
-                <Typography>Brand:</Typography>
+                <Typography className={classes.text}>Brand:</Typography>
                 <Typography className={classes.value}>
                   {product.brand}
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex' }}>
-                <Typography>Country:</Typography>
+                <Typography className={classes.text}>Country:</Typography>
                 <Typography className={classes.value}>
                   {' '}
                   {countryName}
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex' }}>
-                <Typography>Rated:</Typography>
+                <Typography className={classes.text}>Rated:</Typography>
                 <Box
                   sx={{ display: 'flex', alignItems: 'center', marginLeft: 5 }}
                 >

@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Grid, Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import {
   loadProducts,
   loadFilteredProducts,
@@ -27,12 +27,14 @@ const AllProducts = (props) => {
   const allProducts = products.products;
   const { max, category } = products;
 
+  const theme = useTheme();
   const useStyles = makeStyles({
     filters: { marginTop: 20, paddingRight: 16 },
     productsTitle: {
       marginLeft: 15,
       fontSize: 24,
       fontWeight: 400,
+      color: theme.palette.text.primary,
     },
     root: { width: '90vw' },
   });

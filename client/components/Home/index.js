@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Typography, Grid, Link } from '@material-ui/core';
+import { Box, Button, Typography, Grid, Link } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import Map from '../Map';
 
@@ -14,17 +14,21 @@ const Home = () => {
     button: {
       margin: '10px',
     },
+    home: {
+      backgroundColor: theme.palette.background.default,
+    },
     link: {
       // color: theme.palette.text.primary,
       fontSize: 'medium',
       fontFamily: theme.typography.fontFamily,
+      margin: '3px 0px 3px 5px',
     },
   });
 
   const classes = useStyles();
 
   return (
-    <div id="test">
+    <div id="test" className={classes.home}>
       <div id="home">
         <Typography variant="h1" className={classes.welcome}>
           Welcome to the Global Snacker
@@ -51,9 +55,12 @@ const Home = () => {
               </Link>
             </Grid>
             <Grid item>
-              <Link className={classes.link} href="/#/createaccount">
-                Not regesitered? Become a global snacker
-              </Link>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography>Don't have an account yet?</Typography>
+                <Link className={classes.link} href="/#/createaccount">
+                  Sign up now!
+                </Link>
+              </Box>
             </Grid>
           </Grid>
         </Grid>

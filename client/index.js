@@ -12,7 +12,7 @@ import Main from './components/Main';
 const theme = createTheme({
   palette: {
     background: {
-      default: '#ffffff',
+      default: '#F6F9FC',
       paper: '#ffffff',
     },
     error: {
@@ -35,8 +35,8 @@ const theme = createTheme({
       main: '#5061a9',
     },
     text: {
-      primary: '#000000',
-      secondary: '#000000',
+      primary: '#2B3445',
+      secondary: '#5d5f70',
     },
   },
   typography: {

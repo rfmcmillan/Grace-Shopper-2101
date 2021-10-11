@@ -14,11 +14,8 @@ import { loginUser } from '../../store/loginstate';
 
 const LogIn = (props) => {
   const dispatch = useDispatch();
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  });
-  const { email, password } = state;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const theme = useTheme();
   const useStyles = makeStyles({
     email: { marginTop: 10 },
@@ -35,12 +32,15 @@ const LogIn = (props) => {
   const classes = useStyles();
 
   const onChange = (event) => {
-    const change = {};
-    change[event.target.name] = event.target.value;
-    setState(change);
+    if (event.target.name === 'email') {
+      setEmail(event.target.value);
+    } else if (event.target.name === 'password') {
+      setPassword(event.target.value);
+    }
   };
 
   const handleLogin = (event, email, password) => {
+    console.log('password:', password);
     event.preventDefault();
     dispatch(loginUser(email, password));
     window.location.hash = '/products';
@@ -81,7 +81,7 @@ const LogIn = (props) => {
         <Button
           className={classes.loginButton}
           onClick={(event) => {
-            return handleLogin(event, email, password);
+            handleLogin(event, email, password);
           }}
           variant="contained"
           color="primary"

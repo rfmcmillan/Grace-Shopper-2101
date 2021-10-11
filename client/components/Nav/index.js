@@ -29,10 +29,16 @@ const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const useStyles = makeStyles({
+    appBar: {
+      backgroundColor: 'white',
+      boxShadow: '0px 4px 16px 0px rgb(43 52 69 / 10%)',
+      color: theme.palette.text.primary,
+    },
     logo: {
-      fontFamily: 'Courier Prime',
+      fontFamily: 'Fredoka One',
       fontSize: '30',
       width: 420,
+      fontWeight: 700,
     },
     button: {
       color: theme.palette.text.primary,
@@ -54,18 +60,12 @@ const Nav = () => {
 
     setIsOpen(open);
   };
-
+  console.log('login:', login);
   return home ? (
     <div></div>
   ) : login.admin ? (
-    <AppBar position="static">
+    <AppBar className={classes.appBar} position="static">
       <Toolbar>
-        <img
-          src="./logo-gs.png"
-          alt="Cookie Shaped Globe"
-          width="100"
-          height="100"
-        />
         <NavButton
           className={classes.logo}
           component={Link}
@@ -73,7 +73,7 @@ const Nav = () => {
           disableFocusRipple={true}
           disableRipple={true}
         >
-          The Global Snacker
+          Global Snacker
         </NavButton>
         <Grid container justifyContent="flex-end">
           <NavButton
@@ -121,7 +121,7 @@ const Nav = () => {
           >
             Manage Countries
           </NavButton>
-          <Button onClick={toggleDrawer(true)}>
+          <Button className={classes.button} onClick={toggleDrawer(true)}>
             {' '}
             <Badge badgeContent={cart.length} color="secondary">
               <ShoppingCart />
@@ -169,14 +169,8 @@ const Nav = () => {
       </Toolbar>
     </AppBar>
   ) : (
-    <AppBar position="static">
+    <AppBar className={classes.appBar} position="static">
       <Toolbar>
-        <img
-          src="./logo-gs.png"
-          alt="Cookie Shaped Globe"
-          width="100"
-          height="100"
-        />
         <NavButton
           className={classes.logo}
           component={Link}
@@ -184,7 +178,7 @@ const Nav = () => {
           disableFocusRipple={true}
           disableRipple={true}
         >
-          The Global Snacker
+          Global Snacker
         </NavButton>
         <Grid container justifyContent="flex-end">
           <Grid item>
@@ -226,7 +220,7 @@ const Nav = () => {
                 disableFocusRipple={true}
                 disableRipple={true}
               >
-                <AccountCircle />
+                Log In
               </NavButton>
             </Grid>
           )}

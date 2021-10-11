@@ -19,6 +19,7 @@ const intialstate = {};
 // Load Users Thunk
 const loginUser = (email, password) => {
   return async (dispatch) => {
+    console.log('email:', email, 'password:', password);
     const { token } = (await axios.post('/api/auth', { email, password })).data;
     window.localStorage.setItem('token', token);
     const response = await axios.get('/api/auth', {

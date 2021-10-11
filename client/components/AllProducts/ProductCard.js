@@ -1,8 +1,16 @@
 import React, { Component, useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { Button, Typography, Paper, Link, Chip, Grid } from '@material-ui/core';
+import {
+  Button,
+  Typography,
+  Paper,
+  Link,
+  Chip,
+  Grid,
+  IconButton,
+} from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import { AddBoxIcon, AddBox, Add, AddBoxOutlined } from '@material-ui/icons';
 import { addToCart } from '../../store/cart';
 
 const ProductCard = (props) => {
@@ -12,21 +20,31 @@ const ProductCard = (props) => {
 
   const theme = useTheme();
   const useStyles = makeStyles({
-    button: {},
+    button: { padding: 0 },
+    category: {
+      margin: theme.spacing(0.2),
+      color: theme.palette.text.primary,
+    },
     contain: { height: '100%' },
     productsTitle: {
       marginLeft: 15,
       fontSize: 24,
       fontWeight: 400,
+      color: theme.palette.text.primary,
     },
-    country: { marginRight: theme.spacing(0.2) },
-    icon: { color: theme.palette.primary.main },
+    country: {
+      marginRight: theme.spacing(0.2),
+      color: theme.palette.text.primary,
+    },
+    icon: {
+      color: theme.palette.primary.main,
+      width: 30,
+      height: 30,
+      fontWeight: 30,
+    },
     info: { marginTop: 10 },
     price: {
       color: theme.palette.primary.main,
-    },
-    category: {
-      margin: theme.spacing(0.2),
     },
   });
   const classes = useStyles();
@@ -40,7 +58,7 @@ const ProductCard = (props) => {
   };
 
   return (
-    <Paper elevation={3} key={product.id} className="product">
+    <Paper elevation={4} key={product.id} className="product">
       <Grid
         className={classes.contain}
         container
@@ -62,7 +80,10 @@ const ProductCard = (props) => {
           justifyContent="space-between"
         >
           <Grid item>
-            <Link href={`/#/products/${product.id}`}>
+            <Link
+              className={classes.productsTitle}
+              href={`/#/products/${product.id}`}
+            >
               <Typography>{`${product.title}`}</Typography>
             </Link>
             <Chip className={classes.country} label={product.country.name} />
@@ -81,15 +102,15 @@ const ProductCard = (props) => {
             </Typography>
           </Grid>
           <Grid item>
-            <Button
+            <IconButton
               className={classes.button}
-              variant="text"
+              variant="outlined"
               onClick={() => {
                 handleClick(product);
               }}
             >
-              <AddBoxIcon className={classes.icon} />
-            </Button>
+              <AddBox className={classes.icon} />
+            </IconButton>
           </Grid>
         </Grid>
       </Grid>

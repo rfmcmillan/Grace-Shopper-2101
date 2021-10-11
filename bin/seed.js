@@ -84,8 +84,7 @@ const init = async () => {
       price: 3.99,
       inventory: 100,
       countryId: Taiwan.id,
-      imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/51GkdanTqfL.jpg',
+      imageUrl: './assets/straw.jpeg',
     });
     const PineappleCake = await Product.create({
       title: 'Pineapple Cake',
@@ -95,8 +94,7 @@ const init = async () => {
       price: 36.99,
       inventory: 139,
       countryId: Taiwan.id,
-      imageUrl:
-        'https://www.food168.com.tw/upload_files/a2L-detail.jpg?fbclid=IwAR19giBuwx8ZA1xGzD6kzX2oMttS4796rIC8lLPGhcNTuoAzDHQbipL-e0c',
+      imageUrl: './assets/pine.jpeg',
     });
 
     const IceCreamBar = await Product.create({
@@ -108,8 +106,7 @@ const init = async () => {
       price: 4.99,
       inventory: 126,
       countryId: Taiwan.id,
-      imageUrl:
-        'https://sethlui.com/wp-content/uploads/2019/11/Tiger-Sugar-Boba-Ice-Cream-Online-2.jpg',
+      imageUrl: './assets/boba.jpeg',
     });
 
     const Roll = await Product.create({
@@ -120,8 +117,7 @@ const init = async () => {
       price: 5.99,
       inventory: 186,
       countryId: Taiwan.id,
-      imageUrl:
-        'https://www.costco.com.tw/medias/sys_master/images/h9c/h2d/32200999436318.jpg',
+      imageUrl: './assets/crispy.jpeg',
     });
 
     const Jaga = await Product.create({
@@ -133,8 +129,7 @@ const init = async () => {
       price: 19.98,
       inventory: 243,
       countryId: Japan.id,
-      imageUrl:
-        'https://cdn.shopify.com/s/files/1/1969/5775/products/calbee-potato-farm-jaga-pokkuru-180g-japanese-taste_2048x.jpg?v=1608561946',
+      imageUrl: './assets/jaga.jpeg',
     });
 
     const Jelly = await Product.create({
@@ -144,7 +139,7 @@ const init = async () => {
       price: 3.98,
       inventory: 159,
       countryId: Japan.id,
-      imageUrl: 'https://cdn01.sayweee.net/2020-08/iC2HT6NvT8er7C_GMgpCpw.jpg',
+      imageUrl: './assets/fruit.jpeg',
     });
 
     const KakiNoTane = await Product.create({
@@ -155,8 +150,7 @@ const init = async () => {
       price: 5.98,
       inventory: 193,
       countryId: Japan.id,
-      imageUrl:
-        'https://cdn.shopify.com/s/files/1/1969/5775/products/kameda-kakinotane-snack-rice-crackers-with-peanuts-200g-japanese-taste_5000x.jpg?v=1608570172',
+      imageUrl: './assets/kaki.jpeg',
     });
 
     const Galico = await Product.create({
@@ -166,8 +160,7 @@ const init = async () => {
       price: 5.98,
       inventory: 140,
       countryId: Japan.id,
-      imageUrl:
-        'https://backend.tops.co.th/media/catalog/product/8/8/8859292500192.jpg',
+      imageUrl: './assets/palitte.webp',
     });
 
     const Kaya = await Product.create({
@@ -178,8 +171,7 @@ const init = async () => {
       price: 8.99,
       inventory: 296,
       countryId: Singapore.id,
-      imageUrl:
-        'https://mynextplaneout.files.wordpress.com/2018/04/single_pack_kaya_jarbig.jpg',
+      imageUrl: './assets/kaya.jpeg',
     });
 
     const YolkChips = await Product.create({
@@ -190,8 +182,7 @@ const init = async () => {
       price: 7.99,
       inventory: 231,
       countryId: Singapore.id,
-      imageUrl:
-        'https://media.karousell.com/media/photos/products/2017/08/15/golden_duck_chips_1502793198_f68c067a.jpg',
+      imageUrl: './assets/salted.jpeg',
     });
 
     const Kueh = await Product.create({
@@ -202,8 +193,7 @@ const init = async () => {
       price: 12.99,
       inventory: 100,
       countryId: Singapore.id,
-      imageUrl:
-        'https://www.8days.sg/image/14039502/3x4/1440/1920/dfaebc91b51a74386557313a94d91705/tX/the-8-days-kueh-lapis-ranking-2021---tingkat-peramakan.jpg',
+      imageUrl: './assets/sagu.jpeg',
     });
 
     const MilkTablet = await Product.create({
@@ -214,7 +204,7 @@ const init = async () => {
       price: 2,
       inventory: 145,
       countryId: Thailand.id,
-      imageUrl: 'https://i.ebayimg.com/images/g/-fkAAOSwoGNauIKb/s-l500.jpg',
+      imageUrl: './assets/candy.jpeg',
     });
 
     const MangoCookies = await Product.create({
@@ -224,8 +214,7 @@ const init = async () => {
       price: 7.99,
       inventory: 231,
       countryId: Thailand.id,
-      imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/71GTgfolXfL._SL1024_.jpg',
+      imageUrl: './assets/koala.jpg',
     });
 
     const ThailandSeaweed = await Product.create({
@@ -236,8 +225,7 @@ const init = async () => {
       price: 12.99,
       inventory: 100,
       countryId: Thailand.id,
-      imageUrl:
-        'https://i5.walmartimages.com/asr/e6855267-eb34-4f78-a5cc-05cc00e1a7a0_1.b0fae7622fd92aaaa85c3cbb72a71900.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff',
+      imageUrl: './assets/seaweed.jpeg',
     });
 
     const Jing = await Product.create({
@@ -248,8 +236,7 @@ const init = async () => {
       price: 40.99,
       inventory: 117,
       countryId: China.id,
-      imageUrl:
-        'https://i.ebayimg.com/images/g/ezAAAOSwDL1f2vdH/s-l1600.jpg?fbclid=IwAR1y6mKCRCdqk-jSlfV5-jSypGnDS3p_O7c-mioIGN_zFF715Hvgd3J8FH8',
+      imageUrl: './assets/jing.jpeg',
     });
 
     const WantWant = await Product.create({
@@ -260,7 +247,7 @@ const init = async () => {
       price: 4.99,
       inventory: 148,
       countryId: China.id,
-      imageUrl: 'https://cdn01.sayweee.net/2020-08/vyWXBpMYSHKf2VQf73EXWw.jpg',
+      imageUrl: './assets/want.jpeg',
     });
 
     const RoseCake = await Product.create({
@@ -271,8 +258,7 @@ const init = async () => {
       price: 10.99,
       inventory: 143,
       countryId: China.id,
-      imageUrl:
-        'https://ae01.alicdn.com/kf/HTB1PmfjLXXXXXaRXFXXq6xXFXXXC/Yunnan-specialty-food-Flower-Rose-Cake-Flower-pastry-Chinese-Snack.jpg',
+      imageUrl: './assets/rose.webp',
     });
 
     const KoreanSeaweed = await Product.create({
@@ -282,8 +268,7 @@ const init = async () => {
       price: 3.99,
       inventory: 137,
       countryId: SKorea.id,
-      imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/91PpDnzvRnL._SL1500_.jpg',
+      imageUrl: './assets/roasted.jpg',
     });
 
     const Ohgodmallow = await Product.create({
@@ -294,8 +279,7 @@ const init = async () => {
       price: 4.5,
       inventory: 152,
       countryId: SKorea.id,
-      imageUrl:
-        'https://scontent-lga3-1.xx.fbcdn.net/v/t1.6435-9/121549827_2788181771413904_2577725995242801950_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=8bfeb9&_nc_ohc=6US_FCE8ZxAAX8xilbf&_nc_ht=scontent-lga3-1.xx&oh=2d4b855b1c09f656afd1b8a8262bf40c&oe=60AB6AAB',
+      imageUrl: './assets/ohgod.jpeg',
     });
 
     const TurtleChips = await Product.create({
@@ -305,7 +289,7 @@ const init = async () => {
       price: 1.99,
       inventory: 216,
       countryId: SKorea.id,
-      imageUrl: 'https://gd.image-gmkt.com/li/975/907/779907975.g_0-w_g.jpg',
+      imageUrl: './assets/turtle.jpg',
     });
 
     const Mix = await Product.create({
@@ -316,7 +300,7 @@ const init = async () => {
       price: 3.99,
       inventory: 159,
       countryId: India.id,
-      imageUrl: 'https://m.media-amazon.com/images/I/71tCPVQ9CLL._SL1321_.jpg',
+      imageUrl: './assets/nadyadi.jpg',
     });
 
     const MoongDal = await Product.create({
@@ -327,8 +311,7 @@ const init = async () => {
       price: 2.99,
       inventory: 270,
       countryId: India.id,
-      imageUrl:
-        'https://cdn.powered-by-nitrosell.com/product_images/30/7291/large-haldiramsmoongmasala400g.jpg',
+      imageUrl: './assets/masala.jpeg',
     });
 
     const Biscuit = await Product.create({
@@ -339,8 +322,7 @@ const init = async () => {
       price: 1.99,
       inventory: 149,
       countryId: India.id,
-      imageUrl:
-        'https://cdn.shopify.com/s/files/1/0429/1674/1280/products/Parle_G_Gold_950x.png?v=1612815378',
+      imageUrl: './assets/biscuit.png',
     });
 
     const Pudding = await Product.create({
@@ -350,7 +332,7 @@ const init = async () => {
       inventory: 154,
       price: 15.99,
       countryId: French.id,
-      imageUrl: 'https://media.auchan.fr/MEDIASTEP101391290_1200x1200/B2CD/',
+      imageUrl: './assets/petit.jpeg',
     });
 
     const Ecolier = await Product.create({
@@ -361,8 +343,7 @@ const init = async () => {
       inventory: 229,
       price: 5.99,
       countryId: French.id,
-      imageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/9106CKpWAcL._SX679_.jpg',
+      imageUrl: './assets/ecolier.jpg',
     });
 
     const ButterCookies = await Product.create({
@@ -374,7 +355,7 @@ const init = async () => {
       price: 20.99,
       inventory: 117,
       countryId: French.id,
-      imageUrl: 'https://i.ebayimg.com/images/g/6tMAAOSwWXFdTnKJ/s-l400.jpg',
+      imageUrl: './assets/butter.jpeg',
     });
 
     const Chips = await Product.create({
@@ -385,8 +366,7 @@ const init = async () => {
       price: 2.15,
       inventory: 237,
       countryId: Australia.id,
-      imageUrl:
-        'https://theaustralianfoodshop.com/wp-content/uploads/2020/06/11305968042014.jpg.webp',
+      imageUrl: './assets/chips.webp',
     });
 
     const Macadamias = await Product.create({
@@ -398,8 +378,7 @@ const init = async () => {
       price: 9.99,
       inventory: 158,
       countryId: Australia.id,
-      imageUrl:
-        'https://scontent-lga3-1.xx.fbcdn.net/v/t1.6435-9/145514909_2833360123601478_7229567621104676299_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=9267fe&_nc_ohc=-h9jaMQRBikAX8D_6pf&_nc_ht=scontent-lga3-1.xx&oh=73ff6c7f2d95ad2195299d169f5fdf6e&oe=60A94200',
+      imageUrl: './assets/macadamia.jpeg',
     });
 
     const Fruit = await Product.create({
@@ -410,8 +389,7 @@ const init = async () => {
       price: 10.99,
       inventory: 480,
       countryId: Australia.id,
-      imageUrl:
-        'https://cdn0.woolworths.media/content/wowproductimages/large/057242.jpg',
+      imageUrl: './assets/dried.jpeg',
     });
 
     const Tortas = await Product.create({
@@ -422,8 +400,7 @@ const init = async () => {
       price: 3,
       inventory: 127,
       countryId: Spain.id,
-      imageUrl:
-        'https://cdn.shopify.com/s/files/1/3105/8454/products/Ines-Rosales-Sweet-Tortas-with-spanish-oranges-myPanier-_main_870x870.jpg?v=1569228455',
+      imageUrl: './assets/ines.jpeg',
     });
 
     const Turrón = await Product.create({
@@ -433,8 +410,7 @@ const init = async () => {
       price: 9.99,
       inventory: 158,
       countryId: Spain.id,
-      imageUrl:
-        'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRq4g0d5pwkWeE1qGMUXhh18o83VDHsNa6usI-W0ruvHLsITgh_uUc0oWgyVwY8z4YW8ApsF8gEo13wvFRj82a-JQ90yPgLDss5dKl_Stc&usqp=CAE',
+      imageUrl: './assets/turron.webp',
     });
 
     const Bonbon = await Product.create({
@@ -445,8 +421,7 @@ const init = async () => {
       price: 24.99,
       inventory: 80,
       countryId: Spain.id,
-      imageUrl:
-        'https://cdn.shopify.com/s/files/1/0561/3553/products/ES-260.jpg?v=1610492772',
+      imageUrl: './assets/fig.jpeg',
     });
 
     await Promise.all([
