@@ -25,7 +25,7 @@ class DisplayMap extends Component {
         <GoogleMap
           zoom={3}
           center={{ lat: 28.65643220817304, lng: 77.2411275855953 }}
-          mapContainerStyle={{ height: '500px', width: '1000px' }}
+          mapContainerStyle={{ height: '500px', width: '100vw' }}
         >
           {this.props.countries.map((e) => {
             return (

@@ -22,6 +22,8 @@ const LogIn = (props) => {
     form: { width: 200 },
     loginButton: {
       width: 200,
+      backgroundColor: theme.palette.text.primary,
+      color: theme.palette.secondary.contrastText,
     },
     password: {},
     welcome: {

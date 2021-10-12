@@ -28,7 +28,7 @@ const Home = (props) => {
       margin: '10px',
       textTransform: 'capitalize',
     },
-    contain: { width: '90vw' },
+    contain: { width: '90vw', height: '95vh' },
     exploreButton: {
       borderRadius: 10,
       backgroundColor: 'black',
@@ -51,6 +51,11 @@ const Home = (props) => {
       fontFamily: theme.typography.fontFamily,
       margin: '3px 0px 3px 5px',
     },
+    secondTitle: {
+      fontSize: 35,
+      fontWeight: 800,
+      margin: '0px 0px 25px 0px',
+    },
     subTitle: {
       fontSize: 26,
       fontWeight: 100,
@@ -58,7 +63,7 @@ const Home = (props) => {
     welcome: {
       fontSize: 50,
       fontWeight: 900,
-      margin: '50px 0px 25px 0px',
+      margin: '150px 0px 25px 0px',
     },
   });
   const classes = useStyles();
@@ -118,7 +123,7 @@ const Home = (props) => {
               </Grid>
             </Grid>
           </Grid>
-          {/* <Map id="map"></Map> */}
+
           {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0Czh5f_nGC5M_EHN4KYNnLVIok4mHvkE&map_ids=4deaa8c67ed436b3&callback=initMap" /> */}
           <Grid item xs={6}>
             <img
@@ -130,19 +135,17 @@ const Home = (props) => {
             ></img>
           </Grid>
         </Grid>
-        <Grid container direction="column" alignItems="center">
-          <Grid item container direction="column" alignItems="center">
-            <Grid item>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography>Don't have an account yet?</Typography>
-                <Link className={classes.link} href="/#/createaccount">
-                  Sign up now!
-                </Link>
-              </Box>
-            </Grid>
-          </Grid>
-        </Grid>
+
+        {/* <Grid container direction="column" alignItems="center">
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography>Don't have an account yet?</Typography>
+            <Link className={classes.link} href="/#/createaccount">
+              Sign up now!
+            </Link>
+          </Box>
+        </Grid> */}
       </Box>
+      {/* <Map id="map"></Map> */}
     </Box>
   );
 };

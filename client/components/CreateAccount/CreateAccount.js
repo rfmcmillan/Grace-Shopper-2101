@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import { createUser } from '../../store/users';
 import {
   Button,
@@ -11,9 +11,12 @@ import {
 } from '@material-ui/core';
 
 const CreateAccount = (props) => {
+  const theme = useTheme();
   const useStyles = makeStyles({
     button: {
       width: 200,
+      backgroundColor: theme.palette.text.primary,
+      color: theme.palette.secondary.contrastText,
     },
     createForm: {
       display: 'flex',
