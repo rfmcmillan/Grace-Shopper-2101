@@ -45,7 +45,7 @@ const SingleProduct = (props) => {
       fontSize: 24,
       fontWeight: 400,
       margin: '10px 0px 2px 0px',
-      color: theme.palette.secondary.main,
+      color: theme.palette.primary.main,
     },
     stars: { marginLeft: 5 },
     stock: {

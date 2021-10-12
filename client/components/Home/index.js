@@ -50,11 +50,6 @@ const Home = () => {
           </Grid>
           <Grid item container direction="column" alignItems="center">
             <Grid item>
-              <Link className={classes.link} href="/#/login">
-                Log In
-              </Link>
-            </Grid>
-            <Grid item>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Typography>Don't have an account yet?</Typography>
                 <Link className={classes.link} href="/#/createaccount">
