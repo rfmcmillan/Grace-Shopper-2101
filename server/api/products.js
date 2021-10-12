@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  models: { Product, Country, Category, User },
+  models: { Product, Country, Category, User, Review },
 } = require('../db');
 
 const requireToken = async (req, res, next) => {
@@ -16,7 +16,9 @@ const requireToken = async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({ include: [Country, Category] });
+    const products = await Product.findAll({
+      include: [Country, Category, Review],
+    });
     res.send(products);
   } catch (ex) {
     next(ex);

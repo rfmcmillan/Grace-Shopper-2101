@@ -41,6 +41,7 @@ const Cart = (props) => {
   const theme = useTheme();
 
   const useStyles = makeStyles({
+    contain: { minWidth: 300 },
     form: { marginLeft: 10, marginTop: 18 },
     image: { margin: '0px 10px 0px 10px' },
     info: {},
@@ -52,6 +53,7 @@ const Cart = (props) => {
       marginBottom: 7,
     },
     listItem: { border: '1px solid #F1F1F1', padding: '10', minWidth: 650 },
+    none: { padding: 10 },
     textField: { width: 70 },
     total: { marginTop: 5 },
   });
@@ -107,27 +109,23 @@ const Cart = (props) => {
   };
 
   const handleClick = async (event) => {
-    // Get Stripe.js instance
     const stripe = await stripePromise;
-
-    // Call your backend to create the Checkout Session
     const response = await axios.post(
       'api/order/create-checkout-session',
       cart
     );
     const { data } = response;
-
-    // When the customer clicks on the button, redirect them to Checkout.
     const result = await stripe.redirectToCheckout({
       sessionId: data.id,
     });
   };
+
   return (
     <Box className={classes.contain}>
       <Box sx={{ display: 'flex', margin: '15px 0px 10px 15px' }}>
-        <ShoppingCart color="primary" />
-        <Typography color="primary">
-          {cart.length} {cart.length > 1 ? 'items' : 'item'}
+        <ShoppingCart color="text" />
+        <Typography color="text">
+          {cart.length} {cart.length === 1 ? 'item' : 'items'}
         </Typography>
       </Box>
       <List>
@@ -214,7 +212,13 @@ const Cart = (props) => {
           );
         })}
       </List>
-      <Button onClick={handleClick}>Checkout</Button>
+      {cart.length ? (
+        <Button onClick={handleClick}>Checkout</Button>
+      ) : (
+        <Typography className={classes.none}>
+          There aren't any items in your shopping cart
+        </Typography>
+      )}
     </Box>
   );
 };

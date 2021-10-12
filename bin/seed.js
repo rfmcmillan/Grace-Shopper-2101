@@ -498,9 +498,24 @@ const init = async () => {
     );
 
     await Promise.all([
-      Review.writeNew(alejandra.id, Puff.id, 5, 'Delicious!'),
-      Review.writeNew(kevin.id, PineappleCake.id, 5, 'So good!'),
-      Review.writeNew(yiru.id, IceCreamBar.id, 5, 'Yum!'),
+      Review.writeNew(
+        alejandra.id,
+        Puff.id,
+        5,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+      ),
+      Review.writeNew(
+        kevin.id,
+        PineappleCake.id,
+        4,
+        'Bibendum neque egestas congue quisque egestas diam. Volutpat blandit aliquam etiam erat velit scelerisque in dictum.'
+      ),
+      Review.writeNew(
+        yiru.id,
+        IceCreamBar.id,
+        5,
+        'Fusce id velit ut tortor pretium viverra suspendisse potenti. Facilisis sed odio morbi quis commodo odio. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas.'
+      ),
     ]);
   } catch (error) {
     console.log(error);

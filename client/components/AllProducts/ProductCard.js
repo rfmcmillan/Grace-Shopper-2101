@@ -10,6 +10,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
+import StarRatings from 'react-star-ratings';
 import { AddBoxIcon, AddBox, Add, AddBoxOutlined } from '@material-ui/icons';
 import { addToCart } from '../../store/cart';
 
@@ -45,6 +46,9 @@ const ProductCard = (props) => {
     info: { marginTop: 10 },
     price: {
       color: theme.palette.primary.main,
+      fontSize: 14,
+      fontWeight: 400,
+      marginTop: 5,
     },
   });
   const classes = useStyles();
@@ -57,6 +61,18 @@ const ProductCard = (props) => {
     dispatch(addToCart(product, cart, 1));
   };
 
+  const ratings = product.reviews
+    ? product.reviews.map((review) => review.rating)
+    : [];
+
+  const sumRatings = ratings.length
+    ? ratings.reduce((sum, rating) => {
+        return sum + rating;
+      })
+    : 0;
+
+  const averageRating = sumRatings / ratings.length;
+  console.log('product:', product);
   return (
     <Paper elevation={4} key={product.id} className="product">
       <Grid
@@ -86,17 +102,14 @@ const ProductCard = (props) => {
             >
               <Typography>{`${product.title}`}</Typography>
             </Link>
-            <Chip className={classes.country} label={product.country.name} />
-            {product.categories.map((category) => {
-              return (
-                <Chip
-                  className={classes.category}
-                  label={category.name}
-                  variant="outlined"
-                />
-              );
-            })}
-
+            <StarRatings
+              rating={averageRating ? averageRating : 0}
+              starRatedColor="#FFBF00"
+              numberOfStars={5}
+              starDimension="18px"
+              starSpacing="0px"
+              name="rating"
+            />
             <Typography className={classes.price} variant="body1">
               ${product.price}
             </Typography>
@@ -109,7 +122,7 @@ const ProductCard = (props) => {
                 handleClick(product);
               }}
             >
-              <AddBox className={classes.icon} />
+              <Add className={classes.icon} />
             </IconButton>
           </Grid>
         </Grid>

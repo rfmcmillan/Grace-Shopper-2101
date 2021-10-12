@@ -33,6 +33,8 @@ const Nav = () => {
       backgroundColor: 'white',
       boxShadow: '0px 4px 16px 0px rgb(43 52 69 / 10%)',
       color: theme.palette.text.primary,
+      position: 'fixed',
+      top: 0,
     },
     logo: {
       fontFamily: 'Fredoka One',
