@@ -5,7 +5,6 @@ import {
   Typography,
   Paper,
   Link,
-  Chip,
   Grid,
   IconButton,
 } from '@material-ui/core';
@@ -14,9 +13,8 @@ import StarRatings from 'react-star-ratings';
 import { AddBoxIcon, AddBox, Add, AddBoxOutlined } from '@material-ui/icons';
 import { addToCart } from '../../store/cart';
 
-const ProductCard = (props) => {
+const HomeCard = (props) => {
   const { product } = props;
-  console.log('props:', props);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
@@ -28,29 +26,35 @@ const ProductCard = (props) => {
       color: theme.palette.text.primary,
     },
     contain: { height: '100%' },
-    productsTitle: {
-      marginLeft: 15,
-      fontSize: 24,
-      fontWeight: 400,
-      color: theme.palette.text.primary,
-    },
     country: {
       marginRight: theme.spacing(0.2),
       color: theme.palette.text.primary,
     },
+    homeCard: {
+      margin: 5,
+      width: 175,
+      padding: 14,
+      height: 225,
+    },
     icon: {
       color: theme.palette.primary.main,
-      width: 30,
-      height: 30,
-      fontWeight: 30,
+      width: 15,
+      height: 15,
     },
+    image: { maxWidth: 150, maxHeight: 150, margin: 5 },
     info: { marginTop: 10 },
     price: {
       color: theme.palette.primary.main,
-      fontSize: 14,
+      fontSize: 10,
       fontWeight: 400,
       marginTop: 5,
     },
+    productsTitle: {
+      marginLeft: 15,
+      fontWeight: 400,
+      color: theme.palette.text.primary,
+    },
+    title: { fontSize: 10, fontWeight: 900 },
   });
   const classes = useStyles();
 
@@ -75,7 +79,7 @@ const ProductCard = (props) => {
   const averageRating = sumRatings / ratings.length;
   console.log('product:', product);
   return (
-    <Paper elevation={4} key={product.id} className="product">
+    <Paper elevation={4} key={product.id} className={classes.homeCard}>
       <Grid
         className={classes.contain}
         container
@@ -84,7 +88,7 @@ const ProductCard = (props) => {
       >
         <Grid item container direction="column" alignItems="center">
           <img
-            className="allProductImage"
+            className={classes.image}
             src={product.imageUrl}
             alt={product.description}
           />
@@ -101,13 +105,15 @@ const ProductCard = (props) => {
               className={classes.productsTitle}
               href={`/#/products/${product.id}`}
             >
-              <Typography>{`${product.title}`}</Typography>
+              <Typography
+                className={classes.title}
+              >{`${product.title}`}</Typography>
             </Link>
             <StarRatings
               rating={averageRating ? averageRating : 0}
               starRatedColor="#FFBF00"
               numberOfStars={5}
-              starDimension="18px"
+              starDimension="9px"
               starSpacing="0px"
               name="rating"
             />
@@ -132,4 +138,4 @@ const ProductCard = (props) => {
   );
 };
 
-export default ProductCard;
+export default HomeCard;

@@ -62,7 +62,6 @@ const Nav = () => {
 
     setIsOpen(open);
   };
-  console.log('login:', login);
   return home ? (
     <div></div>
   ) : login.admin ? (
