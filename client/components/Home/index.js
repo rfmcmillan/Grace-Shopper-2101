@@ -126,13 +126,14 @@ const Home = (props) => {
 
           {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0Czh5f_nGC5M_EHN4KYNnLVIok4mHvkE&map_ids=4deaa8c67ed436b3&callback=initMap" /> */}
           <Grid item xs={6}>
-            <img
+            {/* <img
               // className={classes.image}
               src="./assets/popcorn.jpg"
               alt="popcorn"
               width="500"
               height="500"
-            ></img>
+            ></img> */}
+            <Map id="map"></Map>
           </Grid>
         </Grid>
 
@@ -145,7 +146,6 @@ const Home = (props) => {
           </Box>
         </Grid> */}
       </Box>
-      {/* <Map id="map"></Map> */}
     </Box>
   );
 };
