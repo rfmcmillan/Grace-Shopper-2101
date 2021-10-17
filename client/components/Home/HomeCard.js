@@ -32,9 +32,9 @@ const HomeCard = (props) => {
     },
     homeCard: {
       margin: 5,
-      width: 175,
+      maxWidth: 175,
       padding: 14,
-      height: 225,
+      height: 235,
     },
     icon: {
       color: theme.palette.primary.main,
@@ -54,7 +54,7 @@ const HomeCard = (props) => {
       fontWeight: 400,
       color: theme.palette.text.primary,
     },
-    title: { fontSize: 10, fontWeight: 900 },
+    title: { fontSize: 12, fontWeight: 900 },
   });
   const classes = useStyles();
 
@@ -100,7 +100,7 @@ const HomeCard = (props) => {
           alignItems="flex-end"
           justifyContent="space-between"
         >
-          <Grid item>
+          <Grid item xs={11}>
             <Link
               className={classes.productsTitle}
               href={`/#/products/${product.id}`}
@@ -121,7 +121,7 @@ const HomeCard = (props) => {
               ${product.price}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item xs={1}>
             <IconButton
               className={classes.button}
               variant="outlined"
