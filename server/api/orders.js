@@ -8,8 +8,6 @@ const {
   models: { Order, User, StripeId },
 } = require('../db');
 
-
-
 const requireToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
@@ -20,7 +18,6 @@ const requireToken = async (req, res, next) => {
     next(error);
   }
 };
-
 
 //All Orders get route
 router.get('/orders', requireToken, async (req, res, next) => {
@@ -120,21 +117,30 @@ router.post('/create-checkout-session', async (req, res) => {
   for (const i of products) {
     promises.push(StripeId.findOne({ where: { productId: i.id } }));
   }
-  Promise.all(promises).then((results) => {
-    products.forEach((e) => {
-      Ids.push({ price: results.find((element) => { return element.productId === e.id; }).id, quantity: e.amount });
+  Promise.all(promises)
+    .then((results) => {
+      products.forEach((e) => {
+        Ids.push({
+          price: results.find((element) => {
+            return element.productId === e.id;
+          }).id,
+          quantity: e.amount,
+        });
+      });
+      return Ids;
+    })
+    .then(async (results) => {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: results,
+        mode: 'payment',
+        success_url:
+          'https://global-snacker-1.herokuapp.com/#/cart?success=true',
+        cancel_url:
+          'https://global-snacker-1.herokuapp.com/#/cart?canceled=true',
+      });
+      res.json({ id: session.id });
     });
-    return Ids;
-  }).then(async (results) => {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: results,
-      mode: 'payment',
-      success_url: 'https://global-snacker-2101.herokuapp.com/#/cart?success=true',
-      cancel_url: 'https://global-snacker-2101.herokuapp.com/#/cart?canceled=true',
-    });
-    res.json({ id: session.id });
-  });
 });
 
 module.exports = router;
