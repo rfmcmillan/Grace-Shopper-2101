@@ -41,6 +41,7 @@ const Cart = (props) => {
   const theme = useTheme();
 
   const useStyles = makeStyles({
+    checkout: { marginLeft: 8 },
     contain: { minWidth: 300 },
     form: { marginLeft: 10, marginTop: 18 },
     image: { margin: '0px 10px 0px 10px' },
@@ -63,24 +64,6 @@ const Cart = (props) => {
     if (login.cart) {
       dispatch(loadCart(login.cart));
     }
-
-    // const query = new URLSearchParams(location.search);
-    // if (query.get('success')) {
-    //   const items = cart.map((e) => {
-    //     return { amount: e.amount, item: e };
-    //   });
-
-    //   const orderId = login.cart || null;
-    //   const userId = login.id || null;
-    //   const date = new Date().toISOString().split('T')[0];
-
-    //   dispatch(purchaseItems(date, items, orderId, userId));
-    // }
-    // if (query.get('canceled')) {
-    //   window.alert(
-    //     "Order canceled -- continue to shop around and checkout when you're ready."
-    //   );
-    // }
   }, []);
 
   const handleRemove = (id) => {
@@ -213,7 +196,9 @@ const Cart = (props) => {
         })}
       </List>
       {cart.length ? (
-        <Button onClick={handleClick}>Checkout</Button>
+        <Button className={classes.checkout} onClick={handleClick}>
+          Checkout
+        </Button>
       ) : (
         <Typography className={classes.none}>
           There aren't any items in your shopping cart
