@@ -9,7 +9,6 @@ import {
   AppBar,
   Toolbar,
   Grid,
-  Icon,
   Badge,
   Drawer,
 } from '@material-ui/core';
@@ -39,7 +38,7 @@ const Nav = () => {
     logo: {
       fontFamily: 'Fredoka One',
       fontSize: '30',
-      width: 420,
+      width: 285,
       fontWeight: 700,
     },
     button: {
@@ -67,15 +66,9 @@ const Nav = () => {
   ) : login.admin ? (
     <AppBar className={classes.appBar} position="static">
       <Toolbar>
-        <NavButton
-          className={classes.logo}
-          component={Link}
-          to="/"
-          disableFocusRipple={true}
-          disableRipple={true}
-        >
+        <Button className={classes.logo} href="/home">
           Global Snacker
-        </NavButton>
+        </Button>
         <Grid container justifyContent="flex-end">
           <NavButton
             className={classes.button}

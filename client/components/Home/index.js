@@ -60,7 +60,7 @@ const Home = (props) => {
       fontSize: 26,
       fontWeight: 100,
       // marginTop: 30,
-      margin: '30px 50px 0px 0px',
+      margin: '30px 100px 0px 0px',
     },
     welcome: {
       fontSize: 50,
