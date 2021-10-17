@@ -16,7 +16,7 @@
     "lint": "eslint client server test --fix",
     "seed": "node ./bin/seed",
     "start:dev": "NODE_ENV=development npm run build:dev & nodemon ./server/main.js --ignore public/ --ignore client/",
-    "start": "NODE_ENV=production node ./server/main.js",
+    "start": "NODE_ENV=production npm run seed && node ./server/main.js",
     "windows-start:dev": "SET NODE_ENV=development && nodemon ./server/main.js --ignore public/ --ignore client/"
   },
   "repository": {
