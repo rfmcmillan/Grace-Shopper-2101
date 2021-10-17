@@ -35,13 +35,25 @@ const HomeCard = (props) => {
       maxWidth: 175,
       padding: 14,
       height: 235,
+      [theme.breakpoints.down('lg')]: {
+        width: 125,
+        maxHeight: 190,
+      },
     },
     icon: {
       color: theme.palette.primary.main,
       width: 15,
       height: 15,
     },
-    image: { maxWidth: 150, maxHeight: 150, margin: 5 },
+    image: {
+      maxWidth: 150,
+      maxHeight: 150,
+      margin: 5,
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: 100,
+        maxHeight: 100,
+      },
+    },
     info: { marginTop: 10 },
     price: {
       color: theme.palette.primary.main,

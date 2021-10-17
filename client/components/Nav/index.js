@@ -35,17 +35,17 @@ const Nav = () => {
       position: 'fixed',
       top: 0,
     },
-    logo: {
-      fontFamily: 'Fredoka One',
-      fontSize: '30',
-      width: 285,
-      fontWeight: 700,
-    },
     button: {
       color: theme.palette.text.primary,
       fontSize: 'medium',
       fontWeight: 200,
       fontFamily: theme.typography.fontFamily,
+    },
+    logo: {
+      fontFamily: 'Fredoka One',
+      fontSize: '30',
+      width: 285,
+      fontWeight: 700,
     },
   });
 

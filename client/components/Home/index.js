@@ -29,7 +29,7 @@ const Home = (props) => {
       textTransform: 'capitalize',
     },
     contain: {
-      width: '95vw',
+      width: '90vw',
       height: '95vh',
       backgroundColor: theme.palette.background.default,
     },
@@ -50,11 +50,19 @@ const Home = (props) => {
     homeCardContain: {
       // marginTop: 50,
       maxWidth: 650,
+      [theme.breakpoints.down('lg')]: {
+        maxWidth: 500,
+      },
     },
     link: {
       fontSize: 'medium',
       fontFamily: theme.typography.fontFamily,
       margin: '3px 0px 3px 5px',
+    },
+    map: {
+      [theme.breakpoints.down('lg')]: {
+        height: 200,
+      },
     },
     subTitle: {
       fontSize: 26,
@@ -149,8 +157,8 @@ const Home = (props) => {
         </Grid>
         {/*
           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0Czh5f_nGC5M_EHN4KYNnLVIok4mHvkE&map_ids=4deaa8c67ed436b3&callback=initMap" /> */}
-        <Grid item xs={6}>
-          <Map id="map" />
+        <Grid className={classes.map} item xs={6}>
+          <Map />
         </Grid>
       </Grid>
       {/* </Box> */}
