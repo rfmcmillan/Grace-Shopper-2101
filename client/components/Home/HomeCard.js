@@ -32,7 +32,7 @@ const HomeCard = (props) => {
     },
     homeCard: {
       margin: 5,
-      maxWidth: 175,
+      width: 175,
       padding: 14,
       height: 235,
       [theme.breakpoints.down('lg')]: {
