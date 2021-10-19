@@ -89,7 +89,7 @@ const HomeCard = (props) => {
     : 0;
 
   const averageRating = sumRatings / ratings.length;
-  console.log('product:', product);
+
   return (
     <Paper elevation={4} key={product.id} className={classes.homeCard}>
       <Grid
