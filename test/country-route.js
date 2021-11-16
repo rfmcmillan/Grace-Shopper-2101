@@ -57,22 +57,6 @@ describe('Country routes', function () {
       expect(body).to.exist;
       expect(body.name).to.equal(name);
     });
-
-    // it('/api/countries/:id/products/', async () => {
-    //     const response = await app
-    //         .post('api/countries/:id/products')
-    //         .send({
-    //             title: 'Grenadine Juice',
-    //             brand: 'Meysu',
-    //             description: 'Juice',
-    //             price: 4.99,
-    //             inventory: 126,
-    //             imageUrl:
-    //                 'https://sethlui.com/wp-content/uploads/2019/11/Tiger-Sugar-Boba-Ice-Cream-Online-2.jpg',
-    //             countyId: country1.id,
-    //         })
-    //     expect(response.body.title).to.equal('Grenadine Juice')
-    // })
   });
 
   describe('DELETE', function () {

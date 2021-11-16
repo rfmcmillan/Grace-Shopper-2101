@@ -1,10 +1,7 @@
-// Assertions
-import enzyme, { shallow } from 'enzyme';
+import enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import React from 'react';
 import {
   LOAD_USERS,
-  loadUsers,
   loadUsersActionCreator,
   CREATE_USER,
   createUserActionCreator,
@@ -25,7 +22,6 @@ const User = require('../server/db/models/User');
 
 enzyme.configure({ adapter: new Adapter() });
 
-//  Redux
 describe('Users in Redux Store', function () {
   describe('loadUsersActionCreator', function () {
     xit('creates an object with `type` and `users`', async function () {
@@ -96,7 +92,6 @@ describe('Users in Redux Store', function () {
         type: LOAD_USERS,
         users,
       });
-      // this should have changed :
       expect(newState.users).to.deep.equal(users);
     });
 

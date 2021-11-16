@@ -19,7 +19,6 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-//All Orders get route
 router.get('/orders', requireToken, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
@@ -48,7 +47,6 @@ router.get('/orders/:id', requireToken, async (req, res, next) => {
   }
 });
 
-// Purchase Order route
 router.post('/purchase', async (req, res, next) => {
   try {
     const { date, items, orderId, userId } = req.body;
@@ -79,7 +77,6 @@ router.get('/purchases/:id', requireToken, async (req, res, next) => {
   }
 });
 
-//Order Put Route
 router.put('/orders/:id', requireToken, async (req, res, next) => {
   try {
     const orderToModify = await Order.findByPk(req.params.id);

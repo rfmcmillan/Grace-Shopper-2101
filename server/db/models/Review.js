@@ -1,4 +1,3 @@
-// Create Review Here
 const { DataTypes } = require('sequelize');
 const db = require('../db');
 
@@ -19,12 +18,6 @@ const Review = db.define('review', {
   text: { type: DataTypes.TEXT },
 });
 
-/*
- Review.writeNew(): the below class method allows a new review to be written.
- It takes four arguments (userId, productId, rating and text) and returns a review.
-  - if a userId, productId or rating is not provided, it produces an error message
- */
-// eslint-disable-next-line consistent-return
 Review.writeNew = async (userId, productId, rating, text = null) => {
   if (userId && productId && rating) {
     const review = await Review.create();
@@ -34,7 +27,8 @@ Review.writeNew = async (userId, productId, rating, text = null) => {
     review.text = text;
     await review.save();
     return review;
-  } if (!userId) {
+  }
+  if (!userId) {
     const error = Error('a review requires a userId');
     throw error;
   } else if (!productId) {

@@ -1,4 +1,3 @@
-// Models imported from Model folder
 const Order = require('./models/Order');
 const Product = require('./models/Product');
 const Country = require('./models/Country');
@@ -18,7 +17,10 @@ Category.belongsToMany(Product, {
 
 Product.belongsToMany(Category, { through: 'productcategories' });
 
-Product.belongsToMany(Order, { through: ProductOrders, foreignKey: 'productId' });
+Product.belongsToMany(Order, {
+  through: ProductOrders,
+  foreignKey: 'productId',
+});
 Order.belongsToMany(Product, { through: ProductOrders, foreignKey: 'orderId' });
 
 User.hasMany(Order, { foreignKey: { name: 'userId', allowNull: true } });

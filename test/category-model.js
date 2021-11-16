@@ -16,7 +16,6 @@ describe('Category', function () {
         brand: 'Calbee',
         description:
           'It is a Hokkaido-exclusive snack which made from 100% Hokkaido-grown potatoes.',
-        // salty
         price: 19.98,
         inventory: 243,
         country: 'Japan',

@@ -33,21 +33,10 @@ const Product = db.define('product', {
   inventory: { type: INTEGER, defaultValue: 0 },
   imageUrl: {
     type: STRING,
-    validate: {
-      // isUrl: true,
-    },
+    validate: {},
     defaultValue:
       'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F9%2F2020%2F09%2F08%2Feditors-favorite-snacks-around-the-world-FT-MAG0920.jpg',
   },
 });
-
-// Product.findByCountries = (name) => {
-//     return this.findAll({ where: { country: name } })
-// }
-// Product.findCountries = async () => {
-//     return await this.aggragate('country', 'DISTINCT', {
-//         plain: false,
-//     })
-// }
 
 module.exports = Product;

@@ -1,4 +1,3 @@
-// create User here
 const jwt = require('jsonwebtoken');
 const { DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');

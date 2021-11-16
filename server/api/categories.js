@@ -14,7 +14,6 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-// categories
 router.get('/', async (req, res, next) => {
   try {
     const categories = await Category.findAll();
@@ -24,7 +23,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// categories/:category
 router.get('/:category', async (req, res, next) => {
   try {
     const name = req.params.category;

@@ -35,7 +35,6 @@ describe('Product routes', function () {
       const response = await app.get(`/api/products/${product.id}`);
       expect(response.status).to.equal(200);
       expect(response.body.title).to.equal('Strawberry Puff');
-      // response.body.title?
     });
   });
 

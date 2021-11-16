@@ -1,4 +1,3 @@
-// Everything comes together here. Import the models from models from hooks
 const db = require('./db');
 const {
   Order,
@@ -14,6 +13,13 @@ const {
 module.exports = {
   db,
   models: {
-    Order, Product, Country, ProductOrders, Category, User, Review, StripeId,
+    Order,
+    Product,
+    Country,
+    ProductOrders,
+    Category,
+    User,
+    Review,
+    StripeId,
   },
 };

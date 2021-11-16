@@ -12,7 +12,6 @@ const Country = db.define(
     },
     name: {
       type: STRING,
-      // unique: true,
       validate: {
         notEmpty: true,
       },
@@ -20,18 +19,12 @@ const Country = db.define(
     flag: {
       type: TEXT,
       defaultValue: 'em-globe_with_meridians',
-      // unique: true,
-      // validate: {
-      //     notEmpty: true,
-      // },
     },
     latitude: {
       type: DECIMAL,
-      //   allowNull: false,
     },
     longitude: {
       type: DECIMAL,
-      //   allowNull: false,
     },
   },
   {
