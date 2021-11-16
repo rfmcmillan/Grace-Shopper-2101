@@ -21,7 +21,6 @@ import HomeCard from './HomeCard';
 const Home = (props) => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
-  console.log('products.products[0]:', products.products[0]);
   const theme = useTheme();
   const useStyles = makeStyles({
     button: {
@@ -48,7 +47,6 @@ const Home = (props) => {
       backgroundColor: theme.palette.background.default,
     },
     homeCardContain: {
-      // marginTop: 50,
       maxWidth: 650,
       [theme.breakpoints.down('lg')]: {
         maxWidth: 500,
@@ -67,14 +65,12 @@ const Home = (props) => {
     subTitle: {
       fontSize: 26,
       fontWeight: 100,
-      // marginTop: 30,
       margin: '30px 100px 0px 0px',
     },
     welcome: {
       fontSize: 50,
       fontWeight: 900,
       marginRight: 50,
-      // margin: '150px 0px 25px 0px',
     },
   });
   const classes = useStyles();

@@ -36,9 +36,6 @@ const ProductTabs = (props) => {
   });
   const classes = useStyles();
 
-  if (product.id) {
-    console.log(product.reviews);
-  }
   return (
     <div className={classes.contain}>
       <Tabs value={value} onChange={handleChange}>

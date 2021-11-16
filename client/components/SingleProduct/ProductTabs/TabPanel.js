@@ -5,8 +5,6 @@ import { makeStyles, useTheme } from '@material-ui/styles';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
-  console.log('children:', children);
-  console.log('other:', other);
   return (
     <div
       role="tabpanel"

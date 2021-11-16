@@ -55,12 +55,6 @@ class CreateCountry extends Component {
         longitude,
       });
       this.setState(this.originalState);
-      // this.props.postCountry(
-      //   this.state.name,
-      //   this.state.flag,
-      //   this.state.latitude,
-      //   this.state.longitude
-      // );
     } catch (error) {
       console.log(error);
     }

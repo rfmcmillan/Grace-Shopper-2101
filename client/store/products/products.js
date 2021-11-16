@@ -17,7 +17,6 @@ const _sortBySearch = (value) => {
 };
 
 const sortBySearch = (value) => {
-  console.log('inside sortBySearch: value: ', value);
   return (dispatch) => {
     dispatch(_sortBySearch(value));
   };
@@ -107,40 +106,29 @@ const productReducer = (
       return { ...state, products };
     }
     case FILTER_BY_VALUE: {
-      // clone the state
       const newState = { ...state };
-      // the value received from our presentational component
       const { value } = action;
 
       const filteredValues = state.products.filter((product) => {
-        // look for objects with the received value in their ‘name’ or ‘designer’ fields
         return product.title.toLowerCase().includes(value);
       });
 
       let { appliedFilters } = state;
-      // if the value from the input box is not empty
       if (value) {
-        // check if the filter already exists in the tracking array
         const index = appliedFilters.indexOf(FILTER_BY_VALUE);
         if (index === -1) {
-          // if it doesn’t, add it.
           appliedFilters.push(FILTER_BY_VALUE);
         }
-        // change the filtered products to reflect the change
         newState.filteredProducts = filteredValues;
       } else {
-        // if the value is empty, we can assume everything has been erased
         const index = appliedFilters.indexOf(FILTER_BY_VALUE);
-        // in that case, remove the current filter
         appliedFilters.splice(index, 1);
         if (appliedFilters.length === 0) {
-          // if there are no filters applied, reset the products to normal.
           newState.filteredProducts = newState.products;
         }
       }
       return newState;
     }
-
     default: {
       return state;
     }
@@ -216,7 +204,6 @@ const updateProduct = (updatedProduct, history) => {
   };
 };
 
-// #region Filtering
 const filterByPrice = (max) => {
   return {
     type: FILTER_BY_PRICE,

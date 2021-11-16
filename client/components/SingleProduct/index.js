@@ -110,7 +110,6 @@ const SingleProduct = (props) => {
     : 0;
 
   const averageRating = sumRatings / ratings.length;
-  console.log('product:', product);
   return product ? (
     <div className={classes.contain}>
       <Grid container direction="column" alignItems="center">

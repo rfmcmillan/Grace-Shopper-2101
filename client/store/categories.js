@@ -1,7 +1,4 @@
 import axios from 'axios';
-//load categories
-//add category
-//delete category
 
 const LOAD_CATEGORIES = 'LOAD_CATEGORIES';
 const ADD_CATEGORY = 'ADD_CATEGORY ';

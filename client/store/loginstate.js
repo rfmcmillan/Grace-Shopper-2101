@@ -6,7 +6,8 @@ const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
 const PURCHASE_ITEMS = 'PURCHASE_ITEMS';
 const UPDATE_USER = 'UPDATE_USER';
-// Create Action Creators & Thunks
+
+// Action Creators & Thunks
 
 const _loginUser = (user_data) => {
   return {
@@ -16,10 +17,9 @@ const _loginUser = (user_data) => {
 };
 
 const intialstate = {};
-// Load Users Thunk
+
 const loginUser = (email, password) => {
   return async (dispatch) => {
-    console.log('email:', email, 'password:', password);
     const { token } = (await axios.post('/api/auth', { email, password })).data;
     window.localStorage.setItem('token', token);
     const response = await axios.get('/api/auth', {
@@ -39,7 +39,6 @@ const _logoutUser = (user_data) => {
   };
 };
 
-// Load Users Thunk
 const logoutUser = () => {
   return async (dispatch) => {
     window.localStorage.removeItem('token');
@@ -47,13 +46,11 @@ const logoutUser = () => {
   };
 };
 
-// Create Reducers
 const loginReducer = (state = [], action) => {
   if (action.type === LOGIN_USER) {
     return { ...state, ...action.user_data };
   }
   if (action.type === UPDATE_USER) {
-    console.log(action);
     return { ...state, ...action.user };
   }
   if (action.type === LOGOUT_USER) {

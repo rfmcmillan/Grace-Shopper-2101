@@ -4,8 +4,6 @@ const LOAD_ORDERS = 'LOAD_ORDERS';
 const UPDATE_ORDER = 'UPDATE_ORDER';
 const FILTER_BY_STATUS = 'FILTER_BY_STATUS';
 
-//Create Action Creators & Thunks
-
 const loadOrdersActionCreator = (orders) => {
   return {
     type: LOAD_ORDERS,
@@ -13,7 +11,6 @@ const loadOrdersActionCreator = (orders) => {
   };
 };
 
-//  Load Orders Thunk
 const loadOrders = () => {
   return async (dispatch) => {
     const response = await axios.get('/api/order/orders');
@@ -22,7 +19,6 @@ const loadOrders = () => {
   };
 };
 
-// Update Order Action Creator and Thunk
 const updateOrderActionCreator = (order) => {
   return {
     type: UPDATE_ORDER,
@@ -55,7 +51,6 @@ const updateOrder = (order) => {
   };
 };
 
-// filterByStatus Action Creator and Thunk
 const filterByStatusActionCreator = (status) => {
   return {
     type: FILTER_BY_STATUS,

@@ -7,8 +7,6 @@ const DESTROY_USER = 'DESTROY_USER';
 const TRIGGER_PASSWORD_RESET = 'TRIGGER_PASSWORD_RESET';
 const RESET_PASSWORD = 'RESET_PASSWORD';
 
-//Create Action Creators & Thunks
-
 const loadUsersActionCreator = (users) => {
   return {
     type: LOAD_USERS,
@@ -16,7 +14,6 @@ const loadUsersActionCreator = (users) => {
   };
 };
 
-// Load Users Thunk
 const loadUsers = () => {
   return async (dispatch) => {
     const response = await axios.get('api/users');
@@ -32,7 +29,6 @@ const createUserActionCreator = (user) => {
   };
 };
 
-//Create User Thunk
 const createUser = (email, password, firstName, lastName, history) => {
   return async (dispatch) => {
     const response = await axios.post('/api/users', {
@@ -46,7 +42,6 @@ const createUser = (email, password, firstName, lastName, history) => {
   };
 };
 
-//Update User Action Creator and Thunk
 const updateUserActionCreator = (user) => {
   return {
     type: UPDATE_USER,
@@ -79,7 +74,6 @@ const updateUser = (user, history) => {
   };
 };
 
-//Destroy User Action Creator and Thunk
 const destroyUserActionCreator = (user) => {
   return {
     type: DESTROY_USER,
@@ -93,7 +87,7 @@ const destroyUser = (user) => {
     dispatch(destroyUserActionCreator(user));
   };
 };
-//Trigger Password Reset
+
 const triggerPasswordResetActionCreator = (user) => {
   return {
     type: TRIGGER_PASSWORD_RESET,
@@ -110,7 +104,6 @@ const triggerPasswordReset = (user) => {
   };
 };
 
-//Reset Password
 const ResetPasswordActionCreator = (user) => {
   return {
     type: RESET_PASSWORD,
@@ -130,7 +123,6 @@ const resetPassword = (auth, password) => {
   };
 };
 
-//Reducer
 const usersReducer = (state = [], action) => {
   if (action.type === LOAD_USERS) {
     state = action.users;

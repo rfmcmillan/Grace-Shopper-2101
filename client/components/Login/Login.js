@@ -42,7 +42,6 @@ const LogIn = (props) => {
   };
 
   const handleLogin = (event, email, password) => {
-    console.log('password:', password);
     event.preventDefault();
     dispatch(loginUser(email, password));
     window.location.hash = '/products';

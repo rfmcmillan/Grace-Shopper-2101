@@ -91,14 +91,6 @@ const Filters = (props) => {
             })}
           </Select>
         </FormControl>
-
-        {/* //<TextField
-            type="text"
-            placeholder="search"
-            onChange={(e) => {
-              handleChange(e);
-            }}
-          /> */}
         <FormControl className={classes.formControl}>
           <InputLabel id="sort-by-label" htmlFor="sorting">
             Sort By:{' '}

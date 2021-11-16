@@ -102,7 +102,6 @@ const init = async () => {
       brand: 'Tigersugar',
       description:
         'Chewy tapioca pearls mingled with a milk-based tea. All frozen together for your delight.',
-      // sweet,frozen
       price: 4.99,
       inventory: 126,
       countryId: Taiwan.id,
@@ -125,7 +124,6 @@ const init = async () => {
       brand: 'Calbee',
       description:
         'It is a Hokkaido-exclusive snack which made from 100% Hokkaido-grown potatoes.',
-      // salty
       price: 19.98,
       inventory: 243,
       countryId: Japan.id,
@@ -254,7 +252,6 @@ const init = async () => {
       title: 'Rose Cake',
       brand: 'Red Tower',
       description: 'It is made from  flour, honey ,and rose jam stuffing.',
-      // sweet
       price: 10.99,
       inventory: 143,
       countryId: China.id,
@@ -318,7 +315,6 @@ const init = async () => {
       title: 'Parle-G Biscuits',
       brand: 'Parle',
       description: 'It is made by milk,sugar,and flour.',
-      // sweet
       price: 1.99,
       inventory: 149,
       countryId: India.id,
@@ -351,7 +347,6 @@ const init = async () => {
       brand: 'St Michel',
       description:
         'It consists of a buttercream, ganache, or jam filling sandwiched between two mini-meringues made with ground almonds, egg whites, and icing sugar.',
-      // sweet
       price: 20.99,
       inventory: 117,
       countryId: French.id,
@@ -374,7 +369,6 @@ const init = async () => {
       brand: 'Macadamias Australia',
       description:
         'Macadamia nuts have a rich, buttery flavor. Roasting or salting the nuts draws out their natural, subtle sweetness and creamy texture.',
-      // salty,healthy
       price: 9.99,
       inventory: 158,
       countryId: Australia.id,
@@ -417,7 +411,6 @@ const init = async () => {
       title: 'Dark Chocolate Stuffed Fig Bonbons',
       brand: 'Rabitos Royale',
       description: 'It is made by figs dipped in rich dark chocolate.',
-      // sweet
       price: 24.99,
       inventory: 80,
       countryId: Spain.id,

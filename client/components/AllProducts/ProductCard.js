@@ -16,7 +16,6 @@ import { addToCart } from '../../store/cart';
 
 const ProductCard = (props) => {
   const { product } = props;
-  console.log('props:', props);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
@@ -73,7 +72,6 @@ const ProductCard = (props) => {
     : 0;
 
   const averageRating = sumRatings / ratings.length;
-  console.log('product:', product);
   return (
     <Paper elevation={4} key={product.id} className="product">
       <Grid

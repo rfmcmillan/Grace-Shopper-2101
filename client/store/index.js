@@ -1,4 +1,3 @@
-// Create Store Here
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
@@ -29,7 +28,6 @@ const initialState = {
   categories: [],
 };
 
-// Loading check
 const LOADED = 'LOADED';
 
 const loaded = (state = true, action) => {
@@ -39,8 +37,6 @@ const loaded = (state = true, action) => {
   }
 };
 
-// enter different reducers into combineReducers({}) as a key-value pair.
-// e.g. 'products: productsReducer'
 export const reducer = combineReducers({
   cart: cartReducer,
   users: usersReducer,
@@ -54,8 +50,6 @@ export const reducer = combineReducers({
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
-
-// Create Store
 
 const store = createStore(persistedReducer, applyMiddleware(thunk, logger));
 const persistor = persistStore(store);

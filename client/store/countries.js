@@ -1,7 +1,4 @@
 import axios from 'axios';
-//delete country
-//edit country
-//create country
 
 const LOAD_COUNTRIES = 'LOAD_COUNTRIES ';
 const POST_COUNTRY = 'POST_COUNTRY';
@@ -14,10 +11,12 @@ const countriesReducer = (state = [], action) => {
       return [...action.countries];
     }
     case POST_COUNTRY: {
-      return [ ...state, action.country ];
+      return [...state, action.country];
     }
     case DELETE_COUNTRY: {
-      return state.filter((countries) => { return countries.id !== action.id; });
+      return state.filter((countries) => {
+        return countries.id !== action.id;
+      });
     }
 
     case UPDATE_COUNTRY: {

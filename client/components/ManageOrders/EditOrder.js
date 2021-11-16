@@ -32,7 +32,7 @@ class EditOrder extends Component {
     change[ev.target.name] = ev.target.value;
     this.setState(change);
   }
-  //start here
+
   async onSave(ev) {
     const { history, update } = this.props;
     ev.preventDefault();

@@ -27,15 +27,7 @@ describe('Country routes', function () {
       console.log(ex);
     }
   });
-  // afterEach(async () => {
-  //     try {
-  //         // const countries = await Country.findAll()
-  //         await Country.destroy()
-  //         // await Country.sync()
-  //     } catch (ex) {
-  //         console.log(ex)
-  //     }
-  // })
+
   describe('GET', function () {
     xit('/api/countries', async function () {
       try {
