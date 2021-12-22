@@ -29,7 +29,7 @@ const createUserActionCreator = (user) => {
   };
 };
 
-const createUser = (email, password, firstName, lastName, history) => {
+const createUser = (email, password, firstName, lastName) => {
   return async (dispatch) => {
     const response = await axios.post('/api/users', {
       email,
@@ -49,8 +49,8 @@ const updateUserActionCreator = (user) => {
   };
 };
 
-const updateUser = (user, history) => {
-  let { id, firstName, lastName, email, admin, password } = user;
+const updateUser = (user) => {
+  const { id, firstName, lastName, email, admin, password } = user;
   return async (dispatch) => {
     const userToUpdate = (
       await axios.put(`/api/users/${id}`, {
@@ -104,7 +104,7 @@ const triggerPasswordReset = (user) => {
   };
 };
 
-const ResetPasswordActionCreator = (user) => {
+const resetPasswordActionCreator = (user) => {
   return {
     type: RESET_PASSWORD,
     user,
@@ -168,9 +168,9 @@ const usersReducer = (state = [], action) => {
 
 export {
   LOAD_USERS,
+  CREATE_USER,
   loadUsersActionCreator,
   loadUsers,
-  CREATE_USER,
   createUserActionCreator,
   createUser,
   destroyUserActionCreator,

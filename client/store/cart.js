@@ -21,7 +21,6 @@ const cartReducer = (state = [], action) => {
       });
       if (key) {
         // eslint-disable-next-line operator-assignment
-
         key.amount = key.amount + action.amount;
         return [...state];
       }
