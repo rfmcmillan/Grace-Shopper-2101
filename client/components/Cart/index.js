@@ -1,8 +1,8 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/button-has-type */
-import React, { Component, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import {
   Typography,
@@ -14,20 +14,9 @@ import {
   Grid,
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
-import {
-  ShoppingCart,
-  AddCircleOutline,
-  RemoveCircleOutline,
-  HighlightOffOutlined,
-} from '@material-ui/icons';
+import { ShoppingCart, HighlightOffOutlined } from '@material-ui/icons';
 import { loadStripe } from '@stripe/stripe-js';
-import {
-  loadCart,
-  updateCart,
-  removeItem,
-  purchaseItems,
-} from '../../store/cart';
-import classNames from 'classnames';
+import { loadCart, updateCart, removeItem } from '../../store/cart';
 
 const stripePromise = loadStripe(
   'pk_test_51InvgGCzEJe0jWa9qmsLFyAIhV0dMwJeA59eCJtu4leBd9h8TcouHwM2OG1c691aHwIWcSebkNRCKTboOy2frM0p001MLpy1xK'
@@ -37,7 +26,7 @@ const Cart = (props) => {
   const cart = useSelector((state) => state.cart);
   const login = useSelector((state) => state.login);
   const dispatch = useDispatch();
-  const { location } = props;
+  const { numberOfCartItems } = props;
   const theme = useTheme();
 
   const useStyles = makeStyles({
@@ -60,6 +49,7 @@ const Cart = (props) => {
   });
 
   const classes = useStyles();
+
   useEffect(() => {
     if (login.cart) {
       dispatch(loadCart(login.cart));
@@ -108,7 +98,7 @@ const Cart = (props) => {
       <Box sx={{ display: 'flex', margin: '15px 0px 10px 15px' }}>
         <ShoppingCart color="text" />
         <Typography color="text">
-          {cart.length} {cart.length === 1 ? 'item' : 'items'}
+          {numberOfCartItems} {cart.length === 1 ? 'item' : 'items'}
         </Typography>
       </Box>
       <List>

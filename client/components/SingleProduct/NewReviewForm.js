@@ -73,18 +73,7 @@ class NewReview extends React.Component {
             placeholder="Your Review Here"
             onChange={this.handleChange}
           ></TextField>
-
           <label htmlFor="rating"></label>
-          {/* <input
-            name="rating"
-            type="number"
-            placeholder="Rating"
-            min="1"
-            max="5"
-            defaultValue="1"
-            onChange={this.handleChange}
-          /> */}
-
           <Button variant="contained" type="submit">
             Submit
           </Button>

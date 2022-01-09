@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -26,6 +26,7 @@ const Nav = () => {
   const login = useSelector((state) => state.login);
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const [numberOfCartItems, setNumberOfCartItems] = useState(0);
 
   const useStyles = makeStyles({
     appBar: {
@@ -50,6 +51,16 @@ const Nav = () => {
   });
 
   const classes = useStyles();
+
+  useEffect(() => {
+    console.log(cart);
+    const numberOfItems = cart.reduce((sum, item) => {
+      sum += item.amount;
+      return sum;
+    }, 0);
+    console.log('numberOfItems:', numberOfItems);
+    setNumberOfCartItems(numberOfItems);
+  }, [cart]);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -189,13 +200,13 @@ const Nav = () => {
           <Grid item>
             <Button onClick={toggleDrawer(true)}>
               {' '}
-              <Badge badgeContent={cart.length} color="secondary">
+              <Badge badgeContent={numberOfCartItems} color="secondary">
                 <ShoppingCart />
               </Badge>
             </Button>
           </Grid>
           <Drawer anchor="right" open={isOpen} onClose={toggleDrawer(false)}>
-            <Cart />
+            <Cart numberOfCartItems={numberOfCartItems} />
           </Drawer>
           {login.email ? (
             <Link to="/view-account">
