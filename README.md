@@ -2,9 +2,11 @@
 
 Global Snacker is a website that sells hard-to-find snacks from around the world. It was built as a group project during my time at Fullstack Academy.
 
+![alt text](https://github.com/rfmcmillan/global-snacker/blob/main/src/assets/GlobalSnackerHome.png?raw=true)
+
 ## What We Learned
 
-1. Authentication using JWT and Bcrypt so that a user could create an account and log in
+1. Authentication with JWT and Bcrypt
 2. State management with Redux
 3. Unit-testing with Mocha and Chai
 4. Continuous integration with GitHub and Travis-CI
