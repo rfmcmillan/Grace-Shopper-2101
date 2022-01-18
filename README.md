@@ -2,7 +2,7 @@
 
 Global Snacker is a website that sells hard-to-find snacks from around the world. It was built as a group project during my time at Fullstack Academy.
 
-![alt text](https://github.com/rfmcmillan/global-snacker/blob/main/src/assets/GlobalSnackerHome.png?raw=true)
+![alt text](https://github.com/rfmcmillan/global-snacker/blob/main/public/assets/GlobalSnackerHome.png?raw=true)
 
 ## What We Learned
 
