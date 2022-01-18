@@ -17,3 +17,19 @@ A live demo is available at https://global-snacker-1.herokuapp.com/#/. If you wo
 ## Installation
 
 Clone this repo
+
+```bash
+git clone https://github.com/rfmcmillan/global-snacker.git
+```
+
+Use npm to install RapidRebalance along with all its' dependencies.
+
+```bash
+npm install
+```
+
+Start the app.
+
+```bash
+npm run start
+```
