@@ -18,7 +18,7 @@ A live demo is available at https://global-snacker-1.herokuapp.com/#/. If you wo
 
 ## Installation
 
-Clone this repo
+Clone this repo.
 
 ```bash
 git clone https://github.com/rfmcmillan/global-snacker.git
