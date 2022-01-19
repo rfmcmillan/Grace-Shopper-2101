@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import { API_KEY } from '../secret';
 import { loadCountries } from '../store/countries';
 
 class DisplayMap extends Component {
@@ -21,7 +20,7 @@ class DisplayMap extends Component {
 
   render() {
     return (
-      <LoadScript googleMapsApiKey={API_KEY}>
+      <LoadScript googleMapsApiKey={process.env.API_KEY}>
         <GoogleMap
           zoom={3}
           center={{ lat: 28.65643220817304, lng: 77.2411275855953 }}
