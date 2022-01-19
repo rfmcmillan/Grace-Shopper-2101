@@ -103,8 +103,8 @@ const Home = (props) => {
             </Grid>
             <Grid item>
               <Typography variant="h2" className={classes.subTitle}>
-                Connecting world travellers with the places they love through
-                the snacks they love
+                Connecting world travelers with the places they love through the
+                snacks they love
               </Typography>
             </Grid>
             <Grid item>
