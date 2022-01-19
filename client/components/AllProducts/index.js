@@ -158,7 +158,7 @@ const AllProducts = (props) => {
             </Grid>
           </Grid>
 
-          <Grid container justifyContent="space-between">
+          <Grid container justifyContent="space-around">
             {filteredProducts.map((product) => {
               return (
                 <Grid item>
