@@ -200,7 +200,11 @@ const Nav = () => {
           <Grid item>
             <Button onClick={toggleDrawer(true)}>
               {' '}
-              <Badge badgeContent={numberOfCartItems} color="secondary">
+              <Badge
+                badgeContent={numberOfCartItems}
+                color="secondary"
+                data-test="cart-badge"
+              >
                 <ShoppingCart />
               </Badge>
             </Button>

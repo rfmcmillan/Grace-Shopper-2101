@@ -97,7 +97,7 @@ const Cart = (props) => {
     <Box className={classes.contain}>
       <Box sx={{ display: 'flex', margin: '15px 0px 10px 15px' }}>
         <ShoppingCart color="text" />
-        <Typography color="text">
+        <Typography color="text" data-test="item-count">
           {numberOfCartItems} {cart.length === 1 ? 'item' : 'items'}
         </Typography>
       </Box>
