@@ -181,6 +181,7 @@ const SingleProduct = (props) => {
                         devaultValue="0"
                         id="add-to-cart"
                         name="amount"
+                        data-qa="add-to-cart"
                       >
                         <MenuItem value="0">--</MenuItem>
                         <MenuItem value="1">1</MenuItem>

@@ -120,6 +120,7 @@ const ProductCard = (props) => {
               onClick={() => {
                 handleClick(product);
               }}
+              data-qa="add-one"
             >
               <Add className={classes.icon} />
             </IconButton>

@@ -198,7 +198,7 @@ const Nav = () => {
             </NavButton>
           </Grid>
           <Grid item>
-            <Button onClick={toggleDrawer(true)}>
+            <Button onClick={toggleDrawer(true)} data-qa="cart-btn">
               {' '}
               <Badge
                 badgeContent={numberOfCartItems}
