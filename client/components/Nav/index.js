@@ -193,6 +193,7 @@ const Nav = () => {
               to="/products"
               disableFocusRipple={true}
               disableRipple={true}
+              data-qa="products"
             >
               Products
             </NavButton>
