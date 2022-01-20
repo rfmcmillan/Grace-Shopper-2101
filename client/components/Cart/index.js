@@ -186,7 +186,11 @@ const Cart = (props) => {
         })}
       </List>
       {cart.length ? (
-        <Button className={classes.checkout} onClick={handleClick}>
+        <Button
+          className={classes.checkout}
+          onClick={handleClick}
+          data-qa="checkout"
+        >
           Checkout
         </Button>
       ) : (
