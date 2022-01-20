@@ -183,12 +183,24 @@ const SingleProduct = (props) => {
                         name="amount"
                         data-qa="add-to-cart"
                       >
-                        <MenuItem value="0">--</MenuItem>
-                        <MenuItem value="1">1</MenuItem>
-                        <MenuItem value="2">2</MenuItem>
-                        <MenuItem value="3">3</MenuItem>
-                        <MenuItem value="4">4</MenuItem>
-                        <MenuItem value="5">5</MenuItem>
+                        <MenuItem value="0" data-qa="0">
+                          --
+                        </MenuItem>
+                        <MenuItem value="1" data-qa="1">
+                          1
+                        </MenuItem>
+                        <MenuItem value="2" data-qa="2">
+                          2
+                        </MenuItem>
+                        <MenuItem value="3" data-qa="3">
+                          3
+                        </MenuItem>
+                        <MenuItem value="4" data-qa="4">
+                          4
+                        </MenuItem>
+                        <MenuItem value="5" data-qa="5">
+                          5
+                        </MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
